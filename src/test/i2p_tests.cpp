@@ -22,7 +22,7 @@
 class EnvTestingSetup : public BasicTestingSetup
 {
 public:
-    explicit EnvTestingSetup(const ChainType chainType = ChainType::MAIN,
+    explicit EnvTestingSetup(const ChainType chainType = ChainType::REGTEST,
                              TestOpts opts = {})
         : BasicTestingSetup{chainType, opts},
           m_prev_log_level{LogInstance().LogLevel()},

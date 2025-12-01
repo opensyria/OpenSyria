@@ -39,7 +39,7 @@ struct TestOp {
 class PCPTestingSetup : public BasicTestingSetup
 {
 public:
-    explicit PCPTestingSetup(const ChainType chainType = ChainType::MAIN,
+    explicit PCPTestingSetup(const ChainType chainType = ChainType::REGTEST,
                              TestOpts opts = {})
         : BasicTestingSetup{chainType, opts},
           m_create_sock_orig{CreateSock}
