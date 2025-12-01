@@ -131,6 +131,8 @@ add_executable(test_bitcoin
   validationinterface_tests.cpp
   versionbits_tests.cpp
 )
+set_target_properties(test_bitcoin PROPERTIES OUTPUT_NAME test_opensyria)
+set_target_properties(test_bitcoin PROPERTIES OUTPUT_NAME test_opensyria)
 
 include(TargetDataSources)
 target_json_data_sources(test_bitcoin

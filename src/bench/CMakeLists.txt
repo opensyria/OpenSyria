@@ -55,6 +55,8 @@ add_executable(bench_bitcoin
   util_time.cpp
   verify_script.cpp
 )
+set_target_properties(bench_bitcoin PROPERTIES OUTPUT_NAME bench_opensyria)
+set_target_properties(bench_bitcoin PROPERTIES OUTPUT_NAME bench_opensyria)
 
 add_windows_application_manifest(bench_bitcoin)
 

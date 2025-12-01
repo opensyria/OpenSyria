@@ -13,6 +13,8 @@ add_executable(test_bitcoin-qt
   util.cpp
   ../../init/bitcoin-qt.cpp
 )
+set_target_properties(test_bitcoin-qt PROPERTIES OUTPUT_NAME test_opensyria-qt)
+set_target_properties(test_bitcoin-qt PROPERTIES OUTPUT_NAME test_opensyria-qt)
 
 add_windows_application_manifest(test_bitcoin-qt)
 
