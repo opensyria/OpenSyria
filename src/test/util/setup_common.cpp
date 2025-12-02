@@ -327,6 +327,11 @@ void ChainTestingSetup::LoadVerifyActivateChainstate()
     if (!chainman.ActiveChainstate().ActivateBestChain(state)) {
         throw std::runtime_error(strprintf("ActivateBestChain failed. (%s)", state.ToString()));
     }
+    
+    // Ensure m_tip_block is set so that mining interface's waitTipChanged works.
+    // This is needed because createNewBlock() waits for m_tip_block to be set via
+    // the blockTip() callback, which runs asynchronously via validation signals.
+    if (m_node.validation_signals) m_node.validation_signals->SyncWithValidationInterfaceQueue();
 }
 
 TestingSetup::TestingSetup(
