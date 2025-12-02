@@ -1024,7 +1024,7 @@ BOOST_FIXTURE_TEST_CASE(util_ChainMerge, ChainMergeTestingSetup)
 
 BOOST_AUTO_TEST_CASE(util_ReadWriteSettings)
 {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - flaky on macOS due to filesystem timing issues
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - macOS mv() moves files INTO directories instead of failing, breaking this test
     return;
 #if 0 // Disabled to prevent unreachable code warning
     // Test writing setting.
