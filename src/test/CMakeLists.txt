@@ -4,7 +4,7 @@
 
 # Do not use generator expressions in test sources because the
 # SOURCES property is processed to gather test suite macros.
-add_executable(test_bitcoin
+add_executable(test_opensyria
   main.cpp
   addrman_tests.cpp
   allocator_tests.cpp
@@ -131,11 +131,11 @@ add_executable(test_bitcoin
   validationinterface_tests.cpp
   versionbits_tests.cpp
 )
-set_target_properties(test_bitcoin PROPERTIES OUTPUT_NAME test_opensyria)
-set_target_properties(test_bitcoin PROPERTIES OUTPUT_NAME test_opensyria)
+set_target_properties(test_opensyria PROPERTIES OUTPUT_NAME test_opensyria)
+set_target_properties(test_opensyria PROPERTIES OUTPUT_NAME test_opensyria)
 
 include(TargetDataSources)
-target_json_data_sources(test_bitcoin
+target_json_data_sources(test_opensyria
   data/base58_encode_decode.json
   data/bip341_wallet_vectors.json
   data/blockfilters.json
@@ -146,18 +146,18 @@ target_json_data_sources(test_bitcoin
   data/tx_invalid.json
   data/tx_valid.json
 )
-target_raw_data_sources(test_bitcoin NAMESPACE test::data
+target_raw_data_sources(test_opensyria NAMESPACE test::data
   data/asmap.raw
 )
 
-add_windows_application_manifest(test_bitcoin)
+add_windows_application_manifest(test_opensyria)
 
-target_link_libraries(test_bitcoin
+target_link_libraries(test_opensyria
   core_interface
   test_util
-  bitcoin_cli
-  bitcoin_node
-  bitcoin_consensus
+  opensyria_cli
+  opensyria_node
+  opensyria_consensus
   minisketch
   secp256k1
   Boost::headers
@@ -169,18 +169,18 @@ if(ENABLE_WALLET)
 endif()
 
 if(ENABLE_IPC)
-  target_link_libraries(bitcoin_ipc_test
+  target_link_libraries(opensyria_ipc_test
     PRIVATE
       core_interface
       univalue
       Boost::headers
   )
 
-  target_sources(test_bitcoin
+  target_sources(test_opensyria
     PRIVATE
       ipc_tests.cpp
   )
-  target_link_libraries(test_bitcoin bitcoin_ipc_test bitcoin_ipc)
+  target_link_libraries(test_opensyria opensyria_ipc_test opensyria_ipc)
 
   configure_file(.clang-tidy.in .clang-tidy USE_SOURCE_PERMISSIONS COPYONLY)
 endif()
@@ -200,7 +200,7 @@ function(add_boost_test source_file)
   )
   foreach(test_suite_name IN LISTS test_suite_macro)
     add_test(NAME ${test_suite_name}
-      COMMAND test_bitcoin --run_test=${test_suite_name} --catch_system_error=no --log_level=test_suite -- DEBUG_LOG_OUT
+      COMMAND test_opensyria --run_test=${test_suite_name} --catch_system_error=no --log_level=test_suite -- DEBUG_LOG_OUT
     )
     set_property(TEST ${test_suite_name} PROPERTY
       SKIP_REGULAR_EXPRESSION
@@ -212,8 +212,8 @@ function(add_boost_test source_file)
 endfunction()
 
 function(add_all_test_targets)
-  get_target_property(test_source_dir test_bitcoin SOURCE_DIR)
-  get_target_property(test_sources test_bitcoin SOURCES)
+  get_target_property(test_source_dir test_opensyria SOURCE_DIR)
+  get_target_property(test_sources test_opensyria SOURCES)
   foreach(test_source ${test_sources})
     cmake_path(IS_RELATIVE test_source result)
     if(result)
@@ -225,4 +225,4 @@ endfunction()
 
 add_all_test_targets()
 
-install_binary_component(test_bitcoin INTERNAL)
+install_binary_component(test_opensyria INTERNAL)

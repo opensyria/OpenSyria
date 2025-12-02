@@ -1,4 +1,4 @@
-// Copyright (c) 2023-present The Bitcoin Core developers
+// Copyright (c) 2023-present The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -164,7 +164,7 @@ void TestBIP324PacketVector(
 BOOST_FIXTURE_TEST_SUITE(bip324_tests, BIP324Test)
 
 BOOST_AUTO_TEST_CASE(packet_test_vectors) {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - test vectors use Bitcoin mainnet magic bytes in HKDF salt
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - test vectors use OpenSyria mainnet magic bytes in HKDF salt
     return;
     // BIP324 key derivation uses network magic in the HKDF process. We use mainnet params here
     // as that is what the test vectors are written for.

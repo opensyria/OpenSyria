@@ -1,4 +1,4 @@
-// Copyright (c) 2021-2022 The Bitcoin Core developers
+// Copyright (c) 2021-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #include <common/system.h>
@@ -284,7 +284,7 @@ BOOST_FIXTURE_TEST_CASE(improves_feerate, TestChain100Setup)
     BOOST_CHECK(res1.value().first == DiagramCheckError::FAILURE);
     BOOST_CHECK(res1.value().second == "insufficient feerate: does not improve feerate diagram");
 
-    // With one more satoshi it does
+    // With one more qirsh it does
     changeset.reset();
     changeset = pool.GetChangeSet();
     changeset->StageRemoval(entry1);

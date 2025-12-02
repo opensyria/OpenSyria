@@ -1,5 +1,5 @@
-// Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The Bitcoin Core developers
+// Copyright (c) 2010 Qirsh Nakamoto
+// Copyright (c) 2009-present The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -130,7 +130,7 @@ public:
         pchMessageStart[1] = 0x59; // 'Y'
         pchMessageStart[2] = 0x4c; // 'L'
         pchMessageStart[3] = 0x4d; // 'M' for mainnet
-        nDefaultPort = 9333; // OpenSyria mainnet port
+        nDefaultPort = 9633; // OpenSyria mainnet port (963 = Syria country code)
         nPruneAfterHeight = 100000;
         m_assumed_blockchain_size = 810;
         m_assumed_chain_state_size = 14;
@@ -147,14 +147,14 @@ public:
         // This is fine at runtime as we'll fall back to using them as an addrfetch if they don't support the
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
-        // vSeeds.emplace_back("seed.bitcoin.sipa.be."); // TODO: Add OpenSyria seed nodes // Pieter Wuille, only supports x1, x5, x9, and xd
+        // vSeeds.emplace_back("seed.opensyria.sipa.be."); // TODO: Add OpenSyria seed nodes // Pieter Wuille, only supports x1, x5, x9, and xd
         // vSeeds.emplace_back("dnsseed.bluematt.me."); // TODO: Add OpenSyria seed nodes // Matt Corallo, only supports x9
-        // vSeeds.emplace_back("dnsseed.bitcoin.dashjr-list-of-p2p-nodes.us."); // TODO: Add OpenSyria seed nodes // Luke Dashjr
-        // vSeeds.emplace_back("seed.bitcoin.jonasschnelli.ch."); // TODO: Add OpenSyria seed nodes // Jonas Schnelli, only supports x1, x5, x9, and xd
-        // vSeeds.emplace_back("seed.btc.petertodd.net."); // TODO: Add OpenSyria seed nodes // Peter Todd, only supports x1, x5, x9, and xd
-        // vSeeds.emplace_back("seed.bitcoin.sprovoost.nl."); // TODO: Add OpenSyria seed nodes // Sjors Provoost
+        // vSeeds.emplace_back("dnsseed.opensyria.dashjr-list-of-p2p-nodes.us."); // TODO: Add OpenSyria seed nodes // Luke Dashjr
+        // vSeeds.emplace_back("seed.opensyria.jonasschnelli.ch."); // TODO: Add OpenSyria seed nodes // Jonas Schnelli, only supports x1, x5, x9, and xd
+        // vSeeds.emplace_back("seed.syl.petertodd.net."); // TODO: Add OpenSyria seed nodes // Peter Todd, only supports x1, x5, x9, and xd
+        // vSeeds.emplace_back("seed.opensyria.sprovoost.nl."); // TODO: Add OpenSyria seed nodes // Sjors Provoost
         // vSeeds.emplace_back("dnsseed.emzy.de."); // TODO: Add OpenSyria seed nodes // Stephan Oeste
-        // vSeeds.emplace_back("seed.bitcoin.wiz.biz."); // TODO: Add OpenSyria seed nodes // Jason Maurice
+        // vSeeds.emplace_back("seed.opensyria.wiz.biz."); // TODO: Add OpenSyria seed nodes // Jason Maurice
         vSeeds.emplace_back("seed.mainnet.achownodes.xyz."); // Ava Chow, only supports x1, x5, x9, x49, x809, x849, xd, x400, x404, x408, x448, xc08, xc48, x40c
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63); // Addresses start with 'S'
@@ -253,7 +253,7 @@ public:
         pchMessageStart[1] = 0x59; // 'Y'
         pchMessageStart[2] = 0x4c; // 'L'
         pchMessageStart[3] = 0x54; // 'T' for testnet
-        nDefaultPort = 19333; // OpenSyria testnet port
+        nDefaultPort = 19633; // OpenSyria testnet port (1 + 963)
         nPruneAfterHeight = 1000;
         m_assumed_blockchain_size = 240;
         m_assumed_chain_state_size = 19;
@@ -266,9 +266,9 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("testnet-seed.bitcoin.jonasschnelli.ch.");
+        vSeeds.emplace_back("testnet-seed.opensyria.jonasschnelli.ch.");
         vSeeds.emplace_back("seed.tbtc.petertodd.net.");
-        vSeeds.emplace_back("seed.testnet.bitcoin.sprovoost.nl.");
+        vSeeds.emplace_back("seed.testnet.opensyria.sprovoost.nl.");
         vSeeds.emplace_back("testnet-seed.bluematt.me."); // Just a static list of stable node(s), only supports x9
         vSeeds.emplace_back("seed.testnet.achownodes.xyz."); // Ava Chow, only supports x1, x5, x9, x49, x809, x849, xd, x400, x404, x408, x448, xc08, xc48, x40c
 
@@ -355,7 +355,7 @@ public:
         pchMessageStart[1] = 0x59; // 'Y'
         pchMessageStart[2] = 0x4c; // 'L'
         pchMessageStart[3] = 0x34; // '4' for testnet4
-        nDefaultPort = 49333; // OpenSyria testnet4 port
+        nDefaultPort = 49633; // OpenSyria testnet4 port (4 + 963)
         nPruneAfterHeight = 1000;
         m_assumed_blockchain_size = 22;
         m_assumed_chain_state_size = 2;
@@ -376,7 +376,7 @@ public:
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("seed.testnet4.bitcoin.sprovoost.nl."); // Sjors Provoost
+        vSeeds.emplace_back("seed.testnet4.opensyria.sprovoost.nl."); // Sjors Provoost
         vSeeds.emplace_back("seed.testnet4.wiz.biz."); // Jason Maurice
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,125); // Testnet addresses start with 's'
@@ -430,7 +430,7 @@ public:
         if (!options.challenge) {
             bin = "512103ad5e0edad18cb1f0fc0d28a3d4f1f3e445640337489abb10404f2d1e086be430210359ef5021964fe22d6f8e05b2463c9540ce96883fe3b278760f048f5189f2e6c452ae"_hex_v_u8;
             vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_signet), std::end(chainparams_seed_signet));
-            vSeeds.emplace_back("seed.signet.bitcoin.sprovoost.nl.");
+            vSeeds.emplace_back("seed.signet.opensyria.sprovoost.nl.");
             vSeeds.emplace_back("seed.signet.achownodes.xyz."); // Ava Chow, only supports x1, x5, x9, x49, x809, x849, xd, x400, x404, x408, x448, xc08, xc48, x40c
 
             consensus.nMinimumChainWork = uint256{"0000000000000000000000000000000000000000000000000000067d328e681a"};
@@ -499,7 +499,7 @@ public:
         uint256 hash = h.GetHash();
         std::copy_n(hash.begin(), 4, pchMessageStart.begin());
 
-        nDefaultPort = 39333; // OpenSyria signet port
+        nDefaultPort = 39633; // OpenSyria signet port (3 + 963)
         nPruneAfterHeight = 1000;
 
         genesis = CreateGenesisBlock(1598918400, 52613770, 0x1e0377ae, 1, 10000 * COIN);
@@ -583,7 +583,7 @@ public:
         pchMessageStart[1] = 0x59; // 'Y'
         pchMessageStart[2] = 0x4c; // 'L'
         pchMessageStart[3] = 0x52; // 'R' for regtest
-        nDefaultPort = 19444; // OpenSyria regtest port
+        nDefaultPort = 19634; // OpenSyria regtest port (1 + 963 + 4)
         nPruneAfterHeight = opts.fastprune ? 100 : 1000;
         m_assumed_blockchain_size = 0;
         m_assumed_chain_state_size = 0;

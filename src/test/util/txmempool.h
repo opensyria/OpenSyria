@@ -1,9 +1,9 @@
-// Copyright (c) 2022 The Bitcoin Core developers
+// Copyright (c) 2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_TEST_UTIL_TXMEMPOOL_H
-#define BITCOIN_TEST_UTIL_TXMEMPOOL_H
+#ifndef OPENSYRIA_TEST_UTIL_TXMEMPOOL_H
+#define OPENSYRIA_TEST_UTIL_TXMEMPOOL_H
 
 #include <policy/packages.h>
 #include <txmempool.h>
@@ -74,10 +74,10 @@ void AddToMempool(CTxMemPool& tx_pool, const CTxMemPoolEntry& entry);
  *
  * @param target_feerate    The new mempool minimum feerate after this function returns.
  *                          Must be above max(incremental feerate, min relay feerate),
- *                          or 1sat/vB with default settings.
+ *                          or 1qrs/vB with default settings.
  * @param mempool           The mempool to mock the minimum feerate for. Must be empty
  *                          when called.
  */
 void MockMempoolMinFee(const CFeeRate& target_feerate, CTxMemPool& mempool);
 
-#endif // BITCOIN_TEST_UTIL_TXMEMPOOL_H
+#endif // OPENSYRIA_TEST_UTIL_TXMEMPOOL_H

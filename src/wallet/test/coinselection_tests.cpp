@@ -1,4 +1,4 @@
-// Copyright (c) 2024 The Bitcoin Core developers
+// Copyright (c) 2024 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -205,13 +205,13 @@ BOOST_AUTO_TEST_CASE(bnb_test)
 BOOST_AUTO_TEST_CASE(bnb_feerate_sensitivity_test)
 {
     // Create sets of UTXOs with the same effective amounts at different feerates (but different absolute amounts)
-    std::vector<OutputGroup> low_feerate_pool; // 5 sat/vB (default, and lower than long_term_feerate of 10 sat/vB)
+    std::vector<OutputGroup> low_feerate_pool; // 5 qrs/vB (default, and lower than long_term_feerate of 10 qrs/vB)
     AddCoins(low_feerate_pool, {2 * CENT, 3 * CENT, 5 * CENT, 10 * CENT});
     TestBnBSuccess("Select many inputs at low feerates", low_feerate_pool, /*selection_target=*/10 * CENT, /*expected_input_amounts=*/{2 * CENT, 3 * CENT, 5 * CENT});
 
     CoinSelectionParams high_feerate_params = init_default_params();
     high_feerate_params.m_effective_feerate = CFeeRate{25'000};
-    std::vector<OutputGroup> high_feerate_pool; // 25 sat/vB (greater than long_term_feerate of 10 sat/vB)
+    std::vector<OutputGroup> high_feerate_pool; // 25 qrs/vB (greater than long_term_feerate of 10 qrs/vB)
     AddCoins(high_feerate_pool, {2 * CENT, 3 * CENT, 5 * CENT, 10 * CENT}, high_feerate_params);
     TestBnBSuccess("Select one input at high feerates", high_feerate_pool, /*selection_target=*/10 * CENT, /*expected_input_amounts=*/{10 * CENT}, high_feerate_params);
 

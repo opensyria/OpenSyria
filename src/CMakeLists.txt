@@ -4,7 +4,7 @@
 
 include(AddWindowsResources)
 
-configure_file(${PROJECT_SOURCE_DIR}/cmake/bitcoin-build-config.h.in bitcoin-build-config.h USE_SOURCE_PERMISSIONS @ONLY)
+configure_file(${PROJECT_SOURCE_DIR}/cmake/opensyria-build-config.h.in opensyria-build-config.h USE_SOURCE_PERMISSIONS @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 
 #=============================
@@ -38,19 +38,19 @@ if(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
 endif()
 
 add_custom_target(generate_build_info
-  BYPRODUCTS ${PROJECT_BINARY_DIR}/src/bitcoin-build-info.h
-  COMMAND ${CMAKE_COMMAND} -DBUILD_INFO_HEADER_PATH=${PROJECT_BINARY_DIR}/src/bitcoin-build-info.h -DSOURCE_DIR=${PROJECT_SOURCE_DIR} -P ${PROJECT_SOURCE_DIR}/cmake/script/GenerateBuildInfo.cmake
-  COMMENT "Generating bitcoin-build-info.h"
+  BYPRODUCTS ${PROJECT_BINARY_DIR}/src/opensyria-build-info.h
+  COMMAND ${CMAKE_COMMAND} -DBUILD_INFO_HEADER_PATH=${PROJECT_BINARY_DIR}/src/opensyria-build-info.h -DSOURCE_DIR=${PROJECT_SOURCE_DIR} -P ${PROJECT_SOURCE_DIR}/cmake/script/GenerateBuildInfo.cmake
+  COMMENT "Generating opensyria-build-info.h"
   VERBATIM
 )
-add_library(bitcoin_clientversion STATIC EXCLUDE_FROM_ALL
+add_library(opensyria_clientversion STATIC EXCLUDE_FROM_ALL
   clientversion.cpp
 )
-target_link_libraries(bitcoin_clientversion
+target_link_libraries(opensyria_clientversion
   PRIVATE
     core_interface
 )
-add_dependencies(bitcoin_clientversion generate_build_info)
+add_dependencies(opensyria_clientversion generate_build_info)
 
 add_subdirectory(crypto)
 add_subdirectory(util)
@@ -58,7 +58,7 @@ if(ENABLE_IPC)
   add_subdirectory(ipc)
 endif()
 
-add_library(bitcoin_consensus STATIC EXCLUDE_FROM_ALL
+add_library(opensyria_consensus STATIC EXCLUDE_FROM_ALL
   arith_uint256.cpp
   consensus/merkle.cpp
   consensus/tx_check.cpp
@@ -71,10 +71,10 @@ add_library(bitcoin_consensus STATIC EXCLUDE_FROM_ALL
   script/script_error.cpp
   uint256.cpp
 )
-target_link_libraries(bitcoin_consensus
+target_link_libraries(opensyria_consensus
   PRIVATE
     core_interface
-    bitcoin_crypto
+    opensyria_crypto
     secp256k1
 )
 
@@ -83,8 +83,8 @@ if(WITH_ZMQ)
 endif()
 
 # Home for common functionality shared by different executables and libraries.
-# Similar to `bitcoin_util` library, but higher-level.
-add_library(bitcoin_common STATIC EXCLUDE_FROM_ALL
+# Similar to `opensyria_util` library, but higher-level.
+add_library(opensyria_common STATIC EXCLUDE_FROM_ALL
   addresstype.cpp
   base58.cpp
   bech32.cpp
@@ -137,11 +137,11 @@ add_library(bitcoin_common STATIC EXCLUDE_FROM_ALL
   script/signingprovider.cpp
   script/solver.cpp
 )
-target_link_libraries(bitcoin_common
+target_link_libraries(opensyria_common
   PRIVATE
     core_interface
-    bitcoin_consensus
-    bitcoin_util
+    opensyria_consensus
+    opensyria_util
     univalue
     secp256k1
     Boost::headers
@@ -155,29 +155,29 @@ if(ENABLE_WALLET)
   add_subdirectory(wallet)
 
   if(BUILD_WALLET_TOOL)
-    add_executable(bitcoin-wallet
+    add_executable(opensyria-wallet
       opensyria-wallet.cpp
       init/opensyria-wallet.cpp
       wallet/wallettool.cpp
     )
-    set_target_properties(bitcoin-wallet PROPERTIES OUTPUT_NAME opensyria-wallet)
-    set_target_properties(bitcoin-wallet PROPERTIES OUTPUT_NAME opensyria-wallet)
-    add_windows_resources(bitcoin-wallet bitcoin-wallet-res.rc)
-    add_windows_application_manifest(bitcoin-wallet)
-    target_link_libraries(bitcoin-wallet
+    set_target_properties(opensyria-wallet PROPERTIES OUTPUT_NAME opensyria-wallet)
+    set_target_properties(opensyria-wallet PROPERTIES OUTPUT_NAME opensyria-wallet)
+    add_windows_resources(opensyria-wallet opensyria-wallet-res.rc)
+    add_windows_application_manifest(opensyria-wallet)
+    target_link_libraries(opensyria-wallet
       core_interface
-      bitcoin_wallet
-      bitcoin_common
-      bitcoin_util
+      opensyria_wallet
+      opensyria_common
+      opensyria_util
       Boost::headers
     )
-    install_binary_component(bitcoin-wallet HAS_MANPAGE)
+    install_binary_component(opensyria-wallet HAS_MANPAGE)
   endif()
 endif()
 
 
-# P2P and RPC server functionality used by `bitcoind` and `bitcoin-qt` executables.
-add_library(bitcoin_node STATIC EXCLUDE_FROM_ALL
+# P2P and RPC server functionality used by `opensyriad` and `opensyria-qt` executables.
+add_library(opensyria_node STATIC EXCLUDE_FROM_ALL
   addrdb.cpp
   addrman.cpp
   banman.cpp
@@ -270,15 +270,15 @@ add_library(bitcoin_node STATIC EXCLUDE_FROM_ALL
   validation.cpp
   validationinterface.cpp
   versionbits.cpp
-  $<$<TARGET_EXISTS:bitcoin_wallet>:wallet/init.cpp>
-  $<$<NOT:$<TARGET_EXISTS:bitcoin_wallet>>:dummywallet.cpp>
+  $<$<TARGET_EXISTS:opensyria_wallet>:wallet/init.cpp>
+  $<$<NOT:$<TARGET_EXISTS:opensyria_wallet>>:dummywallet.cpp>
 )
-target_link_libraries(bitcoin_node
+target_link_libraries(opensyria_node
   PRIVATE
     core_interface
-    bitcoin_common
-    bitcoin_util
-    $<TARGET_NAME_IF_EXISTS:bitcoin_zmq>
+    opensyria_common
+    opensyria_util
+    $<TARGET_NAME_IF_EXISTS:opensyria_zmq>
     leveldb
     minisketch
     univalue
@@ -289,125 +289,125 @@ target_link_libraries(bitcoin_node
     $<TARGET_NAME_IF_EXISTS:USDT::headers>
 )
 
-# Bitcoin wrapper executable that can call other executables.
-if(BUILD_BITCOIN_BIN)
-  add_executable(bitcoin opensyria.cpp)
-  set_target_properties(bitcoin PROPERTIES OUTPUT_NAME opensyria)
-  set_target_properties(bitcoin PROPERTIES OUTPUT_NAME opensyria)
-  add_windows_resources(bitcoin bitcoin-res.rc)
-  add_windows_application_manifest(bitcoin)
-  target_link_libraries(bitcoin core_interface bitcoin_common bitcoin_util)
-  install_binary_component(bitcoin HAS_MANPAGE)
+# OpenSyria wrapper executable that can call other executables.
+if(BUILD_OPENSYRIA_BIN)
+  add_executable(opensyria opensyria.cpp)
+  set_target_properties(opensyria PROPERTIES OUTPUT_NAME opensyria)
+  set_target_properties(opensyria PROPERTIES OUTPUT_NAME opensyria)
+  add_windows_resources(opensyria opensyria-res.rc)
+  add_windows_application_manifest(opensyria)
+  target_link_libraries(opensyria core_interface opensyria_common opensyria_util)
+  install_binary_component(opensyria HAS_MANPAGE)
 endif()
 
-# Bitcoin Core bitcoind.
+# OpenSyria Core opensyriad.
 if(BUILD_DAEMON)
-  add_executable(bitcoind
+  add_executable(opensyriad
     opensyriad.cpp
     init/opensyriad.cpp
   )
-    set_target_properties(bitcoind PROPERTIES OUTPUT_NAME opensyriad)
-    set_target_properties(bitcoind PROPERTIES OUTPUT_NAME opensyriad)
-  add_windows_resources(bitcoind bitcoind-res.rc)
-  add_windows_application_manifest(bitcoind)
-  target_link_libraries(bitcoind
+    set_target_properties(opensyriad PROPERTIES OUTPUT_NAME opensyriad)
+    set_target_properties(opensyriad PROPERTIES OUTPUT_NAME opensyriad)
+  add_windows_resources(opensyriad opensyriad-res.rc)
+  add_windows_application_manifest(opensyriad)
+  target_link_libraries(opensyriad
     core_interface
-    bitcoin_node
-    $<TARGET_NAME_IF_EXISTS:bitcoin_wallet>
+    opensyria_node
+    $<TARGET_NAME_IF_EXISTS:opensyria_wallet>
   )
-  install_binary_component(bitcoind HAS_MANPAGE)
+  install_binary_component(opensyriad HAS_MANPAGE)
 endif()
 if(ENABLE_IPC AND BUILD_DAEMON)
-  add_executable(bitcoin-node
+  add_executable(opensyria-node
     opensyriad.cpp
     init/opensyria-node.cpp
   )
-    set_target_properties(bitcoin-node PROPERTIES OUTPUT_NAME opensyria-node)
-    set_target_properties(bitcoin-node PROPERTIES OUTPUT_NAME opensyria-node)
-  target_link_libraries(bitcoin-node
+    set_target_properties(opensyria-node PROPERTIES OUTPUT_NAME opensyria-node)
+    set_target_properties(opensyria-node PROPERTIES OUTPUT_NAME opensyria-node)
+  target_link_libraries(opensyria-node
     core_interface
-    bitcoin_node
-    bitcoin_ipc
-    $<TARGET_NAME_IF_EXISTS:bitcoin_wallet>
+    opensyria_node
+    opensyria_ipc
+    $<TARGET_NAME_IF_EXISTS:opensyria_wallet>
   )
-  install_binary_component(bitcoin-node INTERNAL)
+  install_binary_component(opensyria-node INTERNAL)
 endif()
 
 if(ENABLE_IPC AND BUILD_TESTS)
-    # bitcoin_ipc_test library target is defined here in src/CMakeLists.txt
+    # opensyria_ipc_test library target is defined here in src/CMakeLists.txt
     # instead of src/test/CMakeLists.txt so capnp files in src/test/ are able to
     # reference capnp files in src/ipc/capnp/ by relative path. The Cap'n Proto
     # compiler only allows importing by relative path when the importing and
     # imported files are underneath the same compilation source prefix, so the
     # source prefix must be src/, not src/test/
-    add_library(bitcoin_ipc_test STATIC EXCLUDE_FROM_ALL
+    add_library(opensyria_ipc_test STATIC EXCLUDE_FROM_ALL
       test/ipc_test.cpp
     )
-    target_capnp_sources(bitcoin_ipc_test ${PROJECT_SOURCE_DIR}
+    target_capnp_sources(opensyria_ipc_test ${PROJECT_SOURCE_DIR}
       test/ipc_test.capnp
     )
-    add_dependencies(bitcoin_ipc_test bitcoin_ipc_headers)
+    add_dependencies(opensyria_ipc_test opensyria_ipc_headers)
 endif()
 
 
-add_library(bitcoin_cli STATIC EXCLUDE_FROM_ALL
+add_library(opensyria_cli STATIC EXCLUDE_FROM_ALL
   compat/stdin.cpp
   rpc/client.cpp
 )
-target_link_libraries(bitcoin_cli
+target_link_libraries(opensyria_cli
   PUBLIC
     core_interface
     univalue
 )
 
 
-# Bitcoin Core RPC client
+# OpenSyria RPC client
 if(BUILD_CLI)
-  add_executable(bitcoin-cli opensyria-cli.cpp)
-  set_target_properties(bitcoin-cli PROPERTIES OUTPUT_NAME opensyria-cli)
-  set_target_properties(bitcoin-cli PROPERTIES OUTPUT_NAME opensyria-cli)
-  add_windows_resources(bitcoin-cli bitcoin-cli-res.rc)
-  add_windows_application_manifest(bitcoin-cli)
-  target_link_libraries(bitcoin-cli
+  add_executable(opensyria-cli opensyria-cli.cpp)
+  set_target_properties(opensyria-cli PROPERTIES OUTPUT_NAME opensyria-cli)
+  set_target_properties(opensyria-cli PROPERTIES OUTPUT_NAME opensyria-cli)
+  add_windows_resources(opensyria-cli opensyria-cli-res.rc)
+  add_windows_application_manifest(opensyria-cli)
+  target_link_libraries(opensyria-cli
     core_interface
-    bitcoin_cli
-    bitcoin_common
-    bitcoin_util
+    opensyria_cli
+    opensyria_common
+    opensyria_util
     libevent::core
     libevent::extra
   )
-  install_binary_component(bitcoin-cli HAS_MANPAGE)
+  install_binary_component(opensyria-cli HAS_MANPAGE)
 endif()
 
 
 if(BUILD_TX)
-  add_executable(bitcoin-tx opensyria-tx.cpp)
-  set_target_properties(bitcoin-tx PROPERTIES OUTPUT_NAME opensyria-tx)
-  set_target_properties(bitcoin-tx PROPERTIES OUTPUT_NAME opensyria-tx)
-  add_windows_resources(bitcoin-tx bitcoin-tx-res.rc)
-  add_windows_application_manifest(bitcoin-tx)
-  target_link_libraries(bitcoin-tx
+  add_executable(opensyria-tx opensyria-tx.cpp)
+  set_target_properties(opensyria-tx PROPERTIES OUTPUT_NAME opensyria-tx)
+  set_target_properties(opensyria-tx PROPERTIES OUTPUT_NAME opensyria-tx)
+  add_windows_resources(opensyria-tx opensyria-tx-res.rc)
+  add_windows_application_manifest(opensyria-tx)
+  target_link_libraries(opensyria-tx
     core_interface
-    bitcoin_common
-    bitcoin_util
+    opensyria_common
+    opensyria_util
     univalue
   )
-  install_binary_component(bitcoin-tx HAS_MANPAGE)
+  install_binary_component(opensyria-tx HAS_MANPAGE)
 endif()
 
 
 if(BUILD_UTIL)
-  add_executable(bitcoin-util opensyria-util.cpp)
-  set_target_properties(bitcoin-util PROPERTIES OUTPUT_NAME opensyria-util)
-  set_target_properties(bitcoin-util PROPERTIES OUTPUT_NAME opensyria-util)
-  add_windows_resources(bitcoin-util bitcoin-util-res.rc)
-  add_windows_application_manifest(bitcoin-util)
-  target_link_libraries(bitcoin-util
+  add_executable(opensyria-util opensyria-util.cpp)
+  set_target_properties(opensyria-util PROPERTIES OUTPUT_NAME opensyria-util)
+  set_target_properties(opensyria-util PROPERTIES OUTPUT_NAME opensyria-util)
+  add_windows_resources(opensyria-util opensyria-util-res.rc)
+  add_windows_application_manifest(opensyria-util)
+  target_link_libraries(opensyria-util
     core_interface
-    bitcoin_common
-    bitcoin_util
+    opensyria_common
+    opensyria_util
   )
-  install_binary_component(bitcoin-util HAS_MANPAGE)
+  install_binary_component(opensyria-util HAS_MANPAGE)
 endif()
 
 
@@ -422,18 +422,18 @@ if(BUILD_KERNEL_LIB)
     add_subdirectory(test/kernel)
   endif()
   if(BUILD_UTIL_CHAINSTATE)
-    add_executable(bitcoin-chainstate
+    add_executable(opensyria-chainstate
       opensyria-chainstate.cpp
     )
-    set_target_properties(bitcoin-chainstate PROPERTIES OUTPUT_NAME opensyria-chainstate)
-    set_target_properties(bitcoin-chainstate PROPERTIES OUTPUT_NAME opensyria-chainstate)
-    add_windows_application_manifest(bitcoin-chainstate)
-    target_link_libraries(bitcoin-chainstate
+    set_target_properties(opensyria-chainstate PROPERTIES OUTPUT_NAME opensyria-chainstate)
+    set_target_properties(opensyria-chainstate PROPERTIES OUTPUT_NAME opensyria-chainstate)
+    add_windows_application_manifest(opensyria-chainstate)
+    target_link_libraries(opensyria-chainstate
       PRIVATE
         core_interface
-        bitcoinkernel
+        opensyriakernel
     )
-    install_binary_component(bitcoin-chainstate INTERNAL)
+    install_binary_component(opensyria-chainstate INTERNAL)
   endif()
 endif()
 

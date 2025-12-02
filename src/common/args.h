@@ -1,9 +1,9 @@
-// Copyright (c) 2023-present The Bitcoin Core developers
+// Copyright (c) 2023-present The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_COMMON_ARGS_H
-#define BITCOIN_COMMON_ARGS_H
+#ifndef OPENSYRIA_COMMON_ARGS_H
+#define OPENSYRIA_COMMON_ARGS_H
 
 #include <common/settings.h>
 #include <compat/compat.h>
@@ -480,4 +480,4 @@ std::string HelpMessageGroup(const std::string& message);
  */
 std::string HelpMessageOpt(const std::string& option, const std::string& message);
 
-#endif // BITCOIN_COMMON_ARGS_H
+#endif // OPENSYRIA_COMMON_ARGS_H

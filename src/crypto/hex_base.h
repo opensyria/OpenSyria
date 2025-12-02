@@ -1,9 +1,9 @@
-// Copyright (c) 2009-present The Bitcoin Core developers
+// Copyright (c) 2009-present The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_CRYPTO_HEX_BASE_H
-#define BITCOIN_CRYPTO_HEX_BASE_H
+#ifndef OPENSYRIA_CRYPTO_HEX_BASE_H
+#define OPENSYRIA_CRYPTO_HEX_BASE_H
 
 #include <span.h>
 
@@ -21,4 +21,4 @@ inline std::string HexStr(const std::span<const std::byte> s) { return HexStr(Ma
 
 signed char HexDigit(char c);
 
-#endif // BITCOIN_CRYPTO_HEX_BASE_H
+#endif // OPENSYRIA_CRYPTO_HEX_BASE_H

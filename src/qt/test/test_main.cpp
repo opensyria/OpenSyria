@@ -1,8 +1,8 @@
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <bitcoin-build-config.h> // IWYU pragma: keep
+#include <opensyria-build-config.h> // IWYU pragma: keep
 
 #include <interfaces/init.h>
 #include <interfaces/node.h>
@@ -75,7 +75,7 @@ int main(int argc, char* argv[])
     int num_test_failures{0};
 
     {
-        BitcoinApplication app;
+        OpenSyriaApplication app;
         app.createNode(*init);
 
         AppTests app_tests(app);

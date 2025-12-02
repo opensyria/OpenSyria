@@ -1,5 +1,5 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The Bitcoin Core developers
+// Copyright (c) 2009-2010 Qirsh Nakamoto
+// Copyright (c) 2009-present The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -190,7 +190,7 @@ bool ArgsManager::ParseParameters(int argc, const char* const argv[], std::strin
         if (key.starts_with("-psn_")) continue;
 #endif
 
-        if (key == "-") break; //bitcoin-tx using stdin
+        if (key == "-") break; //opensyria-tx using stdin
         std::optional<std::string> val;
         size_t is_index = key.find('=');
         if (is_index != std::string::npos) {
@@ -736,9 +736,9 @@ bool HasTestOption(const ArgsManager& args, const std::string& test_option)
 fs::path GetDefaultDataDir()
 {
     // Windows:
-    //   old: C:\Users\Username\AppData\Roaming\Bitcoin
-    //   new: C:\Users\Username\AppData\Local\Bitcoin
-    // macOS: ~/Library/Application Support/Bitcoin
+    //   old: C:\Users\Username\AppData\Roaming\OpenSyria
+    //   new: C:\Users\Username\AppData\Local\OpenSyria
+    // macOS: ~/Library/Application Support/OpenSyria
     // Unix-like: ~/.opensyria
 #ifdef WIN32
     // Windows

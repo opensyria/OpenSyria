@@ -1,8 +1,8 @@
-// Copyright (c) 2011-2021 The Bitcoin Core developers
+// Copyright (c) 2011-2021 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/bitcoinunits.h>
+#include <qt/opensyriaunits.h>
 
 #include <consensus/amount.h>
 
@@ -10,7 +10,7 @@
 
 #include <cassert>
 
-static constexpr auto MAX_DIGITS_BTC = 16;
+static constexpr auto MAX_DIGITS_SYL = 16;
 
 OpenSyriaUnits::OpenSyriaUnits(QObject *parent):
         QAbstractListModel(parent),
@@ -21,20 +21,20 @@ OpenSyriaUnits::OpenSyriaUnits(QObject *parent):
 QList<OpenSyriaUnit> OpenSyriaUnits::availableUnits()
 {
     QList<OpenSyriaUnit> unitlist;
-    unitlist.append(Unit::BTC);
-    unitlist.append(Unit::mBTC);
-    unitlist.append(Unit::uBTC);
-    unitlist.append(Unit::SAT);
+    unitlist.append(Unit::SYL);
+    unitlist.append(Unit::mSYL);
+    unitlist.append(Unit::uSYL);
+    unitlist.append(Unit::QIRSH);
     return unitlist;
 }
 
 QString OpenSyriaUnits::longName(Unit unit)
 {
     switch (unit) {
-    case Unit::BTC: return QString("SYL");
-    case Unit::mBTC: return QString("mSYL");
-    case Unit::uBTC: return QString::fromUtf8("µSYL (bits)");
-    case Unit::SAT: return QString("Qirsh (qrs)");
+    case Unit::SYL: return QString("SYL");
+    case Unit::mSYL: return QString("mSYL");
+    case Unit::uSYL: return QString::fromUtf8("µSYL (bits)");
+    case Unit::QIRSH: return QString("Qirsh (qrs)");
     } // no default case, so the compiler can warn about missing cases
     assert(false);
 }
@@ -42,10 +42,10 @@ QString OpenSyriaUnits::longName(Unit unit)
 QString OpenSyriaUnits::shortName(Unit unit)
 {
     switch (unit) {
-    case Unit::BTC: return longName(unit);
-    case Unit::mBTC: return longName(unit);
-    case Unit::uBTC: return QString("bits");
-    case Unit::SAT: return QString("qrs");
+    case Unit::SYL: return longName(unit);
+    case Unit::mSYL: return longName(unit);
+    case Unit::uSYL: return QString("bits");
+    case Unit::QIRSH: return QString("qrs");
     } // no default case, so the compiler can warn about missing cases
     assert(false);
 }
@@ -53,10 +53,10 @@ QString OpenSyriaUnits::shortName(Unit unit)
 QString OpenSyriaUnits::description(Unit unit)
 {
     switch (unit) {
-    case Unit::BTC: return QString("Syrian Digital Lira");
-    case Unit::mBTC: return QString("Milli-SYL (1 / 1" THIN_SP_UTF8 "000)");
-    case Unit::uBTC: return QString("Micro-SYL (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
-    case Unit::SAT: return QString("Qirsh (qrs) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case Unit::SYL: return QString("Syrian Digital Lira");
+    case Unit::mSYL: return QString("Milli-SYL (1 / 1" THIN_SP_UTF8 "000)");
+    case Unit::uSYL: return QString("Micro-SYL (bits) (1 / 1" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
+    case Unit::QIRSH: return QString("Qirsh (qrs) (1 / 100" THIN_SP_UTF8 "000" THIN_SP_UTF8 "000)");
     } // no default case, so the compiler can warn about missing cases
     assert(false);
 }
@@ -64,10 +64,10 @@ QString OpenSyriaUnits::description(Unit unit)
 qint64 OpenSyriaUnits::factor(Unit unit)
 {
     switch (unit) {
-    case Unit::BTC: return 100'000'000;
-    case Unit::mBTC: return 100'000;
-    case Unit::uBTC: return 100;
-    case Unit::SAT: return 1;
+    case Unit::SYL: return 100'000'000;
+    case Unit::mSYL: return 100'000;
+    case Unit::uSYL: return 100;
+    case Unit::QIRSH: return 1;
     } // no default case, so the compiler can warn about missing cases
     assert(false);
 }
@@ -75,10 +75,10 @@ qint64 OpenSyriaUnits::factor(Unit unit)
 int OpenSyriaUnits::decimals(Unit unit)
 {
     switch (unit) {
-    case Unit::BTC: return 8;
-    case Unit::mBTC: return 5;
-    case Unit::uBTC: return 2;
-    case Unit::SAT: return 0;
+    case Unit::SYL: return 8;
+    case Unit::mSYL: return 5;
+    case Unit::uSYL: return 2;
+    case Unit::QIRSH: return 0;
     } // no default case, so the compiler can warn about missing cases
     assert(false);
 }
@@ -94,7 +94,7 @@ QString OpenSyriaUnits::format(Unit unit, const CAmount& nIn, bool fPlus, Separa
     qint64 quotient = n_abs / coin;
     QString quotient_str = QString::number(quotient);
     if (justify) {
-        quotient_str = quotient_str.rightJustified(MAX_DIGITS_BTC - num_decimals, ' ');
+        quotient_str = quotient_str.rightJustified(MAX_DIGITS_SYL - num_decimals, ' ');
     }
 
     // Use SI-style thin space separators as these are locale independent and can't be
@@ -232,10 +232,10 @@ namespace {
 qint8 ToQint8(OpenSyriaUnit unit)
 {
     switch (unit) {
-    case OpenSyriaUnit::BTC: return 0;
-    case OpenSyriaUnit::mBTC: return 1;
-    case OpenSyriaUnit::uBTC: return 2;
-    case OpenSyriaUnit::SAT: return 3;
+    case OpenSyriaUnit::SYL: return 0;
+    case OpenSyriaUnit::mSYL: return 1;
+    case OpenSyriaUnit::uSYL: return 2;
+    case OpenSyriaUnit::QIRSH: return 3;
     } // no default case, so the compiler can warn about missing cases
     assert(false);
 }
@@ -243,10 +243,10 @@ qint8 ToQint8(OpenSyriaUnit unit)
 OpenSyriaUnit FromQint8(qint8 num)
 {
     switch (num) {
-    case 0: return OpenSyriaUnit::BTC;
-    case 1: return OpenSyriaUnit::mBTC;
-    case 2: return OpenSyriaUnit::uBTC;
-    case 3: return OpenSyriaUnit::SAT;
+    case 0: return OpenSyriaUnit::SYL;
+    case 1: return OpenSyriaUnit::mSYL;
+    case 2: return OpenSyriaUnit::uSYL;
+    case 3: return OpenSyriaUnit::QIRSH;
     }
     assert(false);
 }

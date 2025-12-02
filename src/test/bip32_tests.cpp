@@ -1,4 +1,4 @@
-// Copyright (c) 2013-2022 The Bitcoin Core developers
+// Copyright (c) 2013-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -160,31 +160,31 @@ void RunTest(const TestVector& test)
 BOOST_FIXTURE_TEST_SUITE(bip32_tests, BasicTestingSetup)
 
 BOOST_AUTO_TEST_CASE(bip32_test1) {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses Bitcoin xprv/xpub prefixes
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses OpenSyria xprv/xpub prefixes
     return;
     RunTest(test1);
 }
 
 BOOST_AUTO_TEST_CASE(bip32_test2) {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses Bitcoin xprv/xpub prefixes
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses OpenSyria xprv/xpub prefixes
     return;
     RunTest(test2);
 }
 
 BOOST_AUTO_TEST_CASE(bip32_test3) {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses Bitcoin xprv/xpub prefixes
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses OpenSyria xprv/xpub prefixes
     return;
     RunTest(test3);
 }
 
 BOOST_AUTO_TEST_CASE(bip32_test4) {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses Bitcoin xprv/xpub prefixes
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses OpenSyria xprv/xpub prefixes
     return;
     RunTest(test4);
 }
 
 BOOST_AUTO_TEST_CASE(bip32_test5) {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses Bitcoin xprv/xpub prefixes
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses OpenSyria xprv/xpub prefixes
     return;
     for (const auto& str : TEST5) {
         auto dec_extkey = DecodeExtKey(str);
@@ -195,7 +195,7 @@ BOOST_AUTO_TEST_CASE(bip32_test5) {
 }
 
 BOOST_AUTO_TEST_CASE(bip32_max_depth) {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses Bitcoin xprv/xpub prefixes
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses OpenSyria xprv/xpub prefixes
     return;
     CExtKey key_parent{DecodeExtKey(test1.vDerive[0].prv)}, key_child;
     CExtPubKey pubkey_parent{DecodeExtPubKey(test1.vDerive[0].pub)}, pubkey_child;

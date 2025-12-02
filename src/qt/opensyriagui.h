@@ -1,13 +1,13 @@
-// Copyright (c) 2011-2022 The Bitcoin Core developers
+// Copyright (c) 2011-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef OPENSYRIA_QT_OPENSYRIAGUI_H
 #define OPENSYRIA_QT_OPENSYRIAGUI_H
 
-#include <bitcoin-build-config.h> // IWYU pragma: keep
+#include <opensyria-build-config.h> // IWYU pragma: keep
 
-#include <qt/bitcoinunits.h>
+#include <qt/opensyriaunits.h>
 #include <qt/clientmodel.h>
 #include <qt/guiutil.h>
 #include <qt/optionsdialog.h>
@@ -61,7 +61,7 @@ class ClickableProgressBar;
 }
 
 /**
-  Bitcoin GUI main class. This class represents the main window of the Bitcoin UI. It communicates with both the client and
+  OpenSyria GUI main class. This class represents the main window of the OpenSyria UI. It communicates with both the client and
   wallet models to give the user an up-to-date view of the current core state.
 */
 class OpenSyriaGUI : public QMainWindow
@@ -85,7 +85,7 @@ public:
 
 #ifdef ENABLE_WALLET
     /** Set the wallet model.
-        The wallet model represents a bitcoin wallet, and offers access to the list of transactions, address book and sending
+        The wallet model represents a opensyria wallet, and offers access to the list of transactions, address book and sending
         functionality.
     */
     void addWallet(WalletModel* walletModel);
@@ -288,7 +288,7 @@ public Q_SLOTS:
     void gotoSignMessageTab(QString addr = "");
     /** Show Sign/Verify Message dialog and switch to verify message tab */
     void gotoVerifyMessageTab(QString addr = "");
-    /** Load Partially Signed Bitcoin Transaction from file or clipboard */
+    /** Load Partially Signed OpenSyria Transaction from file or clipboard */
     void gotoLoadPSBT(bool from_clipboard = false);
     /** Enable history action when privacy is changed */
     void enableHistoryAction(bool privacy);

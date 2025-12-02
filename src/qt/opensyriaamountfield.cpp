@@ -1,10 +1,10 @@
-// Copyright (c) 2011-2022 The Bitcoin Core developers
+// Copyright (c) 2011-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/bitcoinamountfield.h>
+#include <qt/opensyriaamountfield.h>
 
-#include <qt/bitcoinunits.h>
+#include <qt/opensyriaunits.h>
 #include <qt/guiconstants.h>
 #include <qt/guiutil.h>
 #include <qt/qvaluecombobox.h>
@@ -125,7 +125,7 @@ public:
 
             const QFontMetrics fm(fontMetrics());
             int h = lineEdit()->minimumSizeHint().height();
-            int w = GUIUtil::TextWidth(fm, OpenSyriaUnits::format(OpenSyriaUnit::BTC, OpenSyriaUnits::maxMoney(), false, OpenSyriaUnits::SeparatorStyle::ALWAYS));
+            int w = GUIUtil::TextWidth(fm, OpenSyriaUnits::format(OpenSyriaUnit::SYL, OpenSyriaUnits::maxMoney(), false, OpenSyriaUnits::SeparatorStyle::ALWAYS));
             w += 2; // cursor blinking space
 
             QStyleOptionSpinBox opt;
@@ -150,8 +150,8 @@ public:
     }
 
 private:
-    OpenSyriaUnit currentUnit{OpenSyriaUnit::BTC};
-    CAmount singleStep{CAmount(100000)}; // satoshis
+    OpenSyriaUnit currentUnit{OpenSyriaUnit::SYL};
+    CAmount singleStep{CAmount(100000)}; // qirsh
     mutable QSize cachedMinimumSizeHint;
     bool m_allow_empty{true};
     CAmount m_min_amount{CAmount(0)};
@@ -215,7 +215,7 @@ Q_SIGNALS:
     void valueChanged();
 };
 
-#include <qt/bitcoinamountfield.moc>
+#include <qt/opensyriaamountfield.moc>
 
 OpenSyriaAmountField::OpenSyriaAmountField(QWidget* parent)
     : QWidget(parent)

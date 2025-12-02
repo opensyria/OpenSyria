@@ -1,0 +1,33 @@
+# /etc/conf.d/opensyriad: config file for /etc/init.d/opensyriad
+
+# Config file location
+#OPENSYRIAD_CONFIGFILE="/etc/opensyria/opensyria.conf"
+
+# What directory to write pidfile to?  (created and owned by $OPENSYRIAD_USER)
+#OPENSYRIAD_PIDDIR="/var/run/opensyriad"
+
+# What filename to give the pidfile
+#OPENSYRIAD_PIDFILE="${OPENSYRIAD_PIDDIR}/opensyriad.pid"
+
+# Where to write opensyriad data (be mindful that the blockchain is large)
+#OPENSYRIAD_DATADIR="/var/lib/opensyriad"
+
+# User and group to own opensyriad process
+#OPENSYRIAD_USER="opensyria"
+#OPENSYRIAD_GROUP="opensyria"
+
+# Path to opensyriad executable
+#OPENSYRIAD_BIN="/usr/bin/opensyriad"
+
+# Nice value to run opensyriad under
+#OPENSYRIAD_NICE=0
+
+# Additional options (avoid -conf and -datadir, use flags above)
+#OPENSYRIAD_OPTS=""
+
+# The timeout in seconds OpenRC will wait for opensyriad to terminate
+# after a SIGTERM has been raised.
+# Note that this will be mapped as argument to start-stop-daemon's
+# '--retry' option, which means you can specify a retry schedule
+# here. For more information see man 8 start-stop-daemon.
+OPENSYRIAD_SIGTERM_TIMEOUT=600

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2024-present The Bitcoin Core developers
+# Copyright (c) 2024-present The OpenSyria Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,7 +9,7 @@ from test_framework.messages import (
     COIN,
     CTxOut,
 )
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import OpenSyriaTestFramework
 from test_framework.mempool_util import assert_mempool_contents
 from test_framework.util import (
     assert_equal,
@@ -24,7 +24,7 @@ from test_framework.blocktools import (
     create_empty_fork
 )
 
-class EphemeralDustTest(BitcoinTestFramework):
+class EphemeralDustTest(OpenSyriaTestFramework):
     def set_test_params(self):
         # Mempools should match via 1P1C p2p relay
         self.num_nodes = 2
@@ -197,7 +197,7 @@ class EphemeralDustTest(BitcoinTestFramework):
         assert_equal(self.nodes[0].getrawmempool(), [])
 
     def test_nonzero_dust(self):
-        self.log.info("Test that a single output of any satoshi amount is allowed, not checking spending")
+        self.log.info("Test that a single output of any qirsh amount is allowed, not checking spending")
 
         # We aren't checking spending, allow it in with no fee
         self.restart_node(0, extra_args=["-minrelaytxfee=0"])

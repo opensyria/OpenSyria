@@ -1,10 +1,10 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The Bitcoin Core developers
+// Copyright (c) 2009-2010 Qirsh Nakamoto
+// Copyright (c) 2009-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_TXMEMPOOL_H
-#define BITCOIN_TXMEMPOOL_H
+#ifndef OPENSYRIA_TXMEMPOOL_H
+#define OPENSYRIA_TXMEMPOOL_H
 
 #include <coins.h>
 #include <consensus/amount.h>
@@ -143,7 +143,7 @@ struct TxMempoolInfo
  *
  * TxGraph (CTxMemPool::m_txgraph) provides an abstraction layer for separating
  * the transaction graph parts of the mempool from the rest of the
- * Bitcoin-specific logic. Specifically, TxGraph handles (for each transaction)
+ * OpenSyria-specific logic. Specifically, TxGraph handles (for each transaction)
  * managing the in-mempool parents and children, and has knowledge of the fee
  * and size of every transaction. It uses this to partition the mempool into
  * connected clusters, and it implements (among other things):
@@ -155,7 +155,7 @@ struct TxMempoolInfo
  *    after a reorg.
  * See txgraph.h and txgraph.cpp for more details.
  *
- * CTxMemPool itself handles the Bitcoin-specific parts of mempool
+ * CTxMemPool itself handles the OpenSyria-specific parts of mempool
  * transactions; it stores the full transaction inside CTxMemPoolEntry, along
  * with other consensus-specific fields (such as whether a transaction spends a
  * coinbase, or the LockPoints for transaction finality). And it provides
@@ -804,4 +804,4 @@ public:
     /** Clear m_temp_added and m_non_base_coins. */
     void Reset();
 };
-#endif // BITCOIN_TXMEMPOOL_H
+#endif // OPENSYRIA_TXMEMPOOL_H

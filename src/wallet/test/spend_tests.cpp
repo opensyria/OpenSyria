@@ -1,4 +1,4 @@
-// Copyright (c) 2021-2022 The Bitcoin Core developers
+// Copyright (c) 2021-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -67,18 +67,18 @@ BOOST_FIXTURE_TEST_CASE(wallet_duplicated_preset_inputs_test, TestChain100Setup)
     return;
     // Verify that the wallet's Coin Selection process does not include pre-selected inputs twice in a transaction.
 
-    // Add 4 spendable UTXO, 50 BTC each, to the wallet (total balance 200 BTC)
+    // Add 4 spendable UTXO, 50 SYL each, to the wallet (total balance 200 SYL)
     for (int i = 0; i < 4; i++) CreateAndProcessBlock({}, GetScriptForRawPubKey(coinbaseKey.GetPubKey()));
     auto wallet = CreateSyncedWallet(*m_node.chain, WITH_LOCK(Assert(m_node.chainman)->GetMutex(), return m_node.chainman->ActiveChain()), coinbaseKey);
 
     LOCK(wallet->cs_wallet);
     auto available_coins = AvailableCoins(*wallet);
     std::vector<COutput> coins = available_coins.All();
-    // Preselect the first 3 UTXO (150 BTC total)
+    // Preselect the first 3 UTXO (150 SYL total)
     std::set<COutPoint> preset_inputs = {coins[0].outpoint, coins[1].outpoint, coins[2].outpoint};
 
     // Try to create a tx that spends more than what preset inputs + wallet selected inputs are covering for.
-    // The wallet can cover up to 200 BTC, and the tx target is 299 BTC.
+    // The wallet can cover up to 200 SYL, and the tx target is 299 SYL.
     std::vector<CRecipient> recipients{{*Assert(wallet->GetNewDestination(OutputType::BECH32, "dummy")),
                                            /*nAmount=*/9999 * COIN, /*fSubtractFeeFromAmount=*/true}};
     CCoinControl coin_control;
@@ -87,16 +87,16 @@ BOOST_FIXTURE_TEST_CASE(wallet_duplicated_preset_inputs_test, TestChain100Setup)
         coin_control.Select(outpoint);
     }
 
-    // Attempt to send 299 BTC from a wallet that only has 200 BTC. The wallet should exclude
+    // Attempt to send 299 SYL from a wallet that only has 200 SYL. The wallet should exclude
     // the preset inputs from the pool of available coins, realize that there is not enough
-    // money to fund the 299 BTC payment, and fail with "Insufficient funds".
+    // money to fund the 299 SYL payment, and fail with "Insufficient funds".
     //
-    // Even with SFFO, the wallet can only afford to send 200 BTC.
+    // Even with SFFO, the wallet can only afford to send 200 SYL.
     // If the wallet does not properly exclude preset inputs from the pool of available coins
     // prior to coin selection, it may create a transaction that does not fund the full payment
     // amount or, through SFFO, incorrectly reduce the recipient's amount by the difference
-    // between the original target and the wrongly counted inputs (in this case 99 BTC)
-    // so that the recipient's amount is no longer equal to the user's selected target of 299 BTC.
+    // between the original target and the wrongly counted inputs (in this case 99 SYL)
+    // so that the recipient's amount is no longer equal to the user's selected target of 299 SYL.
 
     // First case, use 'subtract_fee_from_outputs=true'
     BOOST_CHECK(!CreateTransaction(*wallet, recipients, /*change_pos=*/std::nullopt, coin_control));

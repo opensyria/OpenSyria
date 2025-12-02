@@ -1,9 +1,9 @@
-// Copyright (c) 2024-present The Bitcoin Core developers
+// Copyright (c) 2024-present The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_TEST_FUZZ_UTIL_THREADINTERRUPT_H
-#define BITCOIN_TEST_FUZZ_UTIL_THREADINTERRUPT_H
+#ifndef OPENSYRIA_TEST_FUZZ_UTIL_THREADINTERRUPT_H
+#define OPENSYRIA_TEST_FUZZ_UTIL_THREADINTERRUPT_H
 
 #include <test/fuzz/FuzzedDataProvider.h>
 #include <util/threadinterrupt.h>
@@ -30,4 +30,4 @@ private:
     return std::make_shared<FuzzedThreadInterrupt>(fuzzed_data_provider);
 }
 
-#endif // BITCOIN_TEST_FUZZ_UTIL_THREADINTERRUPT_H
+#endif // OPENSYRIA_TEST_FUZZ_UTIL_THREADINTERRUPT_H

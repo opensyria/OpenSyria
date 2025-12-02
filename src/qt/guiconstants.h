@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2022 The Bitcoin Core developers
+// Copyright (c) 2011-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_GUICONSTANTS_H
-#define BITCOIN_QT_GUICONSTANTS_H
+#ifndef OPENSYRIA_QT_GUICONSTANTS_H
+#define OPENSYRIA_QT_GUICONSTANTS_H
 
 #include <chrono>
 #include <cstdint>
@@ -47,12 +47,12 @@ static const int TOOLTIP_WRAP_THRESHOLD = 80;
 #define SPINNER_FRAMES 36
 
 #define QAPP_ORG_NAME "OpenSyria"
-#define QAPP_ORG_DOMAIN "bitcoin.org"
+#define QAPP_ORG_DOMAIN "opensyria.org"
 #define QAPP_APP_NAME_DEFAULT "OpenSyria-Qt"
-#define QAPP_APP_NAME_TESTNET "Bitcoin-Qt-testnet"
-#define QAPP_APP_NAME_TESTNET4 "Bitcoin-Qt-testnet4"
+#define QAPP_APP_NAME_TESTNET "OpenSyria-Qt-testnet"
+#define QAPP_APP_NAME_TESTNET4 "OpenSyria-Qt-testnet4"
 #define QAPP_APP_NAME_SIGNET "OpenSyria-Qt-signet"
-#define QAPP_APP_NAME_REGTEST "Bitcoin-Qt-regtest"
+#define QAPP_APP_NAME_REGTEST "OpenSyria-Qt-regtest"
 
 /* One gigabyte (GB) in bytes */
 static constexpr uint64_t GB_BYTES{1000000000};
@@ -60,4 +60,4 @@ static constexpr uint64_t GB_BYTES{1000000000};
 // Default prune target displayed in GUI.
 static constexpr int DEFAULT_PRUNE_TARGET_GB{2};
 
-#endif // BITCOIN_QT_GUICONSTANTS_H
+#endif // OPENSYRIA_QT_GUICONSTANTS_H

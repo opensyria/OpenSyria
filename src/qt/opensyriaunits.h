@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2021 The Bitcoin Core developers
+// Copyright (c) 2011-2021 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -26,7 +26,7 @@
 #define THIN_SP_UTF8 REAL_THIN_SP_UTF8
 #define THIN_SP_HTML HTML_HACK_SP
 
-/** Bitcoin unit definitions. Encapsulates parsing and formatting
+/** OpenSyria unit definitions. Encapsulates parsing and formatting
    and serves as list model for drop-down selection boxes.
 */
 class OpenSyriaUnits: public QAbstractListModel
@@ -36,14 +36,14 @@ class OpenSyriaUnits: public QAbstractListModel
 public:
     explicit OpenSyriaUnits(QObject *parent);
 
-    /** Bitcoin units.
-      @note Source: https://en.bitcoin.it/wiki/Units . Please add only sensible ones
+    /** OpenSyria units.
+      @note Source: https://en.opensyria.it/wiki/Units . Please add only sensible ones
      */
     enum class Unit {
-        BTC,
-        mBTC,
-        uBTC,
-        SAT
+        SYL,
+        mSYL,
+        uSYL,
+        QIRSH
     };
     Q_ENUM(Unit)
 
@@ -66,7 +66,7 @@ public:
     static QString shortName(Unit unit);
     //! Longer description
     static QString description(Unit unit);
-    //! Number of Satoshis (1e-8) per unit
+    //! Number of Qirsh (1e-8) per unit
     static qint64 factor(Unit unit);
     //! Number of decimals left
     static int decimals(Unit unit);
@@ -102,7 +102,7 @@ public:
         return text;
     }
 
-    //! Return maximum number of base units (Satoshis)
+    //! Return maximum number of base units (Qirsh)
     static CAmount maxMoney();
 
 private:

@@ -1,9 +1,9 @@
-// Copyright (c) 2019-present The Bitcoin Core developers
+// Copyright (c) 2019-present The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_WALLET_SCRIPTPUBKEYMAN_H
-#define BITCOIN_WALLET_SCRIPTPUBKEYMAN_H
+#ifndef OPENSYRIA_WALLET_SCRIPTPUBKEYMAN_H
+#define OPENSYRIA_WALLET_SCRIPTPUBKEYMAN_H
 
 #include <addresstype.h>
 #include <common/messages.h>
@@ -420,4 +420,4 @@ struct MigrationData
 
 } // namespace wallet
 
-#endif // BITCOIN_WALLET_SCRIPTPUBKEYMAN_H
+#endif // OPENSYRIA_WALLET_SCRIPTPUBKEYMAN_H

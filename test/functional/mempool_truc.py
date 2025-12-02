@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-# Copyright (c) 2024 The Bitcoin Core developers
+# Copyright (c) 2024 The OpenSyria Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 from decimal import Decimal
 
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import OpenSyriaTestFramework
 from test_framework.util import (
     assert_not_equal,
     assert_equal,
@@ -41,7 +41,7 @@ def cleanup(extra_args=None):
         return wrapper
     return decorator
 
-class MempoolTRUC(BitcoinTestFramework):
+class MempoolTRUC(OpenSyriaTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
         self.extra_args = [[]]
@@ -628,7 +628,7 @@ class MempoolTRUC(BitcoinTestFramework):
             assert_greater_than_or_equal(total_v3_fee, get_fee(total_v3_size, minrelayfeerate))
             if minrelayfeerate > 0:
                 assert_greater_than(get_fee(tx_v3_0fee_parent["tx"].get_vsize(), minrelayfeerate), 0)
-                # Always need to pay at least 1 satoshi for entry, even if minimum feerate is very low
+                # Always need to pay at least 1 qirsh for entry, even if minimum feerate is very low
                 assert_greater_than(total_v3_fee, 0)
                 # Also create a version where the child is at minrelaytxfee
                 tx_v3_child_minrelay = self.wallet.create_self_transfer(utxo_to_spend=tx_v3_0fee_parent["new_utxo"], fee_rate=minrelayfeerate, version=3)
@@ -642,7 +642,7 @@ class MempoolTRUC(BitcoinTestFramework):
             assert_greater_than_or_equal(total_v2_fee, get_fee(total_v2_size, minrelayfeerate))
             if minrelayfeerate > 0:
                 assert_greater_than(get_fee(tx_v2_0fee_parent["tx"].get_vsize(), minrelayfeerate), 0)
-                # Always need to pay at least 1 satoshi for entry, even if minimum feerate is very low
+                # Always need to pay at least 1 qirsh for entry, even if minimum feerate is very low
                 assert_greater_than(total_v2_fee, 0)
 
             result_truc = node.submitpackage([tx_v3_0fee_parent["hex"], tx_v3_child["hex"]], maxfeerate=0)

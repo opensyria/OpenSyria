@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2022 The Bitcoin Core developers
+// Copyright (c) 2017-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -32,7 +32,7 @@ static void import_descriptor(CWallet& wallet, const std::string& descriptor)
 
 BOOST_AUTO_TEST_CASE(psbt_updater_test)
 {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses Bitcoin WIF descriptors
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses OpenSyria WIF descriptors
     return;
     LOCK(m_wallet.cs_wallet);
     m_wallet.SetWalletFlag(WALLET_FLAG_DESCRIPTORS);

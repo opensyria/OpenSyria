@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2019-present The Bitcoin Core developers
+# Copyright (c) 2019-present The OpenSyria Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Run fuzz test targets.
@@ -105,7 +105,7 @@ def main():
         logging.error("Must have fuzz executable built")
         sys.exit(1)
 
-    fuzz_bin=os.getenv("BITCOINFUZZ", default=os.path.join(config["environment"]["BUILDDIR"], 'bin', 'fuzz'))
+    fuzz_bin=os.getenv("OPENSYRIAFUZZ", default=os.path.join(config["environment"]["BUILDDIR"], 'bin', 'fuzz'))
 
     # Build list of tests
     test_list_all = parse_test_list(

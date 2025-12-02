@@ -7,7 +7,7 @@
 #include <ctime>
 
 // Minimal SHA256 implementation for genesis mining
-// In practice, you'd use the actual Bitcoin hashing code
+// In practice, you'd use the actual OpenSyria hashing code
 
 int main() {
     std::cout << "OpenSyria Genesis Block Parameters:" << std::endl;

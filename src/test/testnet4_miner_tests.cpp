@@ -1,8 +1,8 @@
-// Copyright (c) 2025 The Bitcoin Core developers
+// Copyright (c) 2025 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-// OpenSyria: Entire test suite skipped - uses Bitcoin testnet4 genesis block
+// OpenSyria: Entire test suite skipped - uses OpenSyria testnet4 genesis block
 
 #include <boost/test/unit_test.hpp>
 

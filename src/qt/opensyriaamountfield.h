@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2021 The Bitcoin Core developers
+// Copyright (c) 2011-2021 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -6,7 +6,7 @@
 #define OPENSYRIA_QT_OPENSYRIAAMOUNTFIELD_H
 
 #include <consensus/amount.h>
-#include <qt/bitcoinunits.h>
+#include <qt/opensyriaunits.h>
 
 #include <QWidget>
 
@@ -16,14 +16,14 @@ QT_BEGIN_NAMESPACE
 class QValueComboBox;
 QT_END_NAMESPACE
 
-/** Widget for entering bitcoin amounts.
+/** Widget for entering opensyria amounts.
   */
 class OpenSyriaAmountField: public QWidget
 {
     Q_OBJECT
 
     // ugly hack: for some unknown reason CAmount (instead of qint64) does not work here as expected
-    // discussion: https://github.com/bitcoin/bitcoin/pull/5117
+    // discussion: https://github.com/OpenSyria/OpenSyria/pull/5117
     Q_PROPERTY(qint64 value READ value WRITE setValue NOTIFY valueChanged USER true)
 
 public:
@@ -35,13 +35,13 @@ public:
     /** If allow empty is set to false the field will be set to the minimum allowed value if left empty. **/
     void SetAllowEmpty(bool allow);
 
-    /** Set the minimum value in satoshis **/
+    /** Set the minimum value in qirsh **/
     void SetMinValue(const CAmount& value);
 
-    /** Set the maximum value in satoshis **/
+    /** Set the maximum value in qirsh **/
     void SetMaxValue(const CAmount& value);
 
-    /** Set single step in satoshis **/
+    /** Set single step in qirsh **/
     void setSingleStep(const CAmount& step);
 
     /** Make read-only **/

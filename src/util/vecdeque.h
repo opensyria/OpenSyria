@@ -1,9 +1,9 @@
-// Copyright (c) The Bitcoin Core developers
+// Copyright (c) The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_UTIL_VECDEQUE_H
-#define BITCOIN_UTIL_VECDEQUE_H
+#ifndef OPENSYRIA_UTIL_VECDEQUE_H
+#define OPENSYRIA_UTIL_VECDEQUE_H
 
 #include <util/check.h>
 
@@ -314,4 +314,4 @@ public:
     size_t capacity() const noexcept { return m_capacity; }
 };
 
-#endif // BITCOIN_UTIL_VECDEQUE_H
+#endif // OPENSYRIA_UTIL_VECDEQUE_H

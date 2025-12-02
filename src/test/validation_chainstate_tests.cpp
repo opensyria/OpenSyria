@@ -1,4 +1,4 @@
-// Copyright (c) 2020-2022 The Bitcoin Core developers
+// Copyright (c) 2020-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 //
@@ -69,7 +69,7 @@ BOOST_AUTO_TEST_CASE(validation_chainstate_resize_caches)
 //! of what it does for the active chainstate.
 BOOST_FIXTURE_TEST_CASE(chainstate_update_tip, TestChain100Setup)
 {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses Bitcoin assumeutxo data
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses OpenSyria assumeutxo data
     return;
     ChainstateManager& chainman = *Assert(m_node.chainman);
     const auto get_notify_tip{[&]() {

@@ -1,11 +1,11 @@
-// Copyright (c) 2024-present The Bitcoin Core developers
+// Copyright (c) 2024-present The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <kernel/opensyriakernel.h>
-#include <kernel/bitcoinkernel_wrapper.h>
+#include <kernel/opensyriakernel_wrapper.h>
 
-#define BOOST_TEST_MODULE Bitcoin Kernel Test Suite
+#define BOOST_TEST_MODULE OpenSyria Kernel Test Suite
 #include <boost/test/included/unit_test.hpp>
 
 #include <test/kernel/block_data.h>
@@ -611,7 +611,7 @@ Context create_context(std::shared_ptr<TestKernelNotifications> notifications, C
 BOOST_AUTO_TEST_CASE(btck_chainman_tests)
 {
     Logger logger{std::make_unique<TestLog>()};
-    auto test_directory{TestDirectory{"chainman_test_bitcoin_kernel"}};
+    auto test_directory{TestDirectory{"chainman_test_opensyria_kernel"}};
 
     { // test with default context
         Context context{};
@@ -791,7 +791,7 @@ void chainman_mainnet_validation_test(TestDirectory& test_directory)
 
 BOOST_AUTO_TEST_CASE(btck_chainman_mainnet_tests)
 {
-    auto test_directory{TestDirectory{"mainnet_test_bitcoin_kernel"}};
+    auto test_directory{TestDirectory{"mainnet_test_opensyria_kernel"}};
     chainman_mainnet_validation_test(test_directory);
     chainman_reindex_test(test_directory);
     chainman_reindex_chainstate_test(test_directory);
@@ -814,7 +814,7 @@ BOOST_AUTO_TEST_CASE(btck_block_hash_tests)
 
 BOOST_AUTO_TEST_CASE(btck_block_tree_entry_tests)
 {
-    auto test_directory{TestDirectory{"block_tree_entry_test_bitcoin_kernel"}};
+    auto test_directory{TestDirectory{"block_tree_entry_test_opensyria_kernel"}};
     auto notifications{std::make_shared<TestKernelNotifications>()};
     auto context{create_context(notifications, ChainType::REGTEST)};
     auto chainman{create_chainman(
@@ -856,7 +856,7 @@ BOOST_AUTO_TEST_CASE(btck_block_tree_entry_tests)
 
 BOOST_AUTO_TEST_CASE(btck_chainman_in_memory_tests)
 {
-    auto in_memory_test_directory{TestDirectory{"in-memory_test_bitcoin_kernel"}};
+    auto in_memory_test_directory{TestDirectory{"in-memory_test_opensyria_kernel"}};
 
     auto notifications{std::make_shared<TestKernelNotifications>()};
     auto context{create_context(notifications, ChainType::REGTEST)};
@@ -878,7 +878,7 @@ BOOST_AUTO_TEST_CASE(btck_chainman_in_memory_tests)
 
 BOOST_AUTO_TEST_CASE(btck_chainman_regtest_tests)
 {
-    auto test_directory{TestDirectory{"regtest_test_bitcoin_kernel"}};
+    auto test_directory{TestDirectory{"regtest_test_opensyria_kernel"}};
 
     auto notifications{std::make_shared<TestKernelNotifications>()};
     auto context{create_context(notifications, ChainType::REGTEST)};

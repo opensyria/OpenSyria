@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2022 The Bitcoin Core developers
+// Copyright (c) 2011-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -23,7 +23,7 @@ BOOST_FIXTURE_TEST_SUITE(key_io_tests, BasicTestingSetup)
 // Goal: check that parsed keys match test payload
 BOOST_AUTO_TEST_CASE(key_io_valid_parse)
 {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses Bitcoin-specific test vectors
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses OpenSyria-specific test vectors
     return;
     UniValue tests = read_json(json_tests::key_io_valid);
     CKey privkey;
@@ -86,7 +86,7 @@ BOOST_AUTO_TEST_CASE(key_io_valid_parse)
 // Goal: check that generated keys match test vectors
 BOOST_AUTO_TEST_CASE(key_io_valid_gen)
 {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses Bitcoin-specific test vectors
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses OpenSyria-specific test vectors
     return;
     UniValue tests = read_json(json_tests::key_io_valid);
 
@@ -126,7 +126,7 @@ BOOST_AUTO_TEST_CASE(key_io_valid_gen)
 // Goal: check that base58 parsing code is robust against a variety of corrupted data
 BOOST_AUTO_TEST_CASE(key_io_invalid)
 {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses Bitcoin-specific test vectors
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - uses OpenSyria-specific test vectors
     return;
     UniValue tests = read_json(json_tests::key_io_invalid); // Negative testcases
     CKey privkey;

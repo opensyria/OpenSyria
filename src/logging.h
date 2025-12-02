@@ -1,10 +1,10 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The Bitcoin Core developers
+// Copyright (c) 2009-2010 Qirsh Nakamoto
+// Copyright (c) 2009-present The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_LOGGING_H
-#define BITCOIN_LOGGING_H
+#ifndef OPENSYRIA_LOGGING_H
+#define OPENSYRIA_LOGGING_H
 
 #include <crypto/siphash.h>
 #include <threadsafety.h>
@@ -277,7 +277,7 @@ namespace BCLog {
         /** Disable logging
          * This offers a slight speedup and slightly smaller memory usage
          * compared to leaving the logging system in its default state.
-         * Mostly intended for libbitcoin-kernel apps that don't want any logging.
+         * Mostly intended for libopensyria-kernel apps that don't want any logging.
          * Should be used instead of StartLogging().
          */
         void DisableLogging() EXCLUSIVE_LOCKS_REQUIRED(!m_cs);
@@ -393,4 +393,4 @@ inline void LogPrintFormatInternal(std::source_location&& source_loc, BCLog::Log
 #define LogDebug(category, ...) LogPrintLevel(category, BCLog::Level::Debug, __VA_ARGS__)
 #define LogTrace(category, ...) LogPrintLevel(category, BCLog::Level::Trace, __VA_ARGS__)
 
-#endif // BITCOIN_LOGGING_H
+#endif // OPENSYRIA_LOGGING_H

@@ -1,8 +1,8 @@
-// Copyright (c) 2020-2022 The Bitcoin Core developers
+// Copyright (c) 2020-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <bitcoin-build-config.h> // IWYU pragma: keep
+#include <opensyria-build-config.h> // IWYU pragma: keep
 
 #include <tinyformat.h>
 #include <util/syserror.h>

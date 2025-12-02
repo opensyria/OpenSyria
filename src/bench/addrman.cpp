@@ -1,4 +1,4 @@
-// Copyright (c) 2020-2022 The Bitcoin Core developers
+// Copyright (c) 2020-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -110,7 +110,7 @@ static void AddrManSelectFromAlmostEmpty(benchmark::Bench& bench)
     AddrMan addrman{EMPTY_NETGROUPMAN, /*deterministic=*/false, ADDRMAN_CONSISTENCY_CHECK_RATIO};
 
     // Add one address to the new table
-    CService addr = Lookup("250.3.1.1", 8333, false).value();
+    CService addr = Lookup("250.3.1.1", 9633, false).value();
     addrman.Add({CAddress(addr, NODE_NONE)}, addr);
 
     bench.run([&] {

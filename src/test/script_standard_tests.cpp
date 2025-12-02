@@ -1,4 +1,4 @@
-// Copyright (c) 2017-2022 The Bitcoin Core developers
+// Copyright (c) 2017-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -386,7 +386,7 @@ BOOST_AUTO_TEST_CASE(script_standard_GetScriptFor_)
 
 BOOST_AUTO_TEST_CASE(script_standard_taproot_builder)
 {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - expects Bitcoin bech32 addresses
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - expects OpenSyria bech32 addresses
     return;
     BOOST_CHECK_EQUAL(TaprootBuilder::ValidDepths({}), true);
     BOOST_CHECK_EQUAL(TaprootBuilder::ValidDepths({0}), true);
@@ -454,7 +454,7 @@ BOOST_AUTO_TEST_CASE(script_standard_taproot_builder)
 
 BOOST_AUTO_TEST_CASE(bip341_spk_test_vectors)
 {
-    // TODO(OpenSyria): Re-enable after regenerating test vectors - expects Bitcoin bech32 addresses
+    // TODO(OpenSyria): Re-enable after regenerating test vectors - expects OpenSyria bech32 addresses
     return;
     using control_set = decltype(TaprootSpendData::scripts)::mapped_type;
 

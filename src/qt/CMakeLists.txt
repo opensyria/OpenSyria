@@ -54,7 +54,7 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOUIC_SEARCH_PATHS forms)
 
 set(CMAKE_AUTORCC OFF)
-configure_file(opensyria_locale.qrc bitcoin_locale.qrc USE_SOURCE_PERMISSIONS COPYONLY)
+configure_file(opensyria_locale.qrc opensyria_locale.qrc USE_SOURCE_PERMISSIONS COPYONLY)
 qt6_add_resources(OPENSYRIA_QRC opensyria.qrc)
 qt6_add_resources(OPENSYRIA_LOCALE_QRC ${CMAKE_CURRENT_BINARY_DIR}/opensyria_locale.qrc)
 # See: https://bugreports.qt.io/browse/QTBUG-141858.
@@ -148,7 +148,7 @@ target_link_libraries(opensyriaqt
     Qt6::Widgets
   PRIVATE
     core_interface
-    bitcoin_cli
+    opensyria_cli
     leveldb
     Boost::headers
     $<TARGET_NAME_IF_EXISTS:QRencode::QRencode>
@@ -222,7 +222,7 @@ if(ENABLE_WALLET)
   )
   target_link_libraries(opensyriaqt
     PRIVATE
-      bitcoin_wallet
+      opensyria_wallet
       Qt6::Network
   )
 endif()
@@ -255,45 +255,45 @@ endif()
 
 add_subdirectory(locale)
 
-add_executable(bitcoin-qt
+add_executable(opensyria-qt
   main.cpp
   ../init/opensyria-qt.cpp
 )
-  set_target_properties(bitcoin-qt PROPERTIES OUTPUT_NAME opensyria-qt)
-  set_target_properties(bitcoin-qt PROPERTIES OUTPUT_NAME opensyria-qt)
+  set_target_properties(opensyria-qt PROPERTIES OUTPUT_NAME opensyria-qt)
+  set_target_properties(opensyria-qt PROPERTIES OUTPUT_NAME opensyria-qt)
 
-add_windows_resources(bitcoin-qt res/bitcoin-qt-res.rc)
-add_windows_application_manifest(bitcoin-qt)
+add_windows_resources(opensyria-qt res/opensyria-qt-res.rc)
+add_windows_application_manifest(opensyria-qt)
 
-target_link_libraries(bitcoin-qt
+target_link_libraries(opensyria-qt
   core_interface
   opensyriaqt
-  bitcoin_node
+  opensyria_node
 )
 
-import_plugins(bitcoin-qt)
-install_binary_component(bitcoin-qt HAS_MANPAGE)
+import_plugins(opensyria-qt)
+install_binary_component(opensyria-qt HAS_MANPAGE)
 if(WIN32)
-  set_target_properties(bitcoin-qt PROPERTIES WIN32_EXECUTABLE TRUE)
+  set_target_properties(opensyria-qt PROPERTIES WIN32_EXECUTABLE TRUE)
 endif()
 
 if(ENABLE_IPC)
-  add_executable(bitcoin-gui
+  add_executable(opensyria-gui
     main.cpp
     ../init/opensyria-gui.cpp
   )
-    set_target_properties(bitcoin-gui PROPERTIES OUTPUT_NAME opensyria-gui)
-    set_target_properties(bitcoin-gui PROPERTIES OUTPUT_NAME opensyria-gui)
-  target_link_libraries(bitcoin-gui
+    set_target_properties(opensyria-gui PROPERTIES OUTPUT_NAME opensyria-gui)
+    set_target_properties(opensyria-gui PROPERTIES OUTPUT_NAME opensyria-gui)
+  target_link_libraries(opensyria-gui
     core_interface
     opensyriaqt
-    bitcoin_node
-    bitcoin_ipc
+    opensyria_node
+    opensyria_ipc
   )
-  import_plugins(bitcoin-gui)
-  install_binary_component(bitcoin-gui INTERNAL)
+  import_plugins(opensyria-gui)
+  install_binary_component(opensyria-gui INTERNAL)
   if(WIN32)
-    set_target_properties(bitcoin-gui PROPERTIES WIN32_EXECUTABLE TRUE)
+    set_target_properties(opensyria-gui PROPERTIES WIN32_EXECUTABLE TRUE)
   endif()
 endif()
 

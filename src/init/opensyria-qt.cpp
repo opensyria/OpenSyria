@@ -16,7 +16,7 @@
 
 namespace init {
 namespace {
-const char* EXE_NAME = "bitcoin-qt";
+const char* EXE_NAME = "opensyria-qt";
 
 class OpenSyriaQtInit : public interfaces::Init
 {

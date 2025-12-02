@@ -1,11 +1,11 @@
-// Copyright (c) 2011-present The Bitcoin Core developers
+// Copyright (c) 2011-present The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #ifndef OPENSYRIA_QT_OPENSYRIA_H
 #define OPENSYRIA_QT_OPENSYRIA_H
 
-#include <bitcoin-build-config.h> // IWYU pragma: keep
+#include <opensyria-build-config.h> // IWYU pragma: keep
 
 #include <interfaces/node.h>
 #include <qt/initexecutor.h>
@@ -30,7 +30,7 @@ class Init;
 } // namespace interfaces
 
 
-/** Main Bitcoin application object */
+/** Main OpenSyria application object */
 class OpenSyriaApplication: public QApplication
 {
     Q_OBJECT

@@ -4,33 +4,33 @@
 
 set(CMAKE_AUTOMOC_MOC_OPTIONS "-p${CMAKE_CURRENT_SOURCE_DIR}")
 
-add_executable(test_bitcoin-qt
+add_executable(test_opensyria-qt
   apptests.cpp
   optiontests.cpp
   rpcnestedtests.cpp
   test_main.cpp
   uritests.cpp
   util.cpp
-  ../../init/bitcoin-qt.cpp
+  ../../init/opensyria-qt.cpp
 )
-set_target_properties(test_bitcoin-qt PROPERTIES OUTPUT_NAME test_opensyria-qt)
-set_target_properties(test_bitcoin-qt PROPERTIES OUTPUT_NAME test_opensyria-qt)
+set_target_properties(test_opensyria-qt PROPERTIES OUTPUT_NAME test_opensyria-qt)
+set_target_properties(test_opensyria-qt PROPERTIES OUTPUT_NAME test_opensyria-qt)
 
-add_windows_application_manifest(test_bitcoin-qt)
+add_windows_application_manifest(test_opensyria-qt)
 
-target_link_libraries(test_bitcoin-qt
+target_link_libraries(test_opensyria-qt
   core_interface
   opensyriaqt
   test_util
-  bitcoin_node
+  opensyria_node
   Boost::headers
   Qt6::Test
 )
 
-import_plugins(test_bitcoin-qt)
+import_plugins(test_opensyria-qt)
 
 if(ENABLE_WALLET)
-  target_sources(test_bitcoin-qt
+  target_sources(test_opensyria-qt
     PRIVATE
       addressbooktests.cpp
       wallettests.cpp
@@ -38,12 +38,12 @@ if(ENABLE_WALLET)
   )
 endif()
 
-add_test(NAME test_bitcoin-qt
-  COMMAND test_bitcoin-qt
+add_test(NAME test_opensyria-qt
+  COMMAND test_opensyria-qt
 )
 if(WIN32 AND VCPKG_TARGET_TRIPLET)
   set(plugin_path "$<SHELL_PATH:$<PATH:GET_PARENT_PATH,$<PATH:GET_PARENT_PATH,$<TARGET_PROPERTY:Qt6::QWindowsIntegrationPlugin,LOCATION_$<CONFIG>>>>>")
-  set_property(TEST test_bitcoin-qt APPEND PROPERTY
+  set_property(TEST test_opensyria-qt APPEND PROPERTY
     ENVIRONMENT_MODIFICATION
       # On Windows, vcpkg configures Qt with `-opengl dynamic`, which makes
       # the "minimal" platform plugin unusable due to internal Qt bugs.
@@ -53,4 +53,4 @@ if(WIN32 AND VCPKG_TARGET_TRIPLET)
   unset(plugin_path)
 endif()
 
-install_binary_component(test_bitcoin-qt INTERNAL)
+install_binary_component(test_opensyria-qt INTERNAL)

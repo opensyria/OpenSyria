@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2021 The Bitcoin Core developers
+// Copyright (c) 2011-2021 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_QT_WALLETFRAME_H
-#define BITCOIN_QT_WALLETFRAME_H
+#ifndef OPENSYRIA_QT_WALLETFRAME_H
+#define OPENSYRIA_QT_WALLETFRAME_H
 
 #include <QFrame>
 #include <QMap>
@@ -81,7 +81,7 @@ public Q_SLOTS:
     /** Show Sign/Verify Message dialog and switch to verify message tab */
     void gotoVerifyMessageTab(QString addr = "");
 
-    /** Load Partially Signed Bitcoin Transaction */
+    /** Load Partially Signed OpenSyria Transaction */
     void gotoLoadPSBT(bool from_clipboard = false);
 
     /** Encrypt the wallet */
@@ -99,4 +99,4 @@ public Q_SLOTS:
     void usedReceivingAddresses();
 };
 
-#endif // BITCOIN_QT_WALLETFRAME_H
+#endif // OPENSYRIA_QT_WALLETFRAME_H

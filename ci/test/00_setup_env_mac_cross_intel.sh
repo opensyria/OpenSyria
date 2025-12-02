@@ -6,7 +6,7 @@
 
 export LC_ALL=C.UTF-8
 
-export SDK_URL=${SDK_URL:-https://bitcoincore.org/depends-sources/sdks}
+export SDK_URL=${SDK_URL:-https://opensyriacore.org/depends-sources/sdks}
 
 export CONTAINER_NAME=ci_macos_cross_intel
 export CI_IMAGE_NAME_TAG="mirror.gcr.io/debian:trixie" # Check that https://packages.debian.org/trixie/clang (version 19, similar to guix) can cross-compile
@@ -17,7 +17,7 @@ export XCODE_BUILD_ID=15A240d
 export RUN_UNIT_TESTS=false
 export RUN_FUNCTIONAL_TESTS=false
 export GOAL="deploy"
-export BITCOIN_CONFIG="\
+export OPENSYRIA_CONFIG="\
  --preset=dev-mode \
  -DWITH_USDT=OFF \
  -DREDUCE_EXPORTS=ON \

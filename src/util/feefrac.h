@@ -1,9 +1,9 @@
-// Copyright (c) The Bitcoin Core developers
+// Copyright (c) The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_UTIL_FEEFRAC_H
-#define BITCOIN_UTIL_FEEFRAC_H
+#ifndef OPENSYRIA_UTIL_FEEFRAC_H
+#define OPENSYRIA_UTIL_FEEFRAC_H
 
 #include <span.h>
 #include <util/check.h>
@@ -247,12 +247,12 @@ struct FeePerUnit : public FeeFrac
     }
 };
 
-// FeePerUnit instance for satoshi / vbyte.
+// FeePerUnit instance for qirsh / vbyte.
 struct VSizeTag {};
 using FeePerVSize = FeePerUnit<VSizeTag>;
 
-// FeePerUnit instance for satoshi / WU.
+// FeePerUnit instance for qirsh / WU.
 struct WeightTag {};
 using FeePerWeight = FeePerUnit<WeightTag>;
 
-#endif // BITCOIN_UTIL_FEEFRAC_H
+#endif // OPENSYRIA_UTIL_FEEFRAC_H

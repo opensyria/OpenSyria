@@ -1,10 +1,10 @@
-// Copyright (c) 2009-2010 Satoshi Nakamoto
+// Copyright (c) 2009-2010 Qirsh Nakamoto
 // Copyright (c) 2009-2022 The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_CHAIN_H
-#define BITCOIN_CHAIN_H
+#ifndef OPENSYRIA_CHAIN_H
+#define OPENSYRIA_CHAIN_H
 
 #include <arith_uint256.h>
 #include <consensus/params.h>
@@ -43,7 +43,7 @@ static constexpr int32_t SEQ_ID_INIT_FROM_DISK = 1;
  * Maximum gap between node time and block time used
  * for the "Catching up..." mode in GUI.
  *
- * Ref: https://github.com/bitcoin/bitcoin/pull/1026
+ * Ref: https://github.com/OpenSyria/OpenSyria/pull/1026
  */
 static constexpr int64_t MAX_BLOCK_TIME_GAP = 90 * 60;
 
@@ -444,4 +444,4 @@ CBlockLocator GetLocator(const CBlockIndex* index);
 /** Construct a list of hash entries to put in a locator.  */
 std::vector<uint256> LocatorEntries(const CBlockIndex* index);
 
-#endif // BITCOIN_CHAIN_H
+#endif // OPENSYRIA_CHAIN_H

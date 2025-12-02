@@ -1,37 +1,37 @@
-Bitcoin Core version 28.3 is now available from:
+OpenSyria Core version 28.3 is now available from:
 
-  <https://bitcoincore.org/bin/bitcoin-core-28.3/>
+  <https://opensyriacore.org/bin/opensyria-core-28.3/>
 
 This release includes various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/bitcoin/bitcoin/issues>
+  <https://github.com/opensyria/opensyria/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://bitcoincore.org/en/list/announcements/join/>
+  <https://opensyriacore.org/en/list/announcements/join/>
 
 How to Upgrade
 ==============
 
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes in some cases), then run the
-installer (on Windows) or just copy over `/Applications/Bitcoin-Qt` (on macOS)
-or `bitcoind`/`bitcoin-qt` (on Linux).
+installer (on Windows) or just copy over `/Applications/OpenSyria-Qt` (on macOS)
+or `opensyriad`/`opensyria-qt` (on Linux).
 
-Upgrading directly from a version of Bitcoin Core that has reached its EOL is
+Upgrading directly from a version of OpenSyria Core that has reached its EOL is
 possible, but it might take some time if the data directory needs to be migrated. Old
-wallet versions of Bitcoin Core are generally supported.
+wallet versions of OpenSyria Core are generally supported.
 
 Compatibility
 ==============
 
-Bitcoin Core is supported and extensively tested on operating systems
-using the Linux Kernel 3.17+, macOS 11.0+, and Windows 7 and newer. Bitcoin
+OpenSyria Core is supported and extensively tested on operating systems
+using the Linux Kernel 3.17+, macOS 11.0+, and Windows 7 and newer. OpenSyria
 Core should also work on most other UNIX-like systems but is not as
-frequently tested on them. It is not recommended to use Bitcoin Core on
+frequently tested on them. It is not recommended to use OpenSyria Core on
 unsupported systems.
 
 Notable changes
@@ -39,11 +39,11 @@ Notable changes
 
 ### Mempool & Policy
 
- The minimum block feerate (`-blockmintxfee`) has been changed to 1 satoshi per kvB. It can still be changed using the
+ The minimum block feerate (`-blockmintxfee`) has been changed to 1 qirsh per kvB. It can still be changed using the
 configuration option.
 
 - The default minimum relay feerate (`-minrelaytxfee`) and incremental relay feerate (`-incrementalrelayfee`) have been
-changed to 100 satoshis per kvB. They can still be changed using their respective configuration options, but it is
+changed to 100 qirshs per kvB. They can still be changed using their respective configuration options, but it is
 recommended to change both together if you decide to do so.
   - Other minimum feerates (e.g. the dust feerate, the minimum returned by the fee estimator, and all feerates used by
   the wallet) remain unchanged. The mempool minimum feerate still changes in response to high volume.
@@ -107,4 +107,4 @@ Thanks to everyone who directly contributed to this release:
 - zaidmstrr
 
 As well as to everyone that helped with translations on
-[Transifex](https://explore.transifex.com/bitcoin/bitcoin/).
+[Transifex](https://explore.transifex.com/opensyria/opensyria/).

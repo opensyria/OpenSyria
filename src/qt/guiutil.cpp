@@ -1,11 +1,11 @@
-// Copyright (c) 2011-present The Bitcoin Core developers
+// Copyright (c) 2011-present The OpenSyria Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <qt/guiutil.h>
 
-#include <qt/bitcoinaddressvalidator.h>
-#include <qt/bitcoinunits.h>
+#include <qt/opensyriaaddressvalidator.h>
+#include <qt/opensyriaunits.h>
 #include <qt/platformstyle.h>
 #include <qt/qvalidatedlineedit.h>
 #include <qt/sendcoinsrecipient.h>
@@ -135,7 +135,7 @@ void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)
     widget->setFont(fixedPitchFont());
     // We don't want translators to use own addresses in translations
     // and this is the only place, where this address is supplied.
-    widget->setPlaceholderText(QObject::tr("Enter a Bitcoin address (e.g. %1)").arg(
+    widget->setPlaceholderText(QObject::tr("Enter a OpenSyria address (e.g. %1)").arg(
         QString::fromStdString(DummyAddress(Params()))));
     widget->setValidator(new OpenSyriaAddressEntryValidator(parent));
     widget->setCheckValidator(new OpenSyriaAddressCheckValidator(parent));
@@ -148,8 +148,8 @@ void AddButtonShortcut(QAbstractButton* button, const QKeySequence& shortcut)
 
 bool parseOpenSyriaURI(const QUrl &uri, SendCoinsRecipient *out)
 {
-    // return if URI is not valid or is no bitcoin: URI
-    if(!uri.isValid() || uri.scheme() != QString("bitcoin"))
+    // return if URI is not valid or is no opensyria: URI
+    if(!uri.isValid() || uri.scheme() != QString("opensyria"))
         return false;
 
     SendCoinsRecipient rv;
@@ -185,7 +185,7 @@ bool parseOpenSyriaURI(const QUrl &uri, SendCoinsRecipient *out)
         {
             if(!i->second.isEmpty())
             {
-                if (!OpenSyriaUnits::parse(OpenSyriaUnit::BTC, i->second, &rv.amount)) {
+                if (!OpenSyriaUnits::parse(OpenSyriaUnit::SYL, i->second, &rv.amount)) {
                     return false;
                 }
             }
@@ -217,7 +217,7 @@ QString formatOpenSyriaURI(const SendCoinsRecipient &info)
 
     if (info.amount)
     {
-        ret += QString("?amount=%1").arg(OpenSyriaUnits::format(OpenSyriaUnit::BTC, info.amount, false, OpenSyriaUnits::SeparatorStyle::NEVER));
+        ret += QString("?amount=%1").arg(OpenSyriaUnits::format(OpenSyriaUnit::SYL, info.amount, false, OpenSyriaUnits::SeparatorStyle::NEVER));
         paramCount++;
     }
 
@@ -435,7 +435,7 @@ void openDebugLogfile()
         QDesktopServices::openUrl(QUrl::fromLocalFile(PathToQString(pathDebug)));
 }
 
-bool openBitcoinConf()
+bool openOpenSyriaConf()
 {
     fs::path pathConfig = gArgs.GetConfigFilePath();
 
@@ -447,7 +447,7 @@ bool openBitcoinConf()
 
     configFile.close();
 
-    /* Open bitcoin.conf with the associated application */
+    /* Open opensyria.conf with the associated application */
     bool res = QDesktopServices::openUrl(QUrl::fromLocalFile(PathToQString(pathConfig)));
 #ifdef Q_OS_MACOS
     // Workaround for macOS-specific behavior; see #15409.
@@ -513,13 +513,13 @@ fs::path static StartupShortcutPath()
     if (chain == ChainType::MAIN)
         return GetSpecialFolderPath(CSIDL_STARTUP) / "OpenSyria.lnk";
     if (chain == ChainType::TESTNET) // Remove this special case when testnet CBaseChainParams::DataDir() is incremented to "testnet4"
-        return GetSpecialFolderPath(CSIDL_STARTUP) / "Bitcoin (testnet).lnk";
+        return GetSpecialFolderPath(CSIDL_STARTUP) / "OpenSyria (testnet).lnk";
     return GetSpecialFolderPath(CSIDL_STARTUP) / fs::u8path(strprintf("OpenSyria (%s).lnk", ChainTypeToString(chain)));
 }
 
 bool GetStartOnSystemStartup()
 {
-    // check for Bitcoin*.lnk
+    // check for OpenSyria*.lnk
     return fs::exists(StartupShortcutPath());
 }
 
@@ -594,8 +594,8 @@ fs::path static GetAutostartFilePath()
 {
     ChainType chain = gArgs.GetChainType();
     if (chain == ChainType::MAIN)
-        return GetAutostartDir() / "bitcoin.desktop";
-    return GetAutostartDir() / fs::u8path(strprintf("bitcoin-%s.desktop", ChainTypeToString(chain)));
+        return GetAutostartDir() / "opensyria.desktop";
+    return GetAutostartDir() / fs::u8path(strprintf("opensyria-%s.desktop", ChainTypeToString(chain)));
 }
 
 bool GetStartOnSystemStartup()
@@ -636,13 +636,13 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         if (!optionFile.good())
             return false;
         ChainType chain = gArgs.GetChainType();
-        // Write a bitcoin.desktop file to the autostart directory:
+        // Write a opensyria.desktop file to the autostart directory:
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
         if (chain == ChainType::MAIN)
-            optionFile << "Name=Bitcoin\n";
+            optionFile << "Name=OpenSyria\n";
         else
-            optionFile << strprintf("Name=Bitcoin (%s)\n", ChainTypeToString(chain));
+            optionFile << strprintf("Name=OpenSyria (%s)\n", ChainTypeToString(chain));
         optionFile << "Exec=" << pszExePath << strprintf(" -min -chain=%s\n", ChainTypeToString(chain));
         optionFile << "Terminal=false\n";
         optionFile << "Hidden=false\n";

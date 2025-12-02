@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2017-present The Bitcoin Core developers
+# Copyright (c) 2017-present The OpenSyria Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test RPC calls related to net.
@@ -17,7 +17,7 @@ from test_framework.p2p import (
     P2PInterface,
     P2P_SERVICES,
 )
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import OpenSyriaTestFramework
 from test_framework.util import (
     assert_approx,
     assert_equal,
@@ -49,17 +49,17 @@ def seed_addrman(node):
     # If the addrman positioning/bucketing is changed, these might collide
     # and adding them fails.
     success = { "success": True }
-    assert_equal(node.addpeeraddress(address="1.2.3.4", tried=True, port=8333), success)
-    assert_equal(node.addpeeraddress(address="2.0.0.0", port=8333), success)
-    assert_equal(node.addpeeraddress(address="1233:3432:2434:2343:3234:2345:6546:4534", tried=True, port=8333), success)
+    assert_equal(node.addpeeraddress(address="1.2.3.4", tried=True, port=9633), success)
+    assert_equal(node.addpeeraddress(address="2.0.0.0", port=9633), success)
+    assert_equal(node.addpeeraddress(address="1233:3432:2434:2343:3234:2345:6546:4534", tried=True, port=9633), success)
     assert_equal(node.addpeeraddress(address="2803:0:1234:abcd::1", port=45324), success)
-    assert_equal(node.addpeeraddress(address="fc00:1:2:3:4:5:6:7", port=8333), success)
-    assert_equal(node.addpeeraddress(address="pg6mmjiyjmcrsslvykfwnntlaru7p5svn6y2ymmju6nubxndf4pscryd.onion", tried=True, port=8333), success)
+    assert_equal(node.addpeeraddress(address="fc00:1:2:3:4:5:6:7", port=9633), success)
+    assert_equal(node.addpeeraddress(address="pg6mmjiyjmcrsslvykfwnntlaru7p5svn6y2ymmju6nubxndf4pscryd.onion", tried=True, port=9633), success)
     assert_equal(node.addpeeraddress(address="nrfj6inpyf73gpkyool35hcmne5zwfmse3jl3aw23vk7chdemalyaqad.onion", port=45324, tried=True), success)
-    assert_equal(node.addpeeraddress(address="c4gfnttsuwqomiygupdqqqyy5y5emnk5c73hrfvatri67prd7vyq.b32.i2p", port=8333), success)
+    assert_equal(node.addpeeraddress(address="c4gfnttsuwqomiygupdqqqyy5y5emnk5c73hrfvatri67prd7vyq.b32.i2p", port=9633), success)
 
 
-class NetTest(BitcoinTestFramework):
+class NetTest(OpenSyriaTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.extra_args = [["-minrelaytxfee=0.00001000"], ["-minrelaytxfee=0.00000500"]]
@@ -288,7 +288,7 @@ class NetTest(BitcoinTestFramework):
 
         # Add an IPv6 address to the address manager.
         ipv6_addr = "1233:3432:2434:2343:3234:2345:6546:4534"
-        self.nodes[0].addpeeraddress(address=ipv6_addr, port=8333)
+        self.nodes[0].addpeeraddress(address=ipv6_addr, port=9633)
 
         # Add 10,000 IPv4 addresses to the address manager. Due to the way bucket
         # and bucket positions are calculated, some of these addresses will collide.
@@ -346,11 +346,11 @@ class NetTest(BitcoinTestFramework):
         assert "unknown command: addpeeraddress" not in node.help("addpeeraddress")
 
         self.log.debug("Test that adding an empty address fails")
-        assert_raises_rpc_error(-30, "Invalid IP address", node.addpeeraddress, address="", port=8333)
+        assert_raises_rpc_error(-30, "Invalid IP address", node.addpeeraddress, address="", port=9633)
         assert_equal(node.getnodeaddresses(count=0), [])
 
         self.log.debug("Test that adding a non-IP/hostname fails (no DNS lookup allowed)")
-        assert_raises_rpc_error(-30, "Invalid IP address", node.addpeeraddress, address="not_an_ip", port=8333)
+        assert_raises_rpc_error(-30, "Invalid IP address", node.addpeeraddress, address="not_an_ip", port=9633)
 
         self.log.debug("Test that non-bool tried fails")
         assert_raises_rpc_error(-3, "JSON value of type string is not of expected type bool", self.nodes[0].addpeeraddress, address="1.2.3.4", tried="True", port=1234)
@@ -360,7 +360,7 @@ class NetTest(BitcoinTestFramework):
         assert_raises_rpc_error(-1, "JSON integer out of range", self.nodes[0].addpeeraddress, address="1.2.3.4", port=65536)
 
         self.log.debug("Test that adding a valid address to the new table succeeds")
-        assert_equal(node.addpeeraddress(address="1.0.0.0", tried=False, port=8333), {"success": True})
+        assert_equal(node.addpeeraddress(address="1.0.0.0", tried=False, port=9633), {"success": True})
         addrman = node.getrawaddrman()
         assert_equal(len(addrman["tried"]), 0)
         new_table = list(addrman["new"].values())
@@ -370,11 +370,11 @@ class NetTest(BitcoinTestFramework):
 
         self.log.debug("Test that adding an already-present new address to the new and tried tables fails")
         for value in [True, False]:
-            assert_equal(node.addpeeraddress(address="1.0.0.0", tried=value, port=8333), {"success": False, "error": "failed-adding-to-new"})
+            assert_equal(node.addpeeraddress(address="1.0.0.0", tried=value, port=9633), {"success": False, "error": "failed-adding-to-new"})
         assert_equal(len(node.getnodeaddresses(count=0)), 1)
 
         self.log.debug("Test that adding a valid address to the tried table succeeds")
-        assert_equal(node.addpeeraddress(address="1.2.3.4", tried=True, port=8333), {"success": True})
+        assert_equal(node.addpeeraddress(address="1.2.3.4", tried=True, port=9633), {"success": True})
         addrman = node.getrawaddrman()
         assert_equal(len(addrman["new"]), 1)
         tried_table = list(addrman["tried"].values())
@@ -385,12 +385,12 @@ class NetTest(BitcoinTestFramework):
 
         self.log.debug("Test that adding an already-present tried address to the new and tried tables fails")
         for value in [True, False]:
-            assert_equal(node.addpeeraddress(address="1.2.3.4", tried=value, port=8333), {"success": False, "error": "failed-adding-to-new"})
+            assert_equal(node.addpeeraddress(address="1.2.3.4", tried=value, port=9633), {"success": False, "error": "failed-adding-to-new"})
         assert_equal(len(node.getnodeaddresses(count=0)), 2)
 
         self.log.debug("Test that adding an address, which collides with the address in tried table, fails")
         colliding_address = "1.2.5.45"  # grinded address that produces a tried-table collision
-        assert_equal(node.addpeeraddress(address=colliding_address, tried=True, port=8333), {"success": False, "error": "failed-adding-to-tried"})
+        assert_equal(node.addpeeraddress(address=colliding_address, tried=True, port=9633), {"success": False, "error": "failed-adding-to-tried"})
         # When adding an address to the tried table, it's first added to the new table.
         # As we fail to move it to the tried table, it remains in the new table.
         addrman_info = node.getaddrmaninfo()
@@ -398,7 +398,7 @@ class NetTest(BitcoinTestFramework):
         assert_equal(addrman_info["all_networks"]["new"], 2)
 
         self.log.debug("Test that adding an another address to the new table succeeds")
-        assert_equal(node.addpeeraddress(address="2.0.0.0", port=8333), {"success": True})
+        assert_equal(node.addpeeraddress(address="2.0.0.0", port=9633), {"success": True})
         addrman_info = node.getaddrmaninfo()
         assert_equal(addrman_info["all_networks"]["tried"], 1)
         assert_equal(addrman_info["all_networks"]["new"], 3)

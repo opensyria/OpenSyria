@@ -99,7 +99,7 @@ IfMacros:
   - KJ_IF_MAYBE
 IncludeBlocks:   Preserve
 IncludeCategories:
-  - Regex:           '^<bitcoin-build-config\.h>'
+  - Regex:           '^<opensyria-build-config\.h>'
     Priority:        -1
     CaseSensitive:   true
   - Regex:           '^<boost/'

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2020-2021 The Bitcoin Core developers
+# Copyright (c) 2020-2021 The OpenSyria Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """
@@ -20,7 +20,7 @@ from test_framework.p2p import (
     p2p_lock,
     P2P_SERVICES,
 )
-from test_framework.test_framework import BitcoinTestFramework
+from test_framework.test_framework import OpenSyriaTestFramework
 from test_framework.util import (
     assert_equal,
     assert_greater_than,
@@ -53,8 +53,8 @@ class AddrReceiver(P2PInterface):
                 # relay_tests checks the content of the addr messages match
                 # expectations based on the message creation in setup_addr_msg
                 assert_equal(addr.nServices, 9)
-                if not 8333 <= addr.port < 8343:
-                    raise AssertionError("Invalid addr.port of {} (8333-8342 expected)".format(addr.port))
+                if not 9633 <= addr.port < 9643:
+                    raise AssertionError("Invalid addr.port of {} (9633-9642 expected)".format(addr.port))
                 assert addr.ip.startswith('123.123.')
 
     def on_getaddr(self, message):
@@ -84,7 +84,7 @@ class AddrReceiver(P2PInterface):
         return self.message_count['getaddr'] > 0
 
 
-class AddrTest(BitcoinTestFramework):
+class AddrTest(OpenSyriaTestFramework):
     counter = 0
     mocktime = int(time.time())
 
@@ -118,7 +118,7 @@ class AddrTest(BitcoinTestFramework):
                 self.counter += 1
             else:
                 addr.ip = f"{random.randrange(128,169)}.{random.randrange(1,255)}.{random.randrange(1,255)}.{random.randrange(1,255)}"
-            addr.port = 8333 + i
+            addr.port = 9633 + i
             addrs.append(addr)
 
         msg = msg_addr()
