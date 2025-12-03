@@ -91,8 +91,8 @@ class WalletDescriptorTest(OpenSyriaTestFramework):
         self.log.info("Checking wallet info")
         wallet_info = wallet.getwalletinfo()
         assert_equal(wallet_info['format'], 'sqlite')
-        assert_equal(wallet_info['keypoolsize'], 80000)
-        assert_equal(wallet_info['keypoolsize_hd_internal'], 80000)
+        assert_equal(wallet_info['keypoolsize'], 400)
+        assert_equal(wallet_info['keypoolsize_hd_internal'], 400)
         assert 'keypoololdest' not in wallet_info
 
         # Check that getnewaddress works

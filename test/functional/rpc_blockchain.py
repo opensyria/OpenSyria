@@ -29,7 +29,6 @@ import subprocess
 import textwrap
 
 from test_framework.blocktools import (
-from test_framework.blocktools import BLOCK_REWARD
     MAX_FUTURE_BLOCK_TIME,
     TIME_GENESIS_BLOCK,
     REGTEST_N_BITS,
