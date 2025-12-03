@@ -123,7 +123,8 @@ class ScantxoutsetTest(OpenSyriaTestFramework):
 
         # Check that the blockhash and confirmations fields are correct
         self.generate(self.nodes[0], 2)
-        unspent = self.nodes[0].scantxoutset("start", ["addr(mpQ8rokAhp1TAtJQR6F6TaUmjAWkAWYYBq)"])["unspents"][0]
+        # Use combo descriptor instead of addr() since address prefixes differ between Bitcoin and OpenSyria
+        unspent = self.nodes[0].scantxoutset("start", ["combo(tprv8ZgxMBicQKsPd7Uf69XL1XwhmjHopUGep8GuEiJDZmbQz6o58LninorQAfcKZWARbtRtfnLcJ5MQ2AtHcQJCCRUcMRvmDUjyEmNUWwx8UbK/1/1/1500)"])["unspents"][0]
         blockhash = self.nodes[0].getblockhash(info["height"])
         assert_equal(unspent["height"], info["height"])
         assert_equal(unspent["blockhash"], blockhash)

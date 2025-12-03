@@ -83,8 +83,12 @@ class ScanblocksTest(OpenSyriaTestFramework):
         # finding a false-positive at runtime would take too long, hence we simply
         # use a pre-calculated one that collides with the regtest genesis block's
         # coinbase output and verify that their BIP158 ranged hashes match
-        # NOTE: OpenSyria has a different genesis block, so we skip the pre-calculated
-        # false-positive collision test but still test the filter_false_positives option
+        #
+        # TODO: OpenSyria needs a new pre-calculated false-positive collision
+        # for its genesis block. The Bitcoin collision (001400000000000000000000000000000000000cadcb)
+        # doesn't work with OpenSyria's different genesis coinbase. Computing a new
+        # collision requires brute-forcing ~2^20 hashes. For now, we only test that
+        # the real coinbase is found and that filter_false_positives works with it.
         genesis_blockhash = node.getblockhash(0)
         genesis_spks = bip158_relevant_scriptpubkeys(node, genesis_blockhash)
         assert_equal(len(genesis_spks), 1)
