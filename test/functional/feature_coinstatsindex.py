@@ -55,7 +55,7 @@ class CoinStatsIndexTest(OpenSyriaTestFramework):
         self._test_init_index_after_reorg()
 
     def block_sanity_check(self, block_info):
-        block_subsidy = 50
+        block_subsidy = 10000
         assert_equal(
             block_info['prevout_spent'] + block_subsidy,
             block_info['new_outputs_ex_coinbase'] + block_info['coinbase'] + block_info['unspendable']
@@ -118,12 +118,12 @@ class CoinStatsIndexTest(OpenSyriaTestFramework):
             res4 = index_node.gettxoutsetinfo(hash_option, 0)
             assert_equal(res4['total_unspendable_amount'], 10000)
             assert_equal(res4['block_info'], {
-                'unspendable': 50,
+                'unspendable': 10000,
                 'prevout_spent': 0,
                 'new_outputs_ex_coinbase': 0,
                 'coinbase': 0,
                 'unspendables': {
-                    'genesis_block': 50,
+                    'genesis_block': 10000,
                     'bip30': 0,
                     'scripts': 0,
                     'unclaimed_rewards': 0
@@ -136,9 +136,9 @@ class CoinStatsIndexTest(OpenSyriaTestFramework):
             assert_equal(res5['total_unspendable_amount'], 10000)
             assert_equal(res5['block_info'], {
                 'unspendable': 0,
-                'prevout_spent': 50,
+                'prevout_spent': 10000,
                 'new_outputs_ex_coinbase': Decimal('9999.99968800'),
-                'coinbase': Decimal('50.00031200'),
+                'coinbase': Decimal('10000.00031200'),
                 'unspendables': {
                     'genesis_block': 0,
                     'bip30': 0,
@@ -171,12 +171,12 @@ class CoinStatsIndexTest(OpenSyriaTestFramework):
         for hash_option in index_hash_options:
             # Check all amounts were registered correctly
             res6 = index_node.gettxoutsetinfo(hash_option, 108)
-            assert_equal(res6['total_unspendable_amount'], Decimal('70.99000000'))
+            assert_equal(res6['total_unspendable_amount'], Decimal('10020.99000000'))
             assert_equal(res6['block_info'], {
                 'unspendable': Decimal('20.99000000'),
-                'prevout_spent': 71,
+                'prevout_spent': 10021,
                 'new_outputs_ex_coinbase': Decimal('9999.99999000'),
-                'coinbase': Decimal('50.01001000'),
+                'coinbase': Decimal('10000.01001000'),
                 'unspendables': {
                     'genesis_block': 0,
                     'bip30': 0,

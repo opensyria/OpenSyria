@@ -530,7 +530,7 @@ class WalletTest(OpenSyriaTestFramework):
         assert_raises_rpc_error(-5, "Invalid or unsupported Base58-encoded address.", self.nodes[0].getaddressinfo, "3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy")
         address_info = self.nodes[0].getaddressinfo("sUvfdj9d7cnHNVcpHDkASXSKoAeTsKojEm")
         assert_equal(address_info['address'], "sUvfdj9d7cnHNVcpHDkASXSKoAeTsKojEm")
-        assert_equal(address_info["scriptPubKey"], "76a9144e3854046c7bd1594ac904e4793b6a45b36dea0988ac")
+        assert_equal(address_info["scriptPubKey"], "76a914751e76e8199196d454941c45d1b3a323f1433bd688ac")
         assert not address_info["ismine"]
         assert not address_info["isscript"]
         assert not address_info["ischange"]
