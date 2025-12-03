@@ -1659,7 +1659,7 @@ class TaprootTest(OpenSyriaTestFramework):
         coinbase = CTransaction()
         coinbase.version = 1
         coinbase.vin = [CTxIn(COutPoint(0, 0xffffffff), CScript([OP_1, OP_1]), SEQUENCE_FINAL)]
-        coinbase.vout = [CTxOut(5000000000, CScript([OP_1]))]
+        coinbase.vout = [CTxOut(1000000000000, CScript([OP_1]))]
         coinbase.nLockTime = 0
         assert coinbase.txid_hex == "f60c73405d499a956d3162e3483c395526ef78286458a4cb17b125aa92e49b20"
         # Mine it
@@ -1672,7 +1672,7 @@ class TaprootTest(OpenSyriaTestFramework):
         SEED = 317
         VALID_LEAF_VERS = list(range(0xc0, 0x100, 2)) + [0x66, 0x7e, 0x80, 0x84, 0x96, 0x98, 0xba, 0xbc, 0xbe]
         # Generate private keys
-        prvs = [hashlib.sha256(SEED.to_bytes(2, 'big') + bytes([i])).digest() for i in range(20000)]
+        prvs = [hashlib.sha256(SEED.to_bytes(2, 'big') + bytes([i])).digest() for i in range(100)]
         # Generate corresponding public x-only pubkeys
         pubs = [compute_xonly_pubkey(prv)[0] for prv in prvs]
         # Generate taproot objects
@@ -1743,7 +1743,7 @@ class TaprootTest(OpenSyriaTestFramework):
         # come from distinct txids).
         txn = []
         lasttxid = coinbase.txid_int
-        amount = 5000000000
+        amount = 1000000000000
         for i, spk in enumerate(old_spks + tap_spks):
             val = 42000000 * (i + 7)
             tx = CTransaction()

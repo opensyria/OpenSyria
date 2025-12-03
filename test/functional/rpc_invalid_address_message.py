@@ -11,25 +11,29 @@ from test_framework.util import (
     assert_raises_rpc_error,
 )
 
-BECH32_VALID = 'rsyl1qtmp74ayg7p24uslctssvjm06q5phz4yrclwl6n'
-BECH32_VALID_UNKNOWN_WITNESS = 'rsyl1p424qv9y6wr'
-BECH32_VALID_CAPITALS = 'BCRT1QPLMTZKC2XHARPPZDLNPAQL78RSHJ68U33RAH7R'
-BECH32_VALID_MULTISIG = 'rsyl1qdg3myrgvzw7ml9q0ejxhlkyxm7vl9r56yzkfgvzclrf4hkpx9yfqgdt2ev'
+# Valid addresses with correct checksums for rsyl HRP
+BECH32_VALID = 'rsyl1qtmp74ayg7p24uslctssvjm06q5phz4yr2pvve8'
+BECH32_VALID_UNKNOWN_WITNESS = 'rsyl1p424qv9wcz3'
+BECH32_VALID_CAPITALS = 'RSYL1QPLMTZKC2XHARPPZDLNPAQL78RSHJ68U3A7FN5G'
+BECH32_VALID_MULTISIG = 'rsyl1qdg3myrgvzw7ml9q0ejxhlkyxm7vl9r56yzkfgvzclrf4hkpx9yfqemnvr3'
 
-BECH32_INVALID_BECH32 = 'rsyl1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vq8tndjx'
-BECH32_INVALID_BECH32M = 'rsyl1qw508d6qejxtdg4y5r3zarvary0c5xw7kg4ltdy'
-BECH32_INVALID_VERSION = 'rsyl130xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqmlf082'
-BECH32_INVALID_SIZE = 'rsyl1s0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7v8n0nx0muaewav25fkxceh'
-BECH32_INVALID_V0_SIZE = 'rsyl1qw508d6qejxtdg4y5r3zarvary0c5xw7kqqk8y8cd'
-BECH32_INVALID_PREFIX = 'syl1pw508d6qejxtdg4y5r3zarvary0c5xw7kw508d6qejxtdg4y5r3zarvary0c5xw7kcvl4ml'
-BECH32_TOO_LONG = 'rsyl1q049edschfnwystcqnsvyfpj23mpsg3jcedq9xv049edschfnwystcqnsvyfpj23mpsg3jcedq9xv049edschfnwystcqnsvy5unuc8'
-BECH32_ONE_ERROR = 'rsyl1q049edschfnwystcqnsvyfpj23mpsg3jc8er8qc'
-BECH32_ONE_ERROR_CAPITALS = 'BCRT1QPLMTZKC2XHARPPZDLNPAQL78RSHJ68U32RAH7R'
-BECH32_TWO_ERRORS = 'rsyl1qax9suht3qv95sw33xavx8crpxduefdrsj3l295' # should be bcrt1qax9suht3qv95sw33wavx8crpxduefdrsvgsklx
-BECH32_NO_SEPARATOR = 'bcrtq049ldschfnwystcqnsvyfpj23mpsg3jcedq9xv'
-BECH32_INVALID_CHAR = 'rsyl1q04oldschfnwystcqnsvyfpj23mpsg3jcedq9xv'
-BECH32_MULTISIG_TWO_ERRORS = 'rsyl1qdg3myrgvzw7ml8q0ejxhlkyxn7vl9r56yzkfgvzclrf4hkpx9yfq5qzw7s'
-BECH32_WRONG_VERSION = 'rsyl1ptmp74ayg7p24uslctssvjm06q5phz4yrxafcj6'
+# Invalid addresses with specific error conditions
+BECH32_INVALID_BECH32 = 'rsyl1p0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vqrpm8de'  # v1 with wrong bech32 checksum
+BECH32_INVALID_BECH32M = 'rsyl1qw508d6qejxtdg4y5r3zarvary0c5xw7kaf08gx'  # v0 with wrong bech32m checksum
+BECH32_INVALID_VERSION = 'rsyl130xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7vq2f3fah'  # v20 invalid
+BECH32_INVALID_SIZE = 'rsyl1s0xlxvlhemja6c4dqv22uapctqupfhlxm9h8z3k2e72q4k9hcz7v8n0nx0muaewav25dgrsxd'  # v16 with 41 byte program
+BECH32_INVALID_V0_SIZE = 'rsyl1qw508d6qejxtdg4y5r3zarvary0c5xw7kqqmgspdr'  # v0 with 21 byte program
+BECH32_INVALID_PREFIX = 'syl1pw508d6qejxtdg4y5r3zarvary0c5xw7kw508d6qejxtdg4y5r3zarvary0c5xw7kcvl4ml'  # mainnet prefix on regtest
+BECH32_TOO_LONG = 'rsyl1q049edschfnwystcqnsvyfpj23mpsg3jcedq9xv049edschfnwystcqnsvyfpj23mpsg3jcedq9xv049edschfnwystcqnsvy5h7cvd'
+
+# Addresses with checksum errors at specific positions
+BECH32_ONE_ERROR = 'rsyl1q0496dschfnwystcqnsvyfpj23mpsg3jc48p5rv'  # error at pos 9
+BECH32_ONE_ERROR_CAPITALS = 'RSYL1QPLMTZKC2XHARPPZDLNPAQL78RSHJ68U377FN5G'  # error at pos 38
+BECH32_TWO_ERRORS = 'rsyl1qax9suht3qv95sw330avx8crpxduefdrsq4yj4w'  # errors at pos 22, 43
+BECH32_NO_SEPARATOR = 'rsylq049ldschfnwystcqnsvyfpj23mpsg3jcedq9xv'
+BECH32_INVALID_CHAR = 'rsyl1q04oedschfnwystcqnsvyfpj23mpsg3jc48p5rv'  # 'o' at pos 8
+BECH32_MULTISIG_TWO_ERRORS = 'rsyl1qdg3myrgvzw7mlxq0ejxhlkyxu7vl9r56yzkfgvzclrf4hkpx9yfqemnvr3'  # errors at pos 19, 30
+BECH32_WRONG_VERSION = 'rsyl1ptmp74ayg7p24uslctssvjm06q5phz4yr2pvve8'  # error at pos 5
 
 BASE58_VALID = 'sMZ3y7Ri6Cqyem5DfboMdbShcdWnyZCM6g'
 BASE58_INVALID_PREFIX = '17VZNX1SN5NtKa8UQFxwQbFeFc3iqRYhem'
@@ -111,6 +115,7 @@ class InvalidAddressErrorMessageTest(OpenSyriaTestFramework):
         assert_raises_rpc_error(-5, "Invalid or unsupported Segwit (Bech32) or Base58 encoding.", node.getaddressinfo, BECH32_INVALID_PREFIX)
         assert_raises_rpc_error(-5, "Invalid or unsupported Base58-encoded address.", node.getaddressinfo, BASE58_INVALID_PREFIX)
         assert_raises_rpc_error(-5, "Invalid or unsupported Segwit (Bech32) or Base58 encoding.", node.getaddressinfo, INVALID_ADDRESS)
+
         assert "isscript" not in node.getaddressinfo(BECH32_VALID_UNKNOWN_WITNESS)
 
     def run_test(self):
