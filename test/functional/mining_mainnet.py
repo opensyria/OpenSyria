@@ -9,6 +9,9 @@ regtest doesn't have.
 
 It uses an alternate mainnet chain. See data/README.md for how it was generated.
 
+NOTE: This test requires regenerated mainnet block data for OpenSyria chain parameters.
+The Bitcoin mainnet blocks are not valid for OpenSyria due to different genesis block.
+
 Mine one retarget period worth of blocks with a short interval in
 order to maximally raise the difficulty. Verify this using the getmininginfo RPC.
 

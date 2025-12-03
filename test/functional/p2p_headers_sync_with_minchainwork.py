@@ -79,7 +79,7 @@ class RejectLowDifficultyHeadersTest(OpenSyriaTestFramework):
             assert len(chaintips) == 1
             assert {
                 'height': 0,
-                'hash': '0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206',
+                'hash': '67fb155259a269da63429b2d84149027fc4a9a366236bc849fddff3a2554cd50',
                 'branchlen': 0,
                 'status': 'active',
             } in chaintips
@@ -91,7 +91,7 @@ class RejectLowDifficultyHeadersTest(OpenSyriaTestFramework):
 
         assert {
             'height': 0,
-            'hash': '0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206',
+            'hash': '67fb155259a269da63429b2d84149027fc4a9a366236bc849fddff3a2554cd50',
             'branchlen': 0,
             'status': 'active',
         } in self.nodes[2].getchaintips()
