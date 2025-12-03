@@ -298,7 +298,8 @@ class WalletV3Test(OpenSyriaTestFramework):
         alice_unspent = self.alice.listunspent(minconf=0, maxconf=0)[0]
 
         # alice spends both of her outputs
-        outputs = {self.charlie.getnewaddress() : alice_v2_unspent['amount'] + alice_unspent['amount'] - Decimal(0.00005120)}
+        # Use higher fees to ensure RBF replacement works reliably
+        outputs = {self.charlie.getnewaddress() : alice_v2_unspent['amount'] + alice_unspent['amount'] - Decimal("0.0001")}
         self.send_tx(self.alice, [alice_v2_unspent, alice_unspent], outputs, 3)
         # bob can't create a transaction
         outputs = {self.bob.getnewaddress() : 1.999}
@@ -311,7 +312,7 @@ class WalletV3Test(OpenSyriaTestFramework):
             bob_tx, {'include_unsafe': True}
         )
         # alice fee-bumps her tx so it only spends the v2 utxo
-        outputs = {self.charlie.getnewaddress() : alice_v2_unspent['amount'] - Decimal(0.00015120)}
+        outputs = {self.charlie.getnewaddress() : alice_v2_unspent['amount'] - Decimal("0.001")}
         self.send_tx(self.alice, [alice_v2_unspent], outputs, 2)
         # bob can now create a transaction
         outputs = {self.bob.getnewaddress() : 1.999}
@@ -335,12 +336,13 @@ class WalletV3Test(OpenSyriaTestFramework):
         outputs = {self.bob.getnewaddress() : 1.999}
         bob_txid = self.send_tx(self.bob, inputs, outputs, 3)
         # alice spends both of her utxos, replacing bob's tx
-        outputs = {self.charlie.getnewaddress() : alice_v2_unspent['amount'] + alice_unspent['amount'] - Decimal(0.00005120)}
+        # Use higher fees to ensure RBF replacement works reliably
+        outputs = {self.charlie.getnewaddress() : alice_v2_unspent['amount'] + alice_unspent['amount'] - Decimal("0.0001")}
         alice_txid = self.send_tx(self.alice, [alice_v2_unspent, alice_unspent], outputs, 3)
         # bob's tx now has a mempool conflict
         assert_equal(self.bob.gettransaction(bob_txid)['mempoolconflicts'], [alice_txid])
         # alice fee-bumps her tx so it only spends the v2 utxo
-        outputs = {self.charlie.getnewaddress() : alice_v2_unspent['amount'] - Decimal(0.00015120)}
+        outputs = {self.charlie.getnewaddress() : alice_v2_unspent['amount'] - Decimal("0.001")}
         self.send_tx(self.alice, [alice_v2_unspent], outputs, 2)
         # bob's tx now has non conflicts and can be rebroadcast
         bob_tx = self.bob.gettransaction(bob_txid)
@@ -354,7 +356,7 @@ class WalletV3Test(OpenSyriaTestFramework):
         tx = CTransaction()
         tx.version = 3 # make this a truc tx
         # increase tx weight almost to the max truc size
-        self.bulk_tx(tx, 5, TRUC_MAX_VSIZE - 20000)
+        self.bulk_tx(tx, 5, TRUC_MAX_VSIZE - 100)
 
         assert_raises_rpc_error(
             -4,
@@ -377,7 +379,7 @@ class WalletV3Test(OpenSyriaTestFramework):
         tx = CTransaction()
         tx.version = 3
 
-        self.bulk_tx(tx, 5, TRUC_CHILD_MAX_VSIZE - 20000)
+        self.bulk_tx(tx, 5, TRUC_CHILD_MAX_VSIZE - 100)
 
         assert_raises_rpc_error(
             -4,
