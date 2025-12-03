@@ -1,5 +1,6 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Update genesis block parameters for OpenSyria
+export LC_ALL=C
 
 # Update the genesis block timestamp message
 sed -i '' 's/The Times 03\/Jan\/2009 Chancellor on brink of second bailout for banks/OpenSyria - First Syrian Blockchain - For Syria Future and Reconstruction 2025/' src/kernel/chainparams.cpp
