@@ -186,7 +186,7 @@ class BIP68_112_113Test(OpenSyriaTestFramework):
 
         self.log.info("Generate blocks in the past for coinbase outputs.")
         long_past_time = int(time.time()) - 600 * 1000  # enough to build up to 1000 blocks 10 minutes apart without worrying about getting into the future
-        self.nodes[0].setmocktime(long_past_time - 100)  # enough so that the generated blocks will still all be before long_past_time
+        self.nodes[0].setmocktime(long_past_time - 20000)  # enough so that the generated blocks will still all be before long_past_time
         self.coinbase_blocks = self.generate(self.miniwallet, COINBASE_BLOCK_COUNT)  # blocks generated for inputs
         self.nodes[0].setmocktime(0)  # set time back to present so yielded blocks aren't in the future as we advance last_block_time
         self.tipheight = COINBASE_BLOCK_COUNT  # height of the next block to build

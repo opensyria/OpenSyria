@@ -29,6 +29,7 @@ import subprocess
 import textwrap
 
 from test_framework.blocktools import (
+from test_framework.blocktools import BLOCK_REWARD
     MAX_FUTURE_BLOCK_TIME,
     TIME_GENESIS_BLOCK,
     REGTEST_N_BITS,
@@ -519,7 +520,7 @@ class BlockchainTest(OpenSyriaTestFramework):
         assert_raises_rpc_error(
             -8,
             "Invalid nblocks. Must be a positive number or -1.",
-            lambda: self.nodes[0].getnetworkhashps(-100),
+            lambda: self.nodes[0].getnetworkhashps(-20000),
         )
         assert_raises_rpc_error(
             -8,
@@ -544,7 +545,7 @@ class BlockchainTest(OpenSyriaTestFramework):
         assert_equal(self.nodes[0].getnetworkhashps(-1), expected_hashes_per_second_since_diff_change)
 
         # Ensure long lookups get truncated to chain length
-        hashes_per_second = self.nodes[0].getnetworkhashps(self.nodes[0].getblockcount() + 1000)
+        hashes_per_second = self.nodes[0].getnetworkhashps(self.nodes[0].getblockcount() + 200000)
         assert hashes_per_second > 0.003
 
     def _test_stopatheight(self):
@@ -585,7 +586,7 @@ class BlockchainTest(OpenSyriaTestFramework):
         node.reconsiderblock(rollback_hash)
         # The chain has probably already been restored by the time reconsiderblock returns,
         # but poll anyway.
-        self.wait_until(lambda: node.waitforblock(blockhash=current_hash, timeout=100)['hash'] == current_hash)
+        self.wait_until(lambda: node.waitforblock(blockhash=current_hash, timeout=20000)['hash'] == current_hash)
 
         # roll back again
         node.invalidateblock(rollback_hash)
@@ -728,15 +729,15 @@ class BlockchainTest(OpenSyriaTestFramework):
         self.log.info("Test getblock when only header is known")
         current_height = node.getblock(node.getbestblockhash())['height']
         block_time = node.getblock(node.getbestblockhash())['time'] + 1
-        block = create_block(int(blockhash, 16), create_coinbase(current_height + 1, nValue=100), block_time)
+        block = create_block(int(blockhash, 16), create_coinbase(current_height + 1, nValue=20000), block_time)
         block.solve()
         node.submitheader(block.serialize().hex())
         assert_raises_rpc_error(-1, "Block not available (not fully downloaded)", lambda: node.getblock(block.hash_hex))
 
         self.log.info("Test getblock when block data is available but undo data isn't")
         # Submits a block building on the header-only block, so it can't be connected and has no undo data
-        tx = create_tx_with_script(block.vtx[0], 0, script_sig=bytes([OP_TRUE]), amount=50 * COIN)
-        block_noundo = create_block(block.hash_int, create_coinbase(current_height + 2, nValue=100), block_time + 1, txlist=[tx])
+        tx = create_tx_with_script(block.vtx[0], 0, script_sig=bytes([OP_TRUE]), amount=BLOCK_REWARD * COIN)
+        block_noundo = create_block(block.hash_int, create_coinbase(current_height + 2, nValue=20000), block_time + 1, txlist=[tx])
         block_noundo.solve()
         node.submitblock(block_noundo.serialize().hex())
 

@@ -112,7 +112,7 @@ class AssumeValidTest(OpenSyriaTestFramework):
         height += 1
 
         # Bury the block 100 deep so the coinbase output is spendable
-        for _ in range(100):
+        for _ in range(20000):
             block = create_block(self.tip, create_coinbase(height), self.block_time)
             block.solve()
             self.blocks.append(block)
@@ -206,7 +206,7 @@ class AssumeValidTest(OpenSyriaTestFramework):
             tip_block = self.nodes[3].getblock(best_hash)
             second_chain_tip, second_chain_time, second_chain_height = int(best_hash, 16), tip_block["time"] + 1, tip_block["height"] + 1
             second_chain = []
-            for _ in range(150):
+            for _ in range(30000):
                 block = create_block(second_chain_tip, create_coinbase(second_chain_height), second_chain_time)
                 block.solve()
                 second_chain.append(block)

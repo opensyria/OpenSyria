@@ -71,12 +71,12 @@ class TransactionTimeRescanTest(OpenSyriaTestFramework):
         self.log.info('Start transactions')
 
         # check blockcount
-        assert_equal(minernode.getblockcount(), 200)
+        assert_equal(minernode.getblockcount(), 40000)
 
         # generate some syl to create transactions and check blockcount
         initial_mine = COINBASE_MATURITY + 1
         self.generatetoaddress(minernode, initial_mine, m1)
-        assert_equal(minernode.getblockcount(), initial_mine + 200)
+        assert_equal(minernode.getblockcount(), initial_mine + 40000)
 
         # synchronize nodes and time
         self.sync_all()
@@ -87,7 +87,7 @@ class TransactionTimeRescanTest(OpenSyriaTestFramework):
 
         # generate blocks and check blockcount
         self.generatetoaddress(minernode, COINBASE_MATURITY, m1)
-        assert_equal(minernode.getblockcount(), initial_mine + 300)
+        assert_equal(minernode.getblockcount(), initial_mine + 60000)
 
         # synchronize nodes and time
         self.sync_all()
@@ -98,7 +98,7 @@ class TransactionTimeRescanTest(OpenSyriaTestFramework):
 
         # generate blocks and check blockcount
         self.generatetoaddress(minernode, COINBASE_MATURITY, m1)
-        assert_equal(minernode.getblockcount(), initial_mine + 400)
+        assert_equal(minernode.getblockcount(), initial_mine + 80000)
 
         # synchronize nodes and time
         self.sync_all()
@@ -109,7 +109,7 @@ class TransactionTimeRescanTest(OpenSyriaTestFramework):
 
         # generate more blocks and check blockcount
         self.generatetoaddress(minernode, COINBASE_MATURITY, m1)
-        assert_equal(minernode.getblockcount(), initial_mine + 500)
+        assert_equal(minernode.getblockcount(), initial_mine + 100000)
 
         self.log.info('Check user\'s final balance and transaction count')
         assert_equal(wo_wallet.getbalance(), 16)
@@ -157,7 +157,7 @@ class TransactionTimeRescanTest(OpenSyriaTestFramework):
 
         # proceed to rescan, first with an incomplete one, then with a full rescan
         self.log.info('Rescan last history part')
-        restorewo_wallet.rescanblockchain(initial_mine + 350)
+        restorewo_wallet.rescanblockchain(initial_mine + 70000)
         self.log.info('Rescan all history')
         restorewo_wallet.rescanblockchain()
 

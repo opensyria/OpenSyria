@@ -294,14 +294,14 @@ class BumpFeeTest(OpenSyriaTestFramework):
         assert_equal(len(bumped_tx["decoded"]["vout"]), 1)
         assert_equal(len(bumped_tx["decoded"]["vin"]), 1)
         assert_equal(bumped_tx["decoded"]["vout"][0]["value"] + bumped["fee"], amount)
-        assert_fee_amount(bumped["fee"], bumped_tx["decoded"]["vsize"], Decimal(10) / Decimal(1e8) * 1000)
+        assert_fee_amount(bumped["fee"], bumped_tx["decoded"]["vsize"], Decimal(10) / Decimal(1e8) * 200000)
 
         # Bumping without specifying change adds a new input and output
         bumped = wallet.bumpfee(txid=bumped["txid"], options={"fee_rate": 20})
         bumped_tx = wallet.gettransaction(txid=bumped["txid"], verbose=True)
         assert_equal(len(bumped_tx["decoded"]["vout"]), 2)
         assert_equal(len(bumped_tx["decoded"]["vin"]), 2)
-        assert_fee_amount(bumped["fee"], bumped_tx["decoded"]["vsize"], Decimal(20) / Decimal(1e8) * 1000)
+        assert_fee_amount(bumped["fee"], bumped_tx["decoded"]["vsize"], Decimal(20) / Decimal(1e8) * 200000)
 
         wallet.unloadwallet()
 

@@ -137,10 +137,10 @@ class KeyPoolTest(OpenSyriaTestFramework):
         assert_raises_rpc_error(-12, "Keypool ran out", nodes[0].getnewaddress)
 
         with WalletUnlock(nodes[0], 'test'):
-            nodes[0].keypoolrefill(100)
+            nodes[0].keypoolrefill(20000)
             wi = nodes[0].getwalletinfo()
-            assert_equal(wi['keypoolsize_hd_internal'], 400)
-            assert_equal(wi['keypoolsize'], 400)
+            assert_equal(wi['keypoolsize_hd_internal'], 80000)
+            assert_equal(wi['keypoolsize'], 80000)
 
         # create a blank wallet
         nodes[0].createwallet(wallet_name='w2', blank=True, disable_private_keys=True)

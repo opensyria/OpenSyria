@@ -105,7 +105,7 @@ class MempoolCoinbaseTest(OpenSyriaTestFramework):
             # However, the node will answer requests for the tx from the recently-disconnected block.
             assert_equal(peer1.last_message["tx"].tx.wtxid_hex,tx_disconnected["tx"].wtxid_hex)
 
-        self.nodes[1].setmocktime(int(time.time()) + 300)
+        self.nodes[1].setmocktime(int(time.time()) + 60000)
         peer1.sync_with_ping()
         # the transactions are now announced
         assert_equal(len(peer1.get_invs()), 3)
@@ -130,7 +130,7 @@ class MempoolCoinbaseTest(OpenSyriaTestFramework):
         self.nodes[0].setmocktime(now)
 
         # Start with a 200 block chain
-        assert_equal(self.nodes[0].getblockcount(), 200)
+        assert_equal(self.nodes[0].getblockcount(), 40000)
 
         self.log.info("Add 4 coinbase utxos to the miniwallet")
         # Block 76 contains the first spendable coinbase txs.
@@ -186,7 +186,7 @@ class MempoolCoinbaseTest(OpenSyriaTestFramework):
         self.nodes[0].setmocktime(future)
         self.generate(self.nodes[0], FORK_LENGTH - 1)
         block_time = self.nodes[0].getblock(self.nodes[0].getbestblockhash())['time']
-        assert(block_time >= now + 300)
+        assert(block_time >= now + 60000)
 
         # generate() implicitly syncs blocks, so that peer 1 gets the block before timelock_tx
         # Otherwise, peer 1 would put the timelock_tx in m_lazy_recent_rejects
@@ -212,7 +212,7 @@ class MempoolCoinbaseTest(OpenSyriaTestFramework):
         assert_equal(set(self.nodes[0].getrawmempool()), {spend_1_id, spend_2_1_id, spend_3_1_id})
 
         self.log.info("Use invalidateblock to re-org back and make all those coinbase spends immature/invalid")
-        b = self.nodes[0].getblockhash(first_block + 100)
+        b = self.nodes[0].getblockhash(first_block + 20000)
 
         # Use invalidateblock to go backwards in MTP time.
         # invalidateblock actually moves MTP backwards, making timelock_tx_id valid again.

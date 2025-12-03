@@ -170,8 +170,8 @@ class EphemeralDustTest(OpenSyriaTestFramework):
         # Will not be accepted if base fee is 0 with modified fee of non-0
         dusty_tx, sweep_tx = self.create_ephemeral_dust_package(tx_version=3)
 
-        self.nodes[0].prioritisetransaction(txid=dusty_tx["txid"], dummy=0, fee_delta=1000)
-        self.nodes[1].prioritisetransaction(txid=dusty_tx["txid"], dummy=0, fee_delta=1000)
+        self.nodes[0].prioritisetransaction(txid=dusty_tx["txid"], dummy=0, fee_delta=200000)
+        self.nodes[1].prioritisetransaction(txid=dusty_tx["txid"], dummy=0, fee_delta=200000)
 
         # It's rejected submitted alone
         test_res = self.nodes[0].testmempoolaccept([dusty_tx["hex"]])

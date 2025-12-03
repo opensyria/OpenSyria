@@ -392,7 +392,7 @@ class ToolWalletTest(OpenSyriaTestFramework):
         self.generate(self.nodes[0], 101)
         def_wallet = self.nodes[0].get_wallet_rpc(self.default_wallet_name)
         outputs = {}
-        for i in range(500):
+        for i in range(100000):
             outputs[wallet.getnewaddress(address_type="p2sh-segwit")] = 0.01
         def_wallet.sendmany(amounts=outputs)
         self.generate(self.nodes[0], 1)

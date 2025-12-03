@@ -18,7 +18,7 @@ class OrphanedBlockRewardTest(OpenSyriaTestFramework):
     def run_test(self):
         # Generate some blocks and obtain some coins on node 0.  We send
         # some balance to node 1, which will hold it as a single coin.
-        self.generate(self.nodes[0], 150)
+        self.generate(self.nodes[0], 30000)
         self.nodes[0].sendtoaddress(self.nodes[1].getnewaddress(), 10)
         self.generate(self.nodes[0], 1)
 
@@ -29,7 +29,7 @@ class OrphanedBlockRewardTest(OpenSyriaTestFramework):
 
         # Let the block reward mature and send coins including both
         # the existing balance and the block reward.
-        self.generate(self.nodes[0], 150)
+        self.generate(self.nodes[0], 30000)
         assert_equal(self.nodes[1].getbalance(), 10 + 25)
         pre_reorg_conf_bals = self.nodes[1].getbalances()
         txid = self.nodes[1].sendtoaddress(self.nodes[0].getnewaddress(), 30)

@@ -87,7 +87,7 @@ class InvalidTxRequestTest(OpenSyriaTestFramework):
         SCRIPT_PUB_KEY_OP_TRUE = b'\x51\x75' * 15 + b'\x51'
         tx_withhold = CTransaction()
         tx_withhold.vin.append(CTxIn(outpoint=COutPoint(block1.vtx[0].txid_int, 0)))
-        tx_withhold.vout = [CTxOut(nValue=25 * COIN - 12000, scriptPubKey=SCRIPT_PUB_KEY_OP_TRUE)] * 2
+        tx_withhold.vout = [CTxOut(nValue=5000 * COIN - 12000, scriptPubKey=SCRIPT_PUB_KEY_OP_TRUE)] * 2
 
         # Our first orphan tx with some outputs to create further orphan txs
         tx_orphan_1 = CTransaction()

@@ -84,7 +84,7 @@ class WalletLabelsTest(OpenSyriaTestFramework):
         # the same address, so we call twice to get two addresses w/50 each
         self.generatetoaddress(node, nblocks=1, address=node.getnewaddress(label='coinbase'))
         self.generatetoaddress(node, nblocks=COINBASE_MATURITY + 1, address=node.getnewaddress(label='coinbase'))
-        assert_equal(node.getbalance(), 100)
+        assert_equal(node.getbalance(), 20000)
 
         # there should be 2 address groups
         # each with 1 address with a balance of 50 SYL
@@ -96,7 +96,7 @@ class WalletLabelsTest(OpenSyriaTestFramework):
         for address_group in address_groups:
             assert_equal(len(address_group), 1)
             assert_equal(len(address_group[0]), 3)
-            assert_equal(address_group[0][1], 50)
+            assert_equal(address_group[0][1], 10000)
             assert_equal(address_group[0][2], 'coinbase')
             linked_addresses.add(address_group[0][0])
 
@@ -187,13 +187,13 @@ class WalletLabelsTest(OpenSyriaTestFramework):
         node.createwallet(wallet_name='watch_only', disable_private_keys=True)
         wallet_watch_only = node.get_wallet_rpc('watch_only')
         BECH32_VALID = {
-            '✔️_VER15_PROG40': 'bcrt10qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqxkg7fn',
-            '✔️_VER16_PROG03': 'bcrt1sqqqqq8uhdgr',
-            '✔️_VER16_PROB02': 'bcrt1sqqqq4wstyw',
+            '✔️_VER15_PROG40': 'rsyl10qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqxkg7fn',
+            '✔️_VER16_PROG03': 'rsyl1sqqqqq8uhdgr',
+            '✔️_VER16_PROB02': 'rsyl1sqqqq4wstyw',
         }
         BECH32_INVALID = {
-            '❌_VER15_PROG41': 'bcrt1sqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqajlxj8',
-            '❌_VER16_PROB01': 'bcrt1sqq5r4036',
+            '❌_VER15_PROG41': 'rsyl1sqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqajlxj8',
+            '❌_VER16_PROB01': 'rsyl1sqq5r4036',
         }
         for l in BECH32_VALID:
             ad = BECH32_VALID[l]

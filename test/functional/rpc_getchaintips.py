@@ -26,7 +26,7 @@ class GetChainTipsTest (OpenSyriaTestFramework):
         tips = self.nodes[0].getchaintips()
         assert_equal(len(tips), 1)
         assert_equal(tips[0]['branchlen'], 0)
-        assert_equal(tips[0]['height'], 200)
+        assert_equal(tips[0]['height'], 40000)
         assert_equal(tips[0]['status'], 'active')
 
         self.log.info("Split the network and build two chains of different lengths.")
@@ -69,7 +69,7 @@ class GetChainTipsTest (OpenSyriaTestFramework):
         start_height = self.nodes[0].getblockcount()
         # Create invalid block (too high coinbase)
         block_time = n0.getblock(n0.getbestblockhash())['time'] + 1
-        invalid_block = create_block(tip, create_coinbase(start_height+1, nValue=100), block_time)
+        invalid_block = create_block(tip, create_coinbase(start_height+1, nValue=20000), block_time)
         invalid_block.solve()
 
         block_time += 1

@@ -91,8 +91,8 @@ class WalletDescriptorTest(OpenSyriaTestFramework):
         self.log.info("Checking wallet info")
         wallet_info = wallet.getwalletinfo()
         assert_equal(wallet_info['format'], 'sqlite')
-        assert_equal(wallet_info['keypoolsize'], 400)
-        assert_equal(wallet_info['keypoolsize_hd_internal'], 400)
+        assert_equal(wallet_info['keypoolsize'], 80000)
+        assert_equal(wallet_info['keypoolsize_hd_internal'], 80000)
         assert 'keypoololdest' not in wallet_info
 
         # Check that getnewaddress works
@@ -166,7 +166,7 @@ class WalletDescriptorTest(OpenSyriaTestFramework):
         assert_equal(info2['desc'], info3['desc'])
 
         self.log.info("Test that getnewaddress still works after keypool is exhausted in an encrypted wallet")
-        for _ in range(500):
+        for _ in range(100000):
             send_wrpc.getnewaddress()
 
         self.log.info("Test that unlock is needed when deriving only hardened keys in an encrypted wallet")
@@ -178,7 +178,7 @@ class WalletDescriptorTest(OpenSyriaTestFramework):
                 "active": True
             }])
         # Exhaust keypool of 100
-        for _ in range(100):
+        for _ in range(20000):
             send_wrpc.getnewaddress(address_type='bech32')
         # This should now error
         assert_raises_rpc_error(-12, "Keypool ran out, please call keypoolrefill first", send_wrpc.getnewaddress, '', 'bech32')

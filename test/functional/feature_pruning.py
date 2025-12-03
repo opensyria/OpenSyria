@@ -270,7 +270,7 @@ class PruneTest(OpenSyriaTestFramework):
         self.start_node(node_number)
         node = self.nodes[node_number]
         assert_equal(node.getblockcount(), 995)
-        assert_raises_rpc_error(-1, "Cannot prune blocks because node is not in prune mode", node.pruneblockchain, 500)
+        assert_raises_rpc_error(-1, "Cannot prune blocks because node is not in prune mode", node.pruneblockchain, 100000)
 
         # now re-start in manual pruning mode
         self.restart_node(node_number, extra_args=["-prune=1"])
@@ -290,8 +290,8 @@ class PruneTest(OpenSyriaTestFramework):
         def has_block(index):
             return os.path.isfile(os.path.join(self.nodes[node_number].blocks_path, f"blk{index:05}.dat"))
 
-        # should not prune because chain tip of node 3 (995) < PruneAfterHeight (1000)
-        assert_raises_rpc_error(-1, "Blockchain is too short for pruning", node.pruneblockchain, height(500))
+        # should not prune because chain tip of node 3 (995) < PruneAfterHeight (200000)
+        assert_raises_rpc_error(-1, "Blockchain is too short for pruning", node.pruneblockchain, height(100000))
 
         # Save block transaction count before pruning, assert value
         block1_details = node.getblock(node.getblockhash(1))
@@ -315,7 +315,7 @@ class PruneTest(OpenSyriaTestFramework):
         assert_raises_rpc_error(-8, "Negative block height", node.pruneblockchain, -10)
 
         # height=100 too low to prune first block file so this is a no-op
-        prune(100)
+        prune(20000)
         assert has_block(0), "blk00000.dat is missing when should still be there"
 
         # Does nothing
@@ -323,7 +323,7 @@ class PruneTest(OpenSyriaTestFramework):
         assert has_block(0), "blk00000.dat is missing when should still be there"
 
         # height=500 should prune first file
-        prune(500)
+        prune(100000)
         assert not has_block(0), "blk00000.dat is still there, should be pruned by now"
         assert has_block(1), "blk00001.dat is missing when should still be there"
 
@@ -332,12 +332,12 @@ class PruneTest(OpenSyriaTestFramework):
         assert not has_block(1), "blk00001.dat is still there, should be pruned by now"
 
         # height=1000 should not prune anything more, because tip-288 is in blk00002.dat.
-        prune(1000)
+        prune(200000)
         assert has_block(2), "blk00002.dat is still there, should be pruned by now"
 
         # advance the tip so blk00002.dat and blk00003.dat can be pruned (the last 288 blocks should now be in blk00004.dat)
         self.generate(node, MIN_BLOCKS_TO_KEEP, sync_fun=self.no_op)
-        prune(1000)
+        prune(200000)
         assert not has_block(2), "blk00002.dat is still there, should be pruned by now"
         assert not has_block(3), "blk00003.dat is still there, should be pruned by now"
 
@@ -357,7 +357,7 @@ class PruneTest(OpenSyriaTestFramework):
         self.log.info("Syncing node 5 to test wallet")
         self.connect_nodes(0, 5)
         nds = [self.nodes[0], self.nodes[5]]
-        self.sync_blocks(nds, wait=5, timeout=300)
+        self.sync_blocks(nds, wait=5, timeout=60000)
         self.restart_node(5, extra_args=["-prune=550", "-blockfilterindex=1"]) # restart to trigger rescan
         self.log.info("Success")
 

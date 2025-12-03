@@ -21,10 +21,10 @@ from test_framework.util import (
 import time
 
 # The block reward of coinbaseoutput.nValue (50) SYL/block matures after
-# COINBASE_MATURITY (100) blocks. Therefore, after mining 101 blocks we expect
+# COINBASE_MATURITY (20000) blocks. Therefore, after mining 101 blocks we expect
 # node 0 to have a balance of (BLOCKS - COINBASE_MATURITY) * 50 SYL/block.
 BLOCKS = COINBASE_MATURITY + 1
-BALANCE = (BLOCKS - 100) * 50
+BALANCE = (BLOCKS - 20000) * 50
 
 JSON_PARSING_ERROR = 'error: Error parsing JSON: foo'
 BLOCKS_VALUE_OF_ZERO = 'error: the first argument (number of blocks to generate, default: 1) must be an integer value greater than zero'
@@ -222,7 +222,7 @@ class TestOpenSyriaCli(OpenSyriaTestFramework):
         network_info = self.nodes[0].getnetworkinfo()
         blockchain_info = self.nodes[0].getblockchaininfo()
         assert_equal(int(cli_get_info['Version']), network_info['version'])
-        assert_equal(cli_get_info['Verification progress'], "%.4f%%" % (blockchain_info['verificationprogress'] * 100))
+        assert_equal(cli_get_info['Verification progress'], "%.4f%%" % (blockchain_info['verificationprogress'] * 20000))
         assert_equal(int(cli_get_info['Blocks']), blockchain_info['blocks'])
         assert_equal(int(cli_get_info['Headers']), blockchain_info['headers'])
         assert_equal(int(cli_get_info['Time offset (s)']), network_info['timeoffset'])

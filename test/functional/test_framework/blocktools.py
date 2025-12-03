@@ -60,6 +60,14 @@ MAX_FUTURE_BLOCK_TIME = 2 * 60 * 60
 # Coinbase transaction outputs can only be spent after this number of new blocks (network rule)
 COINBASE_MATURITY = 100
 
+# OpenSyria block subsidy (10,000 SYL per block)
+BLOCK_REWARD = 10000
+
+# OpenSyria address prefixes (bech32 HRP)
+ADDRESS_BCRT_HRP = "rsyl"  # regtest bech32 human-readable part
+ADDRESS_TB_HRP = "tsyl"    # testnet bech32 human-readable part  
+ADDRESS_BC_HRP = "syl"     # mainnet bech32 human-readable part
+
 # From BIP141
 WITNESS_COMMITMENT_HEADER = b"\xaa\x21\xa9\xed"
 
@@ -180,7 +188,7 @@ def create_coinbase(height, pubkey=None, *, script_pubkey=None, extra_output_scr
     coinbase.vin.append(CTxIn(COutPoint(0, 0xffffffff), script_BIP34_coinbase_height(height), MAX_SEQUENCE_NONFINAL))
     coinbaseoutput = CTxOut()
     coinbaseoutput.nValue = nValue * COIN
-    if nValue == 50:
+    if nValue == 10000:
         halvings = int(height / halving_period)
         coinbaseoutput.nValue >>= halvings
         coinbaseoutput.nValue += fees

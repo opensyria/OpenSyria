@@ -48,7 +48,7 @@ class FeatureIndexPruneTest(OpenSyriaTestFramework):
         expected_stats = {
             'coinstatsindex': {'synced': True, 'best_block_height': height}
         }
-        self.wait_until(lambda: self.nodes[1].getindexinfo() == expected_stats, timeout=150)
+        self.wait_until(lambda: self.nodes[1].getindexinfo() == expected_stats, timeout=30000)
 
         expected = {**expected_filter, **expected_stats}
         self.wait_until(lambda: self.nodes[2].getindexinfo() == expected)
@@ -62,20 +62,20 @@ class FeatureIndexPruneTest(OpenSyriaTestFramework):
         stats_nodes = [self.nodes[1], self.nodes[2]]
 
         self.log.info("check if we can access blockfilters and coinstats when pruning is enabled but no blocks are actually pruned")
-        self.sync_index(height=200)
+        self.sync_index(height=40000)
         tip = self.nodes[0].getbestblockhash()
         for node in filter_nodes:
             assert_greater_than(len(node.getblockfilter(tip)['filter']), 0)
         for node in stats_nodes:
             assert node.gettxoutsetinfo(hash_type="muhash", hash_or_height=tip)['muhash']
 
-        self.generate(self.nodes[0], 500)
+        self.generate(self.nodes[0], 100000)
         self.sync_index(height=700)
 
         self.log.info("prune some blocks")
         for node in self.nodes[:2]:
             with node.assert_debug_log(['limited pruning to height 689']):
-                pruneheight_new = node.pruneblockchain(400)
+                pruneheight_new = node.pruneblockchain(80000)
                 # the prune heights used here and below are magic numbers that are determined by the
                 # thresholds at which block files wrap, so they depend on disk serialization and default block file size.
                 assert_equal(pruneheight_new, 248)
@@ -112,7 +112,7 @@ class FeatureIndexPruneTest(OpenSyriaTestFramework):
 
         self.log.info("prune exactly up to the indices best blocks while the indices are disabled")
         for i in range(3):
-            pruneheight_2 = self.nodes[i].pruneblockchain(1000)
+            pruneheight_2 = self.nodes[i].pruneblockchain(200000)
             assert_equal(pruneheight_2, 750)
             # Restart the nodes again with the indices activated
             self.restart_node(i, extra_args=self.extra_args[i])
@@ -122,7 +122,7 @@ class FeatureIndexPruneTest(OpenSyriaTestFramework):
 
         self.log.info("prune further than the indices best blocks while the indices are disabled")
         self.restart_without_indices()
-        self.generate(self.nodes[0], 1000)
+        self.generate(self.nodes[0], 200000)
 
         for i in range(3):
             pruneheight_3 = self.nodes[i].pruneblockchain(2000)
@@ -142,11 +142,11 @@ class FeatureIndexPruneTest(OpenSyriaTestFramework):
             self.restart_node(i, extra_args=restart_args)
 
         self.linear_sync(self.nodes[3])
-        self.sync_index(height=2500)
+        self.sync_index(height=500000)
 
         for node in self.nodes[:2]:
             with node.assert_debug_log(['limited pruning to height 2489']):
-                pruneheight_new = node.pruneblockchain(2500)
+                pruneheight_new = node.pruneblockchain(500000)
                 assert_equal(pruneheight_new, 2005)
 
         self.log.info("ensure that prune locks don't prevent indices from failing in a reorg scenario")

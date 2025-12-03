@@ -170,7 +170,7 @@ class MempoolClusterTest(OpenSyriaTestFramework):
         # This number should be smaller than the cluster count limit.
         num_txns = 10
         # Leave some buffer so it is possible to add a reasonably-sized transaction.
-        target_vsize_per_tx = int((max_cluster_size_vbytes - 500) / num_txns)
+        target_vsize_per_tx = int((max_cluster_size_vbytes - 100000) / num_txns)
         cluster_submitted = self.add_chain_cluster(node, num_txns, target_vsize_per_tx)
 
         vsize_remaining = max_cluster_size_vbytes - weight_to_vsize(node.getmempoolcluster(cluster_submitted[0]["txid"])['weight'])
@@ -246,7 +246,7 @@ class MempoolClusterTest(OpenSyriaTestFramework):
             utxos_to_merge.append(singleton["new_utxo"])
             vsize_remaining -= singleton["tx"].get_vsize()
 
-        assert_greater_than_or_equal(vsize_remaining, 500)
+        assert_greater_than_or_equal(vsize_remaining, 100000)
 
         # Create a transaction spending from all clusters that exceeds the cluster size limit.
         tx_merger_too_big = self.wallet.create_self_transfer_multi(utxos_to_spend=utxos_to_merge, target_vsize=vsize_remaining + 4, fee_per_output=10000)
@@ -302,7 +302,7 @@ class MempoolClusterTest(OpenSyriaTestFramework):
     def run_test(self):
         node = self.nodes[0]
         self.wallet = MiniWallet(node)
-        self.generate(self.wallet, 400)
+        self.generate(self.wallet, 80000)
 
         self.test_cluster_limit_rbf(DEFAULT_CLUSTER_LIMIT)
 

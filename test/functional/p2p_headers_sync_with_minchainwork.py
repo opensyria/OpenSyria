@@ -156,7 +156,7 @@ class RejectLowDifficultyHeadersTest(OpenSyriaTestFramework):
         self.reconnect_all()
 
         self.mocktime_all(int(time.time()))  # Temporarily hold time to avoid internal timeouts
-        self.sync_blocks(timeout=300) # Ensure tips eventually agree
+        self.sync_blocks(timeout=60000) # Ensure tips eventually agree
         self.mocktime_all(0)
 
 

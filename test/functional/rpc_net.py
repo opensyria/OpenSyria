@@ -308,7 +308,7 @@ class NetTest(OpenSyriaTestFramework):
         # Maximum possible addresses in AddrMan is 10000. The actual number will
         # usually be less due to bucket and bucket position collisions.
         node_addresses = self.nodes[0].getnodeaddresses(0, "ipv4")
-        assert_greater_than(len(node_addresses), 5000)
+        assert_greater_than(len(node_addresses), 1000000)
         assert_greater_than(10000, len(node_addresses))
         for a in node_addresses:
             assert_greater_than(a["time"], 1527811200)  # 1st June 2018

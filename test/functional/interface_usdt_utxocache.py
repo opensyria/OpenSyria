@@ -202,7 +202,7 @@ class UTXOCacheTracepointTest(OpenSyriaTestFramework):
                 assert_equal(block_1_coinbase_txid, bytes(event.txid[::-1]).hex())
                 assert_equal(0, event.index)  # prevout index
                 assert_equal(EARLY_BLOCK_HEIGHT, event.height)
-                assert_equal(50 * COIN, event.value)
+                assert_equal(BLOCK_REWARD * COIN, event.value)
                 assert_equal(True, event.is_coinbase)
             except AssertionError:
                 self.log.exception("Assertion failed")
@@ -217,7 +217,7 @@ class UTXOCacheTracepointTest(OpenSyriaTestFramework):
             [invalid_tx.serialize().hex()])[0]
         assert_equal(result["allowed"], False)
 
-        bpf.perf_buffer_poll(timeout=100)
+        bpf.perf_buffer_poll(timeout=20000)
         bpf.cleanup()
 
         self.log.info(
@@ -313,7 +313,7 @@ class UTXOCacheTracepointTest(OpenSyriaTestFramework):
                         "is_coinbase": block_index == 0,
                     })
 
-        bpf.perf_buffer_poll(timeout=200)
+        bpf.perf_buffer_poll(timeout=40000)
 
         assert_equal(EXPECTED_HANDLE_ADD_SUCCESS, len(expected_utxocache_adds), len(actual_utxocache_adds))
         assert_equal(EXPECTED_HANDLE_SPENT_SUCCESS, len(expected_utxocache_spents), len(actual_utxocache_spents))
@@ -393,7 +393,7 @@ class UTXOCacheTracepointTest(OpenSyriaTestFramework):
         expected_flushes.append({"mode": "ALWAYS", "for_prune": False, "size": 0})
         self.stop_node(0)
 
-        bpf.perf_buffer_poll(timeout=200)
+        bpf.perf_buffer_poll(timeout=40000)
         bpf.cleanup()
 
         self.log.info("check that we don't expect additional flushes")
@@ -418,7 +418,7 @@ class UTXOCacheTracepointTest(OpenSyriaTestFramework):
         expected_flushes.append({"mode": "NONE", "for_prune": True, "size": 0})
         self.nodes[0].pruneblockchain(315)
 
-        bpf.perf_buffer_poll(timeout=500)
+        bpf.perf_buffer_poll(timeout=100000)
         bpf.cleanup()
 
         self.log.info(

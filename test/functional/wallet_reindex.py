@@ -57,7 +57,7 @@ class WalletReindexTest(OpenSyriaTestFramework):
 
         # Rescan the wallet to detect the missing transaction
         wallet_watch_only.rescanblockchain()
-        assert_equal(wallet_watch_only.gettransaction(tx_id)['confirmations'], 50)
+        assert_equal(wallet_watch_only.gettransaction(tx_id)['confirmations'], 10000)
         assert_equal(wallet_watch_only.getbalances()['mine']['trusted'], 2)
 
         # Reindex and wait for it to finish
@@ -68,7 +68,7 @@ class WalletReindexTest(OpenSyriaTestFramework):
         # Verify the transaction is still 'confirmed' after reindex
         wallet_watch_only = node.get_wallet_rpc('watch_only')
         tx_info = wallet_watch_only.gettransaction(tx_id)
-        assert_equal(tx_info['confirmations'], 50)
+        assert_equal(tx_info['confirmations'], 10000)
 
         # Depending on the wallet type, the birth time changes.
         # For descriptors, verify the wallet updated the birth time to the transaction time

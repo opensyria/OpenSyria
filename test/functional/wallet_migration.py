@@ -406,7 +406,7 @@ class WalletMigrationTest(OpenSyriaTestFramework):
         assert_equal(len(imports0.listtransactions(include_watchonly=True)), 6)
 
         # Mock time forward a bit so we can check that tx metadata is preserved
-        self.master_node.setmocktime(int(time.time()) + 100)
+        self.master_node.setmocktime(int(time.time()) + 20000)
 
         # Migrate
         _, imports0 = self.migrate_and_get_rpc("imports0")

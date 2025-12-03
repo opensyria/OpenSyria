@@ -126,7 +126,7 @@ def make_tx(wallet, utxo, feerate):
     """Create a 1in-1out transaction with a specific input and feerate (sat/vb)."""
     return wallet.create_self_transfer(
         utxo_to_spend=utxo,
-        fee_rate=Decimal(feerate * 1000) / COIN,
+        fee_rate=Decimal(feerate * 200000) / COIN,
     )
 
 def check_fee_estimates_btw_modes(node, expected_conservative, expected_economical):
@@ -172,7 +172,7 @@ class EstimateFeeTest(OpenSyriaTestFramework):
         for _ in range(numblocks):
             random.shuffle(self.confutxo)
             batch_sendtx_reqs = []
-            for _ in range(random.randrange(100 - 50, 100 + 50)):
+            for _ in range(random.randrange(100 - 50, 100 + 10000)):
                 from_index = random.randint(1, 2)
                 (tx_bytes, fee) = small_txpuzzle_randfee(
                     self.wallet,
@@ -261,7 +261,7 @@ class EstimateFeeTest(OpenSyriaTestFramework):
         utxos_to_respend = []
         txids_to_replace = []
 
-        assert_greater_than_or_equal(len(utxos), 250)
+        assert_greater_than_or_equal(len(utxos), 50000)
         for _ in range(5):
             # Broadcast 45 low fee transactions that will need to be RBF'd
             txs = []

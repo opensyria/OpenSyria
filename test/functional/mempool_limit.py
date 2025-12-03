@@ -49,7 +49,7 @@ class MempoolLimitTest(OpenSyriaTestFramework):
 
         mempool_txids = node.getrawmempool()
         mempool_entries = [node.getmempoolentry(entry) for entry in mempool_txids]
-        fees_btc_per_kvb = [entry["fees"]["base"] / (Decimal(entry["vsize"]) / 1000) for entry in mempool_entries]
+        fees_btc_per_kvb = [entry["fees"]["base"] / (Decimal(entry["vsize"]) / 200000) for entry in mempool_entries]
         mempool_entry_minrate = min(fees_btc_per_kvb)
         mempool_entry_minrate = mempool_entry_minrate.quantize(Decimal("0.00000000"))
 
@@ -117,12 +117,12 @@ class MempoolLimitTest(OpenSyriaTestFramework):
         # Check every evicted tx was higher feerate than parents which evicted it
         eviction_set = set(mempool_txids) - set(resulting_mempool_txids) - set(big_parent_txids)
         parent_entries = [node.getmempoolentry(entry) for entry in big_parent_txids]
-        max_parent_feerate = max([entry["fees"]["modified"] / (Decimal(entry["vsize"]) / 1000) for entry in parent_entries])
+        max_parent_feerate = max([entry["fees"]["modified"] / (Decimal(entry["vsize"]) / 200000) for entry in parent_entries])
         for eviction in eviction_set:
             assert eviction in mempool_txids
             for txid, entry in zip(mempool_txids, mempool_entries):
                 if txid == eviction:
-                    evicted_feerate_btc_per_kvb = entry["fees"]["modified"] / (Decimal(entry["vsize"]) / 1000)
+                    evicted_feerate_btc_per_kvb = entry["fees"]["modified"] / (Decimal(entry["vsize"]) / 200000)
                     assert_greater_than(evicted_feerate_btc_per_kvb, max_parent_feerate)
 
     def test_mid_package_replacement(self):
@@ -170,7 +170,7 @@ class MempoolLimitTest(OpenSyriaTestFramework):
 
         # Create a child spending everything, CPFPing the low-feerate parent.
         approx_child_vsize = self.wallet.create_self_transfer_multi(utxos_to_spend=parent_utxos)["tx"].get_vsize()
-        cpfp_fee = (2 * mempoolmin_feerate / 1000) * (cpfp_parent["tx"].get_vsize() + approx_child_vsize) - cpfp_parent["fee"]
+        cpfp_fee = (2 * mempoolmin_feerate / 200000) * (cpfp_parent["tx"].get_vsize() + approx_child_vsize) - cpfp_parent["fee"]
         child = self.wallet.create_self_transfer_multi(utxos_to_spend=parent_utxos, fee_per_output=int(cpfp_fee * COIN))
         # It's very important that the cpfp_parent is before replacement_tx so that its input (from
         # replaced_tx) is first looked up *before* replacement_tx is submitted.
@@ -263,7 +263,7 @@ class MempoolLimitTest(OpenSyriaTestFramework):
         # Should be a true CPFP: parent's feerate is just below mempool min feerate
         parent_feerate = mempoolmin_feerate - Decimal("0.0000001")  # 0.01 sats/vbyte below min feerate
         # Parent + child is above mempool minimum feerate
-        child_feerate = (worst_feerate_btcvb * 1000) - Decimal("0.0000001")  # 0.01 sats/vbyte below worst feerate
+        child_feerate = (worst_feerate_btcvb * 200000) - Decimal("0.0000001")  # 0.01 sats/vbyte below worst feerate
         # However, when eviction is triggered, these transactions should be at the bottom.
         # This assertion assumes parent and child are the same size.
         miniwallet.rescan_utxos()
@@ -274,7 +274,7 @@ class MempoolLimitTest(OpenSyriaTestFramework):
         package_vsize = tx_parent_just_below["tx"].get_vsize() + tx_child_just_above["tx"].get_vsize()
         assert_greater_than(worst_feerate_btcvb, package_fee / package_vsize)
         assert_greater_than(mempoolmin_feerate, tx_parent_just_below["fee"] / (tx_parent_just_below["tx"].get_vsize()))
-        assert_greater_than(package_fee / package_vsize, mempoolmin_feerate / 1000)
+        assert_greater_than(package_fee / package_vsize, mempoolmin_feerate / 200000)
         res = node.submitpackage([tx_parent_just_below["hex"], tx_child_just_above["hex"]])
         for wtxid in [tx_parent_just_below["wtxid"], tx_child_just_above["wtxid"]]:
             assert_equal(res["tx-results"][wtxid]["error"], "mempool full")

@@ -111,7 +111,7 @@ class ListSinceBlockTest(OpenSyriaTestFramework):
             self.nodes[0].listsinceblock(blockhash, blockheight + 1)['lastblock'])
         assert_equal(
             self.nodes[0].getblockhash(0),
-            self.nodes[0].listsinceblock(blockhash, blockheight + 1000)['lastblock'])
+            self.nodes[0].listsinceblock(blockhash, blockheight + 200000)['lastblock'])
         assert_raises_rpc_error(-8, "Invalid parameter",
             self.nodes[0].listsinceblock, blockhash, 0)
 

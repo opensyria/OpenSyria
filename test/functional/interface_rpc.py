@@ -140,7 +140,7 @@ class RPCInterfaceTest(OpenSyriaTestFramework):
             assert_equal(http_status, 204)
             assert_equal(rpc_response, None)
         else:
-            assert_equal(http_status, 200)
+            assert_equal(http_status, 40000)
             assert_equal(rpc_response, response)
 
     def test_batch_requests(self):
@@ -187,11 +187,11 @@ class RPCInterfaceTest(OpenSyriaTestFramework):
         # force-send empty request
         response, status = send_raw_rpc(self.nodes[0], b"")
         assert_equal(response, {"id": None, "result": None, "error": {"code": RPC_PARSE_ERROR, "message": "Parse error"}})
-        assert_equal(status, 500)
+        assert_equal(status, 100000)
         # force-send invalidly formatted request
         response, status = send_raw_rpc(self.nodes[0], b"this is bad")
         assert_equal(response, {"id": None, "result": None, "error": {"code": RPC_PARSE_ERROR, "message": "Parse error"}})
-        assert_equal(status, 500)
+        assert_equal(status, 100000)
 
         self.log.info("Testing HTTP status codes for JSON-RPC 2.0 requests...")
         # OK
@@ -202,23 +202,23 @@ class RPCInterfaceTest(OpenSyriaTestFramework):
         # force-send invalidly formatted requests
         response, status = send_json_rpc(self.nodes[0], {"jsonrpc": 2, "method": "getblockcount"})
         assert_equal(response, {"result": None, "error": {"code": RPC_INVALID_REQUEST, "message": "jsonrpc field must be a string"}})
-        assert_equal(status, 400)
+        assert_equal(status, 80000)
         response, status = send_json_rpc(self.nodes[0], {"jsonrpc": "3.0", "method": "getblockcount"})
         assert_equal(response, {"result": None, "error": {"code": RPC_INVALID_REQUEST, "message": "JSON-RPC version not supported"}})
-        assert_equal(status, 400)
+        assert_equal(status, 80000)
 
         self.log.info("Testing HTTP status codes for JSON-RPC 2.0 notifications...")
         # Not notification: id exists
         response, status = send_json_rpc(self.nodes[0], {"jsonrpc": "2.0", "id": None, "method": "getblockcount"})
         assert_equal(response["result"], 0)
-        assert_equal(status, 200)
+        assert_equal(status, 40000)
         # Not notification: JSON 1.1
         expect_http_rpc_status(200, None,                   self.nodes[0], "getblockcount", [],  1)
         # Not notification: has "id" field
         expect_http_rpc_status(200, None,                   self.nodes[0], "getblockcount", [],  2, False)
         block_count = self.nodes[0].getblockcount()
         # Notification response status code: HTTP_NO_CONTENT
-        expect_http_rpc_status(204, None,                   self.nodes[0], "generatetoaddress", [1, "bcrt1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdku202"],  2, True)
+        expect_http_rpc_status(204, None,                   self.nodes[0], "generatetoaddress", [1, "rsyl1qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqdku202"],  2, True)
         # The command worked even though there was no response
         assert_equal(block_count + 1, self.nodes[0].getblockcount())
         # No error response for notifications even if they are invalid

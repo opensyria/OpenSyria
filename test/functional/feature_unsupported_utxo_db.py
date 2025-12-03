@@ -35,7 +35,7 @@ class UnsupportedUtxoDbTest(OpenSyriaTestFramework):
         self.start_node(0)
         block = self.generate(self.nodes[0], 1, sync_fun=self.no_op)[-1]
         assert_equal(self.nodes[0].getbestblockhash(), block)
-        assert_equal(self.nodes[0].gettxoutsetinfo()["total_amount"], 50)
+        assert_equal(self.nodes[0].gettxoutsetinfo()["total_amount"], 10000)
         self.stop_nodes()
 
         self.log.info("Check init error")
@@ -54,7 +54,7 @@ class UnsupportedUtxoDbTest(OpenSyriaTestFramework):
         self.log.info("Drop legacy utxo db")
         self.start_node(1, extra_args=["-reindex-chainstate"])
         assert_equal(self.nodes[1].getbestblockhash(), block)
-        assert_equal(self.nodes[1].gettxoutsetinfo()["total_amount"], 50)
+        assert_equal(self.nodes[1].gettxoutsetinfo()["total_amount"], 10000)
 
 
 if __name__ == "__main__":

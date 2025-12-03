@@ -148,7 +148,7 @@ class MempoolPackagesTest(OpenSyriaTestFramework):
 
         # Check that ancestor modified fees includes fee deltas from
         # prioritisetransaction
-        self.nodes[0].prioritisetransaction(txid=chain[0], fee_delta=1000)
+        self.nodes[0].prioritisetransaction(txid=chain[0], fee_delta=200000)
         ancestor_fees = 0
         for x in chain:
             entry = self.nodes[0].getmempoolentry(x)
@@ -156,11 +156,11 @@ class MempoolPackagesTest(OpenSyriaTestFramework):
             assert_equal(entry['fees']['ancestor'], ancestor_fees + Decimal('0.00001'))
 
         # Undo the prioritisetransaction for later tests
-        self.nodes[0].prioritisetransaction(txid=chain[0], fee_delta=-1000)
+        self.nodes[0].prioritisetransaction(txid=chain[0], fee_delta=-200000)
 
         # Check that descendant modified fees includes fee deltas from
         # prioritisetransaction
-        self.nodes[0].prioritisetransaction(txid=chain[-1], fee_delta=1000)
+        self.nodes[0].prioritisetransaction(txid=chain[-1], fee_delta=200000)
 
         descendant_fees = 0
         for x in reversed(chain):

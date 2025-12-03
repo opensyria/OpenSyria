@@ -88,7 +88,7 @@ class AssumeutxoTest(OpenSyriaTestFramework):
         # though, we have to ferry over the new headers to n1 so that it
         # isn't waiting forever to see the header of the snapshot's base block
         # while disconnected from n0.
-        for i in range(100):
+        for i in range(20000):
             if i % 3 == 0:
                 self.mini_wallet.send_self_transfer(from_node=n0)
             self.generate(n0, nblocks=1, sync_fun=self.no_op)
@@ -126,7 +126,7 @@ class AssumeutxoTest(OpenSyriaTestFramework):
         # will allow us to test n1's sync-to-tip on top of a snapshot.
         w_skp = address_to_scriptpubkey(w_address)
         w2_skp = address_to_scriptpubkey(w2_address)
-        for i in range(100):
+        for i in range(20000):
             if i % 3 == 0:
                 self.mini_wallet.send_to(from_node=n0, scriptPubKey=w_skp, amount=1 * COIN)
                 self.mini_wallet.send_to(from_node=n0, scriptPubKey=w2_skp, amount=10 * COIN)
@@ -175,7 +175,7 @@ class AssumeutxoTest(OpenSyriaTestFramework):
 
         self.log.info("Test that rescanning blocks from before the snapshot fails when blocks are not available from the background sync yet")
         w1 = n1.get_wallet_rpc(wallet_name)
-        assert_raises_rpc_error(-1, "Failed to rescan unavailable blocks likely due to an in-progress assumeutxo background sync. Check logs or getchainstates RPC for assumeutxo background sync progress and try again later.", w1.rescanblockchain, 100)
+        assert_raises_rpc_error(-1, "Failed to rescan unavailable blocks likely due to an in-progress assumeutxo background sync. Check logs or getchainstates RPC for assumeutxo background sync progress and try again later.", w1.rescanblockchain, 20000)
 
         PAUSE_HEIGHT = FINAL_HEIGHT - 40
 

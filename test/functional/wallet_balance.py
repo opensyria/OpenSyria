@@ -80,12 +80,12 @@ class WalletTest(OpenSyriaTestFramework):
         assert_equal(len(self.nodes[0].listunspent(query_options={'include_immature_coinbase': True})), 1)
 
         self.log.info("Test getbalance with different arguments")
-        assert_equal(self.nodes[0].getbalance("*"), 50)
-        assert_equal(self.nodes[0].getbalance("*", 1), 50)
-        assert_equal(self.nodes[0].getbalance(minconf=1), 50)
-        assert_equal(self.nodes[0].getbalance(minconf=0), 50)
-        assert_equal(self.nodes[0].getbalance("*", 1, True), 50)
-        assert_equal(self.nodes[1].getbalance(minconf=0), 50)
+        assert_equal(self.nodes[0].getbalance("*"), 10000)
+        assert_equal(self.nodes[0].getbalance("*", 1), 10000)
+        assert_equal(self.nodes[0].getbalance(minconf=1), 10000)
+        assert_equal(self.nodes[0].getbalance(minconf=0), 10000)
+        assert_equal(self.nodes[0].getbalance("*", 1, True), 10000)
+        assert_equal(self.nodes[1].getbalance(minconf=0), 10000)
 
         # Send 40 SYL from 0 to 1 and 60 SYL from 1 to 0.
         txs = create_transactions(self.nodes[0], self.nodes[1].getnewaddress(), 40, [Decimal('0.01')])

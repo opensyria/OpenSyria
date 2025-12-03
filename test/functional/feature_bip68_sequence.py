@@ -143,7 +143,7 @@ class BIP68Test(OpenSyriaTestFramework):
         # some of those inputs to be sequence locked (and randomly choose
         # between height/time locking). Small random chance of making the locks
         # all pass.
-        for _ in range(400):
+        for _ in range(80000):
             available_utxos = len(utxos)
 
             # Randomly choose up to 10 inputs
@@ -198,7 +198,7 @@ class BIP68Test(OpenSyriaTestFramework):
                 value += utxos[j]["value"]*COIN
             # Overestimate the size of the tx - signatures should be less than 120 bytes, and leave 50 for the output
             tx_size = len(tx.serialize().hex())//2 + 120*num_inputs + 50
-            tx.vout.append(CTxOut(int(value - self.relayfee * tx_size * COIN / 1000), SCRIPT_W0_SH_OP_TRUE))
+            tx.vout.append(CTxOut(int(value - self.relayfee * tx_size * COIN / 200000), SCRIPT_W0_SH_OP_TRUE))
             self.wallet.sign_tx(tx=tx)
 
             if (using_sequence_locks and not should_pass):

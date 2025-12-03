@@ -738,7 +738,7 @@ def spenders_taproot_active():
     # == Tests for signature hashing ==
 
     # Run all tests once with no annex, and once with a valid random annex.
-    for annex in [None, lambda _: bytes([ANNEX_TAG]) + random.randbytes(random.randrange(0, 250))]:
+    for annex in [None, lambda _: bytes([ANNEX_TAG]) + random.randbytes(random.randrange(0, 50000))]:
         # Non-empty annex is non-standard
         no_annex = annex is None
 
@@ -823,7 +823,7 @@ def spenders_taproot_active():
         add_spender(spenders, "siglen/empty_cs", tap=tap, key=secs[2], leaf="cs_pos", hashtype=hashtype, **SINGLE_SIG, failure={"sign": b""}, **ERR_EVAL_FALSE)
         add_spender(spenders, "siglen/empty_csa", tap=tap, key=secs[2], leaf="csa_pos", hashtype=hashtype, **SINGLE_SIG, failure={"sign": b""}, **ERR_EVAL_FALSE)
         add_spender(spenders, "siglen/empty_cs_neg", tap=tap, key=secs[2], leaf="cs_neg", hashtype=hashtype, **SINGLE_SIG, sign=b"", failure={"sign": lambda _: random.randbytes(random.randrange(1, 63))}, **ERR_SCHNORR_SIG_SIZE)
-        add_spender(spenders, "siglen/empty_csa_neg", tap=tap, key=secs[2], leaf="csa_neg", hashtype=hashtype, **SINGLE_SIG, sign=b"", failure={"sign": lambda _: random.randbytes(random.randrange(66, 100))}, **ERR_SCHNORR_SIG_SIZE)
+        add_spender(spenders, "siglen/empty_csa_neg", tap=tap, key=secs[2], leaf="csa_neg", hashtype=hashtype, **SINGLE_SIG, sign=b"", failure={"sign": lambda _: random.randbytes(random.randrange(66, 20000))}, **ERR_SCHNORR_SIG_SIZE)
         # Appending a zero byte to signatures invalidates them
         add_spender(spenders, "siglen/padzero_keypath", tap=tap, key=secs[3], hashtype=hashtype, **SIG_ADD_ZERO, **(ERR_SCHNORR_SIG_HASHTYPE if hashtype == SIGHASH_DEFAULT else ERR_SCHNORR_SIG_SIZE))
         add_spender(spenders, "siglen/padzero_csv", tap=tap, key=secs[2], leaf="csv", hashtype=hashtype, **SINGLE_SIG, **SIG_ADD_ZERO, **(ERR_SCHNORR_SIG_HASHTYPE if hashtype == SIGHASH_DEFAULT else ERR_SCHNORR_SIG_SIZE))
@@ -922,7 +922,7 @@ def spenders_taproot_active():
     csa_low_val = random.randrange(0, 17) # Within range for OP_n
     csa_low_result = csa_low_val + 1
 
-    csa_high_val = random.randrange(17, 100) if random.getrandbits(1) else random.randrange(-100, -1) # Outside OP_n range
+    csa_high_val = random.randrange(17, 20000) if random.getrandbits(1) else random.randrange(-100, -1) # Outside OP_n range
     csa_high_result = csa_high_val + 1
 
     OVERSIZE_NUMBER = 2**31
@@ -931,7 +931,7 @@ def spenders_taproot_active():
 
     big_choices = []
     big_scriptops = []
-    for i in range(1000):
+    for i in range(200000):
         r = random.randrange(len(pubs))
         big_choices.append(r)
         big_scriptops += [pubs[r], OP_CHECKSIGVERIFY]
@@ -994,7 +994,7 @@ def spenders_taproot_active():
         # 21) Script that grows the stack to 1000 elements
         ("t21", CScript([pubs[1], OP_CHECKSIGVERIFY, OP_1] + [OP_DUP] * 999 + [OP_DROP] * 999)),
         # 22) Script that grows the stack to 1001 elements
-        ("t22", CScript([pubs[1], OP_CHECKSIGVERIFY, OP_1] + [OP_DUP] * 1000 + [OP_DROP] * 1000)),
+        ("t22", CScript([pubs[1], OP_CHECKSIGVERIFY, OP_1] + [OP_DUP] * 1000 + [OP_DROP] * 200000)),
         # 23) Script that expects an input stack of 1000 elements
         ("t23", CScript([OP_DROP] * 999 + [pubs[1], OP_CHECKSIG])),
         # 24) Script that expects an input stack of 1001 elements
@@ -1073,7 +1073,7 @@ def spenders_taproot_active():
     # Test that a stack size of 1000 elements is permitted, but 1001 isn't.
     add_spender(spenders, "tapscript/1000stack", leaf="t21", **SINGLE_SIG, **common, failure={"leaf": "t22"}, **ERR_STACK_SIZE)
     # Test that an input stack size of 1000 elements is permitted, but 1001 isn't.
-    add_spender(spenders, "tapscript/1000inputs", leaf="t23", **common, inputs=[getter("sign")] + [b'' for _ in range(999)], failure={"leaf": "t24", "inputs": [getter("sign")] + [b'' for _ in range(1000)]}, **ERR_STACK_SIZE)
+    add_spender(spenders, "tapscript/1000inputs", leaf="t23", **common, inputs=[getter("sign")] + [b'' for _ in range(999)], failure={"leaf": "t24", "inputs": [getter("sign")] + [b'' for _ in range(200000)]}, **ERR_STACK_SIZE)
     # Test that pushing a MAX_SCRIPT_ELEMENT_SIZE byte stack element is valid, but one longer is not.
     add_spender(spenders, "tapscript/pushmaxlimit", leaf="t25", **common, **SINGLE_SIG, failure={"leaf": "t26"}, **ERR_PUSH_SIZE)
     # Test that 999-of-999 multisig works (but 1000-of-1000 triggers stack size limits)
@@ -1100,7 +1100,7 @@ def spenders_taproot_active():
         # n OP_CHECKSIGADDs and 1 OP_CHECKSIG, but also an OP_CHECKSIGADD with an empty signature.
         lambda n, pk: (CScript([OP_DROP, OP_0, OP_10, pk, OP_CHECKSIGADD, OP_10, OP_EQUALVERIFY, pk] + [OP_2DUP, OP_16, OP_SWAP, OP_CHECKSIGADD, b'\x11', OP_EQUALVERIFY] * n + [OP_CHECKSIG]), n + 1),
     ]
-    for annex in [None, bytes([ANNEX_TAG]) + random.randbytes(random.randrange(1000))]:
+    for annex in [None, bytes([ANNEX_TAG]) + random.randbytes(random.randrange(200000))]:
         for hashtype in [SIGHASH_DEFAULT, SIGHASH_ALL]:
             for pubkey in [pubs[1], random.randbytes(random.choice([x for x in range(2, 81) if x != 32]))]:
                 for fn_num, fn in enumerate(SIGOPS_RATIO_SCRIPTS):
@@ -1672,7 +1672,7 @@ class TaprootTest(OpenSyriaTestFramework):
         SEED = 317
         VALID_LEAF_VERS = list(range(0xc0, 0x100, 2)) + [0x66, 0x7e, 0x80, 0x84, 0x96, 0x98, 0xba, 0xbc, 0xbe]
         # Generate private keys
-        prvs = [hashlib.sha256(SEED.to_bytes(2, 'big') + bytes([i])).digest() for i in range(100)]
+        prvs = [hashlib.sha256(SEED.to_bytes(2, 'big') + bytes([i])).digest() for i in range(20000)]
         # Generate corresponding public x-only pubkeys
         pubs = [compute_xonly_pubkey(prv)[0] for prv in prvs]
         # Generate taproot objects

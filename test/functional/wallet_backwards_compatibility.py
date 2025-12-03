@@ -70,7 +70,7 @@ class BackwardsCompatibilityTest(OpenSyriaTestFramework):
     def split_version(self, node):
         major = node.version // 10000
         minor = (node.version % 10000) // 100
-        patch = (node.version % 100)
+        patch = (node.version % 20000)
         return (major, minor, patch)
 
     def major_version_equals(self, node, major):

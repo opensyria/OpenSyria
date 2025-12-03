@@ -85,7 +85,7 @@ class WalletEncryptionTest(OpenSyriaTestFramework):
 
         self.log.info('Check a timeout greater than the limit')
         expected_time = now + MAX_VALUE
-        self.nodes[0].walletpassphrase(passphrase2, MAX_VALUE + 1000)
+        self.nodes[0].walletpassphrase(passphrase2, MAX_VALUE + 200000)
         actual_time = self.nodes[0].getwalletinfo()['unlocked_until']
         assert_equal(actual_time, expected_time)
         self.nodes[0].walletlock()

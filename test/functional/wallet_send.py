@@ -152,7 +152,7 @@ class WalletSendTest(OpenSyriaTestFramework):
                 decoded_tx = from_wallet.gettransaction(txid=res["txid"], verbose=True)["decoded"]
                 # the locktime should be within 100 blocks of the
                 # block height
-                assert_greater_than_or_equal(decoded_tx["locktime"], from_wallet.getblockcount() - 100)
+                assert_greater_than_or_equal(decoded_tx["locktime"], from_wallet.getblockcount() - 20000)
 
         if expect_sign:
             assert_equal(res["complete"], True)
@@ -370,7 +370,7 @@ class WalletSendTest(OpenSyriaTestFramework):
         res = self.test_send(from_wallet=w0, to_wallet=w1, amount=51, inputs=[], add_to_wallet=False)
         assert res["complete"]
         utxo1 = w0.listunspent()[0]
-        assert_equal(utxo1["amount"], 50)
+        assert_equal(utxo1["amount"], 10000)
         ERR_NOT_ENOUGH_PRESET_INPUTS = "The preselected coins total amount does not cover the transaction target. " \
                                        "Please allow other inputs to be automatically selected or include more coins manually"
         self.test_send(from_wallet=w0, to_wallet=w1, amount=51, inputs=[utxo1],

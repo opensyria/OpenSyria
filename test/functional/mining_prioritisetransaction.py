@@ -42,10 +42,10 @@ class PrioritiseTransactionTest(OpenSyriaTestFramework):
         tx_replacee = self.wallet.create_self_transfer(utxo_to_spend=conflicting_input, fee_rate=Decimal("0.0001"))
         tx_replacement = self.wallet.create_self_transfer(utxo_to_spend=conflicting_input, fee_rate=Decimal("0.005"))
         # Add 1 qirsh fee delta to replacee
-        self.nodes[0].prioritisetransaction(tx_replacee["txid"], 0, 100)
+        self.nodes[0].prioritisetransaction(tx_replacee["txid"], 0, 20000)
         assert_equal(self.nodes[0].getprioritisedtransactions(), { tx_replacee["txid"] : { "fee_delta" : 100, "in_mempool" : False}})
         self.nodes[0].sendrawtransaction(tx_replacee["hex"])
-        assert_equal(self.nodes[0].getprioritisedtransactions(), { tx_replacee["txid"] : { "fee_delta" : 100, "in_mempool" : True, "modified_fee": int(tx_replacee["fee"] * COIN + 100)}})
+        assert_equal(self.nodes[0].getprioritisedtransactions(), { tx_replacee["txid"] : { "fee_delta" : 100, "in_mempool" : True, "modified_fee": int(tx_replacee["fee"] * COIN + 20000)}})
         self.nodes[0].sendrawtransaction(tx_replacement["hex"])
         assert tx_replacee["txid"] not in self.nodes[0].getrawmempool()
         assert_equal(self.nodes[0].getprioritisedtransactions(), { tx_replacee["txid"] : { "fee_delta" : 100, "in_mempool" : False}})
@@ -53,7 +53,7 @@ class PrioritiseTransactionTest(OpenSyriaTestFramework):
         # PrioritiseTransaction is additive
         self.nodes[0].prioritisetransaction(tx_replacee["txid"], 0, COIN)
         self.nodes[0].sendrawtransaction(tx_replacee["hex"])
-        assert_equal(self.nodes[0].getprioritisedtransactions(), { tx_replacee["txid"] : { "fee_delta" : COIN + 100, "in_mempool" : True, "modified_fee": int(tx_replacee["fee"] * COIN + COIN + 100)}})
+        assert_equal(self.nodes[0].getprioritisedtransactions(), { tx_replacee["txid"] : { "fee_delta" : COIN + 100, "in_mempool" : True, "modified_fee": int(tx_replacee["fee"] * COIN + COIN + 20000)}})
         self.generate(self.nodes[0], 1)
         assert_equal(self.nodes[0].getprioritisedtransactions(), {})
 

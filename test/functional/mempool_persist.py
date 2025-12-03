@@ -85,7 +85,7 @@ class MempoolPersistTest(OpenSyriaTestFramework):
         self.log.debug("Prioritize a transaction on node0")
         fees = self.nodes[0].getmempoolentry(txid=last_txid)['fees']
         assert_equal(fees['base'], fees['modified'])
-        self.nodes[0].prioritisetransaction(txid=last_txid, fee_delta=1000)
+        self.nodes[0].prioritisetransaction(txid=last_txid, fee_delta=200000)
         fees = self.nodes[0].getmempoolentry(txid=last_txid)['fees']
         assert_equal(fees['base'] + Decimal('0.00001000'), fees['modified'])
 

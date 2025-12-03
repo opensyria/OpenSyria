@@ -73,7 +73,7 @@ class MiningTest(OpenSyriaTestFramework):
             self.nodes[0].setmocktime(t)
             self.generate(self.wallet, 1, sync_fun=self.no_op)
         mining_info = self.nodes[0].getmininginfo()
-        assert_equal(mining_info['blocks'], 200)
+        assert_equal(mining_info['blocks'], 40000)
         assert_equal(mining_info['currentblocktx'], 0)
         assert_equal(mining_info['currentblockweight'], DEFAULT_BLOCK_RESERVED_WEIGHT)
 
@@ -252,7 +252,7 @@ class MiningTest(OpenSyriaTestFramework):
         prune_node = self.nodes[2]
         self.generate(prune_node, 400, sync_fun=self.no_op)
         pruned_block = prune_node.getblock(prune_node.getblockhash(2), verbosity=0)
-        pruned_height = prune_node.pruneblockchain(400)
+        pruned_height = prune_node.pruneblockchain(80000)
         assert_greater_than_or_equal(pruned_height, 2)
         pruned_blockhash = prune_node.getblockhash(2)
 
@@ -383,7 +383,7 @@ class MiningTest(OpenSyriaTestFramework):
 
         self.log.info('getmininginfo')
         mining_info = node.getmininginfo()
-        assert_equal(mining_info['blocks'], 200)
+        assert_equal(mining_info['blocks'], 40000)
         assert_equal(mining_info['chain'], self.chain)
         assert 'currentblocktx' not in mining_info
         assert 'currentblockweight' not in mining_info
