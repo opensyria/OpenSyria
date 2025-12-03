@@ -295,7 +295,7 @@ class WalletTaprootTest(OpenSyriaTestFramework):
             test_balance = int(rpc_online.getbalance() * 100000000)
             ret_amnt = random.randrange(100000, test_balance)
             # Increase fee_rate to compensate for the wallet's inability to estimate fees for script path spends.
-            res = rpc_online.sendtoaddress(address=self.boring.getnewaddress(), amount=Decimal(ret_amnt) / 100000000, subtractfeefromamount=True, fee_rate=40000)
+            res = rpc_online.sendtoaddress(address=self.boring.getnewaddress(), amount=Decimal(ret_amnt) / 100000000, subtractfeefromamount=True, fee_rate=200)
             self.generatetoaddress(self.nodes[0], 1, self.boring.getnewaddress(), sync_fun=self.no_op)
             assert rpc_online.gettransaction(res)["confirmations"] > 0
 
