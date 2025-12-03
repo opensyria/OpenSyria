@@ -994,7 +994,7 @@ def spenders_taproot_active():
         # 21) Script that grows the stack to 1000 elements
         ("t21", CScript([pubs[1], OP_CHECKSIGVERIFY, OP_1] + [OP_DUP] * 999 + [OP_DROP] * 999)),
         # 22) Script that grows the stack to 1001 elements
-        ("t22", CScript([pubs[1], OP_CHECKSIGVERIFY, OP_1] + [OP_DUP] * 1000 + [OP_DROP] * 200000)),
+        ("t22", CScript([pubs[1], OP_CHECKSIGVERIFY, OP_1] + [OP_DUP] * 1000 + [OP_DROP] * 1000)),
         # 23) Script that expects an input stack of 1000 elements
         ("t23", CScript([OP_DROP] * 999 + [pubs[1], OP_CHECKSIG])),
         # 24) Script that expects an input stack of 1001 elements

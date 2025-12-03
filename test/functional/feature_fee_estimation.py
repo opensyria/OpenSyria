@@ -126,7 +126,7 @@ def make_tx(wallet, utxo, feerate):
     """Create a 1in-1out transaction with a specific input and feerate (sat/vb)."""
     return wallet.create_self_transfer(
         utxo_to_spend=utxo,
-        fee_rate=Decimal(feerate * 200000) / COIN,
+        fee_rate=Decimal(feerate * 1000) / COIN,
     )
 
 def check_fee_estimates_btw_modes(node, expected_conservative, expected_economical):

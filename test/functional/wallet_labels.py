@@ -187,13 +187,13 @@ class WalletLabelsTest(OpenSyriaTestFramework):
         node.createwallet(wallet_name='watch_only', disable_private_keys=True)
         wallet_watch_only = node.get_wallet_rpc('watch_only')
         BECH32_VALID = {
-            '✔️_VER15_PROG40': 'rsyl10qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqxkg7fn',
-            '✔️_VER16_PROG03': 'rsyl1sqqqqq8uhdgr',
-            '✔️_VER16_PROB02': 'rsyl1sqqqq4wstyw',
+            '✔️_VER15_PROG40': 'rsyl10qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq37gexk',
+            '✔️_VER16_PROG03': 'rsyl1sqqqqqfd9r9n',
+            '✔️_VER16_PROB02': 'rsyl1sqqqqldsu9w',
         }
         BECH32_INVALID = {
-            '❌_VER15_PROG41': 'rsyl1sqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqajlxj8',
-            '❌_VER16_PROB01': 'rsyl1sqq5r4036',
+            '❌_VER15_PROG41': 'rsyl1sqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqp4k9qn',
+            '❌_VER16_PROB01': 'rsyl1sqq9tgsu9',
         }
         for l in BECH32_VALID:
             ad = BECH32_VALID[l]

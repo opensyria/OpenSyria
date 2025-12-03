@@ -23,7 +23,7 @@ class DisableWalletTest (OpenSyriaTestFramework):
         assert_raises_rpc_error(-32601, 'Method not found', self.nodes[0].getwalletinfo)
         x = self.nodes[0].validateaddress('3J98t1WpEZ73CNmQviecrnyiWrnqRhWNLy')
         assert x['isvalid'] == False
-        x = self.nodes[0].validateaddress('mneYUmWYsuk7kySiURxCi3AGxrAqZxLgPZ')
+        x = self.nodes[0].validateaddress('sUvfdj9d7cnHNVcpHDkASXSKoAeTsKojEm')
         assert x['isvalid'] == True
 
 
