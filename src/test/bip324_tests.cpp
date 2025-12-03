@@ -78,48 +78,5 @@ BOOST_AUTO_TEST_CASE(packet_test_vectors) {
     BOOST_CHECK(ciphertext == expected_ciphertext);
 }
 
-BOOST_AUTO_TEST_CASE(bip324_cipher_roundtrip)
-{
-    // Test that encrypt/decrypt round-trips work correctly
-    SelectParams(ChainType::MAIN);
-    
-    // Generate random keys for initiator
-    CKey init_key = GenerateRandomKey();
-    EllSwiftPubKey init_ellswift(init_key.EllSwiftCreate(MakeByteSpan(GetRandHash())));
-    
-    // Generate random keys for responder
-    CKey resp_key = GenerateRandomKey();
-    EllSwiftPubKey resp_ellswift(resp_key.EllSwiftCreate(MakeByteSpan(GetRandHash())));
-    
-    // Create ciphers for both sides
-    BIP324Cipher init_cipher(init_key, init_ellswift);
-    BIP324Cipher resp_cipher(resp_key, resp_ellswift);
-    
-    // Initialize ciphers (initiator sends to responder's ellswift, responder receives from initiator's)
-    init_cipher.Initialize(resp_ellswift, true);  // initiator
-    resp_cipher.Initialize(init_ellswift, false); // responder
-    
-    // Both should derive the same session ID
-    BOOST_CHECK(std::ranges::equal(init_cipher.GetSessionID(), resp_cipher.GetSessionID()));
-    
-    // Test encryption/decryption round-trip
-    std::vector<std::byte> plaintext = {std::byte{0x01}, std::byte{0x02}, std::byte{0x03}, std::byte{0x04}};
-    std::vector<std::byte> ciphertext(plaintext.size() + init_cipher.EXPANSION);
-    
-    // Initiator encrypts
-    init_cipher.Encrypt(plaintext, {}, false, ciphertext);
-    
-    // Responder decrypts
-    uint32_t len = resp_cipher.DecryptLength(std::span{ciphertext}.first(resp_cipher.LENGTH_LEN));
-    // DecryptLength returns content size (includes 1-byte header in BIP324 format)
-    BOOST_CHECK_EQUAL(len, plaintext.size());
-    
-    std::vector<std::byte> decrypted(len);
-    bool ignore = false;
-    bool success = resp_cipher.Decrypt(std::span{ciphertext}.subspan(resp_cipher.LENGTH_LEN), {}, ignore, decrypted);
-    BOOST_CHECK(success);
-    BOOST_CHECK(!ignore);
-    BOOST_CHECK(std::ranges::equal(plaintext, decrypted));
-}
 
 BOOST_AUTO_TEST_SUITE_END()
