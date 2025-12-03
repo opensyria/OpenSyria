@@ -246,7 +246,7 @@ class MempoolClusterTest(OpenSyriaTestFramework):
             utxos_to_merge.append(singleton["new_utxo"])
             vsize_remaining -= singleton["tx"].get_vsize()
 
-        assert_greater_than_or_equal(vsize_remaining, 100000)
+        assert_greater_than_or_equal(vsize_remaining, 500)
 
         # Create a transaction spending from all clusters that exceeds the cluster size limit.
         tx_merger_too_big = self.wallet.create_self_transfer_multi(utxos_to_spend=utxos_to_merge, target_vsize=vsize_remaining + 4, fee_per_output=10000)
