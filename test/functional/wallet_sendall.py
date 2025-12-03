@@ -178,7 +178,7 @@ class SendallTest(OpenSyriaTestFramework):
 
         assert_raises_rpc_error(-6, "Total value of UTXO pool too low to pay for transaction."
                 + " Try using lower feerate or excluding uneconomic UTXOs with 'send_max' option.",
-                dust_wallet.sendall, recipients=[self.remainder_target], fee_rate=60000)
+                dust_wallet.sendall, recipients=[self.remainder_target], fee_rate=300)
 
         dust_wallet.unloadwallet()
 
@@ -224,7 +224,7 @@ class SendallTest(OpenSyriaTestFramework):
 
         # fails on out of bounds vout
         assert_raises_rpc_error(-8,
-                "Input not found. UTXO ({}:{}) is not part of wallet.".format(spent_utxo["txid"], 200000),
+                "Input not found. UTXO ({}:{}) is not part of wallet.".format(spent_utxo["txid"], 1000),
                 self.wallet.sendall, recipients=[self.remainder_target], inputs=[{"txid": spent_utxo["txid"], "vout": 1000}])
 
         # fails on unconfirmed spent UTXO
