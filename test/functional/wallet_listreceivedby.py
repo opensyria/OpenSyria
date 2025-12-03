@@ -176,7 +176,7 @@ class ReceivedByTest(OpenSyriaTestFramework):
         label = "label"
         address = self.nodes[0].getnewaddress(label)
 
-        reward = Decimal("25")
+        reward = Decimal("5000")  # Block reward for OpenSyria
         self.generatetoaddress(self.nodes[0], 1, address)
         hash = self.nodes[0].getbestblockhash()
 

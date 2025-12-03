@@ -322,11 +322,11 @@ class ImportDescriptorsTest(OpenSyriaTestFramework):
         self.log.info('Key ranges should be imported in order')
         xpub = "tpubDAXcJ7s7ZwicqjprRaEWdPoHKrCS215qxGYxpusRLLmJuT69ZSicuGdSfyvyKpvUNYBW1s2U3NSrT6vrCYB9e6nZUEvrqnwXPF8ArTCRXMY"
         addresses = [
-            'rsyl1qtmp74ayg7p24uslctssvjm06q5phz4yrclwl6n', # m/0'/0'/0
-            'rsyl1q8vprchan07gzagd5e6v9wd7azyucksq2cmgdlc', # m/0'/0'/1
-            'rsyl1qtuqdtha7zmqgcrr26n2rqxztv5y8rafjlxftkr', # m/0'/0'/2
-            'rsyl1qau64272ymawq26t90md6an0ps99qkrse2yddus', # m/0'/0'/3
-            'rsyl1qsg97266hrh6cpmutqen8s4s962aryy77vze7ps', # m/0'/0'/4
+            'rsyl1qtmp74ayg7p24uslctssvjm06q5phz4yr2pvve8', # m/0'/0'/0
+            'rsyl1q8vprchan07gzagd5e6v9wd7azyucksq22927uv', # m/0'/0'/1
+            'rsyl1qtuqdtha7zmqgcrr26n2rqxztv5y8rafjdctc4h', # m/0'/0'/2
+            'rsyl1qau64272ymawq26t90md6an0ps99qkrsec607ly', # m/0'/0'/3
+            'rsyl1qsg97266hrh6cpmutqen8s4s962aryy777umdzy', # m/0'/0'/4
         ]
 
         self.test_importdesc({'desc': descsum_create('wpkh([80002067/0h/0h]' + xpub + '/*)'),
@@ -399,7 +399,7 @@ class ImportDescriptorsTest(OpenSyriaTestFramework):
                               },
                              success=True)
         address = w1.getrawchangeaddress('legacy')
-        assert_equal(address, "mpA2Wh9dvZT7yfELq1UnrUmAoc5qCkMetg")
+        assert_equal(address, "sStUJDKfs5wPRjBZAt9FeEaBcfh38mbQ4M")
 
         self.log.info('Check can deactivate active descriptor')
         self.test_importdesc({'desc': descsum_create('pkh([12345678]' + xpub + '/*)'),
@@ -472,12 +472,12 @@ class ImportDescriptorsTest(OpenSyriaTestFramework):
                             success=True,
                             wallet=wmulti_priv)
 
-        assert_equal(wmulti_priv.getwalletinfo()['keypoolsize'], 1001) # Range end (200000) is inclusive, so 1001 addresses generated
+        assert_equal(wmulti_priv.getwalletinfo()['keypoolsize'], 1001) # Range end (1000) is inclusive, so 1001 addresses generated
         addr = wmulti_priv.getnewaddress('', 'bech32') # uses receive 0
-        assert_equal(addr, 'rsyl1qdt0qy5p7dzhxzmegnn4ulzhard33s2809arjqgjndx87rv5vd0fq45eptm') # Derived at m/84'/0'/0'/0
+        assert_equal(addr, 'rsyl1qdt0qy5p7dzhxzmegnn4ulzhard33s2809arjqgjndx87rv5vd0fqyzp83x') # Derived at m/84'/0'/0'/0
         change_addr = wmulti_priv.getrawchangeaddress('bech32') # uses change 0
-        assert_equal(change_addr, 'rsyl1qt9uhe3a9hnq7vajl7a094z4s3crm9ttf8zw3f5v9gr2nyd7e3lnsmew9g9') # Derived at m/84'/1'/0'/0
-        assert_equal(wmulti_priv.getwalletinfo()['keypoolsize'], 200000)
+        assert_equal(change_addr, 'rsyl1qt9uhe3a9hnq7vajl7a094z4s3crm9ttf8zw3f5v9gr2nyd7e3lns20krjc') # Derived at m/84'/1'/0'/0
+        assert_equal(wmulti_priv.getwalletinfo()['keypoolsize'], 1000)
         txid = w0.sendtoaddress(addr, 10)
         self.generate(self.nodes[0], 6)
         send_txid = wmulti_priv.sendtoaddress(w0.getnewaddress(), 8) # uses change 1
@@ -505,11 +505,11 @@ class ImportDescriptorsTest(OpenSyriaTestFramework):
                             success=True,
                             wallet=wmulti_pub)
 
-        assert_equal(wmulti_pub.getwalletinfo()['keypoolsize'], 200000) # The first one was already consumed by previous import and is detected as used
+        assert_equal(wmulti_pub.getwalletinfo()['keypoolsize'], 1000) # The first one was already consumed by previous import and is detected as used
         addr = wmulti_pub.getnewaddress('', 'bech32') # uses receive 1
-        assert_equal(addr, 'rsyl1qp8s25ckjl7gr6x2q3dx3tn2pytwp05upkjztk6ey857tt50r5aeqvkq6ve') # Derived at m/84'/0'/0'/1
+        assert_equal(addr, 'rsyl1qp8s25ckjl7gr6x2q3dx3tn2pytwp05upkjztk6ey857tt50r5aeqaqcuky') # Derived at m/84'/0'/0'/1
         change_addr = wmulti_pub.getrawchangeaddress('bech32') # uses change 2
-        assert_equal(change_addr, 'rsyl1qp6j3jw8yetefte7kw6v5pc89rkgakzy98p6gf7ayslaveaxqyjusvz03qy') # Derived at m/84'/1'/0'/2
+        assert_equal(change_addr, 'rsyl1qp6j3jw8yetefte7kw6v5pc89rkgakzy98p6gf7ayslaveaxqyjusa5hh6e') # Derived at m/84'/1'/0'/2
         assert send_txid in self.nodes[0].getrawmempool(True)
         assert send_txid in (x['txid'] for x in wmulti_pub.listunspent(0))
         assert_equal(wmulti_pub.getwalletinfo()['keypoolsize'], 999)

@@ -201,9 +201,9 @@ class CoinStatsIndexTest(OpenSyriaTestFramework):
 
         for hash_option in index_hash_options:
             res7 = index_node.gettxoutsetinfo(hash_option, 109)
-            assert_equal(res7['total_unspendable_amount'], Decimal('80.99000000'))
+            assert_equal(res7['total_unspendable_amount'], Decimal('19980.99000000'))
             assert_equal(res7['block_info'], {
-                'unspendable': 10,
+                'unspendable': 9960,
                 'prevout_spent': 0,
                 'new_outputs_ex_coinbase': 0,
                 'coinbase': 40,
@@ -211,7 +211,7 @@ class CoinStatsIndexTest(OpenSyriaTestFramework):
                     'genesis_block': 0,
                     'bip30': 0,
                     'scripts': 0,
-                    'unclaimed_rewards': 10
+                    'unclaimed_rewards': 9960
                 }
             })
             self.block_sanity_check(res7['block_info'])
