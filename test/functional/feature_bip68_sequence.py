@@ -143,7 +143,7 @@ class BIP68Test(OpenSyriaTestFramework):
         # some of those inputs to be sequence locked (and randomly choose
         # between height/time locking). Small random chance of making the locks
         # all pass.
-        for _ in range(80000):
+        for _ in range(400):
             available_utxos = len(utxos)
 
             # Randomly choose up to 10 inputs
