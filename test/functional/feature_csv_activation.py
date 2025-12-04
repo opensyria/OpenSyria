@@ -382,20 +382,33 @@ class BIP68_112_113Test(OpenSyriaTestFramework):
         test_blocks = self.generate_blocks(1)
         self.send_blocks(test_blocks)
 
-        # Height txs should fail and time txs should now pass 9 * 120 > 10 * 512 is FALSE for OpenSyria (1080 < 5120)
-        # OpenSyria: With 2-minute blocks, time txs will NOT pass yet at this point
-        bip68success_txs.extend(bip68timetxs)
-        self.send_blocks([self.create_test_block(bip68success_txs)])
-        self.nodes[0].invalidateblock(self.nodes[0].getbestblockhash())
+        # OpenSyria: With 120s blocks and BIP68 time granularity of 512s:
+        # - Height lock of 10 blocks needs delta height >= 10
+        # - Time lock of 10*512=5120s needs delta time >= 5120s, i.e., 5120/120 = 43 blocks
+        # At height 438, delta = 7 blocks, so both height and time txs should still FAIL
+        for tx in bip68timetxs:
+            self.send_blocks([self.create_test_block([tx])], success=False, reject_reason='bad-txns-nonfinal')
         for tx in bip68heighttxs:
             self.send_blocks([self.create_test_block([tx])], success=False, reject_reason='bad-txns-nonfinal')
 
-        # Advance one block to 439
-        test_blocks = self.generate_blocks(1)
+        # Advance to height 441 (delta = 10 blocks) - height txs should now pass
+        test_blocks = self.generate_blocks(3)
         self.send_blocks(test_blocks)
 
-        # All BIP 68 txs should pass
+        # Height txs should pass (delta height = 10 >= 10), time txs should still fail (delta time = 10*120=1200 < 5120)
         bip68success_txs.extend(bip68heighttxs)
+        self.send_blocks([self.create_test_block(bip68success_txs)])
+        self.nodes[0].invalidateblock(self.nodes[0].getbestblockhash())
+        for tx in bip68timetxs:
+            self.send_blocks([self.create_test_block([tx])], success=False, reject_reason='bad-txns-nonfinal')
+
+        # Advance to height 474 (delta = 43 blocks) - time txs should finally pass
+        # 43 blocks * 120s = 5160s > 5120s required
+        test_blocks = self.generate_blocks(33)  # 441 + 33 = 474
+        self.send_blocks(test_blocks)
+
+        # All BIP 68 txs should pass now
+        bip68success_txs.extend(bip68timetxs)
         self.send_blocks([self.create_test_block(bip68success_txs)])
         self.nodes[0].invalidateblock(self.nodes[0].getbestblockhash())
 
