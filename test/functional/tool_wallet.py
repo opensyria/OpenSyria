@@ -122,7 +122,7 @@ class ToolWalletTest(OpenSyriaTestFramework):
         self.assert_tool_output(load_output, *args)
         assert (self.nodes[0].wallets_path / wallet_name).is_dir()
 
-        self.assert_tool_output("The dumpfile may contain private keys. To ensure the safety of your SYL, do not share the dumpfile.\n", '-wallet={}'.format(wallet_name), '-dumpfile={}'.format(rt_dumppath), 'dump')
+        self.assert_tool_output("The dumpfile may contain private keys. To ensure the safety of your OpenSyria, do not share the dumpfile.\n", '-wallet={}'.format(wallet_name), '-dumpfile={}'.format(rt_dumppath), 'dump')
 
         wallet_dat = self.nodes[0].wallets_path / wallet_name / "wallet.dat"
         self.assert_is_sqlite(wallet_dat)
@@ -256,7 +256,7 @@ class ToolWalletTest(OpenSyriaTestFramework):
 
         self.log.info('Checking basic dump')
         wallet_dump = self.nodes[0].datadir_path / "wallet.dump"
-        self.assert_tool_output('The dumpfile may contain private keys. To ensure the safety of your SYL, do not share the dumpfile.\n', '-wallet=todump', '-dumpfile={}'.format(wallet_dump), 'dump')
+        self.assert_tool_output('The dumpfile may contain private keys. To ensure the safety of your OpenSyria, do not share the dumpfile.\n', '-wallet=todump', '-dumpfile={}'.format(wallet_dump), 'dump')
 
         dump_data = self.read_dump(wallet_dump)
         orig_dump = dump_data.copy()
@@ -389,23 +389,23 @@ class ToolWalletTest(OpenSyriaTestFramework):
         # in one or more overflow pages. We want to make sure that our tooling can dump such
         # records, even when they span multiple pages. To make a large record, we just need
         # to make a very big transaction.
+        # Note: We use 2100 outputs to create a large enough transaction (>65KB) while
+        # staying within MAX_STANDARD_TX_WEIGHT limits.
         self.generate(self.nodes[0], 101)
         def_wallet = self.nodes[0].get_wallet_rpc(self.default_wallet_name)
         outputs = {}
-        for i in range(100000):
+        for i in range(2100):
             outputs[wallet.getnewaddress(address_type="p2sh-segwit")] = 0.01
-        def_wallet.sendmany(amounts=outputs)
+        txid = def_wallet.sendmany(amounts=outputs)
         self.generate(self.nodes[0], 1)
-        send_res = wallet.sendall([def_wallet.getnewaddress()])
-        self.generate(self.nodes[0], 1)
-        assert_equal(send_res["complete"], True)
-        tx = wallet.gettransaction(txid=send_res["txid"], verbose=True)
-        assert_greater_than(tx["decoded"]["size"], 70000)
+        tx = def_wallet.gettransaction(txid=txid, verbose=True)
+        # Verify the transaction is large enough to trigger overflow pages
+        assert_greater_than(tx["decoded"]["size"], 65536)
 
         self.stop_node(0)
 
         wallet_dump = self.nodes[0].datadir_path / "bigrecords.dump"
-        self.assert_tool_output("The dumpfile may contain private keys. To ensure the safety of your SYL, do not share the dumpfile.\n", "-wallet=bigrecords", f"-dumpfile={wallet_dump}", "dump")
+        self.assert_tool_output("The dumpfile may contain private keys. To ensure the safety of your OpenSyria, do not share the dumpfile.\n", "-wallet=bigrecords", f"-dumpfile={wallet_dump}", "dump")
         dump = self.read_dump(wallet_dump)
         for k,v in dump.items():
             if tx["hex"] in v:

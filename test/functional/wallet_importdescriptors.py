@@ -25,6 +25,7 @@ from test_framework.descriptors import descsum_create
 from test_framework.util import (
     assert_equal,
     assert_raises_rpc_error,
+    find_vout_for_address,
 )
 from test_framework.wallet_util import (
     get_generate_key,
@@ -434,8 +435,9 @@ class ImportDescriptorsTest(OpenSyriaTestFramework):
                      solvable=True,
                      ismine=True)
         txid = w0.sendtoaddress(address, 49.99995540)
+        vout = find_vout_for_address(self.nodes[0], txid, address)
         self.generatetoaddress(self.nodes[0], 6, w0.getnewaddress())
-        tx = wpriv.createrawtransaction([{"txid": txid, "vout": 0}], {w0.getnewaddress(): 49.999})
+        tx = wpriv.createrawtransaction([{"txid": txid, "vout": vout}], {w0.getnewaddress(): 49.999})
         signed_tx = wpriv.signrawtransactionwithwallet(tx)
         w1.sendrawtransaction(signed_tx['hex'])
 
