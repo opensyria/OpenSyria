@@ -100,10 +100,12 @@ class WalletLabelsTest(OpenSyriaTestFramework):
             assert_equal(address_group[0][2], 'coinbase')
             linked_addresses.add(address_group[0][0])
 
-        # send 50 from each address to a third address not in this wallet
-        common_address = "sWPWJQY3UvooNSr8y8DLw3zoHGdTBjP4FU"
+        # send from each address to a third address not in this wallet
+        # Use the full balance to ensure both UTXOs are used and addresses get linked
+        # with no change address created
+        common_address = self.nodes[1].getnewaddress()  # Use address from node 1 (not in node 0's wallet)
         node.sendmany(
-            amounts={common_address: 100},
+            amounts={common_address: 20000},  # Full balance (2 x 10,000 SYL coinbases)
             subtractfeefrom=[common_address],
             minconf=1,
         )
@@ -187,9 +189,9 @@ class WalletLabelsTest(OpenSyriaTestFramework):
         node.createwallet(wallet_name='watch_only', disable_private_keys=True)
         wallet_watch_only = node.get_wallet_rpc('watch_only')
         BECH32_VALID = {
-            '✔️_VER15_PROG40': 'rsyl10qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqq37gexk',
-            '✔️_VER16_PROG03': 'rsyl1sqqqqqfd9r9n',
-            '✔️_VER16_PROB02': 'rsyl1sqqqqldsu9w',
+            '✔️_VER15_PROG40': 'rsyl10qqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqmhjgw4',
+            '✔️_VER16_PROG03': 'rsyl1sqqqqqf880hn',
+            '✔️_VER16_PROB02': 'rsyl1sqqqqld67fu',
         }
         BECH32_INVALID = {
             '❌_VER15_PROG41': 'rsyl1sqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqqp4k9qn',
