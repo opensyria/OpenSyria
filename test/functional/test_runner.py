@@ -385,6 +385,9 @@ NON_SCRIPTS = [
     "combine_logs.py",
     "create_cache.py",
     "test_runner.py",
+    # Helper scripts for generating test data
+    "gen_corrupted_hashes.py",
+    "get_assumeutxo_hashes.py",
 ]
 
 def main():

@@ -143,7 +143,7 @@ int main(int argc, char* argv[])
     std::filesystem::path abs_datadir{std::filesystem::absolute(argv[1])};
     std::filesystem::create_directories(abs_datadir);
 
-    osyk_LoggingOptions logging_options = {
+    osck_LoggingOptions logging_options = {
         .log_timestamps = true,
         .log_time_micros = false,
         .log_threadnames = false,

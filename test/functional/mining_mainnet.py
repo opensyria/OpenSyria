@@ -9,11 +9,27 @@ regtest doesn't have.
 
 It uses an alternate mainnet chain. See data/README.md for how it was generated.
 
-NOTE: This test requires regenerated mainnet block data for OpenSyria chain parameters.
-The Bitcoin mainnet blocks are not valid for OpenSyria due to different genesis block.
+TODO: Enable this test for OpenSyria
+======================================
+This test is currently skipped because it requires 2016+ mainnet blocks with real PoW.
 
-Mine one retarget period worth of blocks with a short interval in
-order to maximally raise the difficulty. Verify this using the getmininginfo RPC.
+To fix this test:
+1. Use faketime to mine blocks with short intervals (see data/README.md)
+2. Mine 2016+ blocks to trigger difficulty adjustment:
+   
+   for i in {1..2016}; do
+     t=$(( GENESIS_TIME + $i * 120 ))  # 2 min intervals
+     faketime "@$t" opensyriad -connect=0 -nocheckpoints -stopatheight=$i
+   done
+   
+3. Run a CPU miner (e.g., cpuminer) with:
+   ./minerd -u ... -p ... -o http://127.0.0.1:39332 --no-stratum \
+           --coinbase-addr=<opensyria-address> --algo sha256d
+   
+4. Extract timestamps and nonces, update data/mainnet_alt.json
+5. Remove the SkipTest in skip_test_if_missing_module()
+
+This is LOW PRIORITY as it tests difficulty adjustment edge cases.
 
 """
 

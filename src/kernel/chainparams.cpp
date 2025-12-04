@@ -634,23 +634,23 @@ public:
         m_assumeutxo_data = {
             {   // For use by unit tests
                 .height = 110,
-                .hash_serialized = AssumeutxoHash{uint256{"307d034c22a1d1f7d21e26bbe005ddbd01c28664a6c808d1499249a52e0c535a"}},
-                .m_chain_tx_count = 111,
-                .blockhash = consteval_ctor(uint256{"5d6cb6d0b8ad7441634b617315d0dd51a8f63d3b8122981489bedda7ac9cac61"}),
+                .hash_serialized = AssumeutxoHash{uint256{"73732a21309b6c04feac9c18ca616a2b0df653e3ed1207695f2be5dbe9029b2c"}},
+                .m_chain_tx_count = 110,
+                .blockhash = consteval_ctor(uint256{"7ed2e0183a06e69679c7ee18a4364e5b3b74a9f574bdfee64962b0732682f346"}),
             },
             {
                 // For use by fuzz target src/test/fuzz/utxo_snapshot.cpp
                 .height = 200,
-                .hash_serialized = AssumeutxoHash{uint256{"324cbf61109f71623dd8c5d21a560d4949095affbc5ae45f0526700d53727d4a"}},
-                .m_chain_tx_count = 201,
-                .blockhash = consteval_ctor(uint256{"414745b2f3fe16a8b418d54d1db7a05c631af246d27fe755999dfa98bb2e0148"}),
+                .hash_serialized = AssumeutxoHash{uint256{"5d5358b20e04729f6843d8dd3fbfc248b2b3b31fa9862cd169c0586dc0a641c6"}},
+                .m_chain_tx_count = 200,
+                .blockhash = consteval_ctor(uint256{"5249b74e78dd894fe30d20ee348cadfe7584c1f4f89c5ef18e92897fbef87878"}),
             },
             {
                 // For use by test/functional/feature_assumeutxo.py
                 .height = 299,
-                .hash_serialized = AssumeutxoHash{uint256{"625ecca1b39f4944448053aff19d4eab0a243b8ee77d7021f1ecbd171cc6f936"}},
-                .m_chain_tx_count = 300,
-                .blockhash = consteval_ctor(uint256{"2b45b832280b0fdc97cb1df989ec743cd81eb93460d8eedd611b40f0d5c24ca6"}),
+                .hash_serialized = AssumeutxoHash{uint256{"e2c222db5361eb6ae9cd3f36e1addb32514eb59e2a8cdc4d3cd1489b4fcb11e3"}},
+                .m_chain_tx_count = 334,
+                .blockhash = consteval_ctor(uint256{"247f58c5696ad5e062a29ab74269a495aa25031bb1a359edd5969c3edcb02921"}),
             },
         };
 

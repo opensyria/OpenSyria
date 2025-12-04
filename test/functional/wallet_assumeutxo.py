@@ -41,11 +41,6 @@ class AssumeutxoTest(OpenSyriaTestFramework):
             [],
         ]
 
-    def skip_test_if_missing_module(self):
-        # Skip until assumeutxo chainparams are regenerated for OpenSyria
-        # The m_assumeutxo_data in chainparams.cpp contains Bitcoin-derived hashes
-        raise SkipTest("Requires OpenSyria assumeutxo chainparams (see src/kernel/chainparams.cpp)")
-
     def setup_network(self):
         """Start with the nodes disconnected so that one can generate a snapshot
         including blocks the other hasn't yet seen."""
@@ -180,7 +175,7 @@ class AssumeutxoTest(OpenSyriaTestFramework):
 
         self.log.info("Test that rescanning blocks from before the snapshot fails when blocks are not available from the background sync yet")
         w1 = n1.get_wallet_rpc(wallet_name)
-        assert_raises_rpc_error(-1, "Failed to rescan unavailable blocks likely due to an in-progress assumeutxo background sync. Check logs or getchainstates RPC for assumeutxo background sync progress and try again later.", w1.rescanblockchain, 20000)
+        assert_raises_rpc_error(-1, "Failed to rescan unavailable blocks likely due to an in-progress assumeutxo background sync. Check logs or getchainstates RPC for assumeutxo background sync progress and try again later.", w1.rescanblockchain, 100)
 
         PAUSE_HEIGHT = FINAL_HEIGHT - 40
 
