@@ -129,9 +129,10 @@ class AddrTest(OpenSyriaTestFramework):
         source.send_and_ping(msg)
         # invoke m_next_addr_send timer:
         # `addr` messages are sent on an exponential distribution with mean interval of 30s.
-        # Setting the mocktime 600s forward gives a probability of (1 - e^-(600/30)) that
-        # the event will occur (i.e. this fails once in ~500 million repeats).
-        self.mocktime += 10 * 60
+        # OpenSyria: Use 2 minutes (120s) instead of 10 minutes (600s) to stay under
+        # CHAIN_SYNC_TIMEOUT (4min for OpenSyria vs 20min for Bitcoin).
+        # With 120s, probability is (1 - e^-(120/30)) = 98.2% per call.
+        self.mocktime += 2 * 60  # OpenSyria: reduced from 10 * 60 to avoid peer eviction
         self.nodes[0].setmocktime(self.mocktime)
         for peer in receivers:
             peer.sync_with_ping()
@@ -227,7 +228,7 @@ class AddrTest(OpenSyriaTestFramework):
         # addr_source sends 2 addresses to node0
         msg = self.setup_addr_msg(2)
         addr_source.send_and_ping(msg)
-        self.mocktime += 30 * 60
+        self.mocktime += 2 * 60  # OpenSyria: reduced from 30 * 60 to avoid peer eviction
         self.nodes[0].setmocktime(self.mocktime)
         receiver_peer.sync_with_ping()
         blackhole_peer.sync_with_ping()
@@ -294,7 +295,7 @@ class AddrTest(OpenSyriaTestFramework):
         inbound_peer.send_and_ping(msg_getaddr())
 
         # invoke m_next_addr_send timer, see under send_addr_msg() function for rationale
-        self.mocktime += 10 * 60
+        self.mocktime += 2 * 60  # OpenSyria: reduced from 10 * 60 to avoid peer eviction
         self.nodes[0].setmocktime(self.mocktime)
         inbound_peer.wait_until(lambda: inbound_peer.addr_received() is True)
 
@@ -306,7 +307,7 @@ class AddrTest(OpenSyriaTestFramework):
         received_addrs_before = inbound_peer.num_ipv4_received
         with self.nodes[0].assert_debug_log(['Ignoring repeated "getaddr".']):
             inbound_peer.send_and_ping(msg_getaddr())
-        self.mocktime += 10 * 60
+        self.mocktime += 2 * 60  # OpenSyria: reduced from 10 * 60 to avoid peer eviction
         self.nodes[0].setmocktime(self.mocktime)
         inbound_peer.sync_with_ping()
         received_addrs_after = inbound_peer.num_ipv4_received
