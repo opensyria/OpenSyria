@@ -17,7 +17,7 @@ order to maximally raise the difficulty. Verify this using the getmininginfo RPC
 
 """
 
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSyriaTestFramework, SkipTest
 from test_framework.util import (
     assert_equal,
 )
@@ -48,6 +48,11 @@ class MiningMainnetTest(OpenSyriaTestFramework):
         self.num_nodes = 1
         self.setup_clean_chain = True
         self.chain = "" # main
+
+    def skip_test_if_missing_module(self):
+        # Skip this test until mainnet block data is regenerated for OpenSyria
+        # The Bitcoin mainnet blocks are not valid due to different genesis block
+        raise SkipTest("Requires OpenSyria mainnet block data (mainnet_alt.json contains Bitcoin blocks)")
 
     def add_options(self, parser):
         parser.add_argument(
