@@ -222,7 +222,7 @@ class ListTransactionsTest(OpenSyriaTestFramework):
 
         self.log.info("Setup the same wallet on two nodes")
         # refill keypool otherwise the second node wouldn't recognize addresses generated on the first nodes
-        self.nodes[0].keypoolrefill(200000)
+        self.nodes[0].keypoolrefill(1000)  # Reduced from 200000 to avoid timeout
         self.stop_nodes()
         wallet0 = os.path.join(self.nodes[0].chain_path, self.default_wallet_name, "wallet.dat")
         wallet2 = os.path.join(self.nodes[2].chain_path, self.default_wallet_name, "wallet.dat")
