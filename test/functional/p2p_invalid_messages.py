@@ -247,14 +247,14 @@ class InvalidMessagesTest(OpenSyriaTestFramework):
                 '99' +     # network type (unrecognized)
                 '02' +     # address length (COMPACTSIZE(2))
                 'ab' * 2 + # address
-                '208d' +   # port
+                '25a1' +   # port (9633 for OpenSyria)
                 # this should be added:
                 now_hex +  # time
                 '01' +     # service flags, COMPACTSIZE(NODE_NETWORK)
                 '01' +     # network type (IPv4)
                 '04' +     # address length (COMPACTSIZE(4))
                 '09' * 4 + # address
-                '208d'))   # port
+                '25a1'))   # port (9633 for OpenSyria)
 
     def test_oversized_msg(self, msg, size):
         msg_type = msg.msgtype.decode('ascii')

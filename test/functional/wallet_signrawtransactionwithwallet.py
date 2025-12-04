@@ -193,7 +193,7 @@ class SignRawTransactionWithWalletTest(OpenSyriaTestFramework):
         utxo1 = self.create_outpoints(self.nodes[0], outputs=[{address: 1}])[0]
         self.generate(self.nodes[0], 1)
         utxo2 = self.nodes[0].listunspent()[0]
-        amt = Decimal(1) + utxo2["amount"] - Decimal(0.00001)
+        amt = Decimal(1) + utxo2["amount"] - Decimal('0.001')
         tx = self.nodes[0].createrawtransaction(
             [{**utxo1, "sequence": 1},{"txid": utxo2["txid"], "vout": utxo2["vout"]}],
             [{self.nodes[0].getnewaddress(): amt}],
@@ -227,7 +227,7 @@ class SignRawTransactionWithWalletTest(OpenSyriaTestFramework):
         utxo1 = self.create_outpoints(self.nodes[0], outputs=[{address: 1}])[0]
         self.generate(self.nodes[0], 1)
         utxo2 = self.nodes[0].listunspent()[0]
-        amt = Decimal(1) + utxo2["amount"] - Decimal(0.00001)
+        amt = Decimal(1) + utxo2["amount"] - Decimal('0.001')
         tx = self.nodes[0].createrawtransaction(
             [utxo1, {"txid": utxo2["txid"], "vout": utxo2["vout"]}],
             [{self.nodes[0].getnewaddress(): amt}],
