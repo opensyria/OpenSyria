@@ -15,15 +15,15 @@ We build a chain that includes an invalid signature for one of the transactions:
               output can be spent
     102:      a block containing a transaction spending the coinbase
               transaction output. The transaction has an invalid signature.
-    103-2202: bury the bad block with just over two weeks' worth of blocks
-              (2100 blocks)
+    103-10202: bury the bad block with just over two weeks' worth of blocks
+              (10100 blocks with 120-second block time)
 
 Start a few nodes:
 
-    - node0 has no -assumevalid parameter. Try to sync to block 2202. It will
+    - node0 has no -assumevalid parameter. Try to sync to block 10202. It will
       reject block 102 and only sync as far as block 101
     - node1 has -assumevalid set to the hash of block 102. Try to sync to
-      block 2202. node1 will sync all the way to block 2202.
+      block 10202. node1 will sync all the way to block 10202.
     - node2 has -assumevalid set to the hash of block 102. Try to sync to
       block 200. node2 will reject block 102 since it's assumed valid, but it
       isn't buried by at least two weeks' work.
@@ -70,7 +70,7 @@ class AssumeValidTest(OpenSyriaTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 6
-        self.rpc_timeout = 120
+        self.rpc_timeout = 300  # Increased for 10k+ blocks
 
     def setup_network(self):
         self.add_nodes(self.num_nodes)
@@ -133,8 +133,8 @@ class AssumeValidTest(OpenSyriaTestFramework):
         self.block_time += 1
         height += 1
 
-        # Bury the assumed valid block 2100 deep
-        for _ in range(2100):
+        # Bury the assumed valid block 10100 deep (need >2 weeks of blocks with 120s block time)
+        for _ in range(10100):
             block = create_block(self.tip, create_coinbase(height), self.block_time)
             block.solve()
             self.blocks.append(block)
@@ -158,8 +158,9 @@ class AssumeValidTest(OpenSyriaTestFramework):
         ]):
             p2p0 = self.nodes[0].add_p2p_connection(BaseNode())
 
-            p2p0.send_header_for_blocks(self.blocks[0:2000])
-            p2p0.send_header_for_blocks(self.blocks[2000:])
+            # Send headers in chunks
+            for i in range(0, len(self.blocks), 2000):
+                p2p0.send_header_for_blocks(self.blocks[i:i+2000])
 
             self.send_blocks_until_disconnected(p2p0)
             self.wait_until(lambda: self.nodes[0].getblockcount() >= COINBASE_MATURITY + 1)
@@ -173,14 +174,15 @@ class AssumeValidTest(OpenSyriaTestFramework):
         ]):
             p2p1 = self.nodes[1].add_p2p_connection(BaseNode())
 
-            p2p1.send_header_for_blocks(self.blocks[0:2000])
-            p2p1.send_header_for_blocks(self.blocks[2000:])
+            # Send headers in chunks (10202 total blocks)
+            for i in range(0, len(self.blocks), 2000):
+                p2p1.send_header_for_blocks(self.blocks[i:i+2000])
             # Send all blocks to node1. All blocks will be accepted.
-            for i in range(2202):
+            for i in range(10202):
                 p2p1.send_without_ping(msg_block(self.blocks[i]))
-            # Syncing 2200 blocks can take a while on slow systems. Give it plenty of time to sync.
-            p2p1.sync_with_ping(timeout=960)
-            assert_equal(self.nodes[1].getblock(self.nodes[1].getbestblockhash())['height'], 2202)
+            # Syncing 10200 blocks can take a while on slow systems. Give it plenty of time to sync.
+            p2p1.sync_with_ping(timeout=1800)
+            assert_equal(self.nodes[1].getblock(self.nodes[1].getbestblockhash())['height'], 10202)
 
 
         # nodes[2]
