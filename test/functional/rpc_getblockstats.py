@@ -36,16 +36,17 @@ class GetblockstatsTest(OpenSyriaTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
         self.setup_clean_chain = True
+        self.uses_wallet = True  # Required for --gen-test-data and some tests
+        self.extra_args = [["-deprecatedrpc=settxfee"]]
 
     def get_stats(self):
         return [self.nodes[0].getblockstats(hash_or_height=self.start_height + i) for i in range(self.max_stat_pos+1)]
 
     def generate_test_data(self, filename):
-        mocktime = 1525107225
+        # Set mocktime after genesis block (1733616003) for regtest chain
+        mocktime = 1733700000  # A fixed time after regtest genesis for reproducibility
         self.nodes[0].setmocktime(mocktime)
-        self.nodes[0].createwallet(wallet_name='test')
-        privkey = self.nodes[0].get_deterministic_priv_key().key
-        wallet_importprivkey(self.nodes[0], privkey, 0)
+        # Default wallet with coinbase key is already created when uses_wallet=True
 
         self.generate(self.nodes[0], COINBASE_MATURITY + 1)
 
@@ -178,9 +179,10 @@ class GetblockstatsTest(OpenSyriaTestFramework):
         self.log.info('Test tip including OP_RETURN')
         tip_stats = self.nodes[0].getblockstats(tip)
         assert_equal(tip_stats["utxo_increase"], 6)
-        assert_equal(tip_stats["utxo_size_inc"], 441)
+        # OpenSyria uses larger amounts (10000 SYL) which require more bytes to encode
+        assert_equal(tip_stats["utxo_size_inc"], 450)
         assert_equal(tip_stats["utxo_increase_actual"], 4)
-        assert_equal(tip_stats["utxo_size_inc_actual"], 300)
+        assert_equal(tip_stats["utxo_size_inc_actual"], 309)
 
         self.log.info("Test when only header is known")
         block = self.generateblock(self.nodes[0], output="raw(55)", transactions=[], submit=False)
