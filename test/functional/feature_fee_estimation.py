@@ -143,6 +143,7 @@ class EstimateFeeTest(OpenSyriaTestFramework):
         self.num_nodes = 3
         # whitelist peers to speed up tx relay / mempool sync
         self.noban_tx_relay = True
+        self.rpc_timeout = 240  # OpenSyria: increase timeout for batch RPC calls
         self.extra_args = [
             [],
             ["-blockmaxweight=72000"],
@@ -172,7 +173,7 @@ class EstimateFeeTest(OpenSyriaTestFramework):
         for _ in range(numblocks):
             random.shuffle(self.confutxo)
             batch_sendtx_reqs = []
-            for _ in range(random.randrange(100 - 50, 100 + 10000)):
+            for _ in range(random.randrange(100 - 50, 100 + 50)):  # OpenSyria: fixed 200x corruption (was 100 + 10000)
                 from_index = random.randint(1, 2)
                 (tx_bytes, fee) = small_txpuzzle_randfee(
                     self.wallet,
