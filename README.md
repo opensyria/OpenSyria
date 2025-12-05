@@ -49,8 +49,24 @@ Development Process
 -------------------
 
 The `master` branch is regularly built (see `doc/build-*.md` for instructions) and tested, but it is not guaranteed to be
-completely stable. [Tags](https://github.com/opensyria/opensyria/tags) are created
+completely stable. [Tags](https://github.com/opensyria/OpenSyria/tags) are created
 regularly from release branches to indicate new official, stable release versions of OpenSyria Core.
+
+<!-- TODO [INFRASTRUCTURE - HIGH PRIORITY]:
+1. Block Explorer: Deploy a block explorer (recommend mempool/mempool or btc-rpc-explorer)
+   - Users need to view transactions, blocks, and addresses
+   - Host at explore.opensyriacore.org or similar
+
+2. Network Health Dashboard: Set up monitoring for:
+   - Node count and geographic distribution
+   - Network hashrate
+   - Block times (target: 2 minutes)
+   - Mempool statistics
+   - Use Grafana + Prometheus or similar
+
+3. Public Seed Nodes: Deploy geographically distributed seed nodes
+   - Update src/kernel/chainparams.cpp with DNS seeds
+-->
 
 The https://github.com/opensyria/opensyria-gui repository is used exclusively for the
 development of the GUI. Its master branch is identical in all monotree
