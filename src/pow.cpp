@@ -3,6 +3,32 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+// TODO [SECURITY - SHA256d CONSIDERATIONS]:
+// OpenSyria uses SHA256d (same as Bitcoin) for proof-of-work. This creates both
+// advantages and risks:
+//
+// ADVANTAGES:
+// - Battle-tested algorithm with 15+ years of security
+// - Existing ASIC mining hardware can be used immediately
+// - Well-understood difficulty adjustment behavior
+//
+// RISKS:
+// - Bitcoin has ~500+ EH/s; a fraction redirected could overwhelm OpenSyria
+// - NiceHash and similar services enable easy hashrate rental attacks
+// - 51% attacks become economically viable once SYL has exchange value
+//
+// MITIGATIONS (implement these operationally):
+// 1. Partner with mining pools early to build legitimate hashrate
+// 2. Recommend exchanges require 50-100 confirmations for deposits
+// 3. Monitor for sudden hashrate spikes (potential attack indicator)
+// 4. Update nMinimumChainWork frequently during first year
+// 5. Consider merge-mining with Bitcoin in future (can be soft-forked in)
+// 6. Implement alerting system for abnormal block times or reorgs
+//
+// TODO [FUTURE ENHANCEMENT]: Consider implementing merge-mining support
+// This would allow Bitcoin miners to mine OpenSyria "for free", dramatically
+// increasing security. See namecoin/namecoin-core for reference implementation.
+
 #include <pow.h>
 
 #include <arith_uint256.h>

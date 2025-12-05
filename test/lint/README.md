@@ -91,7 +91,8 @@ Usage: test/lint/git-subtree-check.sh [-r] DIR [COMMIT]
 - `-r` checks that subtree commit is present in repository.
 
 To do a full check with `-r`, make sure that you have fetched the upstream repository branch in which the subtree is
-maintained:
+maintained. Note: These are intentionally kept pointing to bitcoin-core upstream repositories as they are
+cryptographic/utility subtrees that should be synced from their canonical sources:
 * for `src/crc32c`: https://github.com/bitcoin-core/crc32c-subtree.git (branch bitcoin-fork)
 * for `src/crypto/ctaes`: https://github.com/bitcoin-core/ctaes.git (branch master)
 * for `src/ipc/libmultiprocess`: https://github.com/bitcoin-core/libmultiprocess (branch master)

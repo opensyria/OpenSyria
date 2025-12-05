@@ -298,7 +298,7 @@ jobs:
             $exeName = $_.Name
 
             # Skip as they currently do not have manifests
-            if ($exeName -eq "fuzz.exe" -or $exeName -eq "bench_bitcoin.exe" -or $exeName -eq "test_opensyria-qt.exe" -or $exeName -eq "test_kernel.exe" -or $exeName -eq "bitcoin-chainstate.exe") {
+            if ($exeName -eq "fuzz.exe" -or $exeName -eq "bench_opensyria.exe" -or $exeName -eq "test_opensyria-qt.exe" -or $exeName -eq "test_kernel.exe" -or $exeName -eq "opensyria-chainstate.exe") {
               Write-Host "Skipping $exeName (no manifest present)"
               return
             }
@@ -317,19 +317,21 @@ jobs:
         if: matrix.job-type == 'standard'
         working-directory: build
         env:
-          BITCOIN_BIN: '${{ github.workspace }}\build\bin\Release\bitcoin.exe'
-          BITCOIND: '${{ github.workspace }}\build\bin\Release\opensyriad.exe'
-          BITCOINCLI: '${{ github.workspace }}\build\bin\Release\bitcoin-cli.exe'
-          BITCOINTX: '${{ github.workspace }}\build\bin\Release\bitcoin-tx.exe'
-          BITCOINUTIL: '${{ github.workspace }}\build\bin\Release\bitcoin-util.exe'
-          BITCOINWALLET: '${{ github.workspace }}\build\bin\Release\bitcoin-wallet.exe'
-          BITCOINCHAINSTATE: '${{ github.workspace }}\build\bin\Release\bitcoin-chainstate.exe'
+          OPENSYRIA_BIN: '${{ github.workspace }}\build\bin\Release\opensyria.exe'
+          OPENSYRIAD: '${{ github.workspace }}\build\bin\Release\opensyriad.exe'
+          OPENSYRIACLI: '${{ github.workspace }}\build\bin\Release\opensyria-cli.exe'
+          OPENSYRIATX: '${{ github.workspace }}\build\bin\Release\opensyria-tx.exe'
+          OPENSYRIAUTIL: '${{ github.workspace }}\build\bin\Release\opensyria-util.exe'
+          OPENSYRIAWALLET: '${{ github.workspace }}\build\bin\Release\opensyria-wallet.exe'
+          OPENSYRIACHAINSTATE: '${{ github.workspace }}\build\bin\Release\opensyria-chainstate.exe'
           TEST_RUNNER_EXTRA: ${{ github.event_name != 'pull_request' && '--extended' || '' }}
         run: py -3 test/functional/test_runner.py --jobs $NUMBER_OF_PROCESSORS --ci --quiet --tmpdirprefix="${RUNNER_TEMP}" --combinedlogslen=99999999 --timeout-factor=${TEST_RUNNER_TIMEOUT_FACTOR} ${TEST_RUNNER_EXTRA}
 
       - name: Clone corpora
         if: matrix.job-type == 'fuzz'
         run: |
+          # TODO: Replace with OpenSyria's own qa-assets repo when available
+          # For now, using Bitcoin Core's qa-assets as fuzz test vectors are compatible
           git clone --depth=1 https://github.com/bitcoin-core/qa-assets "${RUNNER_TEMP}/qa-assets"
           cd "${RUNNER_TEMP}/qa-assets"
           echo "Using qa-assets repo from commit ..."
@@ -339,7 +341,7 @@ jobs:
         if: matrix.job-type == 'fuzz'
         working-directory: build
         env:
-          BITCOINFUZZ: '${{ github.workspace }}\build\bin\Release\fuzz.exe'
+          OPENSYRIAFUZZ: '${{ github.workspace }}\build\bin\Release\fuzz.exe'
         run: |
           py -3 test/fuzz/test_runner.py --par $NUMBER_OF_PROCESSORS --loglevel DEBUG "${RUNNER_TEMP}/qa-assets/fuzz_corpora"
 
@@ -443,7 +445,7 @@ jobs:
             $exeName = $_.Name
 
             # Skip as they currently do not have manifests
-            if ($exeName -eq "fuzz.exe" -or $exeName -eq "bench_bitcoin.exe" -or $exeName -eq "test_kernel.exe") {
+            if ($exeName -eq "fuzz.exe" -or $exeName -eq "bench_opensyria.exe" -or $exeName -eq "test_kernel.exe") {
               Write-Host "Skipping $exeName (no manifest present)"
               return
             }
@@ -456,7 +458,7 @@ jobs:
         # Can't use ctest here like other jobs as we don't have a CMake build tree.
         run: |
           ./bin/test_opensyria-qt.exe
-          ./bin/test_bitcoin.exe -l test_suite  # Intentionally run sequentially here, to catch test case failures caused by dirty global state from prior test cases.
+          ./bin/test_opensyria.exe -l test_suite  # Intentionally run sequentially here, to catch test case failures caused by dirty global state from prior test cases.
           ./src/secp256k1/bin/exhaustive_tests.exe
           ./src/secp256k1/bin/noverify_tests.exe
           ./src/secp256k1/bin/tests.exe
@@ -464,7 +466,7 @@ jobs:
           ./src/univalue/unitester.exe
 
       - name: Run benchmarks
-        run: ./bin/bench_bitcoin.exe -sanity-check
+        run: ./bin/bench_opensyria.exe -sanity-check
 
       - name: Adjust paths in test/config.ini
         shell: pwsh
@@ -632,7 +634,7 @@ jobs:
     if: ${{ vars.SKIP_BRANCH_PUSH != 'true' || github.event_name == 'pull_request' }}
     timeout-minutes: 20
     env:
-      CONTAINER_NAME: "bitcoin-linter"
+      CONTAINER_NAME: "opensyria-linter"
     steps:
       - *ANNOTATION_PR_NUMBER
 

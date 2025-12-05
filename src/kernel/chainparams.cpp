@@ -98,7 +98,9 @@ public:
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 2 * 60; // 2-minute blocks
         consensus.fPowAllowMinDifficultyBlocks = false;
-        consensus.enforce_BIP94 = false;
+        // BIP94 timewarp attack protection - enabled for OpenSyria mainnet
+        // Prevents manipulation of difficulty via timestamp attacks on difficulty period boundaries
+        consensus.enforce_BIP94 = true;
         consensus.fPowNoRetargeting = false;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = Consensus::BIP9Deployment::NEVER_ACTIVE;
@@ -116,7 +118,16 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].period = 2016;
 
         // New chain starts with no minimum work requirement - will be updated as chain grows
+        // TODO [SECURITY - HIGH PRIORITY]: Update nMinimumChainWork after first difficulty period (~2 weeks)
+        // This protects against low-hashrate sybil attacks. Calculate using:
+        //   opensyria-cli getblockchaininfo | grep chainwork
+        // Then hardcode the value here in the next release.
+        // TODO [SECURITY - SHA256d MITIGATION]: Since OpenSyria shares SHA256d with Bitcoin,
+        // the chain is vulnerable to hashrate attacks from Bitcoin miners. Update this value
+        // frequently during the first year of operation to prevent chain forgery attacks.
         consensus.nMinimumChainWork = uint256{};
+        // TODO [SECURITY]: Update defaultAssumeValid to a trusted block hash after chain matures
+        // This enables signature validation skipping for faster sync while maintaining security.
         consensus.defaultAssumeValid = uint256{}; // New chain - no assumed valid block yet
 
         /**
@@ -140,8 +151,16 @@ public:
 
         // DNS seed nodes - cleared until OpenSyria seed infrastructure is established
         // For initial network bootstrap, use -addnode or -connect to connect to known nodes
-        // TODO: Set up OpenSyria DNS seed nodes when network launches
+        // TODO [CRITICAL - PRE-LAUNCH]: Set up OpenSyria DNS seed infrastructure:
+        //   - dns-seed.opensyria.org (primary)
+        //   - dns-seed2.opensyria.org (secondary, different jurisdiction)
+        //   - onion-seed.opensyria.org (Tor users)
+        // Without DNS seeds, the network cannot bootstrap automatically!
+        // See: https://github.com/sipa/bitcoin-seeder for reference implementation
         vSeeds.clear();
+        // TODO [CRITICAL - PRE-LAUNCH]: Uncomment and populate when DNS seeds are ready:
+        // vSeeds.emplace_back("dns-seed.opensyria.org");
+        // vSeeds.emplace_back("dns-seed2.opensyria.org");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63); // Addresses start with 'S'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,64); // Addresses start with 'S' (Syria)
@@ -151,16 +170,24 @@ public:
 
         bech32_hrp = "syl"; // OpenSyria mainnet SegWit
 
+        // TODO [CRITICAL - PRE-LAUNCH]: Populate fixed seeds with IP addresses of reliable nodes
+        // Run contrib/seeds/generate-seeds.py after deploying 10+ geographically distributed nodes
+        // Fixed seeds are fallback when DNS seeds fail - critical for network resilience
         vFixedSeeds.clear(); // No fixed seeds until OpenSyria network nodes are established
 
         fDefaultConsistencyChecks = false;
         m_is_mockable_chain = false;
 
         // AssumeUTXO data - empty for new chain, will be populated as chain grows
+        // TODO [MAINTENANCE]: Generate AssumeUTXO snapshots at milestone heights (e.g., 100000, 500000)
+        // This enables fast sync for new nodes. Use: opensyria-cli dumptxoutset <path>
         m_assumeutxo_data = {};
 
 
         // Chain transaction data - initialized for genesis, will be updated as chain grows
+        // TODO [MAINTENANCE]: Update chainTxData periodically with actual chain statistics
+        // Use: opensyria-cli getchaintxstats to get current values
+        // This improves sync time estimation for new nodes
         chainTxData = ChainTxData{
             .nTime    = 1733616000, // Genesis timestamp - Dec 8, 2024
             .tx_count = 1,

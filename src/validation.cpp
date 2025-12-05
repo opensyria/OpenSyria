@@ -296,6 +296,11 @@ void Chainstate::MaybeUpdateMempoolForReorg(
     DisconnectedBlockTransactions& disconnectpool,
     bool fAddToMempool)
 {
+    // TODO [SECURITY - SHA256d MITIGATION]: Add alerting for deep reorgs
+    // Since OpenSyria shares SHA256d with Bitcoin, hashrate attacks could cause
+    // unexpected reorgs. Consider logging/alerting when disconnectpool size > 6
+    // as this could indicate an attack in progress. Exchanges should be notified
+    // of any reorgs > 3 blocks deep.
     if (!m_mempool) return;
 
     AssertLockHeld(cs_main);

@@ -3,6 +3,15 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+// TODO [OPERATIONS - SHA256d MITIGATION]: Implement operational monitoring
+// Since OpenSyria shares SHA256d PoW with Bitcoin, implement these safeguards:
+// 1. Network hashrate monitoring dashboard
+// 2. Alert system for sudden hashrate spikes (>2x in 1 hour = potential attack)
+// 3. Block time deviation alerts (average >3min or <1min over 10 blocks)
+// 4. Deep reorg notifications (>6 blocks) sent to exchanges and stakeholders
+// 5. Regular security audits during first year of operation
+// Consider using prometheus/grafana with custom metrics for monitoring.
+
 #include <opensyria-build-config.h> // IWYU pragma: keep
 
 #include <init.h>

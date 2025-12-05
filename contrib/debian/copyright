@@ -1,8 +1,8 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: OpenSyria
-Upstream-Contact: Satoshi Nakamoto <satoshin@gmx.com>
- irc://#opensyria-core-dev@libera.chat
-Source: https://github.com/bitcoin/bitcoin
+Upstream-Contact: OpenSyria Core Developers
+ irc://#opensyria-dev@libera.chat
+Source: https://github.com/opensyria/opensyria
 
 Files: *
 Copyright: 2009-2025, OpenSyria Core Developers

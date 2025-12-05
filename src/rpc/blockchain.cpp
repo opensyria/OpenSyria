@@ -1336,6 +1336,12 @@ static void SoftForkDescPushBack(const CBlockIndex* blockindex, UniValue& softfo
 }
 
 // used by rest.cpp:rest_chaininfo, so cannot be static
+// TODO [DOCUMENTATION - SHA256d MITIGATION]: Add RPC documentation noting recommended
+// confirmation counts for exchanges and merchants:
+//   - Low value (<1000 SYL): 6 confirmations (~12 min)
+//   - Medium value (<100000 SYL): 15 confirmations (~30 min)
+//   - High value (>100000 SYL): 50+ confirmations (~1.5 hours)
+// This compensates for shared hashrate risk with Bitcoin's SHA256d algorithm.
 RPCHelpMan getblockchaininfo()
 {
     return RPCHelpMan{"getblockchaininfo",
