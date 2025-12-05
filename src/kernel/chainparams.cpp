@@ -606,13 +606,21 @@ public:
         m_is_mockable_chain = true;
 
         // AssumeUTXO data for OpenSyria regtest
-        // Generated at height 110 using test framework's deterministic block generation
+        // Generated using test framework's deterministic block generation
         m_assumeutxo_data = {
             {
+                // For use by unit tests
                 .height = 110,
                 .hash_serialized = AssumeutxoHash{uint256{"307d034c22a1d1f7d21e26bbe005ddbd01c28664a6c808d1499249a52e0c535a"}},
                 .m_chain_tx_count = 111,
                 .blockhash = uint256{"5d6cb6d0b8ad7441634b617315d0dd51a8f63d3b8122981489bedda7ac9cac61"},
+            },
+            {
+                // For use by test/functional/feature_assumeutxo.py
+                .height = 299,
+                .hash_serialized = AssumeutxoHash{uint256{"e2c222db5361eb6ae9cd3f36e1addb32514eb59e2a8cdc4d3cd1489b4fcb11e3"}},
+                .m_chain_tx_count = 334,
+                .blockhash = uint256{"247f58c5696ad5e062a29ab74269a495aa25031bb1a359edd5969c3edcb02921"},
             },
         };
 

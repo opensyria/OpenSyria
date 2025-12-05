@@ -90,6 +90,38 @@ if (NOT DEFINED CMAKE_OPTIMIZE_DEPENDENCIES)
 endif()
 
 #=============================
+# RPATH configuration
+#=============================
+# Use RPATH on macOS and Linux so executables can find shared libraries
+# in the build directory without requiring install or environment variables.
+if(NOT WIN32)
+  # Use the full RPATH for the build tree
+  set(CMAKE_SKIP_BUILD_RPATH FALSE)
+  # When building, don't use the install RPATH already (but later on when installing)
+  set(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+  # Add the automatically determined parts of the RPATH which point to directories
+  # outside the build tree to the install RPATH
+  set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
+  
+  if(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
+    # macOS-specific RPATH settings
+    set(CMAKE_MACOSX_RPATH ON)
+    # Set RPATH to look for libraries in build/lib and Homebrew directories
+    # Include common Homebrew paths for Apple Silicon and Intel Macs
+    set(CMAKE_BUILD_RPATH 
+      "${CMAKE_BINARY_DIR}/lib"
+      "/opt/homebrew/lib"
+      "/usr/local/lib"
+    )
+    set(CMAKE_INSTALL_RPATH "@executable_path/../lib;@loader_path/../lib")
+  else()
+    # Linux RPATH settings
+    set(CMAKE_BUILD_RPATH "${CMAKE_BINARY_DIR}/lib")
+    set(CMAKE_INSTALL_RPATH "$ORIGIN/../lib")
+  endif()
+endif()
+
+#=============================
 # Configurable options
 #=============================
 include(CMakeDependentOption)

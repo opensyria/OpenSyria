@@ -136,9 +136,9 @@ BOOST_AUTO_TEST_CASE(test_assumeutxo)
 {
     const auto params = CreateChainParams(*m_node.args, ChainType::REGTEST);
 
-    // OpenSyria regtest has assumeutxo data configured for height 110
+    // OpenSyria regtest has assumeutxo data configured for heights 110 and 299
     // Heights without assumeutxo data should return nullopt
-    std::vector<int> heights_without_data{0, 100, 111, 115, 200, 209, 211, 299};
+    std::vector<int> heights_without_data{0, 100, 111, 115, 200, 209, 211, 300};
 
     for (auto height : heights_without_data) {
         const auto out = params->AssumeutxoForHeight(height);
@@ -150,6 +150,12 @@ BOOST_AUTO_TEST_CASE(test_assumeutxo)
     BOOST_CHECK(assumeutxo_110.has_value());
     BOOST_CHECK_EQUAL(assumeutxo_110->height, 110);
     BOOST_CHECK_EQUAL(assumeutxo_110->m_chain_tx_count, 111);
+
+    // Height 299 should have valid assumeutxo data
+    const auto assumeutxo_299 = params->AssumeutxoForHeight(299);
+    BOOST_CHECK(assumeutxo_299.has_value());
+    BOOST_CHECK_EQUAL(assumeutxo_299->height, 299);
+    BOOST_CHECK_EQUAL(assumeutxo_299->m_chain_tx_count, 334);
 }
 
 BOOST_AUTO_TEST_CASE(block_malleation)
