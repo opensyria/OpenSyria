@@ -3,7 +3,7 @@
 
 OpenSyria Core version 0.20.0 is now available from:
 
-  <https://opensyriacore.org/bin/opensyria-core-0.20.0/>
+  <https://opensyria.net/bin/opensyria-core-0.20.0/>
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
@@ -14,7 +14,7 @@ Please report bugs using the issue tracker at GitHub:
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensyriacore.org/en/list/announcements/join/>
+  <https://opensyria.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============
@@ -206,7 +206,7 @@ GUI changes
   peer selection. See the `-asmap` configuration option in _New
   Settings_, above.  (#18402)
 
-- A "known bug" [announced](https://opensyriacore.org/en/releases/0.18.0/#wallet-gui)
+- A "known bug" [announced](https://opensyria.net/en/releases/0.18.0/#wallet-gui)
   in the release notes of version 0.18 has been fixed.  The issue
   affected anyone who simultaneously used multiple OpenSyria Core wallets
   and the GUI coin control feature. (#18894)
@@ -247,7 +247,7 @@ Documentation changes
 ---------------------
 
 - OpenSyria Core's automatically-generated source code documentation is
-  now available at https://doxygen.opensyriacore.org.  (#17596)
+  now available at https://doxygen.opensyria.net.  (#17596)
 
 Low-level changes
 =================
@@ -775,7 +775,7 @@ Build system
 - #17503 Remove bitness from opensyria-qt help message and manpage (laanwj)
 - #17539 Update and improve Developer Notes (hebasto)
 - #17561 Changed MiniUPnPc link to https in dependencies.md (sandakersmann)
-- #17596 Change doxygen URL to doxygen.opensyriacore.org (laanwj)
+- #17596 Change doxygen URL to doxygen.opensyria.net (laanwj)
 - #17598 Update release process with latest changes (MarcoFalke)
 - #17617 Unify unix epoch time descriptions (jonatack)
 - #17637 script: Add keyserver to verify-commits readme (emilengler)

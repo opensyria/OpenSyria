@@ -5,8 +5,7 @@
 """Script for verifying OpenSyria Core release binaries.
 
 This script attempts to download the sum file SHA256SUMS and corresponding
-signature file SHA256SUMS.asc from opensyriacore.org and opensyria.org and
-compares them.
+signature file SHA256SUMS.asc from opensyria.net and compares them.
 
 The sum-signature file is signed by a number of builder keys. This script
 ensures that there is a minimum threshold of signatures from pubkeys that
@@ -46,8 +45,8 @@ from hashlib import sha256
 from pathlib import PurePath, Path
 
 # The primary host; this will fail if we can't retrieve files from here.
-HOST1 = "https://opensyriacore.org"
-HOST2 = "https://opensyria.org"
+HOST1 = "https://opensyria.net"
+HOST2 = "https://opensyria.net"  # Secondary host (same as primary for now)
 VERSIONPREFIX = "opensyria-core-"
 SUMS_FILENAME = 'SHA256SUMS'
 SIGNATUREFILENAME = f"{SUMS_FILENAME}.asc"
@@ -513,7 +512,7 @@ def verify_published_handler(args: argparse.Namespace) -> ReturnCode:
         log.error(f"No files matched the platform specified. Did you mean: {closest_match}")
         return ReturnCode.NO_BINARIES_MATCH
 
-    # remove binaries that are known not to be hosted by opensyriacore.org
+    # remove binaries that are known not to be hosted by opensyria.net
     fragments_to_remove = ['-unsigned', '-debug', '-codesignatures']
     for fragment in fragments_to_remove:
         nobinaries = [i for i in hashes_to_verify if fragment in i[1]]
@@ -685,8 +684,7 @@ def main():
         '--require-all-hosts', action='store_true',
         default=bool_from_env('BINVERIFY_REQUIRE_ALL_HOSTS'),
         help=(
-            f'If set, require all hosts ({HOST1}, {HOST2}) to provide signatures. '
-            '(Sometimes opensyria.org lags behind opensyriacore.org.)')
+            f'If set, require all hosts ({HOST1}, {HOST2}) to provide signatures. ')
     )
 
     bin_parser = subparsers.add_parser("bin", help="Verify local binaries.")

@@ -1,6 +1,6 @@
 OpenSyria Core version 29.0 is now available from:
 
-  <https://opensyriacore.org/bin/opensyria-core-29.0/>
+  <https://opensyria.net/bin/opensyria-core-29.0/>
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
@@ -11,7 +11,7 @@ Please report bugs using the issue tracker at GitHub:
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensyriacore.org/en/list/announcements/join/>
+  <https://opensyria.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============

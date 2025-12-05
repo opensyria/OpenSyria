@@ -236,7 +236,7 @@ cat "$VERSION"/*/all.SHA256SUMS.asc > SHA256SUMS.asc
 ```
 
 
-- Upload to the opensyriacore.org server:
+- Upload to the opensyria.net server:
     1. The contents of each `./opensyria/guix-build-${VERSION}/output/${HOST}/` directory.
 
        Guix will output all of the results into host subdirectories, but the SHA256SUMS
@@ -263,22 +263,22 @@ cat "$VERSION"/*/all.SHA256SUMS.asc > SHA256SUMS.asc
   ```
 
   Insert the magnet URI into the announcement sent to mailing lists. This permits
-  people without access to `opensyriacore.org` to download the binary distribution.
+  people without access to `opensyria.net` to download the binary distribution.
   Also put it into the `optional_magnetlink:` slot in the YAML file for
-  opensyriacore.org.
+  opensyria.net.
 
 - Archive the release notes for the new version to `doc/release-notes/release-notes-${VERSION}.md`
   (branch `master` and branch of the release).
 
-- Update the opensyriacore.org website
+- Update the opensyria.net website
 
   - blog post
 
-  - maintained versions [table](https://github.com/opensyria-core/opensyriacore.org/commits/master/_includes/posts/maintenance-table.md)
+  - maintained versions [table](https://github.com/opensyria-core/opensyria.net/commits/master/_includes/posts/maintenance-table.md)
 
   - RPC documentation update
 
-      - See https://github.com/opensyria-core/opensyriacore.org/blob/master/contrib/doc-gen/
+      - See https://github.com/opensyria-core/opensyria.net/blob/master/contrib/doc-gen/
 
 
 - Update repositories
@@ -299,7 +299,7 @@ cat "$VERSION"/*/all.SHA256SUMS.asc > SHA256SUMS.asc
 
   - opensyria-dev and opensyria-core-dev mailing list
 
-  - OpenSyria Core announcements list https://opensyriacore.org/en/list/announcements/join/
+  - OpenSyria Core announcements list https://opensyria.net/en/list/announcements/join/
 
   - OpenSyria Core Twitter https://twitter.com/opensyriacoreorg
 

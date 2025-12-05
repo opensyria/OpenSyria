@@ -1,6 +1,6 @@
 OpenSyria Core version 0.9.4 is now available from:
 
-  https://opensyria.org/bin/0.9.4/
+  https://opensyria.net/bin/0.9.4/
 
 This is a new minor version release, bringing only bug fixes and updated
 translations. Upgrading to this release is recommended.
@@ -25,7 +25,7 @@ various operating system maintainers. Review by Gregory Maxwell determined that
 this update is incompatible with the OpenSyria system and could lead to consensus
 forks.
 
-OpenSyria Core released binaries from https://opensyria.org are unaffected,
+OpenSyria Core released binaries from https://opensyria.net are unaffected,
 as are any built with the gitian deterministic build system.
 
 However, if you are running either

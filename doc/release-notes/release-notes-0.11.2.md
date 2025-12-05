@@ -1,6 +1,6 @@
 OpenSyria Core version 0.11.2 is now available from:
 
-  <https://opensyria.org/bin/opensyria-core-0.11.2/>
+  <https://opensyria.net/bin/opensyria-core-0.11.2/>
 
 This is a new minor version release, bringing bug fixes, the BIP65
 (CLTV) consensus change, and relay policy preparation for BIP113. It is

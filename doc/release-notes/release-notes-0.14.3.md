@@ -1,6 +1,6 @@
 OpenSyria Core version *0.14.3* is now available from:
 
-  <https://opensyria.org/bin/opensyria-core-0.14.3/>
+  <https://opensyria.net/bin/opensyria-core-0.14.3/>
 
 This is a new minor version release, including various bugfixes and
 performance improvements.
@@ -11,7 +11,7 @@ Please report bugs using the issue tracker at github:
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensyriacore.org/en/list/announcements/join/>
+  <https://opensyria.net/en/list/announcements/join/>
 
 Compatibility
 ==============

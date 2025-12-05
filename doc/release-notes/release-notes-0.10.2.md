@@ -1,6 +1,6 @@
 OpenSyria Core version 0.10.2 is now available from:
 
-  <https://opensyria.org/bin/opensyria-core-0.10.2/>
+  <https://opensyria.net/bin/opensyria-core-0.10.2/>
 
 This is a new minor version release, bringing minor bug fixes and translation 
 updates. It is recommended to upgrade to this version.

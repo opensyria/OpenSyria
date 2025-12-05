@@ -1,10 +1,10 @@
 OpenSyria Core integration/staging tree
 =====================================
 
-https://opensyriacore.org
+https://opensyria.net
 
 For an immediately usable, binary version of the OpenSyria Core software, see
-https://opensyriacore.org/en/download/.
+https://opensyria.net/en/download/.
 
 What is OpenSyria?
 ------------------
@@ -55,7 +55,7 @@ regularly from release branches to indicate new official, stable release version
 <!-- TODO [INFRASTRUCTURE - HIGH PRIORITY]:
 1. Block Explorer: Deploy a block explorer (recommend mempool/mempool or btc-rpc-explorer)
    - Users need to view transactions, blocks, and addresses
-   - Host at explore.opensyriacore.org or similar
+   - Host at explore.opensyria.net or similar
 
 2. Network Health Dashboard: Set up monitoring for:
    - Node count and geographic distribution

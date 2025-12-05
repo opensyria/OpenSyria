@@ -3,7 +3,7 @@
 
 OpenSyria Core version 0.21.1 is now available from:
 
-  <https://opensyriacore.org/bin/opensyria-core-0.21.1/>
+  <https://opensyria.net/bin/opensyria-core-0.21.1/>
 
 This minor release includes various bug fixes and performance
 improvements, as well as updated translations.
@@ -14,7 +14,7 @@ Please report bugs using the issue tracker at GitHub:
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensyriacore.org/en/list/announcements/join/>
+  <https://opensyria.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============
@@ -97,7 +97,7 @@ activates.  Alternatively, miners may manually start signaling on bit 2
 at any time; if taproot activates, they will need to ensure they update
 their nodes before block 709632 or non-upgraded nodes could cause them to mine on
 an invalid chain.  See the [versionbits
-FAQ](https://opensyriacore.org/en/2016/06/08/version-bits-miners-faq/) for
+FAQ](https://opensyria.net/en/2016/06/08/version-bits-miners-faq/) for
 details.
 
 

@@ -53,7 +53,7 @@ set(CMAKE_TRY_COMPILE_PLATFORM_VARIABLES
 project(OpenSyriaCore
   VERSION ${CLIENT_VERSION_MAJOR}.${CLIENT_VERSION_MINOR}.${CLIENT_VERSION_BUILD}
   DESCRIPTION "OpenSyria client software"
-  HOMEPAGE_URL "https://opensyria.org/"
+  HOMEPAGE_URL "https://opensyria.net/"
   LANGUAGES NONE
 )
 

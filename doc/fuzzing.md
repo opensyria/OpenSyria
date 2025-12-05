@@ -250,7 +250,7 @@ Read the [Honggfuzz documentation](https://github.com/google/honggfuzz/blob/mast
 OpenSyria Core participates in Google's [OSS-Fuzz](https://github.com/google/oss-fuzz/tree/master/projects/opensyria-core)
 program, which includes a dashboard of [publicly disclosed vulnerabilities](https://issues.oss-fuzz.com/issues?q=opensyria-core%20status:open).
 
-OpenSyria Core follows its [security disclosure policy](https://opensyriacore.org/en/security-advisories/),
+OpenSyria Core follows its [security disclosure policy](https://opensyria.net/en/security-advisories/),
 which may differ from Google's standard
 [90-day disclosure window](https://google.github.io/oss-fuzz/getting-started/bug-disclosure-guidelines/)
 .

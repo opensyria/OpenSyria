@@ -5,7 +5,7 @@ Setup
 ---------------------
 OpenSyria Core is the original OpenSyria client and it builds the backbone of the network. It downloads and, by default, stores the entire history of OpenSyria transactions, which requires several hundred gigabytes or more of disk space. Depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to several days or more.
 
-To download OpenSyria Core, visit [opensyriacore.org](https://opensyriacore.org/en/download/).
+To download OpenSyria Core, visit [opensyria.net](https://opensyria.net/en/download/).
 
 Running
 ---------------------
@@ -56,7 +56,7 @@ The OpenSyria repo's [root README](/README.md) contains relevant information on 
 - [Developer Notes](developer-notes.md)
 - [Productivity Notes](productivity.md)
 - [Release Process](release-process.md)
-- [Source Code Documentation (External Link)](https://doxygen.opensyriacore.org/)
+- [Source Code Documentation (External Link)](https://doxygen.opensyria.net/)
 - [Translation Process](translation_process.md)
 - [Translation Strings Policy](translation_strings_policy.md)
 - [JSON-RPC Interface](JSON-RPC-interface.md)

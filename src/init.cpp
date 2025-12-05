@@ -8,7 +8,7 @@
 // =============================================================================
 //
 // BLOCK EXPLORER (Required for user adoption):
-// - Deploy a public block explorer at explore.opensyriacore.org
+// - Deploy a public block explorer at explore.opensyria.net
 // - Recommended: mempool/mempool (modern UI) or btc-rpc-explorer (lightweight)
 // - Users need to view transactions, blocks, addresses, and network stats
 //

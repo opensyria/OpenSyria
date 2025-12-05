@@ -1,6 +1,6 @@
 OpenSyria Core version 0.12.0 is now available from:
 
-  <https://opensyria.org/bin/opensyria-core-0.12.0/>
+  <https://opensyria.net/bin/opensyria-core-0.12.0/>
 
 This is a new major version release, bringing new features and other improvements.
 

@@ -152,15 +152,15 @@ public:
         // DNS seed nodes - cleared until OpenSyria seed infrastructure is established
         // For initial network bootstrap, use -addnode or -connect to connect to known nodes
         // TODO [CRITICAL - PRE-LAUNCH]: Set up OpenSyria DNS seed infrastructure:
-        //   - dns-seed.opensyria.org (primary)
-        //   - dns-seed2.opensyria.org (secondary, different jurisdiction)
-        //   - onion-seed.opensyria.org (Tor users)
+        //   - seed.opensyria.net (primary)
+        //   - seed2.opensyria.net (secondary, different jurisdiction)
+        //   - seed-tor.opensyria.net (Tor users)
         // Without DNS seeds, the network cannot bootstrap automatically!
         // See: https://github.com/sipa/bitcoin-seeder for reference implementation
         vSeeds.clear();
         // TODO [CRITICAL - PRE-LAUNCH]: Uncomment and populate when DNS seeds are ready:
-        // vSeeds.emplace_back("dns-seed.opensyria.org");
-        // vSeeds.emplace_back("dns-seed2.opensyria.org");
+        // vSeeds.emplace_back("seed.opensyria.net");
+        // vSeeds.emplace_back("seed2.opensyria.net");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63); // Addresses start with 'S'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,64); // Addresses start with 'S' (Syria)
