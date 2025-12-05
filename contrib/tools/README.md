@@ -22,7 +22,8 @@ Prints genesis block hashes for all OpenSyria networks (mainnet, testnet, regtes
 | Block Reward | 10,000 SYL |
 | Max Supply | 21 billion SYL |
 | Block Time | 2 minutes |
-| Halving Interval | 210,000 blocks |
+| Halving Interval | 1,050,000 blocks (~4 years) |
+| Difficulty Adjustment | Every 10,080 blocks (~2 weeks) |
 | Mainnet Port | 9633 |
 | Testnet Port | 19633 |
 | Address Prefix | 'S' (mainnet), 's' (testnet) |

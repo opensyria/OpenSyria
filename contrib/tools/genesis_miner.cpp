@@ -21,7 +21,7 @@
  *   - Block Reward: 10,000 SYL
  *   - Max Supply: 21 billion SYL
  *   - Block Time: 2 minutes
- *   - Halving Interval: 210,000 blocks (same as Bitcoin)
+ *   - Halving Interval: 1,050,000 blocks (~4 years with 2-min blocks)
  * 
  * Copyright (c) 2025 The OpenSyria Core developers
  * Distributed under the MIT software license.
@@ -54,7 +54,8 @@ int main() {
     std::cout << "  • Initial Block Reward:  10,000 SYL" << std::endl;
     std::cout << "  • Maximum Supply:        21,000,000,000 SYL (21 billion)" << std::endl;
     std::cout << "  • Target Block Time:     2 minutes (120 seconds)" << std::endl;
-    std::cout << "  • Halving Interval:      210,000 blocks" << std::endl;
+    std::cout << "  • Halving Interval:      1,050,000 blocks (~4 years)" << std::endl;
+    std::cout << "  • Difficulty Adjustment: 10,080 blocks (~2 weeks)" << std::endl;
     std::cout << "  • Mainnet Port:          9633 (Syria +963)" << std::endl;
     std::cout << "  • Testnet Port:          19633" << std::endl;
     std::cout << "  • Address Prefix:        'S' (mainnet), 's' (testnet)" << std::endl;

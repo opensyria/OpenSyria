@@ -50,7 +50,7 @@ from test_framework.wallet import (
 )
 
 
-DIFFICULTY_ADJUSTMENT_INTERVAL = 720  # OpenSyria: 86400 / 120 = 720 (one day / 2-minute blocks)
+DIFFICULTY_ADJUSTMENT_INTERVAL = 720  # Regtest: 1 day (86400s) / 2-min blocks = 720. Mainnet uses 10,080 (2 weeks).
 MAX_FUTURE_BLOCK_TIME = 2 * 3600
 MAX_TIMEWARP = 600
 VERSIONBITS_TOP_BITS = 0x20000000

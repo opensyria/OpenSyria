@@ -85,7 +85,7 @@ class MiningMainnetTest(OpenSyriaTestFramework):
         block.nTime = blocks['timestamps'][height - 1]
         block.nBits = DIFF_1_N_BITS if height < 2016 else DIFF_4_N_BITS
         block.nNonce = blocks['nonces'][height - 1]
-        block.vtx = [create_coinbase(height=height, script_pubkey=bytes.fromhex(COINBASE_SCRIPT_PUBKEY), halving_period=210000)]
+        block.vtx = [create_coinbase(height=height, script_pubkey=bytes.fromhex(COINBASE_SCRIPT_PUBKEY), halving_period=1050000)]
         # The alternate mainnet chain was mined with non-timelocked coinbase txs.
         block.vtx[0].nLockTime = 0
         block.vtx[0].vin[0].nSequence = SEQUENCE_FINAL
