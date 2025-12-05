@@ -409,6 +409,7 @@ struct SnapshotTestSetup : TestChain100Setup {
 };
 
 //! Test basic snapshot activation.
+//! NOTE: Requires assumeutxo data for height 110 to be configured.
 BOOST_FIXTURE_TEST_CASE(chainstatemanager_activate_snapshot, SnapshotTestSetup)
 {
     this->SetupSnapshot();
@@ -424,9 +425,11 @@ BOOST_FIXTURE_TEST_CASE(chainstatemanager_activate_snapshot, SnapshotTestSetup)
 //!   chainstate only contains fully validated blocks and the other chainstate contains all blocks,
 //!   except those marked assume-valid, because those entries don't HAVE_DATA.
 //!
+//! NOTE: Requires assumeutxo data for height 110 to be configured.
 BOOST_FIXTURE_TEST_CASE(chainstatemanager_loadblockindex, TestChain100Setup)
 {
     ChainstateManager& chainman = *Assert(m_node.chainman);
+
     Chainstate& cs1 = chainman.ActiveChainstate();
 
     int num_indexes{0};
@@ -558,6 +561,7 @@ BOOST_FIXTURE_TEST_CASE(chainstatemanager_loadblockindex, TestChain100Setup)
 }
 
 //! Ensure that snapshot chainstates initialize properly when found on disk.
+//! NOTE: Requires assumeutxo data for height 110 to be configured.
 BOOST_FIXTURE_TEST_CASE(chainstatemanager_snapshot_init, SnapshotTestSetup)
 {
     ChainstateManager& chainman = *Assert(m_node.chainman);
@@ -627,6 +631,7 @@ BOOST_FIXTURE_TEST_CASE(chainstatemanager_snapshot_init, SnapshotTestSetup)
     }
 }
 
+//! NOTE: Requires assumeutxo data for height 110 to be configured.
 BOOST_FIXTURE_TEST_CASE(chainstatemanager_snapshot_completion, SnapshotTestSetup)
 {
     this->SetupSnapshot();
@@ -710,6 +715,7 @@ BOOST_FIXTURE_TEST_CASE(chainstatemanager_snapshot_completion, SnapshotTestSetup
     }
 }
 
+//! NOTE: Requires assumeutxo data for height 110 to be configured.
 BOOST_FIXTURE_TEST_CASE(chainstatemanager_snapshot_completion_hash_mismatch, SnapshotTestSetup)
 {
     auto chainstates = this->SetupSnapshot();

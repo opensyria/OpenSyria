@@ -86,17 +86,14 @@ public:
         consensus.signet_blocks = false;
         consensus.signet_challenge.clear();
         consensus.nSubsidyHalvingInterval = 1050000; // ~4 years with 2-min blocks
-        consensus.script_flag_exceptions.emplace( // BIP16 exception
-            uint256{"00000000000002dc756eebf4f49723ed8d30cc28a5f108eb94b1ba88ac4f9c22"}, SCRIPT_VERIFY_NONE);
-        consensus.script_flag_exceptions.emplace( // Taproot exception
-            uint256{"0000000000000000000f14c35b2d841e986ab5441de8c585d5ffe55ea1e395ad"}, SCRIPT_VERIFY_P2SH | SCRIPT_VERIFY_WITNESS);
-        consensus.BIP34Height = 227931;
-        consensus.BIP34Hash = uint256{"000000000000024b89b42a942fe0d9fea3bb44ab7bd1b19115dd6a759c0808b8"};
-        consensus.BIP65Height = 388381; // 000000000000000004c2b624ed5d7756c508d90fd0da2c7c679febfa6c4735f0
-        consensus.BIP66Height = 363725; // 00000000000000000379eaa19dce8c9b722d46ae6a57c2f1a988119488b50931
-        consensus.CSVHeight = 419328; // 000000000000000004a1b34462cb8aeebd5799177f7a29cf28f2d1961716b5b5
-        consensus.SegwitHeight = 481824; // 0000000000000000001c8018d9cb3b742ef25114f27563e3fc4a1902167f9893
-        consensus.MinBIP9WarningHeight = 483840; // segwit activation height + miner confirmation window
+        // No script flag exceptions for new chain - OpenSyria starts fresh
+        consensus.BIP34Height = 1; // Active from block 1
+        consensus.BIP34Hash = uint256{};
+        consensus.BIP65Height = 1; // Active from block 1
+        consensus.BIP66Height = 1; // Active from block 1
+        consensus.CSVHeight = 1; // Active from block 1
+        consensus.SegwitHeight = 1; // Active from block 1
+        consensus.MinBIP9WarningHeight = 0;
         consensus.powLimit = uint256{"000000ffff000000000000000000000000000000000000000000000000000000"}; // Matches 0x1e00ffff
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 2 * 60; // 2-minute blocks
@@ -110,16 +107,17 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].threshold = 1815; // 90%
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].period = 2016;
 
-        // Deployment of Taproot (BIPs 340-342)
+        // Deployment of Taproot (BIPs 340-342) - Always active for OpenSyria
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nStartTime = 1619222400; // April 24th, 2021
-        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nTimeout = 1628640000; // August 11th, 2021
-        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].min_activation_height = 709632; // Approximately November 12th, 2021
+        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE;
+        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
+        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].min_activation_height = 0; // No activation delay
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].threshold = 1815; // 90%
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].period = 2016;
 
-        consensus.nMinimumChainWork = uint256{"0000000000000000000000000000000000000000dee8e2a309ad8a9820433c68"};
-        consensus.defaultAssumeValid = uint256{"00000000000000000000611fd22f2df7c8fbd0688745c3a6c3bb5109cc2a12cb"}; // 912683
+        // New chain starts with no minimum work requirement - will be updated as chain grows
+        consensus.nMinimumChainWork = uint256{};
+        consensus.defaultAssumeValid = uint256{}; // New chain - no assumed valid block yet
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -132,78 +130,48 @@ public:
         pchMessageStart[3] = 0x4d; // 'M' for mainnet
         nDefaultPort = 9633; // OpenSyria mainnet port (963 = Syria country code)
         nPruneAfterHeight = 100000;
-        m_assumed_blockchain_size = 810;
-        m_assumed_chain_state_size = 14;
+        m_assumed_blockchain_size = 1; // New chain - minimal initial size
+        m_assumed_chain_state_size = 1; // New chain - minimal initial size
 
         genesis = CreateGenesisBlock(1733616000, 171081, 0x1e00ffff, 1, 10000 * COIN); // Dec 8, 2024 - Syria Liberation
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256{"0000000727ee231c405685355f07629b06bfcb462cfa1ed7de868a6d9590ca8d"});
         assert(genesis.hashMerkleRoot == uint256{"56f65e913353861d32d297c6bc87bbe81242b764d18b8634d75c5a0159c8859e"});
 
-        // TODO: Set up OpenSyria DNS seed nodes
-        // For now, use -addnode or -connect to connect to known nodes
-        // Note that of those which support the service bits prefix, most only support a subset of
-        // possible options.
-        // This is fine at runtime as we'll fall back to using them as an addrfetch if they don't support the
-        // service bits we want, but we should get them updated to support all service bits wanted by any
-        // release ASAP to avoid it where possible.
-        // vSeeds.emplace_back("seed.opensyria.sipa.be."); // TODO: Add OpenSyria seed nodes // Pieter Wuille, only supports x1, x5, x9, and xd
-        // vSeeds.emplace_back("dnsseed.bluematt.me."); // TODO: Add OpenSyria seed nodes // Matt Corallo, only supports x9
-        // vSeeds.emplace_back("dnsseed.opensyria.dashjr-list-of-p2p-nodes.us."); // TODO: Add OpenSyria seed nodes // Luke Dashjr
-        // vSeeds.emplace_back("seed.opensyria.jonasschnelli.ch."); // TODO: Add OpenSyria seed nodes // Jonas Schnelli, only supports x1, x5, x9, and xd
-        // vSeeds.emplace_back("seed.syl.petertodd.net."); // TODO: Add OpenSyria seed nodes // Peter Todd, only supports x1, x5, x9, and xd
-        // vSeeds.emplace_back("seed.opensyria.sprovoost.nl."); // TODO: Add OpenSyria seed nodes // Sjors Provoost
-        // vSeeds.emplace_back("dnsseed.emzy.de."); // TODO: Add OpenSyria seed nodes // Stephan Oeste
-        // vSeeds.emplace_back("seed.opensyria.wiz.biz."); // TODO: Add OpenSyria seed nodes // Jason Maurice
-        vSeeds.emplace_back("seed.mainnet.achownodes.xyz."); // Ava Chow, only supports x1, x5, x9, x49, x809, x849, xd, x400, x404, x408, x448, xc08, xc48, x40c
+        // DNS seed nodes - cleared until OpenSyria seed infrastructure is established
+        // For initial network bootstrap, use -addnode or -connect to connect to known nodes
+        // TODO: Set up OpenSyria DNS seed nodes when network launches
+        vSeeds.clear();
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63); // Addresses start with 'S'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,64); // Addresses start with 'S' (Syria)
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,128);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E};
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4};
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E}; // xpub (same as Bitcoin for wallet compatibility)
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4}; // xprv (same as Bitcoin for wallet compatibility)
 
         bech32_hrp = "syl"; // OpenSyria mainnet SegWit
 
-        vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_main), std::end(chainparams_seed_main));
+        vFixedSeeds.clear(); // No fixed seeds until OpenSyria network nodes are established
 
         fDefaultConsistencyChecks = false;
         m_is_mockable_chain = false;
 
-        m_assumeutxo_data = {
-            {
-                .height = 840'000,
-                .hash_serialized = AssumeutxoHash{uint256{"a2a5521b1b5ab65f67818e5e8eccabb7171a517f9e2382208f77687310768f96"}},
-                .m_chain_tx_count = 991032194,
-                .blockhash = consteval_ctor(uint256{"0000000000000000000320283a032748cef8227873ff4872689bf23f1cda83a5"}),
-            },
-            {
-                .height = 880'000,
-                .hash_serialized = AssumeutxoHash{uint256{"dbd190983eaf433ef7c15f78a278ae42c00ef52e0fd2a54953782175fbadcea9"}},
-                .m_chain_tx_count = 1145604538,
-                .blockhash = consteval_ctor(uint256{"000000000000000000010b17283c3c400507969a9c2afd1dcf2082ec5cca2880"}),
-            },
-            {
-                .height = 910'000,
-                .hash_serialized = AssumeutxoHash{uint256{"4daf8a17b4902498c5787966a2b51c613acdab5df5db73f196fa59a4da2f1568"}},
-                .m_chain_tx_count = 1226586151,
-                .blockhash = consteval_ctor(uint256{"0000000000000000000108970acb9522ffd516eae17acddcb1bd16469194a821"}),
-            }
-        };
+        // AssumeUTXO data - empty for new chain, will be populated as chain grows
+        m_assumeutxo_data = {};
 
 
+        // Chain transaction data - initialized for genesis, will be updated as chain grows
         chainTxData = ChainTxData{
-            // Data from RPC: getchaintxstats 4096 00000000000000000000611fd22f2df7c8fbd0688745c3a6c3bb5109cc2a12cb
-            .nTime    = 1756722903,
-            .tx_count = 1235299397,
-            .dTxRate  = 5.456290459519495,
+            .nTime    = 1733616000, // Genesis timestamp - Dec 8, 2024
+            .tx_count = 1,
+            .dTxRate  = 0.001, // Initial low rate for new chain
         };
 
 
-        // Generated by headerssync-params.py on 2025-09-01.
+        // Headers sync parameters - conservative values for new chain
         m_headers_sync_params = HeadersSyncParams{
-            .commitment_period = 632,
-            .redownload_buffer_size = 15009, // 15009/632 = ~23.7 commitments
+            .commitment_period = 100,
+            .redownload_buffer_size = 2500, // Appropriate for new chain
         };
 
     }
@@ -219,15 +187,14 @@ public:
         consensus.signet_blocks = false;
         consensus.signet_challenge.clear();
         consensus.nSubsidyHalvingInterval = 1050000; // ~4 years with 2-min blocks
-        consensus.script_flag_exceptions.emplace( // BIP16 exception
-            uint256{"00000000dd30457c001f4095d208cc1296b0eed002427aa599874af7a432b105"}, SCRIPT_VERIFY_NONE);
-        consensus.BIP34Height = 21111;
-        consensus.BIP34Hash = uint256{"0000000023b3a96d3484e5abb3755c413e7d41500f8e2a5c3f0dd01299cd8ef8"};
-        consensus.BIP65Height = 581885; // 00000000007f6655f22f98e72ed80d8b06dc761d5da09df0fa1dc4be4f861eb6
-        consensus.BIP66Height = 330776; // 000000002104c8c45e99a8853285a3b592602a3ccde2b832481da85e9e4ba182
-        consensus.CSVHeight = 770112; // 00000000025e930139bac5c6c31a403776da130831ab85be56578f3fa75369bb
-        consensus.SegwitHeight = 834624; // 00000000002b980fcd729daaa248fd9316a5200e9b367f4ff2c42453e84201ca
-        consensus.MinBIP9WarningHeight = 836640; // segwit activation height + miner confirmation window
+        // No script flag exceptions for new chain - OpenSyria starts fresh
+        consensus.BIP34Height = 1; // Active from block 1
+        consensus.BIP34Hash = uint256{};
+        consensus.BIP65Height = 1; // Active from block 1
+        consensus.BIP66Height = 1; // Active from block 1
+        consensus.CSVHeight = 1; // Active from block 1
+        consensus.SegwitHeight = 1; // Active from block 1
+        consensus.MinBIP9WarningHeight = 0;
         consensus.powLimit = uint256{"000000ffff000000000000000000000000000000000000000000000000000000"}; // Matches 0x1e00ffff
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 2 * 60; // 2-minute blocks
@@ -241,16 +208,17 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].threshold = 1512; // 75%
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].period = 2016;
 
-        // Deployment of Taproot (BIPs 340-342)
+        // Deployment of Taproot (BIPs 340-342) - Always active for OpenSyria testnet
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].bit = 2;
-        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nStartTime = 1619222400; // April 24th, 2021
-        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nTimeout = 1628640000; // August 11th, 2021
+        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nStartTime = Consensus::BIP9Deployment::ALWAYS_ACTIVE;
+        consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].min_activation_height = 0; // No activation delay
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].threshold = 1512; // 75%
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].period = 2016;
 
-        consensus.nMinimumChainWork = uint256{"0000000000000000000000000000000000000000000016dd270dd94fac1d7632"};
-        consensus.defaultAssumeValid = uint256{"0000000000000065c6c38258e201971a3fdfcc2ceee0dd6e85a6c022d45dee34"}; // 4550000
+        // New chain starts with no minimum work requirement
+        consensus.nMinimumChainWork = uint256{};
+        consensus.defaultAssumeValid = uint256{}; // New chain - no assumed valid block yet
 
         pchMessageStart[0] = 0x53; // 'S'
         pchMessageStart[1] = 0x59; // 'Y'
@@ -258,8 +226,8 @@ public:
         pchMessageStart[3] = 0x54; // 'T' for testnet
         nDefaultPort = 19633; // OpenSyria testnet port (1 + 963)
         nPruneAfterHeight = 1000;
-        m_assumed_blockchain_size = 240;
-        m_assumed_chain_state_size = 19;
+        m_assumed_blockchain_size = 1; // New chain - minimal initial size
+        m_assumed_chain_state_size = 1; // New chain - minimal initial size
 
         genesis = CreateGenesisBlock(1733616001, 7249204, 0x1e00ffff, 1, 10000 * COIN); // Testnet - Syria Liberation +1s
         consensus.hashGenesisBlock = genesis.GetHash();
@@ -268,48 +236,38 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("testnet-seed.opensyria.jonasschnelli.ch.");
-        vSeeds.emplace_back("seed.opensyria.org.");
-        vSeeds.emplace_back("seed.testnet.opensyria.sprovoost.nl.");
-        vSeeds.emplace_back("testnet-seed.bluematt.me."); // Just a static list of stable node(s), only supports x9
-        vSeeds.emplace_back("seed.testnet.achownodes.xyz."); // Ava Chow, only supports x1, x5, x9, x49, x809, x849, xd, x400, x404, x408, x448, xc08, xc48, x40c
+        // DNS seeds cleared until OpenSyria testnet seed infrastructure is established
+        // Use -addnode or -connect for initial bootstrap
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,125); // Testnet addresses start with 's'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF}; // tpub (same as Bitcoin for wallet compatibility)
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94}; // tprv (same as Bitcoin for wallet compatibility)
 
         bech32_hrp = "tsyl"; // OpenSyria testnet SegWit
 
-        vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_test), std::end(chainparams_seed_test));
+        vFixedSeeds.clear(); // No fixed seeds until OpenSyria testnet nodes are established
 
         fDefaultConsistencyChecks = false;
         m_is_mockable_chain = false;
 
-        m_assumeutxo_data = {
-            {
-                .height = 2'500'000,
-                .hash_serialized = AssumeutxoHash{uint256{"f841584909f68e47897952345234e37fcd9128cd818f41ee6c3ca68db8071be7"}},
-                .m_chain_tx_count = 66484552,
-                .blockhash = consteval_ctor(uint256{"0000000000000093bcb68c03a9a168ae252572d348a2eaeba2cdf9231d73206f"}),
-            }
-        };
+        // AssumeUTXO data - empty for new chain
+        m_assumeutxo_data = {};
 
 
+        // Chain transaction data - initialized for genesis
         chainTxData = ChainTxData{
-            // Data from RPC: getchaintxstats 4096 0000000000000065c6c38258e201971a3fdfcc2ceee0dd6e85a6c022d45dee34
-            .nTime    = 1751816758,
-            .tx_count = 508468699,
-            .dTxRate  = 7.172978845985714,
+            .nTime    = 1733616001, // Testnet genesis timestamp
+            .tx_count = 1,
+            .dTxRate  = 0.001, // Initial low rate for new chain
         };
 
 
-        // Generated by headerssync-params.py on 2025-09-03.
+        // Headers sync parameters - conservative values for new chain
         m_headers_sync_params = HeadersSyncParams{
-            .commitment_period = 628,
-            .redownload_buffer_size = 13460, // 13460/628 = ~21.4 commitments
+            .commitment_period = 100,
+            .redownload_buffer_size = 2500,
         };
 
     }
@@ -354,8 +312,9 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].threshold = 1512; // 75%
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].period = 2016;
 
-        consensus.nMinimumChainWork = uint256{"00000000000000000000000000000000000000000000034a4690fe592dc49c7c"};
-        consensus.defaultAssumeValid = uint256{"000000000000000180a58e7fa3b0db84b5ea76377524894f53660d93ac839d9b"}; // 91000
+        // New chain starts with no minimum work requirement
+        consensus.nMinimumChainWork = uint256{};
+        consensus.defaultAssumeValid = uint256{}; // New chain - no assumed valid block yet
 
         pchMessageStart[0] = 0x53; // 'S'
         pchMessageStart[1] = 0x59; // 'Y'
@@ -363,8 +322,8 @@ public:
         pchMessageStart[3] = 0x34; // '4' for testnet4
         nDefaultPort = 49633; // OpenSyria testnet4 port (4 + 963)
         nPruneAfterHeight = 1000;
-        m_assumed_blockchain_size = 22;
-        m_assumed_chain_state_size = 2;
+        m_assumed_blockchain_size = 1; // New chain - minimal initial size
+        m_assumed_chain_state_size = 1; // New chain - minimal initial size
 
         genesis = CreateGenesisBlock(1733616004, 2023493, 0x1e00ffff, 1, 10000 * COIN); // Testnet4 - Syria Liberation +4s
         consensus.hashGenesisBlock = genesis.GetHash();
@@ -373,45 +332,38 @@ public:
 
         vFixedSeeds.clear();
         vSeeds.clear();
-        // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("seed.testnet4.opensyria.sprovoost.nl."); // Sjors Provoost
-        vSeeds.emplace_back("seed.testnet4.wiz.biz."); // Jason Maurice
+        // DNS seeds cleared until OpenSyria testnet4 seed infrastructure is established
+        // Use -addnode or -connect for initial bootstrap
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,125); // Testnet addresses start with 's'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF}; // tpub (same as Bitcoin for wallet compatibility)
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94}; // tprv (same as Bitcoin for wallet compatibility)
 
         bech32_hrp = "tsyl"; // OpenSyria testnet SegWit
 
-        vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_testnet4), std::end(chainparams_seed_testnet4));
+        vFixedSeeds.clear(); // No fixed seeds until OpenSyria testnet4 nodes are established
 
         fDefaultConsistencyChecks = false;
         m_is_mockable_chain = false;
 
-        m_assumeutxo_data = {
-            {
-                .height = 90'000,
-                .hash_serialized = AssumeutxoHash{uint256{"784fb5e98241de66fdd429f4392155c9e7db5c017148e66e8fdbc95746f8b9b5"}},
-                .m_chain_tx_count = 11347043,
-                .blockhash = consteval_ctor(uint256{"0000000002ebe8bcda020e0dd6ccfbdfac531d2f6a81457191b99fc2df2dbe3b"}),
-            }
-        };
+        // AssumeUTXO data - empty for new chain
+        m_assumeutxo_data = {};
 
 
+        // Chain transaction data - initialized for genesis
         chainTxData = ChainTxData{
-            // Data from RPC: getchaintxstats 4096 000000000000000180a58e7fa3b0db84b5ea76377524894f53660d93ac839d9b
-            .nTime    = 1752470331,
-            .tx_count = 11414302,
-            .dTxRate  = 0.2842619757327476,
+            .nTime    = 1733616004, // Testnet4 genesis timestamp
+            .tx_count = 1,
+            .dTxRate  = 0.001, // Initial low rate for new chain
         };
 
 
-        // Generated by headerssync-params.py on 2025-09-03.
+        // Headers sync parameters - conservative values for new chain
         m_headers_sync_params = HeadersSyncParams{
-            .commitment_period = 275,
-            .redownload_buffer_size = 7017, // 7017/275 = ~25.5 commitments
+            .commitment_period = 100,
+            .redownload_buffer_size = 2500,
         };
 
     }
@@ -429,20 +381,21 @@ public:
         vSeeds.clear();
 
         if (!options.challenge) {
+            // TODO: Generate OpenSyria-specific signet challenge keys
+            // For now, using a placeholder - replace with actual OpenSyria signet keys before launch
             bin = "512103ad5e0edad18cb1f0fc0d28a3d4f1f3e445640337489abb10404f2d1e086be430210359ef5021964fe22d6f8e05b2463c9540ce96883fe3b278760f048f5189f2e6c452ae"_hex_v_u8;
-            vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_signet), std::end(chainparams_seed_signet));
-            vSeeds.emplace_back("seed.signet.opensyria.sprovoost.nl.");
-            vSeeds.emplace_back("seed.signet.achownodes.xyz."); // Ava Chow, only supports x1, x5, x9, x49, x809, x849, xd, x400, x404, x408, x448, xc08, xc48, x40c
+            vFixedSeeds.clear(); // No fixed seeds until OpenSyria signet nodes are established
+            vSeeds.clear(); // DNS seeds cleared until OpenSyria signet infrastructure is established
 
-            consensus.nMinimumChainWork = uint256{"0000000000000000000000000000000000000000000000000000067d328e681a"};
-            consensus.defaultAssumeValid = uint256{"000000128586e26813922680309f04e1de713c7542fee86ed908f56368aefe2e"}; // 267665
-            m_assumed_blockchain_size = 20;
-            m_assumed_chain_state_size = 4;
+            // New chain starts with no minimum work requirement
+            consensus.nMinimumChainWork = uint256{};
+            consensus.defaultAssumeValid = uint256{}; // New chain - no assumed valid block yet
+            m_assumed_blockchain_size = 1; // New chain - minimal initial size
+            m_assumed_chain_state_size = 1; // New chain - minimal initial size
             chainTxData = ChainTxData{
-                // Data from RPC: getchaintxstats 4096 000000128586e26813922680309f04e1de713c7542fee86ed908f56368aefe2e
-                .nTime    = 1756723017,
-                .tx_count = 26185472,
-                .dTxRate  = 0.7452721495389969,
+                .nTime    = 1733616002, // Signet genesis timestamp
+                .tx_count = 1,
+                .dTxRate  = 0.001, // Initial low rate for new chain
             };
 
         } else {
@@ -510,31 +463,25 @@ public:
         assert(consensus.hashGenesisBlock == uint256{"000002f2691d8ba8b470635c448adb1e618a874a910e8955ed5c46cd5bd3ca9f"});
         assert(genesis.hashMerkleRoot == uint256{"56f65e913353861d32d297c6bc87bbe81242b764d18b8634d75c5a0159c8859e"});
 
-        m_assumeutxo_data = {
-            {
-                .height = 160'000,
-                .hash_serialized = AssumeutxoHash{uint256{"fe0a44309b74d6b5883d246cb419c6221bcccf0b308c9b59b7d70783dbdf928a"}},
-                .m_chain_tx_count = 2289496,
-                .blockhash = consteval_ctor(uint256{"0000003ca3c99aff040f2563c2ad8f8ec88bd0fd6b8f0895cfaf1ef90353a62c"}),
-            }
-        };
+        // AssumeUTXO data - empty for new chain
+        m_assumeutxo_data = {};
 
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,125); // Testnet addresses start with 's'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF}; // tpub (same as Bitcoin for wallet compatibility)
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94}; // tprv (same as Bitcoin for wallet compatibility)
 
         bech32_hrp = "tsyl"; // OpenSyria testnet SegWit
 
         fDefaultConsistencyChecks = false;
         m_is_mockable_chain = false;
 
-        // Generated by headerssync-params.py on 2025-09-03.
+        // Headers sync parameters - conservative values for new chain
         m_headers_sync_params = HeadersSyncParams{
-            .commitment_period = 390,
-            .redownload_buffer_size = 9584, // 9584/390 = ~24.6 commitments
+            .commitment_period = 100,
+            .redownload_buffer_size = 2500,
         };
 
     }
@@ -631,26 +578,14 @@ public:
         fDefaultConsistencyChecks = true;
         m_is_mockable_chain = true;
 
+        // AssumeUTXO data for OpenSyria regtest
+        // Generated at height 110 using test framework's deterministic block generation
         m_assumeutxo_data = {
-            {   // For use by unit tests
+            {
                 .height = 110,
-                .hash_serialized = AssumeutxoHash{uint256{"73732a21309b6c04feac9c18ca616a2b0df653e3ed1207695f2be5dbe9029b2c"}},
-                .m_chain_tx_count = 110,
-                .blockhash = consteval_ctor(uint256{"7ed2e0183a06e69679c7ee18a4364e5b3b74a9f574bdfee64962b0732682f346"}),
-            },
-            {
-                // For use by fuzz target src/test/fuzz/utxo_snapshot.cpp
-                .height = 200,
-                .hash_serialized = AssumeutxoHash{uint256{"5d5358b20e04729f6843d8dd3fbfc248b2b3b31fa9862cd169c0586dc0a641c6"}},
-                .m_chain_tx_count = 200,
-                .blockhash = consteval_ctor(uint256{"5249b74e78dd894fe30d20ee348cadfe7584c1f4f89c5ef18e92897fbef87878"}),
-            },
-            {
-                // For use by test/functional/feature_assumeutxo.py
-                .height = 299,
-                .hash_serialized = AssumeutxoHash{uint256{"e2c222db5361eb6ae9cd3f36e1addb32514eb59e2a8cdc4d3cd1489b4fcb11e3"}},
-                .m_chain_tx_count = 334,
-                .blockhash = consteval_ctor(uint256{"247f58c5696ad5e062a29ab74269a495aa25031bb1a359edd5969c3edcb02921"}),
+                .hash_serialized = AssumeutxoHash{uint256{"307d034c22a1d1f7d21e26bbe005ddbd01c28664a6c808d1499249a52e0c535a"}},
+                .m_chain_tx_count = 111,
+                .blockhash = uint256{"5d6cb6d0b8ad7441634b617315d0dd51a8f63d3b8122981489bedda7ac9cac61"},
             },
         };
 
@@ -661,11 +596,11 @@ public:
         };
 
 
-        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,125); // Testnet addresses start with 's'
+        base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,125); // Regtest addresses start with 's'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
         base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF};
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94};
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF}; // tpub (same as Bitcoin for wallet compatibility)
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94}; // tprv (same as Bitcoin for wallet compatibility)
 
         bech32_hrp = "rsyl"; // OpenSyria regtest SegWit
 

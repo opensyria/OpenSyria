@@ -6,14 +6,38 @@ https://opensyriacore.org
 For an immediately usable, binary version of the OpenSyria Core software, see
 https://opensyriacore.org/en/download/.
 
+What is OpenSyria?
+------------------
+
+OpenSyria (SYL) is a cryptocurrency forked from Bitcoin Core, created to support
+the Syrian community with a modern, decentralized digital currency. It maintains
+Bitcoin's proven security model while introducing Syria-specific customizations.
+
+**Key Features:**
+- **Address Prefix:** Mainnet addresses start with 'S' (Syria)
+- **Network Ports:** 9633 (mainnet), based on Syria's country code 963
+- **Block Reward:** 10,000 SYL initial reward
+- **Genesis Date:** December 8, 2024 (Syria Liberation Day)
+- **Currency Unit:** SYL (Syrian Lira digital)
+
 What is OpenSyria Core?
----------------------
+-----------------------
 
 OpenSyria Core connects to the OpenSyria peer-to-peer network to download and fully
 validate blocks and transactions. It also includes a wallet and graphical user
 interface, which can be optionally built.
 
 Further information about OpenSyria Core is available in the [doc folder](/doc).
+
+Network Parameters
+------------------
+
+| Parameter | Mainnet | Testnet | Regtest |
+|-----------|---------|---------|---------|
+| Address Prefix | S | s | s |
+| Default Port | 9633 | 19633 | 19634 |
+| Bech32 Prefix | syl | tsyl | rsyl |
+| Block Time | ~2 minutes | ~2 minutes | instant |
 
 License
 -------
@@ -25,10 +49,10 @@ Development Process
 -------------------
 
 The `master` branch is regularly built (see `doc/build-*.md` for instructions) and tested, but it is not guaranteed to be
-completely stable. [Tags](https://github.com/bitcoin/bitcoin/tags) are created
+completely stable. [Tags](https://github.com/opensyria/opensyria/tags) are created
 regularly from release branches to indicate new official, stable release versions of OpenSyria Core.
 
-The https://github.com/bitcoin-core/gui repository is used exclusively for the
+The https://github.com/opensyria/opensyria-gui repository is used exclusively for the
 development of the GUI. Its master branch is identical in all monotree
 repositories. Release branches and tags do not exist, so please do not fork
 that repository unless it is for development reasons.

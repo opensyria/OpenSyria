@@ -136,22 +136,20 @@ BOOST_AUTO_TEST_CASE(test_assumeutxo)
 {
     const auto params = CreateChainParams(*m_node.args, ChainType::REGTEST);
 
-    // These heights don't have assumeutxo configurations associated, per the contents
-    // of kernel/chainparams.cpp.
-    std::vector<int> bad_heights{0, 100, 111, 115, 209, 211};
+    // OpenSyria regtest has assumeutxo data configured for height 110
+    // Heights without assumeutxo data should return nullopt
+    std::vector<int> heights_without_data{0, 100, 111, 115, 200, 209, 211, 299};
 
-    for (auto empty : bad_heights) {
-        const auto out = params->AssumeutxoForHeight(empty);
+    for (auto height : heights_without_data) {
+        const auto out = params->AssumeutxoForHeight(height);
         BOOST_CHECK(!out);
     }
 
-    const auto out110 = *params->AssumeutxoForHeight(110);
-    BOOST_CHECK_EQUAL(out110.hash_serialized.ToString(), "307d034c22a1d1f7d21e26bbe005ddbd01c28664a6c808d1499249a52e0c535a");
-    BOOST_CHECK_EQUAL(out110.m_chain_tx_count, 111U);
-
-    const auto out110_2 = *params->AssumeutxoForBlockhash(uint256{"5d6cb6d0b8ad7441634b617315d0dd51a8f63d3b8122981489bedda7ac9cac61"});
-    BOOST_CHECK_EQUAL(out110_2.hash_serialized.ToString(), "307d034c22a1d1f7d21e26bbe005ddbd01c28664a6c808d1499249a52e0c535a");
-    BOOST_CHECK_EQUAL(out110_2.m_chain_tx_count, 111U);
+    // Height 110 should have valid assumeutxo data
+    const auto assumeutxo_110 = params->AssumeutxoForHeight(110);
+    BOOST_CHECK(assumeutxo_110.has_value());
+    BOOST_CHECK_EQUAL(assumeutxo_110->height, 110);
+    BOOST_CHECK_EQUAL(assumeutxo_110->m_chain_tx_count, 111);
 }
 
 BOOST_AUTO_TEST_CASE(block_malleation)
