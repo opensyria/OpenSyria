@@ -46,14 +46,14 @@ def assert_approx(v, vexp, vspan=0.00001):
         raise AssertionError("%s > [%s..%s]" % (str(v), str(vexp - vspan), str(vexp + vspan)))
 
 
-def assert_fee_amount(fee, tx_size, feerate_BTC_kvB):
+def assert_fee_amount(fee, tx_size, feerate_syl_kvB):
     """Assert the fee is in range."""
     assert isinstance(tx_size, int)
-    target_fee = get_fee(tx_size, feerate_BTC_kvB)
+    target_fee = get_fee(tx_size, feerate_syl_kvB)
     if fee < target_fee:
         raise AssertionError("Fee of %s SYL too low! (Should be %s SYL)" % (str(fee), str(target_fee)))
     # allow the wallet's estimation to be at most 2 bytes off
-    high_fee = get_fee(tx_size + 2, feerate_BTC_kvB)
+    high_fee = get_fee(tx_size + 2, feerate_syl_kvB)
     if fee > high_fee:
         raise AssertionError("Fee of %s SYL too high! (Should be %s SYL)" % (str(fee), str(target_fee)))
 
@@ -354,11 +354,11 @@ def random_bitflip(data):
     return bytes(data)
 
 
-def get_fee(tx_size, feerate_btc_kvb):
+def get_fee(tx_size, feerate_syl_kvb):
     """Calculate the fee in SYL given a feerate is SYL/kvB. Reflects CFeeRate::GetFee"""
-    feerate_sat_kvb = int(feerate_btc_kvb * Decimal(1e8)) # Fee in sat/kvb as an int to avoid float precision errors
-    target_fee_sat = ceildiv(feerate_sat_kvb * tx_size, 1000) # Round calculated fee up to nearest sat
-    return target_fee_sat / Decimal(1e8) # Return result in  SYL
+    feerate_qirsh_kvb = int(feerate_syl_kvb * Decimal(1e8)) # Fee in qirsh/kvb as an int to avoid float precision errorsrors
+    target_fee_qirsh = ceildiv(feerate_qirsh_kvb * tx_size, 1000) # Round calculated fee up to nearest qirsh
+    return target_fee_qirsh / Decimal(1e8) # Return result in SYL
 
 
 def qirsh_round(amount: Union[int, float, str], *, rounding: str) -> Decimal:

@@ -164,9 +164,11 @@ public:
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,63); // Addresses start with 'S'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,64); // Addresses start with 'S' (Syria)
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,128);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E}; // xpub (same as Bitcoin for wallet compatibility)
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4}; // xprv (same as Bitcoin for wallet compatibility)
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,128); // WIF keys - Bitcoin mainnet compatible for wallet interop
+        // Extended key prefixes kept Bitcoin-compatible for HD wallet interoperability
+        // Future: Consider unique prefixes (e.g., spub/sprv) once ecosystem matures
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x88, 0xB2, 0x1E}; // xpub - Bitcoin mainnet compatible
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x88, 0xAD, 0xE4}; // xprv - Bitcoin mainnet compatible
 
         bech32_hrp = "syl"; // OpenSyria mainnet SegWit
 
@@ -268,11 +270,12 @@ public:
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,125); // Testnet addresses start with 's'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF}; // tpub (same as Bitcoin for wallet compatibility)
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94}; // tprv (same as Bitcoin for wallet compatibility)
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239); // WIF testnet keys - Bitcoin testnet compatible for test compatibility
+        // Extended key prefixes kept Bitcoin testnet-compatible for test compatibility
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF}; // tpub - Bitcoin testnet compatible
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94}; // tprv - Bitcoin testnet compatible
 
-        bech32_hrp = "tsyl"; // OpenSyria testnet SegWit
+        bech32_hrp = "tsyl"; // OpenSyria testnet4 SegWit
 
         vFixedSeeds.clear(); // No fixed seeds until OpenSyria testnet nodes are established
 
@@ -364,9 +367,10 @@ public:
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,125); // Testnet addresses start with 's'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF}; // tpub (same as Bitcoin for wallet compatibility)
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94}; // tprv (same as Bitcoin for wallet compatibility)
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239); // WIF testnet keys - Bitcoin testnet compatible for test compatibility
+        // Extended key prefixes kept Bitcoin testnet-compatible for test compatibility
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF}; // tpub - Bitcoin testnet compatible
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94}; // tprv - Bitcoin testnet compatible
 
         bech32_hrp = "tsyl"; // OpenSyria testnet SegWit
 
@@ -496,9 +500,10 @@ public:
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,125); // Testnet addresses start with 's'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF}; // tpub (same as Bitcoin for wallet compatibility)
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94}; // tprv (same as Bitcoin for wallet compatibility)
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239); // WIF testnet keys - Bitcoin testnet compatible for test compatibility
+        // Extended key prefixes kept Bitcoin testnet-compatible for test compatibility
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF}; // tpub - Bitcoin testnet compatible
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94}; // tprv - Bitcoin testnet compatible
 
         bech32_hrp = "tsyl"; // OpenSyria testnet SegWit
 
@@ -633,9 +638,10 @@ public:
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,125); // Regtest addresses start with 's'
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
-        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239);
-        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF}; // tpub (same as Bitcoin for wallet compatibility)
-        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94}; // tprv (same as Bitcoin for wallet compatibility)
+        base58Prefixes[SECRET_KEY] =     std::vector<unsigned char>(1,239); // WIF testnet keys - Bitcoin testnet compatible for test compatibility
+        // Extended key prefixes kept Bitcoin testnet-compatible for test compatibility
+        base58Prefixes[EXT_PUBLIC_KEY] = {0x04, 0x35, 0x87, 0xCF}; // tpub - Bitcoin testnet compatible
+        base58Prefixes[EXT_SECRET_KEY] = {0x04, 0x35, 0x83, 0x94}; // tprv - Bitcoin testnet compatible
 
         bech32_hrp = "rsyl"; // OpenSyria regtest SegWit
 
