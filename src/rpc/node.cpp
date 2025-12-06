@@ -335,8 +335,8 @@ static RPCHelpMan echoipc()
                 echo = init->makeEcho();
                 ipc->addCleanup(*echo, [init = init.release()] { delete init; });
             } else {
-                // IPC support is not available because this is a opensyriad
-                // process not a opensyriad-node process, so just create a local
+                // IPC support is not available because this is an opensyriad
+                // process not an opensyriad-node process, so just create a local
                 // interfaces::Echo object and return it so the `echoipc` RPC
                 // method will work, and the python test calling `echoipc`
                 // can expect the same result.

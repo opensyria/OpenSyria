@@ -85,7 +85,7 @@ public:
 
 #ifdef ENABLE_WALLET
     /** Set the wallet model.
-        The wallet model represents a opensyria wallet, and offers access to the list of transactions, address book and sending
+        The wallet model represents an opensyria wallet, and offers access to the list of transactions, address book and sending
         functionality.
     */
     void addWallet(WalletModel* walletModel);

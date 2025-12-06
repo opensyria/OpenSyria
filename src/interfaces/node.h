@@ -65,7 +65,7 @@ public:
     virtual std::string getName() = 0;
 };
 
-//! Top-level interface for a opensyria node (opensyriad process).
+//! Top-level interface for an opensyria node (opensyriad process).
 class Node
 {
 public:

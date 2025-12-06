@@ -1008,7 +1008,7 @@ static std::vector<RPCArg> OutputsDoc()
 static RPCHelpMan bumpfee_helper(std::string method_name)
 {
     const bool want_psbt = method_name == "psbtbumpfee";
-    const std::string incremental_fee{CFeeRate(DEFAULT_INCREMENTAL_RELAY_FEE).ToString(FeeEstimateMode::SAT_VB)};
+    const std::string incremental_fee{CFeeRate(DEFAULT_INCREMENTAL_RELAY_FEE).ToString(FeeEstimateMode::QIRSH_VB)};
 
     return RPCHelpMan{method_name,
         "Bumps the fee of a transaction T, replacing it with a new transaction B.\n"
@@ -1349,7 +1349,7 @@ RPCHelpMan sendall()
             {"recipients", RPCArg::Type::ARR, RPCArg::Optional::NO, "The sendall destinations. Each address may only appear once.\n"
                 "Optionally some recipients can be specified with an amount to perform payments, but at least one address must appear without a specified amount.\n",
                 {
-                    {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "A opensyria address which receives an equal share of the unspecified amount."},
+                    {"address", RPCArg::Type::STR, RPCArg::Optional::NO, "An opensyria address which receives an equal share of the unspecified amount."},
                     {"", RPCArg::Type::OBJ_USER_KEYS, RPCArg::Optional::OMITTED, "",
                         {
                             {"address", RPCArg::Type::AMOUNT, RPCArg::Optional::NO, "A key-value pair. The key (string) is the opensyria address, the value (float or string) is the amount in " + CURRENCY_UNIT + ""},
@@ -1483,7 +1483,7 @@ RPCHelpMan sendall()
             // Do not, ever, assume that it's fine to change the fee rate if the user has explicitly
             // provided one
             if (coin_control.m_feerate && fee_rate > *coin_control.m_feerate) {
-               throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Fee rate (%s) is lower than the minimum fee rate setting (%s)", coin_control.m_feerate->ToString(FeeEstimateMode::SAT_VB), fee_rate.ToString(FeeEstimateMode::SAT_VB)));
+               throw JSONRPCError(RPC_INVALID_PARAMETER, strprintf("Fee rate (%s) is lower than the minimum fee rate setting (%s)", coin_control.m_feerate->ToString(FeeEstimateMode::QIRSH_VB), fee_rate.ToString(FeeEstimateMode::QIRSH_VB)));
             }
             if (fee_calc_out.reason == FeeReason::FALLBACK && !pwallet->m_allow_fallback_fee) {
                 // eventually allow a fallback fee

@@ -62,7 +62,7 @@ std::optional<ConfigError> InitConfig(ArgsManager& args, SettingsAbortFn setting
             fs::create_directories(net_path / "wallets");
         }
 
-        // Show an error or warn/log if there is a opensyria.conf file in the
+        // Show an error or warn/log if there is an opensyria.conf file in the
         // datadir that is being ignored.
         const fs::path base_config_path = base_path / OPENSYRIA_CONF_FILENAME;
         if (fs::exists(base_config_path)) {

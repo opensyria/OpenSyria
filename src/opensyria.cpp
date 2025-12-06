@@ -176,7 +176,7 @@ bool UseMultiprocess(const CommandLine& cmd)
 //! the path to this executable is specified in `wrapper_argv0`.
 //!
 //! @param args Command line arguments to execute, where first argument should
-//!             be a relative path to a opensyriad, opensyria-qt or other executable
+//!             be a relative path to an opensyriad, opensyria-qt or other executable
 //!             that will be located on the PATH or relative to wrapper_argv0.
 //!
 //! @param wrapper_argv0 String containing first command line argument passed to

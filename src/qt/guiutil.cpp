@@ -135,7 +135,7 @@ void setupAddressWidget(QValidatedLineEdit *widget, QWidget *parent)
     widget->setFont(fixedPitchFont());
     // We don't want translators to use own addresses in translations
     // and this is the only place, where this address is supplied.
-    widget->setPlaceholderText(QObject::tr("Enter a OpenSyria address (e.g. %1)").arg(
+    widget->setPlaceholderText(QObject::tr("Enter an OpenSyria address (e.g. %1)").arg(
         QString::fromStdString(DummyAddress(Params()))));
     widget->setValidator(new OpenSyriaAddressEntryValidator(parent));
     widget->setCheckValidator(new OpenSyriaAddressCheckValidator(parent));
@@ -636,7 +636,7 @@ bool SetStartOnSystemStartup(bool fAutoStart)
         if (!optionFile.good())
             return false;
         ChainType chain = gArgs.GetChainType();
-        // Write a opensyria.desktop file to the autostart directory:
+        // Write an opensyria.desktop file to the autostart directory:
         optionFile << "[Desktop Entry]\n";
         optionFile << "Type=Application\n";
         if (chain == ChainType::MAIN)
