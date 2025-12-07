@@ -1,0 +1,146 @@
+# =============================================================================
+# OpenSyria Docker Compose
+# =============================================================================
+# Deploy a complete OpenSyria node with optional services.
+#
+# Usage:
+#   docker compose up -d              # Start all services
+#   docker compose up -d opensyriad   # Start only the node
+#   docker compose logs -f            # View logs
+#   docker compose down               # Stop all services
+# =============================================================================
+
+version: '3.8'
+
+services:
+  # ---------------------------------------------------------------------------
+  # OpenSyria Core Node
+  # ---------------------------------------------------------------------------
+  opensyriad:
+    build:
+      context: ../../..
+      dockerfile: contrib/deploy/docker/Dockerfile
+    image: opensyria/node:latest
+    container_name: opensyria-node
+    restart: unless-stopped
+    
+    # Port mappings
+    ports:
+      - "9633:9633"      # P2P
+      # - "9632:9632"    # RPC (uncomment if needed, be careful!)
+    
+    # Data persistence
+    volumes:
+      - opensyria-data:/home/opensyria/.opensyria
+      # Mount custom config (optional):
+      # - ./opensyria.conf:/home/opensyria/.opensyria/opensyria.conf:ro
+    
+    # Environment variables
+    environment:
+      - OPENSYRIA_DATA=/home/opensyria/.opensyria
+    
+    # Resource limits
+    deploy:
+      resources:
+        limits:
+          cpus: '2'
+          memory: 4G
+        reservations:
+          cpus: '0.5'
+          memory: 1G
+    
+    # Healthcheck
+    healthcheck:
+      test: ["CMD", "opensyria-cli", "-datadir=/home/opensyria/.opensyria", "getblockchaininfo"]
+      interval: 60s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+    
+    # Logging
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "5"
+    
+    networks:
+      - opensyria-net
+
+  # ---------------------------------------------------------------------------
+  # Block Explorer (Optional)
+  # ---------------------------------------------------------------------------
+  explorer:
+    image: btcpayserver/btc-rpc-explorer:latest
+    container_name: opensyria-explorer
+    restart: unless-stopped
+    depends_on:
+      opensyriad:
+        condition: service_healthy
+    
+    ports:
+      - "3002:3002"
+    
+    environment:
+      BTCEXP_HOST: "0.0.0.0"
+      BTCEXP_PORT: "3002"
+      BTCEXP_BITCOIND_HOST: "opensyriad"
+      BTCEXP_BITCOIND_PORT: "9632"
+      BTCEXP_BITCOIND_USER: "${RPC_USER:-opensyriarpc}"
+      BTCEXP_BITCOIND_PASS: "${RPC_PASS:-changeme}"
+      BTCEXP_SITE_TITLE: "OpenSyria Explorer"
+      BTCEXP_SITE_DESC: "OpenSyria Blockchain Explorer"
+      BTCEXP_NO_RATES: "true"
+      BTCEXP_PRIVACY_MODE: "false"
+    
+    networks:
+      - opensyria-net
+    
+    profiles:
+      - explorer
+
+  # ---------------------------------------------------------------------------
+  # Prometheus Node Exporter (Optional - Monitoring)
+  # ---------------------------------------------------------------------------
+  node-exporter:
+    image: prom/node-exporter:latest
+    container_name: opensyria-node-exporter
+    restart: unless-stopped
+    
+    ports:
+      - "9100:9100"
+    
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /:/rootfs:ro
+    
+    command:
+      - '--path.procfs=/host/proc'
+      - '--path.sysfs=/host/sys'
+      - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
+    
+    networks:
+      - opensyria-net
+    
+    profiles:
+      - monitoring
+
+# =============================================================================
+# Volumes
+# =============================================================================
+volumes:
+  opensyria-data:
+    name: opensyria-blockchain-data
+    driver: local
+
+# =============================================================================
+# Networks
+# =============================================================================
+networks:
+  opensyria-net:
+    name: opensyria-network
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

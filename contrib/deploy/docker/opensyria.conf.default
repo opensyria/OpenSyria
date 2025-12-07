@@ -1,0 +1,36 @@
+# =============================================================================
+# OpenSyria Docker Default Configuration
+# =============================================================================
+# This is a minimal configuration for running OpenSyria in Docker.
+# Override settings via environment variables or mount a custom config.
+# =============================================================================
+
+# Network
+server=1
+listen=1
+port=9633
+bind=0.0.0.0
+
+# Connections
+maxconnections=125
+
+# RPC (disabled by default for security)
+# Uncomment and configure for API access
+# rpcuser=opensyriarpc
+# rpcpassword=CHANGE_ME
+# rpcbind=0.0.0.0
+# rpcallowip=172.16.0.0/12
+# rpcport=9632
+
+# Logging
+printtoconsole=1
+logtimestamps=1
+
+# Performance
+dbcache=450
+par=2
+
+# Seed nodes
+seednode=seed.opensyria.net:9633
+seednode=seed2.opensyria.net:9633
+seednode=seed3.opensyria.net:9633
