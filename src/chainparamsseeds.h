@@ -2,23 +2,20 @@
 #define OPENSYRIA_CHAINPARAMSSEEDS_H
 /**
  * List of fixed seed nodes for the OpenSyria network
- *
- * IMPORTANT: These arrays are intentionally empty for the initial launch.
- * OpenSyria is a new blockchain and does not have any established seed nodes yet.
- *
- * For initial network bootstrap:
- * - Use -addnode=<ip:port> to connect to known nodes
- * - Use -connect=<ip:port> to connect only to specific nodes
- *
- * Once the OpenSyria network is established, run contrib/seeds/generate-seeds.py
- * to populate these arrays with actual OpenSyria node addresses.
+ * Generated: December 8, 2025 - Network Launch Day! 🇸🇾
  *
  * Each line contains a BIP155 serialized (networkID, addr, port) tuple.
+ * Format: 0x01 (IPv4), 4 bytes IP, 2 bytes port (big-endian)
  */
 
-// Mainnet seeds - empty until OpenSyria mainnet nodes are established
-static const uint8_t chainparams_seed_main[] = {0x00};
-constexpr size_t chainparams_seed_main_size = 0;
+// Mainnet seeds - First OpenSyria seed node!
+// 157.175.40.131:9633 (node1.opensyria.net, AWS Bahrain)
+static const uint8_t chainparams_seed_main[] = {
+    0x01,                         // IPv4 network ID
+    0x9d, 0xaf, 0x28, 0x83,       // 157.175.40.131
+    0x25, 0xa1                    // Port 9633 (0x25a1)
+};
+constexpr size_t chainparams_seed_main_size = 1;
 
 // Signet seeds - empty until OpenSyria signet nodes are established
 static const uint8_t chainparams_seed_signet[] = {0x00};

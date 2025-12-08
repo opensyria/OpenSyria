@@ -14,7 +14,10 @@
 #   2. Run: python3 contrib/seeds/makeseeds.py < nodes_main_raw.txt > nodes_main.txt
 #   3. Run: python3 contrib/seeds/generate-seeds.py . > ../src/chainparamsseeds.h
 #
-# For initial network bootstrap without seeds, use:
-#   opensyriad -addnode=<known_node_ip>:9633
-#
-# TODO [CRITICAL - PRE-LAUNCH]: Populate with actual OpenSyria node addresses
+# OpenSyria Mainnet Seed Nodes
+# Updated: December 8, 2025 - Network Launch Day! 🇸🇾
+
+# AWS Bahrain (me-south-1) - Primary Seed Node
+157.175.40.131:9633
+
+# DNS Seed: seed.opensyria.net (resolves via ns1.opensyria.net)
