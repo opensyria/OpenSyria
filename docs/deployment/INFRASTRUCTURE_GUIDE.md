@@ -84,13 +84,17 @@ ssh-keygen -t ed25519 -C "opensyria-aws"
 cat ~/.ssh/id_ed25519.pub  # Copy this for AWS
 ```
 
-### 2.3 Current Status
+### 2.3 Current Status (Updated Dec 8, 2025)
 
 - [x] Domain `opensyria.net` registered
 - [x] Cloudflare DNS active
 - [x] Nameservers configured
 - [x] AWS account created
-- [ ] EC2 instance launched ← **YOU ARE HERE**
+- [x] EC2 instance launched (157.175.40.131, Bahrain me-south-1)
+- [x] OpenSyria v30.99.0 built and running
+- [x] Genesis chain mined (7,000+ blocks)
+- [x] DNS seeder operational (seed.opensyria.net)
+- [x] External peers connecting! ✅ **NETWORK IS LIVE**
 
 ---
 
