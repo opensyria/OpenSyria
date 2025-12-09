@@ -11,6 +11,7 @@
 #include <time.h>
 #include <ctype.h>
 #include <unistd.h>
+#include <errno.h>
 
 #include "dns.h"
 
@@ -404,19 +405,23 @@ int dnsserver(dns_opt_t *opt) {
   struct sockaddr_in6 si_other;
   int senderSocket = -1;
   senderSocket = socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP);
-  if (senderSocket == -1) 
+  if (senderSocket == -1) {
+    fprintf(stderr, "DNS: Failed to create sender socket\n");
     return -3;
+  }
 
   int replySocket;
   if (listenSocket == -1) {
     struct sockaddr_in6 si_me;
     if ((listenSocket=socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP))==-1) {
+      fprintf(stderr, "DNS: Failed to create listen socket\n");
       listenSocket = -1;
       return -1;
     }
     replySocket = socket(AF_INET6, SOCK_DGRAM, IPPROTO_UDP);
     if (replySocket == -1)
     {
+      fprintf(stderr, "DNS: Failed to create reply socket\n");
       close(listenSocket);
       return -1;
     }
@@ -425,9 +430,13 @@ int dnsserver(dns_opt_t *opt) {
     memset((char *) &si_me, 0, sizeof(si_me));
     si_me.sin6_family = AF_INET6;
     si_me.sin6_port = htons(opt->port);
+    fprintf(stderr, "DNS: Binding to %s:%d\n", opt->addr, opt->port);
     inet_pton(AF_INET6, opt->addr, &si_me.sin6_addr);
-    if (bind(listenSocket, (struct sockaddr*)&si_me, sizeof(si_me))==-1)
+    if (bind(listenSocket, (struct sockaddr*)&si_me, sizeof(si_me))==-1) {
+      fprintf(stderr, "DNS: bind() failed: %s\n", strerror(errno));
       return -2;
+    }
+    fprintf(stderr, "DNS: Successfully bound to port %d\n", opt->port);
   }
   
   unsigned char inbuf[BUFLEN], outbuf[BUFLEN];

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>" dir="<%= lang === 'ar' ? 'rtl' : 'ltr' %>">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= t.docs.title %> - <%= t.siteName %></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <% if (lang === 'ar') { %>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.rtl.min.css" rel="stylesheet">
+    <% } %>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Kufi+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --syria-green: #007A3D;
+            --bg-dark: #0a0a0a;
+            --bg-card: #111111;
+            --text-primary: #ffffff;
+            --text-secondary: #a0a0a0;
+        }
+        body { background: var(--bg-dark); color: var(--text-primary); font-family: 'Inter', sans-serif; }
+        .navbar { background: rgba(10, 10, 10, 0.95); border-bottom: 1px solid #222; }
+        .navbar-brand { font-weight: 700; font-size: 1.5rem; color: white !important; }
+        .nav-link { color: var(--text-secondary) !important; }
+        .nav-link:hover, .nav-link.active { color: var(--syria-green) !important; }
+        .btn-lang { background: transparent; border: 1px solid #333; color: var(--text-secondary); padding: 0.25rem 0.75rem; border-radius: 20px; }
+        .page-header { padding: 120px 0 60px; text-align: center; }
+        .page-title { font-size: 3rem; font-weight: 700; }
+        .page-subtitle { color: var(--text-secondary); font-size: 1.25rem; }
+        .doc-card { background: var(--bg-card); border: 1px solid #222; border-radius: 12px; padding: 2rem; height: 100%; transition: all 0.3s; text-decoration: none; display: block; }
+        .doc-card:hover { border-color: var(--syria-green); transform: translateY(-5px); }
+        .doc-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+        .doc-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; color: white; }
+        .doc-desc { color: var(--text-secondary); }
+        .footer { padding: 40px 0; background: #050505; border-top: 1px solid #222; text-align: center; color: var(--text-secondary); }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/?lang=<%= lang %>">🇸🇾 <%= t.siteName %></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="/?lang=<%= lang %>"><%= t.nav.home %></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/download?lang=<%= lang %>"><%= t.nav.download %></a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://explorer.opensyria.net?lang=<%= lang %>" target="_blank"><%= t.nav.explorer %></a></li>
+                    <li class="nav-item"><a class="nav-link" href="/community?lang=<%= lang %>"><%= t.nav.community %></a></li>
+                    <li class="nav-item"><a class="nav-link active" href="/docs?lang=<%= lang %>"><%= t.nav.docs %></a></li>
+                </ul>
+                <div class="d-flex gap-2">
+                    <a href="?lang=en" class="btn btn-lang">EN</a>
+                    <a href="?lang=ar" class="btn btn-lang">عربي</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title"><%= t.docs.title %></h1>
+            <p class="page-subtitle"><%= t.docs.subtitle %></p>
+        </div>
+    </section>
+
+    <section class="pb-5">
+        <div class="container">
+            <div class="row g-4 justify-content-center">
+                <% t.docs.guides.forEach(function(guide) { %>
+                <div class="col-md-6 col-lg-4">
+                    <a href="<%= guide.link %>" class="doc-card" target="_blank">
+                        <div class="doc-icon">📖</div>
+                        <h3 class="doc-title"><%= guide.title %></h3>
+                        <p class="doc-desc"><%= guide.description %></p>
+                    </a>
+                </div>
+                <% }); %>
+                <div class="col-md-6 col-lg-4">
+                    <a href="https://github.com/opensyria/OpenSyria" class="doc-card" target="_blank">
+                        <div class="doc-icon">💻</div>
+                        <h3 class="doc-title">GitHub Repository</h3>
+                        <p class="doc-desc"><%= lang === 'ar' ? 'شفرة المصدر الكاملة والمساهمة' : 'Full source code and contribution' %></p>
+                    </a>
+                </div>
+                <div class="col-md-6 col-lg-4">
+                    <a href="https://explorer.opensyria.net" class="doc-card" target="_blank">
+                        <div class="doc-icon">🔍</div>
+                        <h3 class="doc-title"><%= t.nav.explorer %></h3>
+                        <p class="doc-desc"><%= lang === 'ar' ? 'استكشف الكتل والمعاملات' : 'Explore blocks and transactions' %></p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p><%= t.footer.copyright %></p>
+        <p class="mt-2" style="color: #007A3D; font-size: 1.25rem;"><%= t.footer.freesyria %> 🇸🇾</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
