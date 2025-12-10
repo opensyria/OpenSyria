@@ -25,6 +25,7 @@
 #include <node/warnings.h>
 #include <policy/ephemeral_policy.h>
 #include <pow.h>
+#include <crypto/randomx_context.h>
 #include <rpc/blockchain.h>
 #include <rpc/mining.h>
 #include <rpc/server.h>
@@ -139,10 +140,47 @@ static bool GenerateBlock(ChainstateManager& chainman, CBlock&& block, uint64_t&
     block_out.reset();
     block.hashMerkleRoot = BlockMerkleRoot(block);
 
-    while (max_tries > 0 && block.nNonce < std::numeric_limits<uint32_t>::max() && !CheckProofOfWork(block.GetHash(), block.nBits, chainman.GetConsensus()) && !chainman.m_interrupt) {
-        ++block.nNonce;
-        --max_tries;
+    const Consensus::Params& consensusParams = chainman.GetConsensus();
+    
+    // Determine the height of the block we're mining
+    int nHeight;
+    {
+        LOCK(cs_main);
+        const CBlockIndex* pindexPrev = chainman.ActiveChain().Tip();
+        nHeight = pindexPrev ? pindexPrev->nHeight + 1 : 0;
     }
+
+    // Check if we should use RandomX
+    if (consensusParams.IsRandomXActive(nHeight)) {
+        // RandomX mining - need key block hash
+        uint256 keyBlockHash;
+        {
+            LOCK(cs_main);
+            const CBlockIndex* pindexPrev = chainman.ActiveChain().Tip();
+            keyBlockHash = GetRandomXKeyBlockHash(nHeight, pindexPrev, consensusParams);
+        }
+        
+        if (keyBlockHash.IsNull()) {
+            throw JSONRPCError(RPC_INTERNAL_ERROR, "Cannot determine RandomX key block");
+        }
+
+        // Mine with RandomX
+        while (max_tries > 0 && block.nNonce < std::numeric_limits<uint32_t>::max() && !chainman.m_interrupt) {
+            uint256 randomxHash = CalculateRandomXHash(block, keyBlockHash);
+            if (CheckProofOfWorkImpl(randomxHash, block.nBits, consensusParams)) {
+                break;  // Found valid proof of work
+            }
+            ++block.nNonce;
+            --max_tries;
+        }
+    } else {
+        // SHA256d mining (pre-fork)
+        while (max_tries > 0 && block.nNonce < std::numeric_limits<uint32_t>::max() && !CheckProofOfWork(block.GetHash(), block.nBits, consensusParams) && !chainman.m_interrupt) {
+            ++block.nNonce;
+            --max_tries;
+        }
+    }
+
     if (max_tries == 0 || chainman.m_interrupt) {
         return false;
     }
