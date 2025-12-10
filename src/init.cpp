@@ -115,6 +115,7 @@
 #include <validation.h>
 #include <validationinterface.h>
 #include <walletinitinterface.h>
+#include <crypto/randomx_context.h>
 
 #include <algorithm>
 #include <cerrno>
@@ -425,6 +426,10 @@ void Shutdown(NodeContext& node)
     node.validation_signals.reset();
     node.scheduler.reset();
     node.ecc_context.reset();
+
+    // Shutdown RandomX context
+    ShutdownRandomXContext();
+
     node.kernel.reset();
 
     RemovePidFile(*node.args);

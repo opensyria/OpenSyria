@@ -38,6 +38,7 @@
 #include <policy/settings.h>
 #include <policy/truc_policy.h>
 #include <pow.h>
+#include <crypto/randomx_context.h>
 #include <primitives/block.h>
 #include <primitives/transaction.h>
 #include <random.h>
@@ -3875,6 +3876,9 @@ void ChainstateManager::ReceivedBlockTransactions(const CBlock& block, CBlockInd
 static bool CheckBlockHeader(const CBlockHeader& block, BlockValidationState& state, const Consensus::Params& consensusParams, bool fCheckPOW = true)
 {
     // Check proof of work matches claimed amount
+    // Note: For post-fork blocks (RandomX), PoW is checked in ContextualCheckBlockHeader
+    // where we have access to pindexPrev for key block lookup.
+    // Here we only do SHA256d check for pre-fork blocks.
     if (fCheckPOW && !CheckProofOfWork(block.GetHash(), block.nBits, consensusParams))
         return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, "high-hash", "proof of work failed");
 
@@ -4138,6 +4142,14 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, BlockValidatio
     const Consensus::Params& consensusParams = chainman.GetConsensus();
     if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
         return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, "bad-diffbits", "incorrect proof of work");
+
+    // For RandomX blocks (post-fork), verify proof-of-work using RandomX algorithm
+    // Pre-fork blocks are already validated using SHA256d in CheckBlockHeader
+    if (consensusParams.IsRandomXActive(nHeight)) {
+        if (!CheckProofOfWorkAtHeight(block, nHeight, pindexPrev, consensusParams)) {
+            return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, "high-hash-randomx", "RandomX proof of work failed");
+        }
+    }
 
     // Check timestamp against prev
     if (block.GetBlockTime() <= pindexPrev->GetMedianTimePast())
