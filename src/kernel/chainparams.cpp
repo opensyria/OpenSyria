@@ -131,8 +131,8 @@ public:
         consensus.defaultAssumeValid = uint256{}; // New chain - no assumed valid block yet
 
         // RandomX hard fork height - switch from SHA256d to RandomX PoW
-        // This height gives miners ~80 days to prepare (57500 blocks * 2 min = ~80 days)
-        consensus.nRandomXForkHeight = 57500;
+        // This height gives miners ~79 days to prepare (57200 blocks * 2 min = ~79 days)
+        consensus.nRandomXForkHeight = 57200;
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
@@ -254,7 +254,7 @@ public:
         consensus.defaultAssumeValid = uint256{}; // New chain - no assumed valid block yet
 
         // RandomX hard fork height - same as mainnet for consistency
-        consensus.nRandomXForkHeight = 57500;
+        consensus.nRandomXForkHeight = 57200;
 
         pchMessageStart[0] = 0x53; // 'S'
         pchMessageStart[1] = 0x59; // 'Y'
@@ -354,7 +354,7 @@ public:
         consensus.defaultAssumeValid = uint256{}; // New chain - no assumed valid block yet
 
         // RandomX hard fork height - same as mainnet for consistency
-        consensus.nRandomXForkHeight = 57500;
+        consensus.nRandomXForkHeight = 57200;
 
         pchMessageStart[0] = 0x53; // 'S'
         pchMessageStart[1] = 0x59; // 'Y'
@@ -491,7 +491,7 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].period = 2016;
 
         // RandomX hard fork height - same as mainnet for consistency
-        consensus.nRandomXForkHeight = 57500;
+        consensus.nRandomXForkHeight = 57200;
 
         // message start is defined as the first 4 bytes of the sha256d of the block script
         HashWriter h{};
