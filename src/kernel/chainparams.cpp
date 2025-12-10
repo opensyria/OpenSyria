@@ -546,6 +546,9 @@ public:
         consensus.enforce_BIP94 = opts.enforce_bip94;
         consensus.fPowNoRetargeting = true;
 
+        // RandomX fork at low height for regtest testing
+        consensus.nRandomXForkHeight = 200;
+
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = 0;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nTimeout = Consensus::BIP9Deployment::NO_TIMEOUT;

@@ -3875,12 +3875,12 @@ void ChainstateManager::ReceivedBlockTransactions(const CBlock& block, CBlockInd
 
 static bool CheckBlockHeader(const CBlockHeader& block, BlockValidationState& state, const Consensus::Params& consensusParams, bool fCheckPOW = true)
 {
-    // Check proof of work matches claimed amount
-    // Note: For post-fork blocks (RandomX), PoW is checked in ContextualCheckBlockHeader
-    // where we have access to pindexPrev for key block lookup.
-    // Here we only do SHA256d check for pre-fork blocks.
-    if (fCheckPOW && !CheckProofOfWork(block.GetHash(), block.nBits, consensusParams))
-        return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, "high-hash", "proof of work failed");
+    // Note: Proof of work is now fully validated in ContextualCheckBlockHeader,
+    // which has access to chain context needed for both SHA256d (pre-fork) and
+    // RandomX (post-fork) validation. This function is intentionally PoW-free.
+    // The fCheckPOW parameter is retained for API compatibility but is ignored.
+    (void)fCheckPOW;
+    (void)consensusParams;
 
     return true;
 }
@@ -4132,22 +4132,27 @@ arith_uint256 CalculateClaimedHeadersWork(std::span<const CBlockHeader> headers)
  *  v0.12 and v0.15 (when no additional protection was in place) whereby an attacker could unboundedly
  *  grow our in-memory block index. See https://opensyria.net/en/2024/07/03/disclose-header-spam.
  */
-static bool ContextualCheckBlockHeader(const CBlockHeader& block, BlockValidationState& state, BlockManager& blockman, const ChainstateManager& chainman, const CBlockIndex* pindexPrev) EXCLUSIVE_LOCKS_REQUIRED(::cs_main)
+static bool ContextualCheckBlockHeader(const CBlockHeader& block, BlockValidationState& state, BlockManager& blockman, const ChainstateManager& chainman, const CBlockIndex* pindexPrev, bool check_pow = true) EXCLUSIVE_LOCKS_REQUIRED(::cs_main)
 {
     AssertLockHeld(::cs_main);
     assert(pindexPrev != nullptr);
     const int nHeight = pindexPrev->nHeight + 1;
 
-    // Check proof of work
+    // Check proof of work (can be skipped for template validation)
     const Consensus::Params& consensusParams = chainman.GetConsensus();
-    if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
-        return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, "bad-diffbits", "incorrect proof of work");
+    if (check_pow) {
+        if (block.nBits != GetNextWorkRequired(pindexPrev, &block, consensusParams))
+            return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, "bad-diffbits", "incorrect proof of work");
 
-    // For RandomX blocks (post-fork), verify proof-of-work using RandomX algorithm
-    // Pre-fork blocks are already validated using SHA256d in CheckBlockHeader
-    if (consensusParams.IsRandomXActive(nHeight)) {
+        // Verify proof-of-work using the appropriate algorithm based on height
+        // Post-fork: Use RandomX algorithm
+        // Pre-fork: Use SHA256d algorithm
         if (!CheckProofOfWorkAtHeight(block, nHeight, pindexPrev, consensusParams)) {
-            return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, "high-hash-randomx", "RandomX proof of work failed");
+            if (consensusParams.IsRandomXActive(nHeight)) {
+                return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, "high-hash-randomx", "RandomX proof of work failed");
+            } else {
+                return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, "high-hash", "SHA256d proof of work failed");
+            }
         }
     }
 
@@ -4564,7 +4569,7 @@ BlockValidationState TestBlockValidity(
      * - do run ContextualCheckBlock()
      */
 
-    if (!ContextualCheckBlockHeader(block, state, chainstate.m_blockman, chainstate.m_chainman, tip)) {
+    if (!ContextualCheckBlockHeader(block, state, chainstate.m_blockman, chainstate.m_chainman, tip, check_pow)) {
         if (state.IsValid()) NONFATAL_UNREACHABLE();
         return state;
     }
