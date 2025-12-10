@@ -279,6 +279,7 @@ target_link_libraries(opensyria_node
     core_interface
     opensyria_common
     opensyria_util
+    randomx
     $<TARGET_NAME_IF_EXISTS:opensyria_zmq>
     leveldb
     minisketch

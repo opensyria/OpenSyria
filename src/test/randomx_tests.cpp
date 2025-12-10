@@ -420,7 +420,7 @@ BOOST_AUTO_TEST_CASE(fork_height_default_value)
     const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
     const auto& params = chainParams->GetConsensus();
     
-    BOOST_CHECK_EQUAL(params.nRandomXForkHeight, 57500);
+    BOOST_CHECK_EQUAL(params.nRandomXForkHeight, 57200);
 }
 
 BOOST_AUTO_TEST_CASE(key_interval_default_value)
@@ -457,8 +457,8 @@ BOOST_AUTO_TEST_CASE(key_block_at_fork_boundary)
     const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
     const auto& params = chainParams->GetConsensus();
     
-    // Fork height is 57500
-    // 57500 / 64 = 898, 898 * 64 = 57472, 57472 - 64 = 57408
+    // Fork height is 57200
+    // 57200 / 64 = 893, 893 * 64 = 57152, 57152 - 64 = 57088
     int forkHeight = params.nRandomXForkHeight;
     int expectedKeyHeight = (forkHeight / 64) * 64 - 64;
     

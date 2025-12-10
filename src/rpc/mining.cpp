@@ -44,8 +44,14 @@
 #include <validation.h>
 #include <validationinterface.h>
 
+#include <randomx.h>
+
 #include <cstdint>
+#include <cstring>
 #include <memory>
+#include <thread>
+#include <atomic>
+#include <vector>
 
 using interfaces::BlockRef;
 using interfaces::BlockTemplate;
@@ -135,6 +141,10 @@ static RPCHelpMan getnetworkhashps()
     };
 }
 
+// Global mining context (initialized once, shared dataset)
+static std::unique_ptr<RandomXMiningContext> g_mining_context;
+static Mutex g_mining_context_mutex;
+
 static bool GenerateBlock(ChainstateManager& chainman, CBlock&& block, uint64_t& max_tries, std::shared_ptr<const CBlock>& block_out, bool process_new_block)
 {
     block_out.reset();
@@ -164,14 +174,133 @@ static bool GenerateBlock(ChainstateManager& chainman, CBlock&& block, uint64_t&
             throw JSONRPCError(RPC_INTERNAL_ERROR, "Cannot determine RandomX key block");
         }
 
-        // Mine with RandomX
-        while (max_tries > 0 && block.nNonce < std::numeric_limits<uint32_t>::max() && !chainman.m_interrupt) {
-            uint256 randomxHash = CalculateRandomXHash(block, keyBlockHash);
-            if (CheckProofOfWorkImpl(randomxHash, block.nBits, consensusParams)) {
-                break;  // Found valid proof of work
+        // Get number of threads
+        unsigned int numThreads = std::thread::hardware_concurrency();
+        if (numThreads == 0) numThreads = 1;
+
+        // Initialize or update the mining context with full dataset
+        {
+            LOCK(g_mining_context_mutex);
+            if (!g_mining_context) {
+                g_mining_context = std::make_unique<RandomXMiningContext>();
             }
-            ++block.nNonce;
-            --max_tries;
+            if (g_mining_context->GetKeyBlockHash() != keyBlockHash) {
+                LogPrintf("RANDOMX MINING: Initializing dataset for key %s with %u threads...\n", 
+                          keyBlockHash.ToString(), numThreads);
+                if (!g_mining_context->Initialize(keyBlockHash, numThreads)) {
+                    throw JSONRPCError(RPC_INTERNAL_ERROR, "Failed to initialize RandomX mining context");
+                }
+            }
+        }
+
+        LogPrintf("RANDOMX MINING: height=%d, keyBlockHash=%s, target bits=%08x, threads=%u\n", 
+                  nHeight, keyBlockHash.ToString(), block.nBits, numThreads);
+
+        std::atomic<bool> found{false};
+        std::atomic<uint32_t> winning_nonce{0};
+        std::atomic<uint64_t> total_tries{0};
+        
+        // Nonce range per thread
+        uint32_t nonce_range = std::numeric_limits<uint32_t>::max() / numThreads;
+        
+        std::vector<std::thread> threads;
+        threads.reserve(numThreads);
+        
+        for (unsigned int t = 0; t < numThreads; ++t) {
+            uint32_t start_nonce = t * nonce_range;
+            uint32_t end_nonce = (t == numThreads - 1) ? std::numeric_limits<uint32_t>::max() : (t + 1) * nonce_range;
+            
+            threads.emplace_back([&, start_nonce, end_nonce, t]() {
+                // Create thread-local VM from shared dataset (lock-free after creation)
+                randomx_vm* vm = nullptr;
+                {
+                    LOCK(g_mining_context_mutex);
+                    vm = g_mining_context->CreateVM();
+                }
+                if (!vm) {
+                    LogPrintf("RANDOMX: Thread %u failed to create VM\n", t);
+                    return;
+                }
+                
+                // Each thread works on its own copy of block header
+                CBlock thread_block = block;
+                thread_block.nNonce = start_nonce;
+                
+                uint64_t thread_tries = 0;
+                uint64_t max_thread_tries = max_tries / numThreads;
+                
+                // Serialize header once, then only update nonce bytes
+                DataStream ss{};
+                ss << static_cast<const CBlockHeader&>(thread_block);
+                // Convert std::byte to unsigned char
+                std::vector<unsigned char> header_data(ss.size());
+                std::memcpy(header_data.data(), ss.data(), ss.size());
+                
+                // Find nonce position in serialized header (last 4 bytes before end)
+                // CBlockHeader: nVersion(4) + hashPrevBlock(32) + hashMerkleRoot(32) + nTime(4) + nBits(4) + nNonce(4) = 80 bytes
+                size_t nonce_offset = header_data.size() - 4;
+                
+                while (!found.load(std::memory_order_relaxed) && 
+                       thread_block.nNonce < end_nonce && 
+                       thread_tries < max_thread_tries && 
+                       !chainman.m_interrupt) {
+                    
+                    // Update nonce in serialized data (little-endian)
+                    uint32_t nonce = thread_block.nNonce;
+                    header_data[nonce_offset] = nonce & 0xFF;
+                    header_data[nonce_offset + 1] = (nonce >> 8) & 0xFF;
+                    header_data[nonce_offset + 2] = (nonce >> 16) & 0xFF;
+                    header_data[nonce_offset + 3] = (nonce >> 24) & 0xFF;
+                    
+                    // Calculate hash using thread's own VM (no locking!)
+                    uint256 randomxHash;
+                    randomx_calculate_hash(vm, header_data.data(), header_data.size(), randomxHash.begin());
+                    
+                    if (thread_tries % 50000 == 0 && t == 0) {
+                        uint64_t current_total = total_tries.load(std::memory_order_relaxed);
+                        double hashrate = (current_total > 0) ? current_total / 1000.0 : 0;
+                        LogPrintf("RANDOMX: nonce=%u, hash=%s, tries=%lu (%.1f kH/s approx)\n", 
+                                  thread_block.nNonce, randomxHash.ToString(), current_total, hashrate);
+                    }
+                    
+                    if (CheckProofOfWorkImpl(randomxHash, thread_block.nBits, consensusParams)) {
+                        // Found valid proof of work!
+                        bool expected = false;
+                        if (found.compare_exchange_strong(expected, true, std::memory_order_acq_rel)) {
+                            winning_nonce.store(thread_block.nNonce, std::memory_order_release);
+                            LogPrintf("RANDOMX FOUND BLOCK! thread=%u, nonce=%u, hash=%s\n", 
+                                      t, thread_block.nNonce, randomxHash.ToString());
+                        }
+                        break;
+                    }
+                    
+                    ++thread_block.nNonce;
+                    ++thread_tries;
+                    total_tries.fetch_add(1, std::memory_order_relaxed);
+                }
+                
+                // Cleanup thread-local VM
+                randomx_destroy_vm(vm);
+            });
+        }
+        
+        // Wait for all threads to complete
+        for (auto& thread : threads) {
+            thread.join();
+        }
+        
+        uint64_t tries_done = total_tries.load();
+        max_tries = (tries_done >= max_tries) ? 0 : (max_tries - tries_done);
+        
+        if (found.load()) {
+            block.nNonce = winning_nonce.load();
+            LogPrintf("RANDOMX MINING: SUCCESS after %lu total tries, winning nonce=%u\n", tries_done, block.nNonce);
+        } else {
+            LogPrintf("RANDOMX MINING: stopped after %lu tries, max_tries remaining=%lu\n", tries_done, max_tries);
+            if (max_tries == 0 || chainman.m_interrupt) {
+                return false;
+            }
+            return true; // Nonce space exhausted, caller should retry with new block
         }
     } else {
         // SHA256d mining (pre-fork)

@@ -15,6 +15,9 @@
 // Forward declarations for RandomX types to avoid including randomx.h in header
 struct randomx_cache;
 struct randomx_vm;
+struct randomx_dataset;
+// randomx_flags is an enum, so we use int for the interface
+using randomx_flags_int = int;
 
 /**
  * Thread-safe RandomX context manager for proof-of-work hash calculation.
@@ -108,6 +111,59 @@ public:
      *
      * @return The hash used to initialize this context, or uint256() if not initialized.
      */
+    uint256 GetKeyBlockHash() const;
+
+    /**
+     * Get raw cache pointer for creating additional VMs.
+     * The cache must remain valid for the lifetime of any VMs created from it.
+     */
+    randomx_cache* GetCache() const;
+
+    /**
+     * Get the flags used for this context.
+     */
+    randomx_flags_int GetFlags() const;
+};
+
+/**
+ * Mining-optimized RandomX context with per-thread VM support.
+ * Uses full dataset mode (2GB) for maximum hash rate.
+ */
+class RandomXMiningContext
+{
+private:
+    randomx_cache* m_cache{nullptr};
+    randomx_dataset* m_dataset{nullptr};
+    uint256 m_keyBlockHash;
+    randomx_flags_int m_flags{0};
+    mutable Mutex m_mutex;
+    bool m_initialized{false};
+
+    void Cleanup() EXCLUSIVE_LOCKS_REQUIRED(m_mutex);
+
+public:
+    RandomXMiningContext() = default;
+    ~RandomXMiningContext();
+
+    RandomXMiningContext(const RandomXMiningContext&) = delete;
+    RandomXMiningContext& operator=(const RandomXMiningContext&) = delete;
+
+    /**
+     * Initialize with full dataset for mining (uses ~2GB RAM).
+     * @param keyBlockHash The key block hash for RandomX
+     * @param numThreads Number of threads to use for dataset init
+     * @return true on success
+     */
+    bool Initialize(const uint256& keyBlockHash, unsigned int numThreads = 1);
+
+    /**
+     * Create a new VM instance for a mining thread.
+     * Caller owns the returned VM and must destroy it with randomx_destroy_vm().
+     * Thread-safe: multiple threads can call this concurrently.
+     */
+    randomx_vm* CreateVM();
+
+    bool IsInitialized() const;
     uint256 GetKeyBlockHash() const;
 };
 
