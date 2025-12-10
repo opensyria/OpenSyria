@@ -18,7 +18,7 @@ OpenSyria Core
 |--------|-------|
 | **Status** | ✅ Mainnet Active |
 | **Launch Date** | December 8, 2025 |
-| **Current Block** | 56,000+ |
+| **Current Block** | 60,000+ |
 | **Network Hashrate** | ~200 MH/s |
 | **Seed Node** | `seed.opensyria.net` |
 | **Block Explorer** | 🔍 [explorer.opensyria.net](https://explorer.opensyria.net) |

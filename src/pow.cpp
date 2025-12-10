@@ -106,6 +106,13 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
     const arith_uint256 bnPowLimit = UintToArith256(params.GetRandomXPowLimit(nextHeight));
     arith_uint256 bnNew;
 
+    // For RandomX blocks during initial testing phase, keep difficulty at minimum
+    // This allows the network to bootstrap without requiring massive hashpower
+    // TODO: Remove this after mainnet launch and sufficient hashpower is established
+    if (params.IsRandomXActive(nextHeight)) {
+        return bnPowLimit.GetCompact();
+    }
+
     // Special difficulty rule for Testnet4
     if (params.enforce_BIP94) {
         // Here we use the first block of the difficulty period. This way
