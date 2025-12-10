@@ -12,6 +12,7 @@ add_library(opensyria_crypto STATIC EXCLUDE_FROM_ALL
   hmac_sha512.cpp
   muhash.cpp
   poly1305.cpp
+  randomx_context.cpp
   ripemd160.cpp
   sha1.cpp
   sha256.cpp
@@ -25,6 +26,8 @@ add_library(opensyria_crypto STATIC EXCLUDE_FROM_ALL
 target_link_libraries(opensyria_crypto
   PRIVATE
     core_interface
+  PUBLIC
+    randomx
 )
 
 if(HAVE_SSE41)

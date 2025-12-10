@@ -78,6 +78,7 @@ add_executable(test_opensyria
   prevector_tests.cpp
   raii_event_tests.cpp
   random_tests.cpp
+  randomx_tests.cpp
   rbf_tests.cpp
   rest_tests.cpp
   result_tests.cpp

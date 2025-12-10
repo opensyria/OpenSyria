@@ -28,12 +28,19 @@
 // TODO [FUTURE ENHANCEMENT]: Consider implementing merge-mining support
 // This would allow Bitcoin miners to mine OpenSyria "for free", dramatically
 // increasing security. See namecoin/namecoin-core for reference implementation.
+//
+// NOTE [RANDOMX HARD FORK]:
+// At block height nRandomXForkHeight (default 60000), OpenSyria switches from
+// SHA256d to RandomX proof-of-work. This makes mining CPU-friendly and
+// ASIC-resistant, democratizing mining for all participants.
 
 #include <pow.h>
 
 #include <arith_uint256.h>
 #include <chain.h>
+#include <crypto/randomx_context.h>
 #include <primitives/block.h>
+#include <streams.h>
 #include <uint256.h>
 #include <util/check.h>
 
@@ -194,4 +201,73 @@ bool CheckProofOfWorkImpl(uint256 hash, unsigned int nBits, const Consensus::Par
         return false;
 
     return true;
+}
+
+// =============================================================================
+// RANDOMX PROOF-OF-WORK FUNCTIONS
+// =============================================================================
+
+uint256 GetRandomXKeyBlockHash(int height, const CBlockIndex* pindex, const Consensus::Params& params)
+{
+    int keyHeight = params.GetRandomXKeyBlockHeight(height);
+
+    // For early blocks (before we have enough history), use genesis
+    if (keyHeight < 0) {
+        keyHeight = 0;
+    }
+
+    // Traverse back to the key block
+    const CBlockIndex* keyBlock = pindex;
+    while (keyBlock && keyBlock->nHeight > keyHeight) {
+        keyBlock = keyBlock->pprev;
+    }
+
+    // If we couldn't find the key block, return empty hash
+    if (!keyBlock || keyBlock->nHeight != keyHeight) {
+        return uint256();
+    }
+
+    return keyBlock->GetBlockHash();
+}
+
+uint256 CalculateRandomXHash(const CBlockHeader& header, const uint256& keyBlockHash)
+{
+    // Ensure global context exists
+    if (!g_randomx_context) {
+        g_randomx_context = std::make_unique<RandomXContext>();
+    }
+
+    // Initialize or update context if key changed
+    if (g_randomx_context->GetKeyBlockHash() != keyBlockHash) {
+        if (!g_randomx_context->Initialize(keyBlockHash)) {
+            // Initialization failed - return max hash (will always fail PoW check)
+            return uint256{"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
+        }
+    }
+
+    // Serialize block header
+    DataStream ss{};
+    ss << header;
+
+    // Calculate and return RandomX hash
+    return g_randomx_context->CalculateHash(
+        reinterpret_cast<const unsigned char*>(ss.data()), ss.size());
+}
+
+bool CheckProofOfWorkAtHeight(const CBlockHeader& header, int height, const CBlockIndex* pindex, const Consensus::Params& params)
+{
+    if (params.IsRandomXActive(height)) {
+        // RandomX proof-of-work for blocks at or after fork height
+        uint256 keyBlockHash = GetRandomXKeyBlockHash(height, pindex, params);
+        if (keyBlockHash.IsNull()) {
+            // Can't determine key block - reject
+            return false;
+        }
+
+        uint256 randomxHash = CalculateRandomXHash(header, keyBlockHash);
+        return CheckProofOfWorkImpl(randomxHash, header.nBits, params);
+    } else {
+        // SHA256d proof-of-work for legacy blocks
+        return CheckProofOfWork(header.GetHash(), header.nBits, params);
+    }
 }

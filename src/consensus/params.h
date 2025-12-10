@@ -136,6 +136,34 @@ struct Params {
     bool signet_blocks{false};
     std::vector<uint8_t> signet_challenge;
 
+    /**
+     * RandomX Hard Fork Parameters
+     *
+     * OpenSyria switches from SHA256d to RandomX proof-of-work at nRandomXForkHeight
+     * to democratize mining and prevent ASIC/GPU domination.
+     */
+    int nRandomXForkHeight{60000};        //!< Block height at which RandomX activates
+    int nRandomXKeyBlockInterval{64};     //!< How often the RandomX key changes (blocks)
+
+    /** Check if RandomX proof-of-work is active at the given height */
+    bool IsRandomXActive(int height) const
+    {
+        return height >= nRandomXForkHeight;
+    }
+
+    /** Get the key block height for RandomX at a given block height.
+     *  The key is derived from a block 64 blocks before the current key interval.
+     *  @param height The block height to calculate key block for
+     *  @return Height of the block whose hash is used as RandomX key
+     */
+    int GetRandomXKeyBlockHeight(int height) const
+    {
+        // Key changes every nRandomXKeyBlockInterval blocks
+        // Key for height H is block at: (H / interval) * interval - interval
+        int keyHeight = (height / nRandomXKeyBlockInterval) * nRandomXKeyBlockInterval - nRandomXKeyBlockInterval;
+        return keyHeight >= 0 ? keyHeight : 0;
+    }
+
     int DeploymentHeight(BuriedDeployment dep) const
     {
         switch (dep) {

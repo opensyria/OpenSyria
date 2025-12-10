@@ -9,6 +9,7 @@
 #include <consensus/params.h>
 
 #include <cstdint>
+#include <vector>
 
 class CBlockHeader;
 class CBlockIndex;
@@ -29,9 +30,40 @@ std::optional<arith_uint256> DeriveTarget(unsigned int nBits, const uint256 pow_
 unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHeader *pblock, const Consensus::Params&);
 unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nFirstBlockTime, const Consensus::Params&);
 
-/** Check whether a block hash satisfies the proof-of-work requirement specified by nBits */
+/** Check whether a block hash satisfies the proof-of-work requirement specified by nBits (SHA256d) */
 bool CheckProofOfWork(uint256 hash, unsigned int nBits, const Consensus::Params&);
 bool CheckProofOfWorkImpl(uint256 hash, unsigned int nBits, const Consensus::Params&);
+
+/**
+ * Check proof-of-work for a block at a specific height.
+ * Uses RandomX for blocks at or after fork height, SHA256d for earlier blocks.
+ *
+ * @param[in] header    Block header to validate
+ * @param[in] height    Height of the block (determines which algorithm to use)
+ * @param[in] pindex    Block index for accessing the chain (to get key block hash)
+ * @param[in] params    Consensus parameters
+ * @return true if proof-of-work is valid
+ */
+bool CheckProofOfWorkAtHeight(const CBlockHeader& header, int height, const CBlockIndex* pindex, const Consensus::Params& params);
+
+/**
+ * Calculate the RandomX hash of a block header.
+ *
+ * @param[in] header        Block header to hash
+ * @param[in] keyBlockHash  Hash of the key block (determines RandomX initialization)
+ * @return RandomX hash of the block header
+ */
+uint256 CalculateRandomXHash(const CBlockHeader& header, const uint256& keyBlockHash);
+
+/**
+ * Get the key block hash for RandomX at a given height.
+ *
+ * @param[in] height    Block height to get key for
+ * @param[in] pindex    Block index to traverse chain
+ * @param[in] params    Consensus parameters
+ * @return Hash of the key block, or uint256() if not found
+ */
+uint256 GetRandomXKeyBlockHash(int height, const CBlockIndex* pindex, const Consensus::Params& params);
 
 /**
  * Return false if the proof-of-work requirement specified by new_nbits at a
