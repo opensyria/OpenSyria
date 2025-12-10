@@ -89,6 +89,7 @@ target_link_libraries(opensyriakernel
   PRIVATE
     core_interface
     secp256k1_objs
+    randomx
     $<$<PLATFORM_ID:Windows>:bcrypt>
     $<TARGET_NAME_IF_EXISTS:USDT::headers>
   PUBLIC
