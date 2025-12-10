@@ -103,6 +103,34 @@ BOOST_AUTO_TEST_CASE(key_block_height_calculation)
     BOOST_CHECK_EQUAL(params.GetRandomXKeyBlockHeight(65), 0);
 }
 
+BOOST_AUTO_TEST_CASE(key_block_height_edge_cases)
+{
+    // Test: Edge cases for key block height calculation
+    const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
+    const auto& params = chainParams->GetConsensus();
+    
+    // At height 0, key should be at 0 (clamped from negative)
+    BOOST_CHECK_EQUAL(params.GetRandomXKeyBlockHeight(0), 0);
+    
+    // At height 1, key should be at 0
+    BOOST_CHECK_EQUAL(params.GetRandomXKeyBlockHeight(1), 0);
+    
+    // At height 63, key should be at 0 (63/64*64 - 64 = 0 - 64 = -64, clamped to 0)
+    BOOST_CHECK_EQUAL(params.GetRandomXKeyBlockHeight(63), 0);
+    
+    // At height 127, key should be at 0 (127/64*64 - 64 = 64 - 64 = 0)
+    BOOST_CHECK_EQUAL(params.GetRandomXKeyBlockHeight(127), 0);
+    
+    // At fork height (60000), verify key block calculation
+    int forkHeight = params.nRandomXForkHeight;
+    int expectedKey = (forkHeight / 64) * 64 - 64;
+    BOOST_CHECK_EQUAL(params.GetRandomXKeyBlockHeight(forkHeight), expectedKey);
+    
+    // Large height test
+    BOOST_CHECK_EQUAL(params.GetRandomXKeyBlockHeight(1000000), 
+        (1000000 / 64) * 64 - 64);
+}
+
 // =============================================================================
 // RANDOMX CONTEXT TESTS
 // =============================================================================
@@ -136,6 +164,37 @@ BOOST_AUTO_TEST_CASE(randomx_context_reinitialize_different_key)
     
     ctx.Initialize(key2);
     BOOST_CHECK_EQUAL(ctx.GetKeyBlockHash(), key2);
+}
+
+BOOST_AUTO_TEST_CASE(randomx_context_reinitialize_same_key)
+{
+    // Test: Reinitializing with same key should be a no-op (optimization)
+    RandomXContext ctx;
+    
+    uint256 key{"3333333333333333333333333333333333333333333333333333333333333333"};
+    
+    // First init
+    bool result1 = ctx.Initialize(key);
+    BOOST_CHECK(result1);
+    BOOST_CHECK(ctx.IsInitialized());
+    
+    // Second init with same key should succeed immediately
+    bool result2 = ctx.Initialize(key);
+    BOOST_CHECK(result2);
+    BOOST_CHECK(ctx.IsInitialized());
+    BOOST_CHECK_EQUAL(ctx.GetKeyBlockHash(), key);
+}
+
+BOOST_AUTO_TEST_CASE(randomx_context_uninitialized_hash_throws)
+{
+    // Test: Calling CalculateHash on uninitialized context should throw
+    RandomXContext ctx;
+    
+    BOOST_CHECK(!ctx.IsInitialized());
+    
+    std::vector<unsigned char> input = {0x01, 0x02, 0x03};
+    
+    BOOST_CHECK_THROW(ctx.CalculateHash(input), std::runtime_error);
 }
 
 // =============================================================================
@@ -190,6 +249,46 @@ BOOST_AUTO_TEST_CASE(randomx_hash_different_keys)
     
     BOOST_CHECK_MESSAGE(hash1 != hash2, 
         "Same input with different keys must produce different hashes");
+}
+
+BOOST_AUTO_TEST_CASE(randomx_hash_empty_input)
+{
+    // Test: Empty input should produce a valid hash
+    RandomXContext ctx;
+    uint256 keyHash{"0000000000000000000000000000000000000000000000000000000000001234"};
+    ctx.Initialize(keyHash);
+    
+    std::vector<unsigned char> emptyInput;
+    uint256 hash = ctx.CalculateHash(emptyInput);
+    
+    // Hash of empty input should not be null
+    BOOST_CHECK(!hash.IsNull());
+    
+    // Should be deterministic
+    uint256 hash2 = ctx.CalculateHash(emptyInput);
+    BOOST_CHECK_EQUAL(hash, hash2);
+}
+
+BOOST_AUTO_TEST_CASE(randomx_hash_large_input)
+{
+    // Test: Large input should hash correctly
+    RandomXContext ctx;
+    uint256 keyHash{"0000000000000000000000000000000000000000000000000000000000001234"};
+    ctx.Initialize(keyHash);
+    
+    // Create 1MB input
+    std::vector<unsigned char> largeInput(1024 * 1024);
+    for (size_t i = 0; i < largeInput.size(); ++i) {
+        largeInput[i] = static_cast<unsigned char>(i % 256);
+    }
+    
+    uint256 hash = ctx.CalculateHash(largeInput);
+    
+    BOOST_CHECK(!hash.IsNull());
+    
+    // Should be deterministic
+    uint256 hash2 = ctx.CalculateHash(largeInput);
+    BOOST_CHECK_EQUAL(hash, hash2);
 }
 
 BOOST_AUTO_TEST_CASE(randomx_hash_block_header)
@@ -249,6 +348,88 @@ BOOST_AUTO_TEST_CASE(global_context_lifecycle)
     // Shutdown should cleanup
     ShutdownRandomXContext();
     BOOST_CHECK(!g_randomx_context);
+}
+
+// =============================================================================
+// POW.CPP FUNCTION TESTS
+// =============================================================================
+
+BOOST_AUTO_TEST_CASE(calculate_randomx_hash_deterministic)
+{
+    // Test: CalculateRandomXHash should be deterministic
+    CBlockHeader header;
+    header.nVersion = 1;
+    header.hashPrevBlock = uint256{"00000000000000000000000000000000000000000000000000000000000abcde"};
+    header.hashMerkleRoot = uint256{"00000000000000000000000000000000000000000000000000000000000fedcb"};
+    header.nTime = 1733788800;
+    header.nBits = 0x1e00ffff;
+    header.nNonce = 12345;
+    
+    uint256 keyBlockHash{"4444444444444444444444444444444444444444444444444444444444444444"};
+    
+    uint256 hash1 = CalculateRandomXHash(header, keyBlockHash);
+    uint256 hash2 = CalculateRandomXHash(header, keyBlockHash);
+    
+    BOOST_CHECK_EQUAL(hash1, hash2);
+    BOOST_CHECK(!hash1.IsNull());
+}
+
+BOOST_AUTO_TEST_CASE(calculate_randomx_hash_different_nonce)
+{
+    // Test: Different nonces should produce different hashes
+    CBlockHeader header1, header2;
+    header1.nVersion = header2.nVersion = 1;
+    header1.hashPrevBlock = header2.hashPrevBlock = uint256{"00000000000000000000000000000000000000000000000000000000000abcde"};
+    header1.hashMerkleRoot = header2.hashMerkleRoot = uint256{"00000000000000000000000000000000000000000000000000000000000fedcb"};
+    header1.nTime = header2.nTime = 1733788800;
+    header1.nBits = header2.nBits = 0x1e00ffff;
+    header1.nNonce = 12345;
+    header2.nNonce = 12346;  // Different nonce
+    
+    uint256 keyBlockHash{"5555555555555555555555555555555555555555555555555555555555555555"};
+    
+    uint256 hash1 = CalculateRandomXHash(header1, keyBlockHash);
+    uint256 hash2 = CalculateRandomXHash(header2, keyBlockHash);
+    
+    BOOST_CHECK_MESSAGE(hash1 != hash2, "Different nonces should produce different RandomX hashes");
+}
+
+BOOST_AUTO_TEST_CASE(calculate_randomx_hash_different_keys)
+{
+    // Test: Same header with different keys should produce different hashes
+    CBlockHeader header;
+    header.nVersion = 1;
+    header.hashPrevBlock = uint256{"00000000000000000000000000000000000000000000000000000000000abcde"};
+    header.hashMerkleRoot = uint256{"00000000000000000000000000000000000000000000000000000000000fedcb"};
+    header.nTime = 1733788800;
+    header.nBits = 0x1e00ffff;
+    header.nNonce = 12345;
+    
+    uint256 key1{"6666666666666666666666666666666666666666666666666666666666666666"};
+    uint256 key2{"7777777777777777777777777777777777777777777777777777777777777777"};
+    
+    uint256 hash1 = CalculateRandomXHash(header, key1);
+    uint256 hash2 = CalculateRandomXHash(header, key2);
+    
+    BOOST_CHECK_MESSAGE(hash1 != hash2, "Same header with different keys should produce different RandomX hashes");
+}
+
+BOOST_AUTO_TEST_CASE(fork_height_default_value)
+{
+    // Test: Verify default fork height is 60000
+    const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
+    const auto& params = chainParams->GetConsensus();
+    
+    BOOST_CHECK_EQUAL(params.nRandomXForkHeight, 60000);
+}
+
+BOOST_AUTO_TEST_CASE(key_interval_default_value)
+{
+    // Test: Verify default key interval is 64
+    const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
+    const auto& params = chainParams->GetConsensus();
+    
+    BOOST_CHECK_EQUAL(params.nRandomXKeyBlockInterval, 64);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
