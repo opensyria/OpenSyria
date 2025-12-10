@@ -521,12 +521,13 @@ std::vector<RPCResult> ScriptPubKeyDoc();
 
 /***
  * Get the target for a given block index.
+ * Uses height-aware pow limit to support both SHA256d and RandomX blocks.
  *
  * @param[in] blockindex    the block
- * @param[in] pow_limit     PoW limit (consensus parameter)
+ * @param[in] params        consensus parameters (for height-aware pow limit)
  *
  * @return  the target
  */
-uint256 GetTarget(const CBlockIndex& blockindex, const uint256 pow_limit);
+uint256 GetTarget(const CBlockIndex& blockindex, const Consensus::Params& params);
 
 #endif // OPENSYRIA_RPC_UTIL_H

@@ -1398,8 +1398,10 @@ std::vector<RPCResult> ScriptPubKeyDoc() {
          };
 }
 
-uint256 GetTarget(const CBlockIndex& blockindex, const uint256 pow_limit)
+uint256 GetTarget(const CBlockIndex& blockindex, const Consensus::Params& params)
 {
+    // Use height-aware pow limit to support both SHA256d and RandomX blocks
+    const uint256& pow_limit = params.GetRandomXPowLimit(blockindex.nHeight);
     arith_uint256 target{*CHECK_NONFATAL(DeriveTarget(blockindex.nBits, pow_limit))};
     return ArithToUint256(target);
 }

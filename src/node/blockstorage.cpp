@@ -135,8 +135,11 @@ bool BlockTreeDB::LoadBlockIndexGuts(const Consensus::Params& consensusParams, s
                 pindexNew->nStatus        = diskindex.nStatus;
                 pindexNew->nTx            = diskindex.nTx;
 
-                // Use height-aware PoW check to support both SHA256d (pre-fork) and RandomX (post-fork)
-                if (!CheckProofOfWorkAtHeight(pindexNew->GetBlockHeader(), pindexNew->nHeight, pindexNew->pprev, consensusParams)) {
+                // Use simplified PoW check for block index loading.
+                // During index loading, blocks are loaded in arbitrary order and pprev
+                // pointers may not be fully set, so we can't do full RandomX validation.
+                // Full RandomX validation happens during chain activation.
+                if (!CheckProofOfWorkForBlockIndex(pindexNew->GetBlockHeader(), pindexNew->nHeight, consensusParams)) {
                     LogError("%s: CheckProofOfWork failed: %s\n", __func__, pindexNew->ToString());
                     return false;
                 }

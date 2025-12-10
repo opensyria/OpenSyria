@@ -49,6 +49,23 @@ bool CheckProofOfWorkImpl(uint256 hash, unsigned int nBits, int height, const Co
 bool CheckProofOfWorkAtHeight(const CBlockHeader& header, int height, const CBlockIndex* pindex, const Consensus::Params& params);
 
 /**
+ * Simplified proof-of-work check for block index loading.
+ * During index loading, blocks are loaded in arbitrary order and pprev pointers
+ * may not be fully set, so we can't traverse the chain to compute RandomX hashes.
+ *
+ * For RandomX blocks: only validates that nBits is within the valid range.
+ * For SHA256d blocks: performs full validation (no chain traversal needed).
+ *
+ * The actual RandomX hash verification happens during chain activation.
+ *
+ * @param[in] header    Block header to validate
+ * @param[in] height    Height of the block (determines which algorithm to use)
+ * @param[in] params    Consensus parameters
+ * @return true if proof-of-work passes the simplified check
+ */
+bool CheckProofOfWorkForBlockIndex(const CBlockHeader& header, int height, const Consensus::Params& params);
+
+/**
  * Calculate the RandomX hash of a block header.
  *
  * @param[in] header        Block header to hash

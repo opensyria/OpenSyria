@@ -296,3 +296,26 @@ bool CheckProofOfWorkAtHeight(const CBlockHeader& header, int height, const CBlo
         return CheckProofOfWork(header.GetHash(), header.nBits, params);
     }
 }
+
+bool CheckProofOfWorkForBlockIndex(const CBlockHeader& header, int height, const Consensus::Params& params)
+{
+    // This is a simplified PoW check for block index loading.
+    // During index loading, we can't traverse the pprev chain to compute RandomX hashes
+    // because blocks are loaded in arbitrary order and pprev pointers may not be set yet.
+    //
+    // For RandomX blocks: we only verify that nBits is within the valid range for the powLimit.
+    // The actual RandomX hash verification happens during chain activation when the full chain
+    // is available.
+    //
+    // For SHA256d blocks: we can do the full check since it doesn't require chain traversal.
+
+    if (params.IsRandomXActive(height)) {
+        // For RandomX blocks during index load: just verify nBits is valid
+        const uint256& activePowLimit = params.GetRandomXPowLimit(height);
+        auto bnTarget = DeriveTarget(header.nBits, activePowLimit);
+        return bnTarget.has_value();  // Valid if nBits parses to a valid target within powLimit
+    } else {
+        // SHA256d blocks can be fully validated
+        return CheckProofOfWork(header.GetHash(), header.nBits, params);
+    }
+}
