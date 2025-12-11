@@ -158,10 +158,7 @@ public:
         //   - seed-tor.opensyria.net (Tor users)
         // Without DNS seeds, the network cannot bootstrap automatically!
         // See: https://github.com/sipa/bitcoin-seeder for reference implementation
-        vSeeds.clear();
-        // TODO [CRITICAL - PRE-LAUNCH]: Uncomment and populate when DNS seeds are ready:
-        // vSeeds.emplace_back("seed.opensyria.net");
-        // vSeeds.emplace_back("seed2.opensyria.net");
+        vSeeds.emplace_back("seed.opensyria.net");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,35); // Addresses start with 'F' (Freedom)
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,36); // Script addresses start with 'F'
