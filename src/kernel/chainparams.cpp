@@ -128,9 +128,9 @@ public:
         // Genesis (block 0) uses SHA256 for bootstrap, all subsequent blocks use RandomX
         // No ASIC advantage from block 1 onwards, truly decentralized mining
         consensus.nRandomXForkHeight = 1;
-        // RandomX starts with trivially easy difficulty for testing
-        // Production value should be more conservative (e.g. 00ffffff...)
-        consensus.powLimitRandomX = uint256{"7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
+        // RandomX difficulty limit - allows organic growth with natural difficulty adjustment
+        // Starting easy enough for single-miner bootstrap, adjusts as hashrate grows
+        consensus.powLimitRandomX = uint256{"0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
 
         /**
          * The message start string is designed to be unlikely to occur in normal data.
