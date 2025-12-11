@@ -1,0 +1,14 @@
+[Unit]
+Description=OpenSyria DNS Seeder
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/opensyria-seeder
+ExecStart=/opt/opensyria-seeder/dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net -p 5353 -s 157.175.40.131
+Restart=always
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target

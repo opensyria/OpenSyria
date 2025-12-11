@@ -1,0 +1,14 @@
+[Unit]
+Description=OpenSyria DNS Socat Bridge (IPv4 to IPv6)
+After=network.target opensyria-seeder.service
+Requires=opensyria-seeder.service
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/socat UDP4-LISTEN:53,fork,reuseaddr UDP6:[::1]:5353
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
