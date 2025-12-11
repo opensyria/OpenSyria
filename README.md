@@ -57,7 +57,7 @@ Bitcoin's proven security model while introducing Syria-specific customizations.
 - **Block Reward:** 10,000 SYL (halves every ~4 years)
 - **Max Supply:** 21 Billion SYL
 - **Genesis Date:** December 8, 2024 (Syria Liberation Day)
-- **PoW Algorithm:** RandomX (CPU-friendly, ASIC-resistant) - from block 57,200
+- **PoW Algorithm:** RandomX (CPU-friendly, ASIC-resistant) - from block 1
 
 ## Network Parameters
 
@@ -71,24 +71,25 @@ Bitcoin's proven security model while introducing Syria-specific customizations.
 
 ## Mining
 
-### ⚡ RandomX Hard Fork (Block 57,200)
+### ⚡ RandomX - CPU-Friendly Mining from Day One
 
-**OpenSyria is transitioning from SHA-256d to RandomX!**
+**OpenSyria uses RandomX proof-of-work from block 1!**
 
-| Phase | Block Range | Algorithm | Hardware |
-|-------|-------------|-----------|----------|
-| Phase 1 | 0 - 57,199 | SHA-256d | GPU/ASIC |
-| **Phase 2** | **57,200+** | **RandomX** | **CPU** |
+| Block | Algorithm | Hardware |
+|-------|-----------|----------|
+| Genesis (Block 0) | SHA-256d | Bootstrap only |
+| **Block 1+** | **RandomX** | **CPU** |
 
-RandomX is an ASIC-resistant, CPU-optimized algorithm (used by Monero). This makes mining more accessible to everyone with a regular computer!
+RandomX is an ASIC-resistant, CPU-optimized algorithm (used by Monero). This makes mining accessible to everyone with a regular computer from day one!
 
-**Why RandomX?**
+**Why RandomX from Block 1?**
+- ✅ Fair launch - No ASIC/GPU advantage ever
 - ✅ ASIC-resistant - No specialized hardware needed
 - ✅ CPU-optimized - Your laptop can mine
-- ✅ Fair distribution - Levels the playing field
+- ✅ Truly decentralized - Levels the playing field from genesis
 - ✅ Energy efficient - Lower power consumption
 
-### Solo Mining (RandomX - After Block 57,200)
+### Solo Mining (CPU)
 ```bash
 # Create a wallet
 ./build/bin/opensyria-cli createwallet "my-wallet"
@@ -100,8 +101,8 @@ RandomX is an ASIC-resistant, CPU-optimized algorithm (used by Monero). This mak
 ./build/bin/opensyria-cli generatetoaddress 10 ADDRESS
 ```
 
-### CPU Mining (Recommended for RandomX)
-For optimal mining after the fork, rent high-core-count CPU instances:
+### CPU Mining Hardware
+For optimal mining, consider high-core-count CPUs:
 
 **Recommended Hardware:**
 - AMD EPYC (64+ cores) - Best for RandomX

@@ -17,11 +17,10 @@ static const unsigned int MAX_BLOCK_WEIGHT = 4000000;
 static const int64_t MAX_BLOCK_SIGOPS_COST = 80000;
 /** Coinbase transaction outputs can only be spent after this number of new blocks (network rule) */
 static const int COINBASE_MATURITY = 100;
-// TODO [SECURITY - SHA256d MITIGATION]: With 2-minute blocks, 100 blocks = ~3.3 hours
-// For exchanges and high-value transactions, recommend requiring additional confirmations:
-//   - Standard transactions: 15 confirmations (~30 min, equivalent to Bitcoin's 3 conf)
-//   - High-value transactions: 50-100 confirmations (~1.5-3 hours)
-// This mitigates risk from potential hashrate attacks since OpenSyria shares SHA256d with Bitcoin.
+// NOTE: With 2-minute blocks, 100 blocks = ~3.3 hours maturity time.
+// Confirmation recommendations for services:
+//   - Standard transactions: 6 confirmations (~12 min)
+//   - High-value transactions: 30-60 confirmations (~1-2 hours)
 
 static const int WITNESS_SCALE_FACTOR = 4;
 

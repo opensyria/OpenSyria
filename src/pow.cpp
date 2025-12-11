@@ -3,36 +3,26 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-// TODO [SECURITY - SHA256d CONSIDERATIONS]:
-// OpenSyria uses SHA256d (same as Bitcoin) for proof-of-work. This creates both
-// advantages and risks:
-//
-// ADVANTAGES:
-// - Battle-tested algorithm with 15+ years of security
-// - Existing ASIC mining hardware can be used immediately
-// - Well-understood difficulty adjustment behavior
-//
-// RISKS:
-// - Bitcoin has ~500+ EH/s; a fraction redirected could overwhelm OpenSyria
-// - NiceHash and similar services enable easy hashrate rental attacks
-// - 51% attacks become economically viable once SYL has exchange value
-//
-// MITIGATIONS (implement these operationally):
-// 1. Partner with mining pools early to build legitimate hashrate
-// 2. Recommend exchanges require 50-100 confirmations for deposits
-// 3. Monitor for sudden hashrate spikes (potential attack indicator)
-// 4. Update nMinimumChainWork frequently during first year
-// 5. Consider merge-mining with Bitcoin in future (can be soft-forked in)
-// 6. Implement alerting system for abnormal block times or reorgs
-//
-// TODO [FUTURE ENHANCEMENT]: Consider implementing merge-mining support
-// This would allow Bitcoin miners to mine OpenSyria "for free", dramatically
-// increasing security. See namecoin/namecoin-core for reference implementation.
-//
 // NOTE [RANDOMX PROOF-OF-WORK]:
 // OpenSyria uses RandomX proof-of-work from block 1 onwards. Genesis (block 0)
 // uses SHA256d for bootstrap simplicity. RandomX is CPU-friendly and
 // ASIC-resistant, democratizing mining for all participants.
+//
+// SECURITY ADVANTAGES:
+// - ASIC-resistant from day one - no specialized hardware advantage
+// - CPU-optimized - accessible to everyone with commodity hardware
+// - No vulnerability to Bitcoin hashrate redirection attacks
+// - Fair distribution through decentralized mining
+//
+// RANDOMX CONSIDERATIONS:
+// - Validation is slower than SHA256d (~100x) but acceptable for 2-min blocks
+// - Key rotation every 64 blocks prevents pre-computation attacks
+// - Light mode (256KB) for validation, full mode (2GB) for mining
+//
+// OPERATIONAL RECOMMENDATIONS:
+// 1. Monitor network hashrate for sudden changes
+// 2. Update nMinimumChainWork regularly during first year
+// 3. Implement alerting system for abnormal block times or reorgs
 
 #include <pow.h>
 

@@ -3,15 +3,15 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-// TODO [SECURITY - SHA256d MITIGATION - MINING POOLS]:
-// OpenSyria uses SHA256d, making it minable by existing Bitcoin ASICs.
-// BEFORE MAINNET LAUNCH:
-// 1. Partner with major SHA256 mining pools to add OpenSyria support
-//    (e.g., Foundry, AntPool, F2Pool, ViaBTC)
-// 2. Set up official OpenSyria mining pool as fallback
-// 3. Prepare stratum server configuration documentation
-// 4. Consider initial subsidized mining incentives to bootstrap hashrate
-// Building legitimate hashrate quickly is critical to prevent 51% attacks.
+// NOTE [RANDOMX CPU MINING]:
+// OpenSyria uses RandomX proof-of-work from block 1, enabling fair CPU mining.
+// No ASIC or GPU advantage - anyone with a modern CPU can participate.
+//
+// MINING RECOMMENDATIONS:
+// 1. Use high-core-count CPUs for best performance (AMD EPYC, Intel Xeon)
+// 2. Allocate 2GB+ RAM per mining thread for full dataset mode
+// 3. Consider mining pools for more consistent rewards
+// 4. Monitor network difficulty to optimize hardware allocation
 
 #include <node/miner.h>
 
