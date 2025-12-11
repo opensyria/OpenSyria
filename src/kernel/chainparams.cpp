@@ -117,18 +117,12 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].threshold = 1815; // 90%
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].period = 2016;
 
-        // New chain starts with no minimum work requirement - will be updated as chain grows
-        // TODO [SECURITY - HIGH PRIORITY]: Update nMinimumChainWork after first difficulty period (~2 weeks)
-        // This protects against low-hashrate sybil attacks. Calculate using:
-        //   opensyria-cli getblockchaininfo | grep chainwork
-        // Then hardcode the value here in the next release.
-        // TODO [SECURITY - SHA256d MITIGATION]: Since OpenSyria shares SHA256d with Bitcoin,
-        // the chain is vulnerable to hashrate attacks from Bitcoin miners. Update this value
-        // frequently during the first year of operation to prevent chain forgery attacks.
-        consensus.nMinimumChainWork = uint256{};
-        // TODO [SECURITY]: Update defaultAssumeValid to a trusted block hash after chain matures
-        // This enables signature validation skipping for faster sync while maintaining security.
-        consensus.defaultAssumeValid = uint256{}; // New chain - no assumed valid block yet
+        // Minimum chain work - protects against low-hashrate sybil attacks
+        // Updated at block 206335 (Dec 2025)
+        consensus.nMinimumChainWork = uint256{"000000000000000000000000000000000000000000000000000027ca67cee7b0"};
+        // AssumeValid - enables faster sync by skipping signature validation for known-good blocks
+        // Block 206335 hash (Dec 2025) - founder bootstrap checkpoint
+        consensus.defaultAssumeValid = uint256{"9f56cffc1a6c85bf7e77a7eb75aa6d5db0c9d43d9b6ba6bce36613228dabe4c7"};
 
         // RandomX hard fork height - switch from SHA256d to RandomX PoW
         // This height gives miners ~79 days to prepare (57200 blocks * 2 min = ~79 days)
