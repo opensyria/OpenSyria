@@ -562,6 +562,10 @@ public:
 
         // RandomX fork at low height for regtest testing
         consensus.nRandomXForkHeight = 200;
+        // Allow override via -randomxforkheight for functional tests
+        if (opts.randomx_fork_height) {
+            consensus.nRandomXForkHeight = *opts.randomx_fork_height;
+        }
         consensus.powLimitRandomX = uint256{"7fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
 
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;

@@ -85,6 +85,13 @@ uint256 RandomXContext::CalculateHash(const std::vector<unsigned char>& input)
         throw std::runtime_error("RandomX context not initialized");
     }
 
+    // Limit input size to prevent DoS attacks
+    // Block headers are 80 bytes; allow generous margin for other uses
+    static constexpr size_t MAX_RANDOMX_INPUT = 4 * 1024 * 1024; // 4MB
+    if (input.size() > MAX_RANDOMX_INPUT) {
+        throw std::runtime_error("RandomX input exceeds maximum size");
+    }
+
     // RandomX produces a 256-bit (32-byte) hash
     uint256 result;
     randomx_calculate_hash(m_vm, input.data(), input.size(), result.begin());
@@ -98,6 +105,12 @@ uint256 RandomXContext::CalculateHash(const unsigned char* data, size_t len)
 
     if (!m_initialized || !m_vm) {
         throw std::runtime_error("RandomX context not initialized");
+    }
+
+    // Limit input size to prevent DoS attacks
+    static constexpr size_t MAX_RANDOMX_INPUT = 4 * 1024 * 1024; // 4MB
+    if (len > MAX_RANDOMX_INPUT) {
+        throw std::runtime_error("RandomX input exceeds maximum size");
     }
 
     // RandomX produces a 256-bit (32-byte) hash

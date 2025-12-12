@@ -153,6 +153,7 @@ public:
         std::unordered_map<Consensus::BuriedDeployment, int> activation_heights{};
         bool fastprune{false};
         bool enforce_bip94{false};
+        std::optional<int> randomx_fork_height{}; //!< Override RandomX fork height for testing
     };
 
     static std::unique_ptr<const CChainParams> RegTest(const RegTestOptions& options);

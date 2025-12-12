@@ -12,6 +12,10 @@
 #include <test/util/setup_common.h>
 #include <uint256.h>
 
+#include <atomic>
+#include <thread>
+#include <vector>
+
 #include <boost/test/unit_test.hpp>
 
 /**
@@ -925,6 +929,116 @@ BOOST_AUTO_TEST_CASE(sha256d_still_validates_pre_fork)
     // With very easy target (0x207fffff), most hashes pass
     // We just verify it doesn't crash and returns boolean
     BOOST_CHECK(result == true || result == false);
+}
+
+// =============================================================================
+// CONCURRENT VALIDATION STRESS TESTS
+// =============================================================================
+
+BOOST_AUTO_TEST_CASE(concurrent_validation_deterministic)
+{
+    // Test: Concurrent validation with different keys produces deterministic results
+    // This verifies the thread-local context fix for the TOCTOU race condition.
+    //
+    // Before the fix: A global context with check-then-initialize could cause
+    // Thread A to hash with Thread B's key if B initialized between A's check
+    // and A's hash calculation.
+    //
+    // After the fix: Each thread has its own context, eliminating the race.
+
+    const int NUM_THREADS = 8;
+    const int HASHES_PER_THREAD = 100;
+
+    // Two different keys that will be used by alternating threads
+    uint256 key1{"1111111111111111111111111111111111111111111111111111111111111111"};
+    uint256 key2{"2222222222222222222222222222222222222222222222222222222222222222"};
+
+    // Create a header to hash
+    CBlockHeader header;
+    header.nVersion = 1;
+    header.hashPrevBlock = uint256{"00000000000000000000000000000000000000000000000000000000000abcde"};
+    header.hashMerkleRoot = uint256{"00000000000000000000000000000000000000000000000000000000000fedcb"};
+    header.nTime = 1733788800;
+    header.nBits = 0x1e00ffff;
+    header.nNonce = 12345;
+
+    // Pre-compute expected hashes (single-threaded, deterministic)
+    uint256 expectedHash1 = CalculateRandomXHash(header, key1);
+    uint256 expectedHash2 = CalculateRandomXHash(header, key2);
+
+    // Verify the two keys produce different hashes
+    BOOST_CHECK(expectedHash1 != expectedHash2);
+
+    // Storage for results from all threads
+    std::vector<std::vector<uint256>> results(NUM_THREADS);
+    std::vector<std::thread> threads;
+    std::atomic<bool> start{false};
+    std::atomic<int> errors{0};
+
+    // Launch threads
+    for (int t = 0; t < NUM_THREADS; ++t) {
+        results[t].resize(HASHES_PER_THREAD);
+        const uint256& key = (t % 2 == 0) ? key1 : key2;
+        const uint256& expectedHash = (t % 2 == 0) ? expectedHash1 : expectedHash2;
+
+        threads.emplace_back([&, t, key, expectedHash]() {
+            // Wait for all threads to be ready
+            while (!start.load()) {
+                std::this_thread::yield();
+            }
+
+            // Perform hashes and verify each one
+            for (int i = 0; i < HASHES_PER_THREAD; ++i) {
+                uint256 hash = CalculateRandomXHash(header, key);
+                results[t][i] = hash;
+
+                // Verify hash matches expected (would fail if race condition exists)
+                if (hash != expectedHash) {
+                    errors.fetch_add(1);
+                }
+            }
+        });
+    }
+
+    // Start all threads simultaneously
+    start.store(true);
+
+    // Wait for all threads to complete
+    for (auto& thread : threads) {
+        thread.join();
+    }
+
+    // Verify no errors occurred
+    BOOST_CHECK_MESSAGE(errors.load() == 0,
+        "Race condition detected: " << errors.load() << " hashes didn't match expected value");
+
+    // Double-check all results are deterministic
+    for (int t = 0; t < NUM_THREADS; ++t) {
+        const uint256& expectedHash = (t % 2 == 0) ? expectedHash1 : expectedHash2;
+        for (int i = 0; i < HASHES_PER_THREAD; ++i) {
+            BOOST_CHECK_EQUAL(results[t][i], expectedHash);
+        }
+    }
+}
+
+BOOST_AUTO_TEST_CASE(input_size_limit_enforced)
+{
+    // Test: Input size limit is enforced to prevent DoS
+    RandomXContext ctx;
+    uint256 keyHash{"0000000000000000000000000000000000000000000000000000000000001234"};
+    ctx.Initialize(keyHash);
+
+    // Normal size should work
+    std::vector<unsigned char> normalInput(1024);
+    BOOST_CHECK_NO_THROW(ctx.CalculateHash(normalInput));
+
+    // 4MB should work (at the limit)
+    std::vector<unsigned char> maxInput(4 * 1024 * 1024);
+    BOOST_CHECK_NO_THROW(ctx.CalculateHash(maxInput));
+
+    // Over 4MB should throw
+    std::vector<unsigned char> tooLargeInput(4 * 1024 * 1024 + 1);
+    BOOST_CHECK_THROW(ctx.CalculateHash(tooLargeInput), std::runtime_error);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

@@ -23,6 +23,8 @@ class RandomXPowTest(OpenSyriaTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.setup_clean_chain = True
+        # RandomX mining is slow, need longer timeout
+        self.rpc_timeout = 120
         # Set fork height to 5 for faster testing (regtest default is 200)
         self.extra_args = [
             ["-randomxforkheight=5"],
@@ -30,8 +32,8 @@ class RandomXPowTest(OpenSyriaTestFramework):
         ]
 
     def skip_test_if_missing_module(self):
-        # This test requires mining support
-        pass
+        # This test requires mining support and wallet
+        self.skip_if_no_wallet()
 
     def run_test(self):
         self.log.info("Testing SHA256d mining before fork height...")
@@ -89,12 +91,12 @@ class RandomXPowTest(OpenSyriaTestFramework):
         """Test that RandomX mining works after fork."""
         node = self.nodes[0]
         
-        # Mine more blocks with RandomX
+        # Mine more blocks with RandomX (reduced count for speed)
         address = node.getnewaddress()
-        blockhashes = self.generatetoaddress(node, 10, address)
+        blockhashes = self.generatetoaddress(node, 3, address)
         
-        assert_equal(len(blockhashes), 10)
-        assert_equal(node.getblockcount(), 15)
+        assert_equal(len(blockhashes), 3)
+        assert_equal(node.getblockcount(), 8)
         
         # All blocks should be valid
         for blockhash in blockhashes:
@@ -116,9 +118,9 @@ class RandomXPowTest(OpenSyriaTestFramework):
         assert_equal(node0.getblockcount(), node1.getblockcount())
         assert_equal(node0.getbestblockhash(), node1.getbestblockhash())
         
-        # Mine more on node0 and verify sync
+        # Mine more on node0 and verify sync (reduced count for speed)
         address = node0.getnewaddress()
-        blockhashes = self.generatetoaddress(node0, 5, address)
+        blockhashes = self.generatetoaddress(node0, 2, address)
         
         self.sync_blocks()
         

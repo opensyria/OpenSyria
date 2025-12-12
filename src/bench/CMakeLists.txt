@@ -43,6 +43,7 @@ add_executable(bench_opensyria
   pool.cpp
   prevector.cpp
   random.cpp
+  randomx.cpp
   readwriteblock.cpp
   rollingbloom.cpp
   rpc_blockchain.cpp

@@ -46,6 +46,15 @@ void ReadRegTestArgs(const ArgsManager& args, CChainParams::RegTestOptions& opti
     if (auto value = args.GetBoolArg("-fastprune")) options.fastprune = *value;
     if (HasTestOption(args, "bip94")) options.enforce_bip94 = true;
 
+    // Parse RandomX fork height override
+    if (auto value = args.GetArg("-randomxforkheight")) {
+        const auto height = ToIntegral<int32_t>(*value);
+        if (!height || *height < 0) {
+            throw std::runtime_error(strprintf("Invalid -randomxforkheight value: %s", *value));
+        }
+        options.randomx_fork_height = *height;
+    }
+
     for (const std::string& arg : args.GetArgs("-testactivationheight")) {
         const auto found{arg.find('@')};
         if (found == std::string::npos) {

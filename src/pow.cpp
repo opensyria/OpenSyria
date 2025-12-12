@@ -253,24 +253,38 @@ uint256 GetRandomXKeyBlockHash(int height, const CBlockIndex* pindex, const Cons
     return keyBlock->GetBlockHash();
 }
 
-// Note: g_randomx_context is internally thread-safe via its own mutex (m_mutex).
-// We use std::call_once for one-time initialization to avoid redundant locking.
-static std::once_flag g_randomx_context_init_flag;
+// =============================================================================
+// THREAD-LOCAL RANDOMX CONTEXT
+// =============================================================================
+//
+// Each thread maintains its own RandomX context to avoid contention and race
+// conditions during concurrent block validation. This is critical because:
+//
+// 1. Multiple threads may validate blocks simultaneously (net_processing, RPC)
+// 2. Key rotation means different blocks may need different RandomX keys
+// 3. A global context with check-then-initialize has TOCTOU race conditions
+//
+// Thread-local storage ensures each validation thread has isolated state.
+// Memory overhead is ~256KB per thread (light mode cache).
+// =============================================================================
+thread_local std::unique_ptr<RandomXContext> tl_randomx_context;
+thread_local uint256 tl_randomx_key;
 
 uint256 CalculateRandomXHash(const CBlockHeader& header, const uint256& keyBlockHash)
 {
-    // One-time initialization of global context (thread-safe)
-    std::call_once(g_randomx_context_init_flag, []() {
-        g_randomx_context = std::make_unique<RandomXContext>();
-    });
+    // Lazy initialization of thread-local context
+    if (!tl_randomx_context) {
+        tl_randomx_context = std::make_unique<RandomXContext>();
+    }
 
-    // Initialize or update context if key changed
-    // Note: RandomXContext::Initialize() and GetKeyBlockHash() are internally thread-safe
-    if (g_randomx_context->GetKeyBlockHash() != keyBlockHash) {
-        if (!g_randomx_context->Initialize(keyBlockHash)) {
+    // Only reinitialize if key changed for THIS thread's context
+    // No race condition: tl_randomx_key is thread-local
+    if (tl_randomx_key != keyBlockHash) {
+        if (!tl_randomx_context->Initialize(keyBlockHash)) {
             // Initialization failed - return max hash (will always fail PoW check)
             return uint256{"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
         }
+        tl_randomx_key = keyBlockHash;
     }
 
     // Serialize block header
@@ -278,8 +292,8 @@ uint256 CalculateRandomXHash(const CBlockHeader& header, const uint256& keyBlock
     ss << header;
 
     // Calculate and return RandomX hash
-    // Note: RandomXContext::CalculateHash() is internally thread-safe
-    return g_randomx_context->CalculateHash(
+    // Thread-local context means no locking needed here
+    return tl_randomx_context->CalculateHash(
         reinterpret_cast<const unsigned char*>(ss.data()), ss.size());
 }
 
