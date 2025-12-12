@@ -4075,15 +4075,30 @@ std::vector<unsigned char> ChainstateManager::GenerateCoinbaseCommitment(CBlock&
 
 bool HasValidProofOfWork(const std::vector<CBlockHeader>& headers, const Consensus::Params& consensusParams)
 {
-    // Note: This function is used for preliminary header validation during sync.
-    // We don't have height context here, so we can't compute RandomX hashes.
-    // For pre-fork blocks: use SHA256d check
-    // For post-fork blocks: verify nBits claims sufficient work to rate-limit header spam
+    // ==========================================================================
+    // SECURITY: Header Spam Rate-Limiting for RandomX Blocks
+    // ==========================================================================
     //
-    // SECURITY: Without requiring minimum claimed work, an attacker could spam headers
-    // with easy difficulty targets, causing memory exhaustion before ContextualCheckBlockHeader
-    // validates the actual RandomX hash. We require headers to claim at least 1/16th of
-    // maximum difficulty to make spam attacks computationally expensive.
+    // This function performs preliminary header validation during sync.
+    // We don't have height context, so we can't compute full RandomX hashes.
+    //
+    // TRADE-OFF DOCUMENTATION (for operators and auditors):
+    // - Pre-fork blocks: Full SHA256d validation performed
+    // - Post-fork blocks: Only nBits range + minimum claimed work validated
+    //
+    // ATTACK SURFACE:
+    // An attacker can spam headers claiming up to 16x easier work than honest
+    // miners until ContextualCheckBlockHeader performs full RandomX validation.
+    //
+    // MITIGATIONS:
+    // 1. Require headers to claim at least 1/16th of powLimit (spam is expensive)
+    // 2. Full RandomX validation in ContextualCheckBlockHeader prevents chain pollution
+    // 3. min_pow_checked flag gates header acceptance in AcceptBlockHeader
+    // 4. Memory bounded by max headers in flight per peer
+    //
+    // This is an ACCEPTABLE trade-off: full validation would require ~100ms per
+    // header (RandomX hash), making sync impractically slow.
+    // ==========================================================================
     return std::all_of(headers.cbegin(), headers.cend(),
             [&](const auto& header) {
                 // First try SHA256d check (works for pre-fork blocks)

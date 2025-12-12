@@ -304,22 +304,29 @@ bool CheckProofOfWorkAtHeight(const CBlockHeader& header, int height, const CBlo
 
 bool CheckProofOfWorkForBlockIndex(const CBlockHeader& header, int height, const Consensus::Params& params)
 {
-    // SECURITY ASSUMPTION: This is a simplified PoW check for block index loading.
+    // ==========================================================================
+    // SECURITY: CheckProofOfWorkForBlockIndex is INTENTIONALLY WEAK
+    // ==========================================================================
+    //
+    // This function only validates nBits range, NOT the actual RandomX hash.
+    // Full validation occurs in ContextualCheckBlockHeader/ConnectBlock.
+    //
+    // WHY THIS IS ACCEPTABLE:
+    //   1. Blocks on disk were already validated when first accepted
+    //   2. Full RandomX validation occurs during ConnectBlock/ActivateBestChain
+    //   3. Attackers with disk write access have already compromised the node
+    //
+    // IMPLEMENTATION DETAIL:
     // During index loading, blocks are loaded in arbitrary order and pprev pointers
     // may not be fully set, so we cannot traverse the chain to compute RandomX hashes.
     //
     // For RandomX blocks: we ONLY verify that nBits is within the valid range.
-    // This means a malicious blocks.dat could contain invalid RandomX hashes that
-    // would pass this check. HOWEVER, this is acceptable because:
-    //   1. Blocks on disk were already validated when first accepted
-    //   2. Full RandomX validation occurs during ConnectBlock/ActivateBestChain
-    //   3. An attacker with write access to blocks.dat has bigger problems
-    //
     // For SHA256d blocks: full validation is performed (no chain traversal needed).
     //
     // IMPORTANT: Do not rely on this function alone for consensus security.
     // Full RandomX hash verification MUST happen in ContextualCheckBlockHeader
     // or CheckProofOfWorkAtHeight before a block affects chain state.
+    // ==========================================================================
 
     if (params.IsRandomXActive(height)) {
         // For RandomX blocks during index load: just verify nBits is valid

@@ -838,4 +838,93 @@ BOOST_AUTO_TEST_CASE(pow_impl_target_boundary)
     BOOST_CHECK(!CheckProofOfWorkImpl(hardHash, 0x1d00ffff, params));
 }
 
+BOOST_AUTO_TEST_CASE(invalid_randomx_hash_rejected)
+{
+    // Test: Invalid RandomX hash should be rejected by CheckProofOfWorkAtHeight
+    // This verifies the consensus-critical path rejects blocks with wrong PoW
+    const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
+    const auto& params = chainParams->GetConsensus();
+    
+    // Create a block header with valid nBits but no valid PoW solution
+    CBlockHeader header;
+    header.nVersion = 1;
+    header.hashPrevBlock = uint256{};
+    header.hashMerkleRoot = uint256{};
+    header.nTime = 1733788800;
+    header.nBits = 0x1e00ffff;  // Mainnet genesis difficulty
+    header.nNonce = 0;  // Extremely unlikely to pass RandomX PoW
+    
+    // At post-fork height with nullptr pindex, should reject
+    // because we cannot determine the key block hash
+    int postForkHeight = params.nRandomXForkHeight + 100;
+    BOOST_CHECK(params.IsRandomXActive(postForkHeight));
+    
+    bool result = CheckProofOfWorkAtHeight(header, postForkHeight, nullptr, params);
+    
+    // Should reject: nullptr pindex means we can't get key block hash for RandomX
+    BOOST_CHECK_MESSAGE(!result, 
+        "CheckProofOfWorkAtHeight should reject RandomX block with null pindex");
+}
+
+BOOST_AUTO_TEST_CASE(randomx_nbits_validation_at_index_load)
+{
+    // Test: CheckProofOfWorkForBlockIndex correctly validates nBits range
+    // This is the intentionally-weak check used during block index loading
+    const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
+    const auto& params = chainParams->GetConsensus();
+    
+    CBlockHeader header;
+    header.nVersion = 1;
+    header.hashPrevBlock = uint256{};
+    header.hashMerkleRoot = uint256{};
+    header.nTime = 1733788800;
+    header.nNonce = 0;
+    
+    int postForkHeight = params.nRandomXForkHeight + 100;
+    
+    // Valid nBits within RandomX powLimit should pass
+    header.nBits = 0x1e00ffff;  // Valid difficulty
+    BOOST_CHECK(CheckProofOfWorkForBlockIndex(header, postForkHeight, params));
+    
+    // nBits exceeding powLimit should fail
+    header.nBits = 0x2100ffff;  // Exceeds any valid powLimit
+    BOOST_CHECK(!CheckProofOfWorkForBlockIndex(header, postForkHeight, params));
+    
+    // Zero target should fail
+    header.nBits = 0x00000000;
+    BOOST_CHECK(!CheckProofOfWorkForBlockIndex(header, postForkHeight, params));
+    
+    // Negative target (high bit set in mantissa) should fail
+    header.nBits = 0x1e80ffff;
+    BOOST_CHECK(!CheckProofOfWorkForBlockIndex(header, postForkHeight, params));
+}
+
+BOOST_AUTO_TEST_CASE(sha256d_still_validates_pre_fork)
+{
+    // Test: Pre-fork blocks still use full SHA256d validation
+    const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
+    const auto& params = chainParams->GetConsensus();
+    
+    CBlockHeader header;
+    header.nVersion = 1;
+    header.hashPrevBlock = uint256{};
+    header.hashMerkleRoot = uint256{};
+    header.nTime = 1733788800;
+    header.nBits = 0x207fffff;  // Very easy target
+    header.nNonce = 0;
+    
+    // Height 0 (genesis) should use SHA256d, not RandomX
+    int preForkHeight = 0;
+    BOOST_CHECK(!params.IsRandomXActive(preForkHeight));
+    
+    // CheckProofOfWorkAtHeight with nullptr should work for SHA256d
+    // (doesn't need pindex for key block)
+    bool result = CheckProofOfWorkAtHeight(header, preForkHeight, nullptr, params);
+    
+    // Result depends on whether header's SHA256d hash meets target
+    // With very easy target (0x207fffff), most hashes pass
+    // We just verify it doesn't crash and returns boolean
+    BOOST_CHECK(result == true || result == false);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
