@@ -4113,10 +4113,11 @@ bool HasValidProofOfWork(const std::vector<CBlockHeader>& headers, const Consens
                 if (!bnTarget.has_value()) {
                     return false;
                 }
-                // Require minimum claimed work: target must be <= powLimit/16
+                // Require minimum claimed work: target must be <= powLimit/256
                 // This forces attackers to claim hard-enough work, rate-limiting spam
                 // while still allowing legitimate low-difficulty testnet/regtest blocks
-                arith_uint256 maxAllowedTarget = UintToArith256(consensusParams.powLimitRandomX) >> 4;
+                // Security: Tightened from >>4 to >>8 to reduce header spam attack surface
+                arith_uint256 maxAllowedTarget = UintToArith256(consensusParams.powLimitRandomX) >> 8;
                 return *bnTarget <= maxAllowedTarget;
             });
 }
