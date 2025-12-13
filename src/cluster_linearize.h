@@ -1,9 +1,9 @@
-// Copyright (c) The OpenSyria Core developers
+// Copyright (c) The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_CLUSTER_LINEARIZE_H
-#define OPENSYRIA_CLUSTER_LINEARIZE_H
+#ifndef OPENSY_CLUSTER_LINEARIZE_H
+#define OPENSY_CLUSTER_LINEARIZE_H
 
 #include <algorithm>
 #include <cstdint>
@@ -522,7 +522,7 @@ public:
      * a feerate not below GetChunk(0)'s, then moving IntersectPrefixes(subset) to the front of
      * (what remains of) the linearization is guaranteed not to make it worse at any point.
      *
-     * See https://delvingopensyria.net/t/introduction-to-cluster-linearization/1032 for background.
+     * See https://delvingopensy.net/t/introduction-to-cluster-linearization/1032 for background.
      */
     SetInfo<SetType> IntersectPrefixes(const SetInfo<SetType>& subset) const noexcept
     {
@@ -856,7 +856,7 @@ public:
                 // contradiction with the assumption that B is best. Thus, (T - B) must be empty,
                 // or T must be a subset of B.
                 //
-                // See https://delvingopensyria.net/t/how-to-linearize-your-cluster/303 section 2.4.
+                // See https://delvingopensy.net/t/how-to-linearize-your-cluster/303 section 2.4.
                 const auto init_inc = inc.transactions;
                 for (auto pos : pot.transactions - inc.transactions) {
                     // If the transaction's ancestors are a subset of pot, we can add it together
@@ -1406,4 +1406,4 @@ void FixLinearization(const DepGraph<SetType>& depgraph, std::span<DepGraphIndex
 
 } // namespace cluster_linearize
 
-#endif // OPENSYRIA_CLUSTER_LINEARIZE_H
+#endif // OPENSY_CLUSTER_LINEARIZE_H

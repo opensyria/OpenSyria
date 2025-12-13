@@ -58,13 +58,13 @@
         <translation type="unfinished">K&amp;iválaszt</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Ezek az Ön OpenSyria címei kifizetések küldéséhez. Mindig ellenőrizze az összeget és a fogadó címet mielőtt érméket küldene.</translation>
+        <source>These are your OpenSY addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Ezek az Ön OpenSY címei kifizetések küldéséhez. Mindig ellenőrizze az összeget és a fogadó címet mielőtt érméket küldene.</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your OpenSY addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Ezek az Ön OpenSyria címei amelyeken fogadni tud OpenSyria utalásokat. Az "Új cím létrehozása" gombbal tud új címet létrehozni.
+        <translation type="unfinished">Ezek az Ön OpenSY címei amelyeken fogadni tud OpenSY utalásokat. Az "Új cím létrehozása" gombbal tud új címet létrehozni.
 Aláírni csak régi típusú, egyessel kezdődő címekkel lehet.</translation>
     </message>
     <message>
@@ -165,7 +165,7 @@ Aláírni csak régi típusú, egyessel kezdődő címekkel lehet.</translation>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR SYL&lt;/b&gt;!</source>
-        <translation type="unfinished">Figyelmeztetés: Ha titkosítja a tárcáját és elveszíti a jelmondatát, akkor &lt;b&gt;AZ ÖSSZES OPENSYRIAJA ELVÉSZ&lt;/b&gt;!</translation>
+        <translation type="unfinished">Figyelmeztetés: Ha titkosítja a tárcáját és elveszíti a jelmondatát, akkor &lt;b&gt;AZ ÖSSZES OPENSYJA ELVÉSZ&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -264,7 +264,7 @@ Aláírni csak régi típusú, egyessel kezdődő címekkel lehet.</translation>
     </message>
 </context>
 <context>
-    <name>OpenSyriaApplication</name>
+    <name>OpenSYApplication</name>
     <message>
         <source>Settings file %1 might be corrupt or invalid.</source>
         <translation type="unfinished">A beállítások fájl %1 sérült vagy érvénytelen.</translation>
@@ -327,8 +327,8 @@ Aláírni csak régi típusú, egyessel kezdődő címekkel lehet.</translation>
         <translation type="unfinished">Összeg</translation>
     </message>
     <message>
-        <source>Enter a OpenSyria address (e.g. %1)</source>
-        <translation type="unfinished">Adjon meg egy OpenSyria címet (pl: %1)</translation>
+        <source>Enter a OpenSY address (e.g. %1)</source>
+        <translation type="unfinished">Adjon meg egy OpenSY címet (pl: %1)</translation>
     </message>
     <message>
         <source>Unroutable</source>
@@ -439,7 +439,7 @@ Aláírni csak régi típusú, egyessel kezdődő címekkel lehet.</translation>
     </message>
 </context>
 <context>
-    <name>OpenSyriaGUI</name>
+    <name>OpenSYGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation type="unfinished">&amp;Áttekintés</translation>
@@ -506,8 +506,8 @@ Aláírni csak régi típusú, egyessel kezdődő címekkel lehet.</translation>
         <translation type="unfinished">A proxy &lt;b&gt;aktív&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a OpenSyria address</source>
-        <translation type="unfinished">OpenSyria küldése megadott címre</translation>
+        <source>Send coins to a OpenSY address</source>
+        <translation type="unfinished">OpenSY küldése megadott címre</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -550,16 +550,16 @@ Aláírni csak régi típusú, egyessel kezdődő címekkel lehet.</translation>
         <translation type="unfinished">Üzenet &amp;aláírása…</translation>
     </message>
     <message>
-        <source>Sign messages with your OpenSyria addresses to prove you own them</source>
-        <translation type="unfinished">Üzenetek aláírása a OpenSyria-címeivel, amivel bizonyíthatja hogy a cím az Öné</translation>
+        <source>Sign messages with your OpenSY addresses to prove you own them</source>
+        <translation type="unfinished">Üzenetek aláírása a OpenSY-címeivel, amivel bizonyíthatja hogy a cím az Öné</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">Üzenet &amp;ellenőrzése…</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified OpenSyria addresses</source>
-        <translation type="unfinished">Üzenetek ellenőrzése, hogy valóban a megjelölt OpenSyria-címekkel vannak-e aláírva</translation>
+        <source>Verify messages to ensure they were signed with specified OpenSY addresses</source>
+        <translation type="unfinished">Üzenetek ellenőrzése, hogy valóban a megjelölt OpenSY-címekkel vannak-e aláírva</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -618,8 +618,8 @@ Aláírni csak régi típusú, egyessel kezdődő címekkel lehet.</translation>
         <translation type="unfinished">Csatlakozás partnerekhez…</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and opensyria: URIs)</source>
-        <translation type="unfinished">Fizetési kérelem (QR-kódot és "opensyria:" URI azonosítót hoz létre)</translation>
+        <source>Request payments (generates QR codes and opensy: URIs)</source>
+        <translation type="unfinished">Fizetési kérelem (QR-kódot és "opensy:" URI azonosítót hoz létre)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -672,16 +672,16 @@ Aláírni csak régi típusú, egyessel kezdődő címekkel lehet.</translation>
         <translation type="unfinished">Naprakész</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction</source>
-        <translation type="unfinished">Részlegesen aláírt OpenSyria tranzakció (PSBT) betöltése</translation>
+        <source>Load Partially Signed OpenSY Transaction</source>
+        <translation type="unfinished">Részlegesen aláírt OpenSY tranzakció (PSBT) betöltése</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">PSBT betöltése &amp;vágólapról...</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction from clipboard</source>
-        <translation type="unfinished">Részlegesen aláírt OpenSyria tranzakció (PSBT) betöltése vágólapról</translation>
+        <source>Load Partially Signed OpenSY Transaction from clipboard</source>
+        <translation type="unfinished">Részlegesen aláírt OpenSY tranzakció (PSBT) betöltése vágólapról</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -700,8 +700,8 @@ Aláírni csak régi típusú, egyessel kezdődő címekkel lehet.</translation>
         <translation type="unfinished">&amp;Fogadó címek</translation>
     </message>
     <message>
-        <source>Open a opensyria: URI</source>
-        <translation type="unfinished">OpenSyria URI megnyitása</translation>
+        <source>Open a opensy: URI</source>
+        <translation type="unfinished">OpenSY URI megnyitása</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -738,8 +738,8 @@ Aláírni csak régi típusú, egyessel kezdődő címekkel lehet.</translation>
         <translation type="unfinished">Egy tárca migrálása</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible OpenSyria command-line options</source>
-        <translation type="unfinished">A %1 súgó megjelenítése a OpenSyria lehetséges parancssori kapcsolóinak listájával</translation>
+        <source>Show the %1 help message to get a list with possible OpenSY command-line options</source>
+        <translation type="unfinished">A %1 súgó megjelenítése a OpenSY lehetséges parancssori kapcsolóinak listájával</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -798,10 +798,10 @@ Aláírni csak régi típusú, egyessel kezdődő címekkel lehet.</translation>
         <translation type="unfinished">&amp;Mutat</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to OpenSyria network.</source>
+        <source>%n active connection(s) to OpenSY network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n aktív kapcsolat a OpenSyria hálózathoz.</numerusform>
+            <numerusform>%n aktív kapcsolat a OpenSY hálózathoz.</numerusform>
         </translation>
     </message>
     <message>
@@ -1315,8 +1315,8 @@ A migrációs folyamat készít biztonsági mentést a tárcáról migrálás el
         <translation type="unfinished">Küldő cím szerkesztése</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid OpenSyria address.</source>
-        <translation type="unfinished">A megadott "%1" cím nem egy érvényes OpenSyria-cím.</translation>
+        <source>The entered address "%1" is not a valid OpenSY address.</source>
+        <translation type="unfinished">A megadott "%1" cím nem egy érvényes OpenSY-cím.</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -1468,8 +1468,8 @@ A migrációs folyamat készít biztonsági mentést a tárcáról migrálás el
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the OpenSyria block chain.</source>
-        <translation type="unfinished">%1 fog letöltődni és a OpenSyria blokklánc egy másolatát fogja tárolni.</translation>
+        <source>%1 will download and store a copy of the OpenSY block chain.</source>
+        <translation type="unfinished">%1 fog letöltődni és a OpenSY blokklánc egy másolatát fogja tárolni.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -1491,12 +1491,12 @@ A migrációs folyamat készít biztonsági mentést a tárcáról migrálás el
         <translation type="unfinished">Űrlap</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the opensyria network, as detailed below.</source>
-        <translation type="unfinished">A legutóbbi tranzakciók még lehet, hogy nem láthatók emiatt előfordulhat, hogy a tárca egyenlege helytelen. A tárca azon nyomban az aktuális egyenleget fogja mutatni, amint befejezte a opensyria hálózattal történő szinkronizációt, amely alább van részletezve.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the opensy network, as detailed below.</source>
+        <translation type="unfinished">A legutóbbi tranzakciók még lehet, hogy nem láthatók emiatt előfordulhat, hogy a tárca egyenlege helytelen. A tárca azon nyomban az aktuális egyenleget fogja mutatni, amint befejezte a opensy hálózattal történő szinkronizációt, amely alább van részletezve.</translation>
     </message>
     <message>
         <source>Attempting to spend SYL that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
-        <translation type="unfinished">A hálózat nem fogadja el azoknak a opensyriaoknak az elköltését, amelyek érintettek a még nem látszódó tranzakciókban.</translation>
+        <translation type="unfinished">A hálózat nem fogadja el azoknak a opensyoknak az elköltését, amelyek érintettek a még nem látszódó tranzakciókban.</translation>
     </message>
     <message>
         <source>Number of blocks left</source>
@@ -1550,8 +1550,8 @@ A migrációs folyamat készít biztonsági mentést a tárcáról migrálás el
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open opensyria URI</source>
-        <translation type="unfinished">OpenSyria URI megnyitása</translation>
+        <source>Open opensy URI</source>
+        <translation type="unfinished">OpenSY URI megnyitása</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -1599,8 +1599,8 @@ A migrációs folyamat készít biztonsági mentést a tárcáról migrálás el
         <translation type="unfinished">Teljes elérési útvonal a %1 kompatibilis szkripthez (pl. C:\Downloads\hwi.exe vagy /Users/felhasznalo/Downloads/hwi.py). Vigyázat: rosszindulatú programok ellophatják az érméit!</translation>
     </message>
     <message>
-        <source>Automatically open the OpenSyria client port on the router. This only works when your router supports PCP or NAT-PMP and it is enabled. The external port could be random.</source>
-        <translation type="unfinished">A OpenSyria kliens port automatikus megnyitása a routeren. Ez csak akkor működik, ha a router támogatja a PCP-t vagy NAT-PMP-t és engedélyezve is van. A külső port lehet véletlenszerűen választott.</translation>
+        <source>Automatically open the OpenSY client port on the router. This only works when your router supports PCP or NAT-PMP and it is enabled. The external port could be random.</source>
+        <translation type="unfinished">A OpenSY kliens port automatikus megnyitása a routeren. Ez csak akkor működik, ha a router támogatja a PCP-t vagy NAT-PMP-t és engedélyezve is van. A külső port lehet véletlenszerűen választott.</translation>
     </message>
     <message>
         <source>Map port using PCP or NA&amp;T-PMP</source>
@@ -1730,8 +1730,8 @@ A migrációs folyamat készít biztonsági mentést a tárcáról migrálás el
         <translation type="unfinished">Be&amp;jövő kapcsolatok engedélyezése</translation>
     </message>
     <message>
-        <source>Connect to the OpenSyria network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">Csatlakozás a OpenSyria hálózatához SOCKS5 proxyn keresztül</translation>
+        <source>Connect to the OpenSY network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">Csatlakozás a OpenSY hálózatához SOCKS5 proxyn keresztül</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1802,8 +1802,8 @@ A migrációs folyamat készít biztonsági mentést a tárcáról migrálás el
         <translation type="unfinished">Mutassa-e a pénzküldés beállításait.</translation>
     </message>
     <message>
-        <source>Connect to the OpenSyria network through a separate SOCKS5 proxy for Tor onion services.</source>
-        <translation type="unfinished">Csatlakozás a OpenSyria hálózathoz külön SOCKS5 proxy használatával a Tor rejtett szolgáltatásainak eléréséhez.</translation>
+        <source>Connect to the OpenSY network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <translation type="unfinished">Csatlakozás a OpenSY hálózathoz külön SOCKS5 proxy használatával a Tor rejtett szolgáltatásainak eléréséhez.</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
@@ -1895,8 +1895,8 @@ A migrációs folyamat készít biztonsági mentést a tárcáról migrálás el
         <translation type="unfinished">Űrlap</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the OpenSyria network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">A kijelzett információ lehet, hogy elavult. A kapcsolat létrehozatalát követően tárcája automatikusan szinkronba kerül a OpenSyria hálózattal, de ez a folyamat még nem fejeződött be.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the OpenSY network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">A kijelzett információ lehet, hogy elavult. A kapcsolat létrehozatalát követően tárcája automatikusan szinkronba kerül a OpenSY hálózattal, de ez a folyamat még nem fejeződött be.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -2086,16 +2086,16 @@ A migrációs folyamat készít biztonsági mentést a tárcáról migrálás el
         <translation type="unfinished">Hiba történt a fizetési kérelem során</translation>
     </message>
     <message>
-        <source>Cannot start opensyria: click-to-pay handler</source>
-        <translation type="unfinished">A opensyria nem tud elindulni: click-to-pay kezelő</translation>
+        <source>Cannot start opensy: click-to-pay handler</source>
+        <translation type="unfinished">A opensy nem tud elindulni: click-to-pay kezelő</translation>
     </message>
     <message>
         <source>URI handling</source>
         <translation type="unfinished">URI kezelés</translation>
     </message>
     <message>
-        <source>'opensyria://' is not a valid URI. Use 'opensyria:' instead.</source>
-        <translation type="unfinished">'opensyria://' nem érvényes egységes erőforrás azonosító (URI). Használja helyette a 'opensyria:'-t.</translation>
+        <source>'opensy://' is not a valid URI. Use 'opensy:' instead.</source>
+        <translation type="unfinished">'opensy://' nem érvényes egységes erőforrás azonosító (URI). Használja helyette a 'opensy:'-t.</translation>
     </message>
     <message>
         <source>Cannot process payment request because BIP70 is not supported.
@@ -2104,8 +2104,8 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished">A fizetési kérelmet nem lehet feldolgozni, mert a BIP70 nem támogatott. A jól ismert biztonsági hiányosságok miatt a BIP70-re való váltásra történő felhívásokat hagyja figyelmen kívül. Amennyiben ezt az üzenetet látja kérjen egy új, BIP21 kompatibilis URI-t.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid OpenSyria address or malformed URI parameters.</source>
-        <translation type="unfinished">Nem sikerült az URI értelmezése! Ezt okozhatja érvénytelen OpenSyria cím, vagy rossz URI paraméterezés.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid OpenSY address or malformed URI parameters.</source>
+        <translation type="unfinished">Nem sikerült az URI értelmezése! Ezt okozhatja érvénytelen OpenSY cím, vagy rossz URI paraméterezés.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -2257,8 +2257,8 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished">Helyi címek</translation>
     </message>
     <message>
-        <source>Network addresses that your OpenSyria node is currently using to communicate with other nodes.</source>
-        <translation type="unfinished">Hálózati címek amelyeken keresztül jelenleg a OpenSyria csomópontja a többi csomóponttal kommunikál.</translation>
+        <source>Network addresses that your OpenSY node is currently using to communicate with other nodes.</source>
+        <translation type="unfinished">Hálózati címek amelyeken keresztül jelenleg a OpenSY csomópontja a többi csomóponttal kommunikál.</translation>
     </message>
     <message>
         <source>Block chain</source>
@@ -2711,8 +2711,8 @@ Gépeljen %5 az elérhető parancsok áttekintéséhez. Több információért a
         <translation type="unfinished">&amp;Üzenet:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the OpenSyria network.</source>
-        <translation type="unfinished">Egy opcionális üzenet csatolása a fizetési kérelemhez, amely megjelenik a kérelem megnyitásakor. Megjegyzés: Az üzenet nem lesz elküldve a fizetséggel a OpenSyria hálózaton keresztül.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the OpenSY network.</source>
+        <translation type="unfinished">Egy opcionális üzenet csatolása a fizetési kérelemhez, amely megjelenik a kérelem megnyitásakor. Megjegyzés: Az üzenet nem lesz elküldve a fizetséggel a OpenSY hálózaton keresztül.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -3012,7 +3012,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 qirsh
 Megjegyzés: Mivel a díj bájtonként van kiszámítva, egy "100 qirsh kvB-nként"-ként megadott díj egy 500 virtuális bájt (1kvB fele) méretű tranzakció végül csak 50 qirsh-s díjat jelentene.</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for opensyria transactions than the network can process.</source>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for opensy transactions than the network can process.</source>
         <translation type="unfinished">Ha kevesebb a tranzakció, mint amennyi hely lenne egy blokkban, akkor a bányászok és a többi csomópont megkövetelheti a minimum díjat. Ezt a minimum díjat fizetni elegendő lehet de elképzelhető, hogy ez esetleg egy soha sem jóváhagyott tranzakciót eredményez ahogy a tranzakciók száma magasabb lesz, mint a hálózat által megengedett.</translation>
     </message>
     <message>
@@ -3098,8 +3098,8 @@ Megjegyzés: Mivel a díj bájtonként van kiszámítva, egy "100 qirsh kvB-nké
         <translation type="unfinished">&amp;Aláíratlan létrehozása</translation>
     </message>
     <message>
-        <source>Creates a Partially Signed OpenSyria Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
-        <translation type="unfinished">Létrehoz egy Részlegesen Aláírt OpenSyria Tranzakciót (PSBT) melyet offline %1 tárcával vagy egy PSBT kompatibilis hardver tárcával használhat.</translation>
+        <source>Creates a Partially Signed OpenSY Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <translation type="unfinished">Létrehoz egy Részlegesen Aláírt OpenSY Tranzakciót (PSBT) melyet offline %1 tárcával vagy egy PSBT kompatibilis hardver tárcával használhat.</translation>
     </message>
     <message>
         <source>%1 to '%2'</source>
@@ -3154,9 +3154,9 @@ Megjegyzés: Mivel a díj bájtonként van kiszámítva, egy "100 qirsh kvB-nké
         <translation type="unfinished">Később növelheti a tranzakció díját (Replace-By-Fee-t jelez, BIP-125).</translation>
     </message>
     <message>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed OpenSyria Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed OpenSY Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
-        <translation type="unfinished">Kérjük nézze át a tranzakciós javaslatot. Ez létrehoz egy részlegesen aláírt opensyria tranzakciót (PSBT) amit elmenthet vagy kimásolhat amit később aláírhatja offline %1 tárcával vagy egy PSBT kompatibilis hardvertárcával.</translation>
+        <translation type="unfinished">Kérjük nézze át a tranzakciós javaslatot. Ez létrehoz egy részlegesen aláírt opensy tranzakciót (PSBT) amit elmenthet vagy kimásolhat amit később aláírhatja offline %1 tárcával vagy egy PSBT kompatibilis hardvertárcával.</translation>
     </message>
     <message>
         <source>%1 from wallet '%2'</source>
@@ -3168,9 +3168,9 @@ Megjegyzés: Mivel a díj bájtonként van kiszámítva, egy "100 qirsh kvB-nké
         <translation type="unfinished">Biztosan létrehozza ezt a tranzakciót?</translation>
     </message>
     <message>
-        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed OpenSyria Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed OpenSY Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can send their transaction or create a PSBT. This string is displayed when both private keys and PSBT controls are enabled.</extracomment>
-        <translation type="unfinished">Kérjük nézze át a tranzakció részleteit. Véglegesítheti és elküldheti ezt a tranzakciót vagy létrehozhat egy részlegesen aláírt opensyria tranzakciót (PSBT) amit elmentve vagy átmásolva aláírhat egy offline %1 tárcával, vagy PSBT-t támogató hardvertárcával.</translation>
+        <translation type="unfinished">Kérjük nézze át a tranzakció részleteit. Véglegesítheti és elküldheti ezt a tranzakciót vagy létrehozhat egy részlegesen aláírt opensy tranzakciót (PSBT) amit elmentve vagy átmásolva aláírhat egy offline %1 tárcával, vagy PSBT-t támogató hardvertárcával.</translation>
     </message>
     <message>
         <source>Please, review your transaction.</source>
@@ -3242,8 +3242,8 @@ Megjegyzés: Mivel a díj bájtonként van kiszámítva, egy "100 qirsh kvB-nké
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid OpenSyria address</source>
-        <translation type="unfinished">Figyelmeztetés: Érvénytelen OpenSyria cím</translation>
+        <source>Warning: Invalid OpenSY address</source>
+        <translation type="unfinished">Figyelmeztetés: Érvénytelen OpenSY cím</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -3281,8 +3281,8 @@ Megjegyzés: Mivel a díj bájtonként van kiszámítva, egy "100 qirsh kvB-nké
         <translation type="unfinished">Válasszon egy korábban már használt címet</translation>
     </message>
     <message>
-        <source>The OpenSyria address to send the payment to</source>
-        <translation type="unfinished">Erre a OpenSyria címre küldje az összeget</translation>
+        <source>The OpenSY address to send the payment to</source>
+        <translation type="unfinished">Erre a OpenSY címre küldje az összeget</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -3298,7 +3298,7 @@ Megjegyzés: Mivel a díj bájtonként van kiszámítva, egy "100 qirsh kvB-nké
     </message>
     <message>
         <source>The fee will be deducted from the amount being sent. The recipient will receive less SYL than you enter in the amount field. If multiple recipients are selected, the fee is split equally.</source>
-        <translation type="unfinished">A díj le lesz vonva a küldött teljes összegből. A címzett kevesebb opensyriat fog megkapni, mint amennyit az összeg mezőben megadott. Amennyiben több címzett van kiválasztva, az illeték egyenlő mértékben lesz elosztva.</translation>
+        <translation type="unfinished">A díj le lesz vonva a küldött teljes összegből. A címzett kevesebb opensyt fog megkapni, mint amennyit az összeg mezőben megadott. Amennyiben több címzett van kiválasztva, az illeték egyenlő mértékben lesz elosztva.</translation>
     </message>
     <message>
         <source>S&amp;ubtract fee from amount</source>
@@ -3317,8 +3317,8 @@ Megjegyzés: Mivel a díj bájtonként van kiszámítva, egy "100 qirsh kvB-nké
         <translation type="unfinished">Adjon egy címkét ehhez a címhez, hogy bekerüljön a használt címek közé</translation>
     </message>
     <message>
-        <source>A message that was attached to the opensyria: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the OpenSyria network.</source>
-        <translation type="unfinished">Egy üzenet a opensyria: URI-hoz csatolva, amely a tranzakciócal együtt lesz eltárolva az Ön számára. Megjegyzés: Ez az üzenet nem kerül elküldésre a OpenSyria hálózaton keresztül.</translation>
+        <source>A message that was attached to the opensy: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the OpenSY network.</source>
+        <translation type="unfinished">Egy üzenet a opensy: URI-hoz csatolva, amely a tranzakciócal együtt lesz eltárolva az Ön számára. Megjegyzés: Ez az üzenet nem kerül elküldésre a OpenSY hálózaton keresztül.</translation>
     </message>
 </context>
 <context>
@@ -3344,11 +3344,11 @@ Megjegyzés: Mivel a díj bájtonként van kiszámítva, egy "100 qirsh kvB-nké
     </message>
     <message>
         <source>You can sign messages/agreements with your legacy (P2PKH) addresses to prove you can receive SYL sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation type="unfinished">Aláírhat üzeneteket/megállapodásokat a régí típusú (P2PKH) címeivel amivel bizonyítja, hogy fogadni és elkölteni is tudja az oda küldött opensyriat. Legyen óvatos és ne írjon alá semmilyen ködös vagy véletlenszerű üzenetet, mivel adathalászok megkísérelhetik rávenni a személyazonosságának átruházására. Csak olyan alaposan részletezett állításokat írjon alá amivel teljesen egyetért.</translation>
+        <translation type="unfinished">Aláírhat üzeneteket/megállapodásokat a régí típusú (P2PKH) címeivel amivel bizonyítja, hogy fogadni és elkölteni is tudja az oda küldött opensyt. Legyen óvatos és ne írjon alá semmilyen ködös vagy véletlenszerű üzenetet, mivel adathalászok megkísérelhetik rávenni a személyazonosságának átruházására. Csak olyan alaposan részletezett állításokat írjon alá amivel teljesen egyetért.</translation>
     </message>
     <message>
-        <source>The OpenSyria address to sign the message with</source>
-        <translation type="unfinished">OpenSyria cím, amivel alá kívánja írni az üzenetet</translation>
+        <source>The OpenSY address to sign the message with</source>
+        <translation type="unfinished">OpenSY cím, amivel alá kívánja írni az üzenetet</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3371,8 +3371,8 @@ Megjegyzés: Mivel a díj bájtonként van kiszámítva, egy "100 qirsh kvB-nké
         <translation type="unfinished">A kiválasztott aláírás másolása a vágólapra</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this OpenSyria address</source>
-        <translation type="unfinished">Üzenet aláírása, ezzel bizonyítva, hogy Öné ez a OpenSyria cím</translation>
+        <source>Sign the message to prove you own this OpenSY address</source>
+        <translation type="unfinished">Üzenet aláírása, ezzel bizonyítva, hogy Öné ez a OpenSY cím</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3395,8 +3395,8 @@ Megjegyzés: Mivel a díj bájtonként van kiszámítva, egy "100 qirsh kvB-nké
         <translation type="unfinished">Adja meg a fogadó címét, az üzenetet (megbizonyosodva arról, hogy az új-sor, szóköz, tab, stb. karaktereket is pontosan adta meg) és az aláírást az üzenet ellenőrzéséhez. Ügyeljen arra, ne gondoljon bele többet az aláírásba, mint amennyi az aláírt szövegben ténylegesen áll, hogy elkerülje a köztes-ember (man-in-the-middle) támadást. Megjegyzendő, hogy ez csak azt bizonyítja hogy az aláíró fél az adott címen tud fogadni, de azt nem tudja igazolni hogy képes-e akár egyetlen tranzakció feladására is!</translation>
     </message>
     <message>
-        <source>The OpenSyria address the message was signed with</source>
-        <translation type="unfinished">OpenSyria cím, amivel aláírta az üzenetet</translation>
+        <source>The OpenSY address the message was signed with</source>
+        <translation type="unfinished">OpenSY cím, amivel aláírta az üzenetet</translation>
     </message>
     <message>
         <source>The signed message to verify</source>
@@ -3407,8 +3407,8 @@ Megjegyzés: Mivel a díj bájtonként van kiszámítva, egy "100 qirsh kvB-nké
         <translation type="unfinished">A kapott aláírás amikor az üzenet alá lett írva.</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified OpenSyria address</source>
-        <translation type="unfinished">Ellenőrizze az üzenetet, hogy valóban a megjelölt OpenSyria címmel van-e aláírva</translation>
+        <source>Verify the message to ensure it was signed with the specified OpenSY address</source>
+        <translation type="unfinished">Ellenőrizze az üzenetet, hogy valóban a megjelölt OpenSY címmel van-e aláírva</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -4052,7 +4052,7 @@ A "Fájl &gt; Tárca megnyitása" menüben tölthet be egyet.
     </message>
 </context>
 <context>
-    <name>opensyria-core</name>
+    <name>opensy-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">A %s fejlesztők</translation>
@@ -4094,8 +4094,8 @@ A "Fájl &gt; Tárca megnyitása" menüben tölthet be egyet.
         <translation type="unfinished">Hiba: A dump fájl azonosító rekordja helytelen. Talált "%s", várt "%s".</translation>
     </message>
     <message>
-        <source>Error: Dumpfile version is not supported. This version of opensyria-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
-        <translation type="unfinished">Hiba: A dump fájl verziója nem támogatott. A opensyria-wallet ez a kiadása csak 1-es verziójú dump fájlokat támogat. A talált dump fájl verziója %s.</translation>
+        <source>Error: Dumpfile version is not supported. This version of opensy-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
+        <translation type="unfinished">Hiba: A dump fájl verziója nem támogatott. A opensy-wallet ez a kiadása csak 1-es verziójú dump fájlokat támogat. A talált dump fájl verziója %s.</translation>
     </message>
     <message>
         <source>Error: Unable to produce descriptors for this legacy wallet. Make sure to provide the wallet's passphrase if it is encrypted.</source>

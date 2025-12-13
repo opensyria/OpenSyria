@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
-# Copyright (c) 2018-2022 The OpenSyria Core developers
+# Copyright (c) 2018-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the scantxoutset rpc call."""
 from test_framework.address import address_to_scriptpubkey
 from test_framework.messages import COIN
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import assert_equal, assert_raises_rpc_error
 from test_framework.wallet import (
     MiniWallet,
@@ -19,7 +19,7 @@ def descriptors(out):
     return sorted(u['desc'] for u in out['unspents'])
 
 
-class ScantxoutsetTest(OpenSyriaTestFramework):
+class ScantxoutsetTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
 
@@ -123,7 +123,7 @@ class ScantxoutsetTest(OpenSyriaTestFramework):
 
         # Check that the blockhash and confirmations fields are correct
         self.generate(self.nodes[0], 2)
-        # Use combo descriptor instead of addr() since address prefixes differ between Bitcoin and OpenSyria
+        # Use combo descriptor instead of addr() since address prefixes differ between Bitcoin and OpenSY
         unspent = self.nodes[0].scantxoutset("start", ["combo(tprv8ZgxMBicQKsPd7Uf69XL1XwhmjHopUGep8GuEiJDZmbQz6o58LninorQAfcKZWARbtRtfnLcJ5MQ2AtHcQJCCRUcMRvmDUjyEmNUWwx8UbK/1/1/1500)"])["unspents"][0]
         blockhash = self.nodes[0].getblockhash(info["height"])
         assert_equal(unspent["height"], info["height"])

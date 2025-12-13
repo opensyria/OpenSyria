@@ -15,13 +15,13 @@ BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
             VALUE "CompanyName",        CLIENT_NAME " project"
-            VALUE "FileDescription",    "opensyria-tx (CLI OpenSyria transaction editor utility)"
+            VALUE "FileDescription",    "opensy-tx (CLI OpenSY transaction editor utility)"
             VALUE "FileVersion",        CLIENT_VERSION_STRING
-            VALUE "InternalName",       "opensyria-tx"
+            VALUE "InternalName",       "opensy-tx"
             VALUE "LegalCopyright",     COPYRIGHT_STR
             VALUE "LegalTrademarks1",   "Distributed under the MIT software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "opensyria-tx.exe"
-            VALUE "ProductName",        "opensyria-tx"
+            VALUE "OriginalFilename",   "opensy-tx.exe"
+            VALUE "ProductName",        "opensy-tx"
             VALUE "ProductVersion",     CLIENT_VERSION_STRING
         END
     END

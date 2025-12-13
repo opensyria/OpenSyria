@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_POLICY_FEERATE_H
-#define OPENSYRIA_POLICY_FEERATE_H
+#ifndef OPENSY_POLICY_FEERATE_H
+#define OPENSY_POLICY_FEERATE_H
 
 #include <consensus/amount.h>
 #include <serialize.h>
@@ -16,7 +16,7 @@
 #include <type_traits>
 
 const std::string CURRENCY_UNIT = "SYL"; // Syrian Digital Lira // One formatted unit
-const std::string CURRENCY_ATOM = "qirsh"; // OpenSyria: One indivisible minimum value unit
+const std::string CURRENCY_ATOM = "qirsh"; // OpenSY: One indivisible minimum value unit
 
 /* Used to determine type of fee estimation requested */
 enum class FeeEstimateMode {
@@ -80,4 +80,4 @@ public:
     SERIALIZE_METHODS(CFeeRate, obj) { READWRITE(obj.m_feerate.fee, obj.m_feerate.size); }
 };
 
-#endif // OPENSYRIA_POLICY_FEERATE_H
+#endif // OPENSY_POLICY_FEERATE_H

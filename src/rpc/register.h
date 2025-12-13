@@ -1,11 +1,11 @@
-// Copyright (c) 2009-2022 The OpenSyria Core developers
+// Copyright (c) 2009-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_RPC_REGISTER_H
-#define OPENSYRIA_RPC_REGISTER_H
+#ifndef OPENSY_RPC_REGISTER_H
+#define OPENSY_RPC_REGISTER_H
 
-#include <opensyria-build-config.h> // IWYU pragma: keep
+#include <opensy-build-config.h> // IWYU pragma: keep
 
 /** These are in one header file to avoid creating tons of single-function
  * headers for everything under src/rpc/ */
@@ -40,4 +40,4 @@ static inline void RegisterAllCoreRPCCommands(CRPCTable &t)
     RegisterTxoutProofRPCCommands(t);
 }
 
-#endif // OPENSYRIA_RPC_REGISTER_H
+#endif // OPENSY_RPC_REGISTER_H

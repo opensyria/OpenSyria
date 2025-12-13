@@ -1,7 +1,7 @@
-Win32, Linux, MacOSX and source releases for opensyria v0.3.23 have been uploaded to
-https://sourceforge.net/projects/opensyria/files/OpenSyria/opensyria-0.3.23/
+Win32, Linux, MacOSX and source releases for opensy v0.3.23 have been uploaded to
+https://sourceforge.net/projects/opensy/files/OpenSY/opensy-0.3.23/
 
-This is another quick bugfix release, trying to deal with the influx of new opensyria users.
+This is another quick bugfix release, trying to deal with the influx of new opensy users.
 
 Main items of note:
 

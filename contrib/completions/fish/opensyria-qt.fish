@@ -1,8 +1,8 @@
 # Disable files from being included in completions by default
-complete --command opensyria-qt --no-files
+complete --command opensy-qt --no-files
 
 # Extract options
-function __fish_opensyriaqt_get_options
+function __fish_opensyqt_get_options
     argparse 'nofiles' -- $argv
     set --local cmd (commandline -opc)[1]
     set --local options
@@ -21,15 +21,15 @@ end
 
 # Add options with file completion
 complete \
-    --command opensyria-qt \
-    --arguments "(__fish_opensyriaqt_get_options)"
+    --command opensy-qt \
+    --arguments "(__fish_opensyqt_get_options)"
 # Enable file completions only if the commandline now contains a `*.=` style option
-complete -c opensyria-qt \
+complete -c opensy-qt \
     --condition 'string match --regex -- ".*=" (commandline -pt)' \
     --force-files
 
 # Add options without file completion
 complete \
-    --command opensyria-qt \
-    --arguments "(__fish_opensyriaqt_get_options --nofiles)"
+    --command opensy-qt \
+    --arguments "(__fish_opensyqt_get_options --nofiles)"
 

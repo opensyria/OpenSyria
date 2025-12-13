@@ -1,6 +1,6 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2011 The Bitcoin developers
-// Copyright (c) 2024-2025 The OpenSyria developers
+// Copyright (c) 2024-2025 The OpenSY developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file license.txt or http://www.opensource.org/licenses/mit-license.php.
 
@@ -20,7 +20,7 @@ extern bool fTestNet;
 extern unsigned short nDefaultP2Port;
 static inline unsigned short GetDefaultPort(const bool testnet = fTestNet)
 {
-    // OpenSyria ports: mainnet 9633, testnet 19633
+    // OpenSY ports: mainnet 9633, testnet 19633
     return nDefaultP2Port ? nDefaultP2Port : (testnet ? 19633 : 9633);
 }
 

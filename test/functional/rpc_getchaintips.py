@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2021 The OpenSyria Core developers
+# Copyright (c) 2014-2021 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the getchaintips RPC.
@@ -14,10 +14,10 @@ from test_framework.blocktools import (
     create_block,
     create_coinbase,
 )
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import assert_equal
 
-class GetChainTipsTest (OpenSyriaTestFramework):
+class GetChainTipsTest (OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 4
 
@@ -26,7 +26,7 @@ class GetChainTipsTest (OpenSyriaTestFramework):
         tips = self.nodes[0].getchaintips()
         assert_equal(len(tips), 1)
         assert_equal(tips[0]['branchlen'], 0)
-        assert_equal(tips[0]['height'], 200)  # OpenSyria: shorter chain
+        assert_equal(tips[0]['height'], 200)  # OpenSY: shorter chain
         assert_equal(tips[0]['status'], 'active')
 
         self.log.info("Split the network and build two chains of different lengths.")

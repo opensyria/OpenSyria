@@ -1,9 +1,9 @@
-// Copyright (c) 2021-2022 The OpenSyria Core developers
+// Copyright (c) 2021-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 //
-#ifndef OPENSYRIA_TEST_UTIL_CHAINSTATE_H
-#define OPENSYRIA_TEST_UTIL_CHAINSTATE_H
+#ifndef OPENSY_TEST_UTIL_CHAINSTATE_H
+#define OPENSY_TEST_UTIL_CHAINSTATE_H
 
 #include <clientversion.h>
 #include <logging.h>
@@ -135,4 +135,4 @@ CreateAndActivateUTXOSnapshot(
 }
 
 
-#endif // OPENSYRIA_TEST_UTIL_CHAINSTATE_H
+#endif // OPENSY_TEST_UTIL_CHAINSTATE_H

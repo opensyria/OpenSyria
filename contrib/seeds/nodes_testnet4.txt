@@ -1,12 +1,12 @@
-# OpenSyria Testnet4 Seed Nodes
+# OpenSY Testnet4 Seed Nodes
 #
 # This file is intentionally empty for the initial launch.
-# OpenSyria testnet4 does not yet have established seed nodes.
+# OpenSY testnet4 does not yet have established seed nodes.
 #
 # Format: <ip>:<port> # <optional AS number comment>
 # Example: 192.0.2.1:49633 # AS12345
 #
 # For initial testnet4 bootstrap, use:
-#   opensyriad -testnet4 -addnode=<known_node_ip>:49633
+#   opensyd -testnet4 -addnode=<known_node_ip>:49633
 #
-# TODO: Populate with actual OpenSyria testnet4 node addresses
+# TODO: Populate with actual OpenSY testnet4 node addresses

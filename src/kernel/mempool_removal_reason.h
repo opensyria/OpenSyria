@@ -1,9 +1,9 @@
-// Copyright (c) 2016-present The OpenSyria Core developers
+// Copyright (c) 2016-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://opensource.org/license/mit/.
 
-#ifndef OPENSYRIA_KERNEL_MEMPOOL_REMOVAL_REASON_H
-#define OPENSYRIA_KERNEL_MEMPOOL_REMOVAL_REASON_H
+#ifndef OPENSY_KERNEL_MEMPOOL_REMOVAL_REASON_H
+#define OPENSY_KERNEL_MEMPOOL_REMOVAL_REASON_H
 
 #include <string>
 
@@ -21,4 +21,4 @@ enum class MemPoolRemovalReason {
 
 std::string RemovalReasonToString(const MemPoolRemovalReason& r) noexcept;
 
-#endif // OPENSYRIA_KERNEL_MEMPOOL_REMOVAL_REASON_H
+#endif // OPENSY_KERNEL_MEMPOOL_REMOVAL_REASON_H

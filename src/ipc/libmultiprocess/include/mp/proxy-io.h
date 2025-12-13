@@ -1,4 +1,4 @@
-// Copyright (c) The OpenSyria Core developers
+// Copyright (c) The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -753,8 +753,8 @@ void ListenConnections(EventLoop& loop, int fd, InitImpl& init)
     });
 }
 
-extern thread_local ThreadContext g_thread_context; // NOLINT(opensyria-nontrivial-threadlocal)
-// Silence nonstandard opensyria tidy error "Variable with non-trivial destructor
+extern thread_local ThreadContext g_thread_context; // NOLINT(opensy-nontrivial-threadlocal)
+// Silence nonstandard opensy tidy error "Variable with non-trivial destructor
 // cannot be thread_local" which should not be a problem on modern platforms, and
 // could lead to a small memory leak at worst on older ones.
 

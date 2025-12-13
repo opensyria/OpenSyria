@@ -1,9 +1,9 @@
-// Copyright (c) 2012-present The OpenSyria Core developers
+// Copyright (c) 2012-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_COMMON_BLOOM_H
-#define OPENSYRIA_COMMON_BLOOM_H
+#ifndef OPENSY_COMMON_BLOOM_H
+#define OPENSY_COMMON_BLOOM_H
 
 #include <serialize.h>
 #include <span.h>
@@ -124,4 +124,4 @@ private:
     int nHashFuncs;
 };
 
-#endif // OPENSYRIA_COMMON_BLOOM_H
+#endif // OPENSY_COMMON_BLOOM_H

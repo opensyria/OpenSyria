@@ -1,12 +1,12 @@
-// Copyright (c) 2011-2022 The OpenSyria Core developers
+// Copyright (c) 2011-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <opensyria-build-config.h> // IWYU pragma: keep
+#include <opensy-build-config.h> // IWYU pragma: keep
 
-#include <qt/opensyriagui.h>
+#include <qt/opensygui.h>
 
-#include <qt/opensyriaunits.h>
+#include <qt/opensyunits.h>
 #include <qt/clientmodel.h>
 #include <qt/createwalletdialog.h>
 #include <qt/guiconstants.h>
@@ -72,7 +72,7 @@
 #include <QWindow>
 
 
-const std::string OpenSyriaGUI::DEFAULT_UIPLATFORM =
+const std::string OpenSYGUI::DEFAULT_UIPLATFORM =
 #if defined(Q_OS_MACOS)
         "macosx"
 #elif defined(Q_OS_WIN)
@@ -82,7 +82,7 @@ const std::string OpenSyriaGUI::DEFAULT_UIPLATFORM =
 #endif
         ;
 
-OpenSyriaGUI::OpenSyriaGUI(interfaces::Node& node, const PlatformStyle *_platformStyle, const NetworkStyle *networkStyle, QWidget *parent) :
+OpenSYGUI::OpenSYGUI(interfaces::Node& node, const PlatformStyle *_platformStyle, const NetworkStyle *networkStyle, QWidget *parent) :
     QMainWindow(parent),
     m_node(node),
     trayIconMenu{new QMenu()},
@@ -111,7 +111,7 @@ OpenSyriaGUI::OpenSyriaGUI(interfaces::Node& node, const PlatformStyle *_platfor
     {
         /** Create wallet frame and make it the central widget */
         walletFrame = new WalletFrame(_platformStyle, this);
-        connect(walletFrame, &WalletFrame::createWalletButtonClicked, this, &OpenSyriaGUI::createWallet);
+        connect(walletFrame, &WalletFrame::createWalletButtonClicked, this, &OpenSYGUI::createWallet);
         connect(walletFrame, &WalletFrame::message, [this](const QString& title, const QString& message, unsigned int style) {
             this->message(title, message, style);
         });
@@ -217,8 +217,8 @@ OpenSyriaGUI::OpenSyriaGUI(interfaces::Node& node, const PlatformStyle *_platfor
         openOptionsDialogWithTab(OptionsDialog::TAB_NETWORK);
     });
 
-    connect(labelBlocksIcon, &GUIUtil::ClickableLabel::clicked, this, &OpenSyriaGUI::showModalOverlay);
-    connect(progressBar, &GUIUtil::ClickableProgressBar::clicked, this, &OpenSyriaGUI::showModalOverlay);
+    connect(labelBlocksIcon, &GUIUtil::ClickableLabel::clicked, this, &OpenSYGUI::showModalOverlay);
+    connect(progressBar, &GUIUtil::ClickableProgressBar::clicked, this, &OpenSYGUI::showModalOverlay);
 
 #ifdef Q_OS_MACOS
     m_app_nap_inhibitor = new CAppNapInhibitor;
@@ -227,7 +227,7 @@ OpenSyriaGUI::OpenSyriaGUI(interfaces::Node& node, const PlatformStyle *_platfor
     GUIUtil::handleCloseWindowShortcut(this);
 }
 
-OpenSyriaGUI::~OpenSyriaGUI()
+OpenSYGUI::~OpenSYGUI()
 {
     // Unsubscribe from notifications from core
     unsubscribeFromCoreSignals();
@@ -244,7 +244,7 @@ OpenSyriaGUI::~OpenSyriaGUI()
     delete rpcConsole;
 }
 
-void OpenSyriaGUI::createActions()
+void OpenSYGUI::createActions()
 {
     QActionGroup *tabGroup = new QActionGroup(this);
     connect(modalOverlay, &ModalOverlay::triggered, tabGroup, &QActionGroup::setEnabled);
@@ -257,14 +257,14 @@ void OpenSyriaGUI::createActions()
     tabGroup->addAction(overviewAction);
 
     sendCoinsAction = new QAction(platformStyle->SingleColorIcon(":/icons/send"), tr("&Send"), this);
-    sendCoinsAction->setStatusTip(tr("Send coins to an OpenSyria address"));
+    sendCoinsAction->setStatusTip(tr("Send coins to an OpenSY address"));
     sendCoinsAction->setToolTip(sendCoinsAction->statusTip());
     sendCoinsAction->setCheckable(true);
     sendCoinsAction->setShortcut(QKeySequence(QStringLiteral("Alt+2")));
     tabGroup->addAction(sendCoinsAction);
 
     receiveCoinsAction = new QAction(platformStyle->SingleColorIcon(":/icons/receiving_addresses"), tr("&Receive"), this);
-    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and opensyria: URIs)"));
+    receiveCoinsAction->setStatusTip(tr("Request payments (generates QR codes and opensy: URIs)"));
     receiveCoinsAction->setToolTip(receiveCoinsAction->statusTip());
     receiveCoinsAction->setCheckable(true);
     receiveCoinsAction->setShortcut(QKeySequence(QStringLiteral("Alt+3")));
@@ -281,13 +281,13 @@ void OpenSyriaGUI::createActions()
     // These showNormalIfMinimized are needed because Send Coins and Receive Coins
     // can be triggered from the tray menu, and need to show the GUI to be useful.
     connect(overviewAction, &QAction::triggered, [this]{ showNormalIfMinimized(); });
-    connect(overviewAction, &QAction::triggered, this, &OpenSyriaGUI::gotoOverviewPage);
+    connect(overviewAction, &QAction::triggered, this, &OpenSYGUI::gotoOverviewPage);
     connect(sendCoinsAction, &QAction::triggered, [this]{ showNormalIfMinimized(); });
     connect(sendCoinsAction, &QAction::triggered, [this]{ gotoSendCoinsPage(); });
     connect(receiveCoinsAction, &QAction::triggered, [this]{ showNormalIfMinimized(); });
-    connect(receiveCoinsAction, &QAction::triggered, this, &OpenSyriaGUI::gotoReceiveCoinsPage);
+    connect(receiveCoinsAction, &QAction::triggered, this, &OpenSYGUI::gotoReceiveCoinsPage);
     connect(historyAction, &QAction::triggered, [this]{ showNormalIfMinimized(); });
-    connect(historyAction, &QAction::triggered, this, &OpenSyriaGUI::gotoHistoryPage);
+    connect(historyAction, &QAction::triggered, this, &OpenSYGUI::gotoHistoryPage);
 #endif // ENABLE_WALLET
 
     quitAction = new QAction(tr("E&xit"), this);
@@ -314,13 +314,13 @@ void OpenSyriaGUI::createActions()
     changePassphraseAction = new QAction(tr("&Change Passphrase…"), this);
     changePassphraseAction->setStatusTip(tr("Change the passphrase used for wallet encryption"));
     signMessageAction = new QAction(tr("Sign &message…"), this);
-    signMessageAction->setStatusTip(tr("Sign messages with your OpenSyria addresses to prove you own them"));
+    signMessageAction->setStatusTip(tr("Sign messages with your OpenSY addresses to prove you own them"));
     verifyMessageAction = new QAction(tr("&Verify message…"), this);
-    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified OpenSyria addresses"));
+    verifyMessageAction->setStatusTip(tr("Verify messages to ensure they were signed with specified OpenSY addresses"));
     m_load_psbt_action = new QAction(tr("&Load PSBT from file…"), this);
-    m_load_psbt_action->setStatusTip(tr("Load Partially Signed OpenSyria Transaction"));
+    m_load_psbt_action->setStatusTip(tr("Load Partially Signed OpenSY Transaction"));
     m_load_psbt_clipboard_action = new QAction(tr("Load PSBT from &clipboard…"), this);
-    m_load_psbt_clipboard_action->setStatusTip(tr("Load Partially Signed OpenSyria Transaction from clipboard"));
+    m_load_psbt_clipboard_action->setStatusTip(tr("Load Partially Signed OpenSY Transaction from clipboard"));
 
     openRPCConsoleAction = new QAction(tr("Node window"), this);
     openRPCConsoleAction->setStatusTip(tr("Open node debugging and diagnostic console"));
@@ -334,7 +334,7 @@ void OpenSyriaGUI::createActions()
     usedReceivingAddressesAction->setStatusTip(tr("Show the list of used receiving addresses and labels"));
 
     openAction = new QAction(tr("Open &URI…"), this);
-    openAction->setStatusTip(tr("Open an opensyria: URI"));
+    openAction->setStatusTip(tr("Open an opensy: URI"));
 
     m_open_wallet_action = new QAction(tr("Open Wallet"), this);
     m_open_wallet_action->setEnabled(false);
@@ -364,19 +364,19 @@ void OpenSyriaGUI::createActions()
 
     showHelpMessageAction = new QAction(tr("&Command-line options"), this);
     showHelpMessageAction->setMenuRole(QAction::NoRole);
-    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible OpenSyria command-line options").arg(CLIENT_NAME));
+    showHelpMessageAction->setStatusTip(tr("Show the %1 help message to get a list with possible OpenSY command-line options").arg(CLIENT_NAME));
 
     m_mask_values_action = new QAction(tr("&Mask values"), this);
     m_mask_values_action->setShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_M));
     m_mask_values_action->setStatusTip(tr("Mask the values in the Overview tab"));
     m_mask_values_action->setCheckable(true);
 
-    connect(quitAction, &QAction::triggered, this, &OpenSyriaGUI::quitRequested);
-    connect(aboutAction, &QAction::triggered, this, &OpenSyriaGUI::aboutClicked);
+    connect(quitAction, &QAction::triggered, this, &OpenSYGUI::quitRequested);
+    connect(aboutAction, &QAction::triggered, this, &OpenSYGUI::aboutClicked);
     connect(aboutQtAction, &QAction::triggered, qApp, QApplication::aboutQt);
-    connect(optionsAction, &QAction::triggered, this, &OpenSyriaGUI::optionsClicked);
-    connect(showHelpMessageAction, &QAction::triggered, this, &OpenSyriaGUI::showHelpMessageClicked);
-    connect(openRPCConsoleAction, &QAction::triggered, this, &OpenSyriaGUI::showDebugWindow);
+    connect(optionsAction, &QAction::triggered, this, &OpenSYGUI::optionsClicked);
+    connect(showHelpMessageAction, &QAction::triggered, this, &OpenSYGUI::showHelpMessageClicked);
+    connect(openRPCConsoleAction, &QAction::triggered, this, &OpenSYGUI::showDebugWindow);
     // prevents an open debug window from becoming stuck/unusable on client shutdown
     connect(quitAction, &QAction::triggered, rpcConsole, &QWidget::hide);
 
@@ -394,7 +394,7 @@ void OpenSyriaGUI::createActions()
         connect(verifyMessageAction, &QAction::triggered, [this]{ gotoVerifyMessageTab(); });
         connect(usedSendingAddressesAction, &QAction::triggered, walletFrame, &WalletFrame::usedSendingAddresses);
         connect(usedReceivingAddressesAction, &QAction::triggered, walletFrame, &WalletFrame::usedReceivingAddresses);
-        connect(openAction, &QAction::triggered, this, &OpenSyriaGUI::openClicked);
+        connect(openAction, &QAction::triggered, this, &OpenSYGUI::openClicked);
         connect(m_open_wallet_menu, &QMenu::aboutToShow, [this] {
             m_open_wallet_menu->clear();
             for (const auto& [path, info] : m_wallet_controller->listWalletDir()) {
@@ -417,7 +417,7 @@ void OpenSyriaGUI::createActions()
 
                 connect(action, &QAction::triggered, [this, path] {
                     auto activity = new OpenWalletActivity(m_wallet_controller, this);
-                    connect(activity, &OpenWalletActivity::opened, this, &OpenSyriaGUI::setCurrentWallet, Qt::QueuedConnection);
+                    connect(activity, &OpenWalletActivity::opened, this, &OpenSYGUI::setCurrentWallet, Qt::QueuedConnection);
                     connect(activity, &OpenWalletActivity::opened, rpcConsole, &RPCConsole::setCurrentWallet, Qt::QueuedConnection);
                     activity->open(path);
                 });
@@ -447,7 +447,7 @@ void OpenSyriaGUI::createActions()
             if (!wallet_name_ok || wallet_name.isEmpty()) return;
 
             auto activity = new RestoreWalletActivity(m_wallet_controller, this);
-            connect(activity, &RestoreWalletActivity::restored, this, &OpenSyriaGUI::setCurrentWallet, Qt::QueuedConnection);
+            connect(activity, &RestoreWalletActivity::restored, this, &OpenSYGUI::setCurrentWallet, Qt::QueuedConnection);
             connect(activity, &RestoreWalletActivity::restored, rpcConsole, &RPCConsole::setCurrentWallet, Qt::QueuedConnection);
 
             auto backup_file_path = fs::PathFromString(backup_file.toStdString());
@@ -456,7 +456,7 @@ void OpenSyriaGUI::createActions()
         connect(m_close_wallet_action, &QAction::triggered, [this] {
             m_wallet_controller->closeWallet(walletFrame->currentWalletModel(), this);
         });
-        connect(m_create_wallet_action, &QAction::triggered, this, &OpenSyriaGUI::createWallet);
+        connect(m_create_wallet_action, &QAction::triggered, this, &OpenSYGUI::createWallet);
         connect(m_close_all_wallets_action, &QAction::triggered, [this] {
             m_wallet_controller->closeAllWallets(this);
         });
@@ -477,7 +477,7 @@ void OpenSyriaGUI::createActions()
 
                 connect(action, &QAction::triggered, [this, wallet_name] {
                     auto activity = new MigrateWalletActivity(m_wallet_controller, this);
-                    connect(activity, &MigrateWalletActivity::migrated, this, &OpenSyriaGUI::setCurrentWallet);
+                    connect(activity, &MigrateWalletActivity::migrated, this, &OpenSYGUI::setCurrentWallet);
                     activity->migrate(wallet_name);
                 });
             }
@@ -486,16 +486,16 @@ void OpenSyriaGUI::createActions()
                 action->setEnabled(false);
             }
         });
-        connect(m_mask_values_action, &QAction::toggled, this, &OpenSyriaGUI::setPrivacy);
-        connect(m_mask_values_action, &QAction::toggled, this, &OpenSyriaGUI::enableHistoryAction);
+        connect(m_mask_values_action, &QAction::toggled, this, &OpenSYGUI::setPrivacy);
+        connect(m_mask_values_action, &QAction::toggled, this, &OpenSYGUI::enableHistoryAction);
     }
 #endif // ENABLE_WALLET
 
-    connect(new QShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_C), this), &QShortcut::activated, this, &OpenSyriaGUI::showDebugWindowActivateConsole);
-    connect(new QShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_D), this), &QShortcut::activated, this, &OpenSyriaGUI::showDebugWindow);
+    connect(new QShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_C), this), &QShortcut::activated, this, &OpenSYGUI::showDebugWindowActivateConsole);
+    connect(new QShortcut(QKeySequence(Qt::CTRL | Qt::SHIFT | Qt::Key_D), this), &QShortcut::activated, this, &OpenSYGUI::showDebugWindow);
 }
 
-void OpenSyriaGUI::createMenuBar()
+void OpenSYGUI::createMenuBar()
 {
     appMenuBar = menuBar();
 
@@ -589,7 +589,7 @@ void OpenSyriaGUI::createMenuBar()
     help->addAction(aboutQtAction);
 }
 
-void OpenSyriaGUI::createToolBars()
+void OpenSYGUI::createToolBars()
 {
     if(walletFrame)
     {
@@ -610,7 +610,7 @@ void OpenSyriaGUI::createToolBars()
 
         m_wallet_selector = new QComboBox();
         m_wallet_selector->setSizeAdjustPolicy(QComboBox::AdjustToContents);
-        connect(m_wallet_selector, qOverload<int>(&QComboBox::currentIndexChanged), this, &OpenSyriaGUI::setCurrentWalletBySelectorIndex);
+        connect(m_wallet_selector, qOverload<int>(&QComboBox::currentIndexChanged), this, &OpenSYGUI::setCurrentWalletBySelectorIndex);
 
         m_wallet_selector_label = new QLabel();
         m_wallet_selector_label->setText(tr("Wallet:") + " ");
@@ -625,7 +625,7 @@ void OpenSyriaGUI::createToolBars()
     }
 }
 
-void OpenSyriaGUI::setClientModel(ClientModel *_clientModel, interfaces::BlockAndHeaderTipInfo* tip_info)
+void OpenSYGUI::setClientModel(ClientModel *_clientModel, interfaces::BlockAndHeaderTipInfo* tip_info)
 {
     this->clientModel = _clientModel;
     if(_clientModel)
@@ -639,12 +639,12 @@ void OpenSyriaGUI::setClientModel(ClientModel *_clientModel, interfaces::BlockAn
         connect(connectionsControl, &GUIUtil::ClickableLabel::clicked, [this] {
             GUIUtil::PopupMenu(m_network_context_menu, QCursor::pos());
         });
-        connect(_clientModel, &ClientModel::numConnectionsChanged, this, &OpenSyriaGUI::setNumConnections);
-        connect(_clientModel, &ClientModel::networkActiveChanged, this, &OpenSyriaGUI::setNetworkActive);
+        connect(_clientModel, &ClientModel::numConnectionsChanged, this, &OpenSYGUI::setNumConnections);
+        connect(_clientModel, &ClientModel::networkActiveChanged, this, &OpenSYGUI::setNetworkActive);
 
         modalOverlay->setKnownBestHeight(tip_info->header_height, QDateTime::fromSecsSinceEpoch(tip_info->header_time), /*presync=*/false);
         setNumBlocks(tip_info->block_height, QDateTime::fromSecsSinceEpoch(tip_info->block_time), tip_info->verification_progress, SyncType::BLOCK_SYNC, SynchronizationState::INIT_DOWNLOAD);
-        connect(_clientModel, &ClientModel::numBlocksChanged, this, &OpenSyriaGUI::setNumBlocks);
+        connect(_clientModel, &ClientModel::numBlocksChanged, this, &OpenSYGUI::setNumBlocks);
 
         // Receive and report messages from client model
         connect(_clientModel, &ClientModel::message, [this](const QString &title, const QString &message, unsigned int style){
@@ -652,7 +652,7 @@ void OpenSyriaGUI::setClientModel(ClientModel *_clientModel, interfaces::BlockAn
         });
 
         // Show progress dialog
-        connect(_clientModel, &ClientModel::showProgress, this, &OpenSyriaGUI::showProgress);
+        connect(_clientModel, &ClientModel::showProgress, this, &OpenSYGUI::showProgress);
 
         rpcConsole->setClientModel(_clientModel, tip_info->block_height, tip_info->block_time, tip_info->verification_progress);
 
@@ -698,7 +698,7 @@ void OpenSyriaGUI::setClientModel(ClientModel *_clientModel, interfaces::BlockAn
 }
 
 #ifdef ENABLE_WALLET
-void OpenSyriaGUI::enableHistoryAction(bool privacy)
+void OpenSYGUI::enableHistoryAction(bool privacy)
 {
     if (walletFrame->currentWalletModel()) {
         historyAction->setEnabled(!privacy);
@@ -706,7 +706,7 @@ void OpenSyriaGUI::enableHistoryAction(bool privacy)
     }
 }
 
-void OpenSyriaGUI::setWalletController(WalletController* wallet_controller, bool show_loading_minimized)
+void OpenSYGUI::setWalletController(WalletController* wallet_controller, bool show_loading_minimized)
 {
     assert(!m_wallet_controller);
     assert(wallet_controller);
@@ -720,8 +720,8 @@ void OpenSyriaGUI::setWalletController(WalletController* wallet_controller, bool
     m_migrate_wallet_action->setEnabled(true);
     m_migrate_wallet_action->setMenu(m_migrate_wallet_menu);
 
-    GUIUtil::ExceptionSafeConnect(wallet_controller, &WalletController::walletAdded, this, &OpenSyriaGUI::addWallet);
-    connect(wallet_controller, &WalletController::walletRemoved, this, &OpenSyriaGUI::removeWallet);
+    GUIUtil::ExceptionSafeConnect(wallet_controller, &WalletController::walletAdded, this, &OpenSYGUI::addWallet);
+    connect(wallet_controller, &WalletController::walletRemoved, this, &OpenSYGUI::removeWallet);
     connect(wallet_controller, &WalletController::destroyed, this, [this] {
         // wallet_controller gets destroyed manually, but it leaves our member copy dangling
         m_wallet_controller = nullptr;
@@ -731,12 +731,12 @@ void OpenSyriaGUI::setWalletController(WalletController* wallet_controller, bool
     activity->load(show_loading_minimized);
 }
 
-WalletController* OpenSyriaGUI::getWalletController()
+WalletController* OpenSYGUI::getWalletController()
 {
     return m_wallet_controller;
 }
 
-void OpenSyriaGUI::addWallet(WalletModel* walletModel)
+void OpenSYGUI::addWallet(WalletModel* walletModel)
 {
     if (!walletFrame || !m_wallet_controller) return;
 
@@ -751,15 +751,15 @@ void OpenSyriaGUI::addWallet(WalletModel* walletModel)
         m_wallet_selector_action->setVisible(true);
     }
 
-    connect(wallet_view, &WalletView::outOfSyncWarningClicked, this, &OpenSyriaGUI::showModalOverlay);
-    connect(wallet_view, &WalletView::transactionClicked, this, &OpenSyriaGUI::gotoHistoryPage);
-    connect(wallet_view, &WalletView::coinsSent, this, &OpenSyriaGUI::gotoHistoryPage);
+    connect(wallet_view, &WalletView::outOfSyncWarningClicked, this, &OpenSYGUI::showModalOverlay);
+    connect(wallet_view, &WalletView::transactionClicked, this, &OpenSYGUI::gotoHistoryPage);
+    connect(wallet_view, &WalletView::coinsSent, this, &OpenSYGUI::gotoHistoryPage);
     connect(wallet_view, &WalletView::message, [this](const QString& title, const QString& message, unsigned int style) {
         this->message(title, message, style);
     });
-    connect(wallet_view, &WalletView::encryptionStatusChanged, this, &OpenSyriaGUI::updateWalletStatus);
-    connect(wallet_view, &WalletView::incomingTransaction, this, &OpenSyriaGUI::incomingTransaction);
-    connect(this, &OpenSyriaGUI::setPrivacy, wallet_view, &WalletView::setPrivacy);
+    connect(wallet_view, &WalletView::encryptionStatusChanged, this, &OpenSYGUI::updateWalletStatus);
+    connect(wallet_view, &WalletView::incomingTransaction, this, &OpenSYGUI::incomingTransaction);
+    connect(this, &OpenSYGUI::setPrivacy, wallet_view, &WalletView::setPrivacy);
     const bool privacy = isPrivacyModeActivated();
     wallet_view->setPrivacy(privacy);
     enableHistoryAction(privacy);
@@ -767,7 +767,7 @@ void OpenSyriaGUI::addWallet(WalletModel* walletModel)
     m_wallet_selector->addItem(display_name, QVariant::fromValue(walletModel));
 }
 
-void OpenSyriaGUI::removeWallet(WalletModel* walletModel)
+void OpenSYGUI::removeWallet(WalletModel* walletModel)
 {
     if (!walletFrame) return;
 
@@ -788,7 +788,7 @@ void OpenSyriaGUI::removeWallet(WalletModel* walletModel)
     updateWindowTitle();
 }
 
-void OpenSyriaGUI::setCurrentWallet(WalletModel* wallet_model)
+void OpenSYGUI::setCurrentWallet(WalletModel* wallet_model)
 {
     if (!walletFrame || !m_wallet_controller) return;
     walletFrame->setCurrentWallet(wallet_model);
@@ -801,13 +801,13 @@ void OpenSyriaGUI::setCurrentWallet(WalletModel* wallet_model)
     updateWindowTitle();
 }
 
-void OpenSyriaGUI::setCurrentWalletBySelectorIndex(int index)
+void OpenSYGUI::setCurrentWalletBySelectorIndex(int index)
 {
     WalletModel* wallet_model = m_wallet_selector->itemData(index).value<WalletModel*>();
     if (wallet_model) setCurrentWallet(wallet_model);
 }
 
-void OpenSyriaGUI::removeAllWallets()
+void OpenSYGUI::removeAllWallets()
 {
     if(!walletFrame)
         return;
@@ -816,7 +816,7 @@ void OpenSyriaGUI::removeAllWallets()
 }
 #endif // ENABLE_WALLET
 
-void OpenSyriaGUI::setWalletActionsEnabled(bool enabled)
+void OpenSYGUI::setWalletActionsEnabled(bool enabled)
 {
     overviewAction->setEnabled(enabled);
     sendCoinsAction->setEnabled(enabled);
@@ -834,7 +834,7 @@ void OpenSyriaGUI::setWalletActionsEnabled(bool enabled)
     m_close_all_wallets_action->setEnabled(enabled);
 }
 
-void OpenSyriaGUI::createTrayIcon()
+void OpenSYGUI::createTrayIcon()
 {
     assert(QSystemTrayIcon::isSystemTrayAvailable());
 
@@ -847,7 +847,7 @@ void OpenSyriaGUI::createTrayIcon()
 #endif
 }
 
-void OpenSyriaGUI::createTrayIconMenu()
+void OpenSYGUI::createTrayIconMenu()
 {
 #ifndef Q_OS_MACOS
     if (!trayIcon) return;
@@ -857,7 +857,7 @@ void OpenSyriaGUI::createTrayIconMenu()
     QAction* show_hide_action{nullptr};
 #ifndef Q_OS_MACOS
     // Note: On macOS, the Dock icon's menu already has Show / Hide action.
-    show_hide_action = trayIconMenu->addAction(QString(), this, &OpenSyriaGUI::toggleHidden);
+    show_hide_action = trayIconMenu->addAction(QString(), this, &OpenSYGUI::toggleHidden);
     trayIconMenu->addSeparator();
 #endif // Q_OS_MACOS
 
@@ -930,12 +930,12 @@ void OpenSyriaGUI::createTrayIconMenu()
         });
 }
 
-void OpenSyriaGUI::optionsClicked()
+void OpenSYGUI::optionsClicked()
 {
     openOptionsDialogWithTab(OptionsDialog::TAB_MAIN);
 }
 
-void OpenSyriaGUI::aboutClicked()
+void OpenSYGUI::aboutClicked()
 {
     if(!clientModel)
         return;
@@ -944,25 +944,25 @@ void OpenSyriaGUI::aboutClicked()
     GUIUtil::ShowModalDialogAsynchronously(dlg);
 }
 
-void OpenSyriaGUI::showDebugWindow()
+void OpenSYGUI::showDebugWindow()
 {
     GUIUtil::bringToFront(rpcConsole);
     Q_EMIT consoleShown(rpcConsole);
 }
 
-void OpenSyriaGUI::showDebugWindowActivateConsole()
+void OpenSYGUI::showDebugWindowActivateConsole()
 {
     rpcConsole->setTabFocus(RPCConsole::TabTypes::CONSOLE);
     showDebugWindow();
 }
 
-void OpenSyriaGUI::showHelpMessageClicked()
+void OpenSYGUI::showHelpMessageClicked()
 {
     GUIUtil::bringToFront(helpMessageDialog);
 }
 
 #ifdef ENABLE_WALLET
-void OpenSyriaGUI::openClicked()
+void OpenSYGUI::openClicked()
 {
     OpenURIDialog dlg(platformStyle, this);
     if(dlg.exec())
@@ -971,46 +971,46 @@ void OpenSyriaGUI::openClicked()
     }
 }
 
-void OpenSyriaGUI::gotoOverviewPage()
+void OpenSYGUI::gotoOverviewPage()
 {
     overviewAction->setChecked(true);
     if (walletFrame) walletFrame->gotoOverviewPage();
 }
 
-void OpenSyriaGUI::gotoHistoryPage()
+void OpenSYGUI::gotoHistoryPage()
 {
     historyAction->setChecked(true);
     if (walletFrame) walletFrame->gotoHistoryPage();
 }
 
-void OpenSyriaGUI::gotoReceiveCoinsPage()
+void OpenSYGUI::gotoReceiveCoinsPage()
 {
     receiveCoinsAction->setChecked(true);
     if (walletFrame) walletFrame->gotoReceiveCoinsPage();
 }
 
-void OpenSyriaGUI::gotoSendCoinsPage(QString addr)
+void OpenSYGUI::gotoSendCoinsPage(QString addr)
 {
     sendCoinsAction->setChecked(true);
     if (walletFrame) walletFrame->gotoSendCoinsPage(addr);
 }
 
-void OpenSyriaGUI::gotoSignMessageTab(QString addr)
+void OpenSYGUI::gotoSignMessageTab(QString addr)
 {
     if (walletFrame) walletFrame->gotoSignMessageTab(addr);
 }
 
-void OpenSyriaGUI::gotoVerifyMessageTab(QString addr)
+void OpenSYGUI::gotoVerifyMessageTab(QString addr)
 {
     if (walletFrame) walletFrame->gotoVerifyMessageTab(addr);
 }
-void OpenSyriaGUI::gotoLoadPSBT(bool from_clipboard)
+void OpenSYGUI::gotoLoadPSBT(bool from_clipboard)
 {
     if (walletFrame) walletFrame->gotoLoadPSBT(from_clipboard);
 }
 #endif // ENABLE_WALLET
 
-void OpenSyriaGUI::updateNetworkState()
+void OpenSYGUI::updateNetworkState()
 {
     if (!clientModel) return;
     int count = clientModel->getNumConnections();
@@ -1028,7 +1028,7 @@ void OpenSyriaGUI::updateNetworkState()
 
     if (m_node.getNetworkActive()) {
         //: A substring of the tooltip.
-        tooltip = tr("%n active connection(s) to OpenSyria network.", "", count);
+        tooltip = tr("%n active connection(s) to OpenSY network.", "", count);
     } else {
         //: A substring of the tooltip.
         tooltip = tr("Network activity disabled.");
@@ -1044,12 +1044,12 @@ void OpenSyriaGUI::updateNetworkState()
     connectionsControl->setThemedPixmap(icon, STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE);
 }
 
-void OpenSyriaGUI::setNumConnections(int count)
+void OpenSYGUI::setNumConnections(int count)
 {
     updateNetworkState();
 }
 
-void OpenSyriaGUI::setNetworkActive(bool network_active)
+void OpenSYGUI::setNetworkActive(bool network_active)
 {
     updateNetworkState();
     m_network_context_menu->clear();
@@ -1069,7 +1069,7 @@ void OpenSyriaGUI::setNetworkActive(bool network_active)
         [this, new_state = !network_active] { m_node.setNetworkActive(new_state); });
 }
 
-void OpenSyriaGUI::updateHeadersSyncProgressLabel()
+void OpenSYGUI::updateHeadersSyncProgressLabel()
 {
     int64_t headersTipTime = clientModel->getHeaderTipTime();
     int headersTipHeight = clientModel->getHeaderTipHeight();
@@ -1078,27 +1078,27 @@ void OpenSyriaGUI::updateHeadersSyncProgressLabel()
         progressBarLabel->setText(tr("Syncing Headers (%1%)…").arg(QString::number(100.0 / (headersTipHeight+estHeadersLeft)*headersTipHeight, 'f', 1)));
 }
 
-void OpenSyriaGUI::updateHeadersPresyncProgressLabel(int64_t height, const QDateTime& blockDate)
+void OpenSYGUI::updateHeadersPresyncProgressLabel(int64_t height, const QDateTime& blockDate)
 {
     int estHeadersLeft = blockDate.secsTo(QDateTime::currentDateTime()) / Params().GetConsensus().nPowTargetSpacing;
     if (estHeadersLeft > HEADER_HEIGHT_DELTA_SYNC)
         progressBarLabel->setText(tr("Pre-syncing Headers (%1%)…").arg(QString::number(100.0 / (height+estHeadersLeft)*height, 'f', 1)));
 }
 
-void OpenSyriaGUI::openOptionsDialogWithTab(OptionsDialog::Tab tab)
+void OpenSYGUI::openOptionsDialogWithTab(OptionsDialog::Tab tab)
 {
     if (!clientModel || !clientModel->getOptionsModel())
         return;
 
     auto dlg = new OptionsDialog(this, enableWallet);
-    connect(dlg, &OptionsDialog::quitOnReset, this, &OpenSyriaGUI::quitRequested);
+    connect(dlg, &OptionsDialog::quitOnReset, this, &OpenSYGUI::quitRequested);
     dlg->setCurrentTab(tab);
     dlg->setClientModel(clientModel);
     dlg->setModel(clientModel->getOptionsModel());
     GUIUtil::ShowModalDialogAsynchronously(dlg);
 }
 
-void OpenSyriaGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVerificationProgress, SyncType synctype, SynchronizationState sync_state)
+void OpenSYGUI::setNumBlocks(int count, const QDateTime& blockDate, double nVerificationProgress, SyncType synctype, SynchronizationState sync_state)
 {
 // Disabling macOS App Nap on initial sync, disk and reindex operations.
 #ifdef Q_OS_MACOS
@@ -1216,17 +1216,17 @@ void OpenSyriaGUI::setNumBlocks(int count, const QDateTime& blockDate, double nV
     progressBar->setToolTip(tooltip);
 }
 
-void OpenSyriaGUI::createWallet()
+void OpenSYGUI::createWallet()
 {
 #ifdef ENABLE_WALLET
     auto activity = new CreateWalletActivity(getWalletController(), this);
-    connect(activity, &CreateWalletActivity::created, this, &OpenSyriaGUI::setCurrentWallet);
+    connect(activity, &CreateWalletActivity::created, this, &OpenSYGUI::setCurrentWallet);
     connect(activity, &CreateWalletActivity::created, rpcConsole, &RPCConsole::setCurrentWallet);
     activity->create();
 #endif // ENABLE_WALLET
 }
 
-void OpenSyriaGUI::message(const QString& title, QString message, unsigned int style, bool* ret, const QString& detailed_message)
+void OpenSYGUI::message(const QString& title, QString message, unsigned int style, bool* ret, const QString& detailed_message)
 {
     // Default title. On macOS, the window title is ignored (as required by the macOS Guidelines).
     QString strTitle{CLIENT_NAME};
@@ -1286,7 +1286,7 @@ void OpenSyriaGUI::message(const QString& title, QString message, unsigned int s
     }
 }
 
-void OpenSyriaGUI::changeEvent(QEvent *e)
+void OpenSYGUI::changeEvent(QEvent *e)
 {
     if (e->type() == QEvent::PaletteChange) {
         overviewAction->setIcon(platformStyle->SingleColorIcon(QStringLiteral(":/icons/overview")));
@@ -1305,12 +1305,12 @@ void OpenSyriaGUI::changeEvent(QEvent *e)
             QWindowStateChangeEvent *wsevt = static_cast<QWindowStateChangeEvent*>(e);
             if(!(wsevt->oldState() & Qt::WindowMinimized) && isMinimized())
             {
-                QTimer::singleShot(0, this, &OpenSyriaGUI::hide);
+                QTimer::singleShot(0, this, &OpenSYGUI::hide);
                 e->ignore();
             }
             else if((wsevt->oldState() & Qt::WindowMinimized) && !isMinimized())
             {
-                QTimer::singleShot(0, this, &OpenSyriaGUI::show);
+                QTimer::singleShot(0, this, &OpenSYGUI::show);
                 e->ignore();
             }
         }
@@ -1318,7 +1318,7 @@ void OpenSyriaGUI::changeEvent(QEvent *e)
 #endif
 }
 
-void OpenSyriaGUI::closeEvent(QCloseEvent *event)
+void OpenSYGUI::closeEvent(QCloseEvent *event)
 {
 #ifndef Q_OS_MACOS // Ignored on Mac
     if(clientModel && clientModel->getOptionsModel())
@@ -1341,7 +1341,7 @@ void OpenSyriaGUI::closeEvent(QCloseEvent *event)
 #endif
 }
 
-void OpenSyriaGUI::showEvent(QShowEvent *event)
+void OpenSYGUI::showEvent(QShowEvent *event)
 {
     // enable the debug window when the main window shows up
     openRPCConsoleAction->setEnabled(true);
@@ -1350,11 +1350,11 @@ void OpenSyriaGUI::showEvent(QShowEvent *event)
 }
 
 #ifdef ENABLE_WALLET
-void OpenSyriaGUI::incomingTransaction(const QString& date, OpenSyriaUnit unit, const CAmount& amount, const QString& type, const QString& address, const QString& label, const QString& walletName)
+void OpenSYGUI::incomingTransaction(const QString& date, OpenSYUnit unit, const CAmount& amount, const QString& type, const QString& address, const QString& label, const QString& walletName)
 {
     // On new transaction, make an info balloon
     QString msg = tr("Date: %1\n").arg(date) +
-                  tr("Amount: %1\n").arg(OpenSyriaUnits::formatWithUnit(unit, amount, true));
+                  tr("Amount: %1\n").arg(OpenSYUnits::formatWithUnit(unit, amount, true));
     if (m_node.walletLoader().getWallets().size() > 1 && !walletName.isEmpty()) {
         msg += tr("Wallet: %1\n").arg(walletName);
     }
@@ -1368,14 +1368,14 @@ void OpenSyriaGUI::incomingTransaction(const QString& date, OpenSyriaUnit unit, 
 }
 #endif // ENABLE_WALLET
 
-void OpenSyriaGUI::dragEnterEvent(QDragEnterEvent *event)
+void OpenSYGUI::dragEnterEvent(QDragEnterEvent *event)
 {
     // Accept only URIs
     if(event->mimeData()->hasUrls())
         event->acceptProposedAction();
 }
 
-void OpenSyriaGUI::dropEvent(QDropEvent *event)
+void OpenSYGUI::dropEvent(QDropEvent *event)
 {
     if(event->mimeData()->hasUrls())
     {
@@ -1387,7 +1387,7 @@ void OpenSyriaGUI::dropEvent(QDropEvent *event)
     event->acceptProposedAction();
 }
 
-bool OpenSyriaGUI::eventFilter(QObject *object, QEvent *event)
+bool OpenSYGUI::eventFilter(QObject *object, QEvent *event)
 {
     // Catch status tip events
     if (event->type() == QEvent::StatusTip)
@@ -1400,7 +1400,7 @@ bool OpenSyriaGUI::eventFilter(QObject *object, QEvent *event)
 }
 
 #ifdef ENABLE_WALLET
-bool OpenSyriaGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
+bool OpenSYGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
 {
     // URI has to be valid
     if (walletFrame && walletFrame->handlePaymentRequest(recipient))
@@ -1412,14 +1412,14 @@ bool OpenSyriaGUI::handlePaymentRequest(const SendCoinsRecipient& recipient)
     return false;
 }
 
-void OpenSyriaGUI::setHDStatus(bool privkeyDisabled, int hdEnabled)
+void OpenSYGUI::setHDStatus(bool privkeyDisabled, int hdEnabled)
 {
     labelWalletHDStatusIcon->setThemedPixmap(privkeyDisabled ? QStringLiteral(":/icons/eye") : hdEnabled ? QStringLiteral(":/icons/hd_enabled") : QStringLiteral(":/icons/hd_disabled"), STATUSBAR_ICONSIZE, STATUSBAR_ICONSIZE);
     labelWalletHDStatusIcon->setToolTip(privkeyDisabled ? tr("Private key <b>disabled</b>") : hdEnabled ? tr("HD key generation is <b>enabled</b>") : tr("HD key generation is <b>disabled</b>"));
     labelWalletHDStatusIcon->show();
 }
 
-void OpenSyriaGUI::setEncryptionStatus(int status)
+void OpenSYGUI::setEncryptionStatus(int status)
 {
     switch(status)
     {
@@ -1454,7 +1454,7 @@ void OpenSyriaGUI::setEncryptionStatus(int status)
     }
 }
 
-void OpenSyriaGUI::updateWalletStatus()
+void OpenSYGUI::updateWalletStatus()
 {
     assert(walletFrame);
 
@@ -1468,7 +1468,7 @@ void OpenSyriaGUI::updateWalletStatus()
 }
 #endif // ENABLE_WALLET
 
-void OpenSyriaGUI::updateProxyIcon()
+void OpenSYGUI::updateProxyIcon()
 {
     std::string ip_port;
     bool proxy_enabled = clientModel->getProxyInfo(ip_port);
@@ -1486,7 +1486,7 @@ void OpenSyriaGUI::updateProxyIcon()
     }
 }
 
-void OpenSyriaGUI::updateWindowTitle()
+void OpenSYGUI::updateWindowTitle()
 {
     QString window_title = CLIENT_NAME;
 #ifdef ENABLE_WALLET
@@ -1503,7 +1503,7 @@ void OpenSyriaGUI::updateWindowTitle()
     setWindowTitle(window_title);
 }
 
-void OpenSyriaGUI::showNormalIfMinimized(bool fToggleHidden)
+void OpenSYGUI::showNormalIfMinimized(bool fToggleHidden)
 {
     if(!clientModel)
         return;
@@ -1515,12 +1515,12 @@ void OpenSyriaGUI::showNormalIfMinimized(bool fToggleHidden)
     }
 }
 
-void OpenSyriaGUI::toggleHidden()
+void OpenSYGUI::toggleHidden()
 {
     showNormalIfMinimized(true);
 }
 
-void OpenSyriaGUI::detectShutdown()
+void OpenSYGUI::detectShutdown()
 {
     if (m_node.shutdownRequested())
     {
@@ -1530,7 +1530,7 @@ void OpenSyriaGUI::detectShutdown()
     }
 }
 
-void OpenSyriaGUI::showProgress(const QString &title, int nProgress)
+void OpenSYGUI::showProgress(const QString &title, int nProgress)
 {
     if (nProgress == 0) {
         progressDialog = new QProgressDialog(title, QString(), 0, 100);
@@ -1549,13 +1549,13 @@ void OpenSyriaGUI::showProgress(const QString &title, int nProgress)
     }
 }
 
-void OpenSyriaGUI::showModalOverlay()
+void OpenSYGUI::showModalOverlay()
 {
     if (modalOverlay && (progressBar->isVisible() || modalOverlay->isLayerVisible()))
         modalOverlay->toggleVisibility();
 }
 
-static bool ThreadSafeMessageBox(OpenSyriaGUI* gui, const bilingual_str& message, const std::string& caption, unsigned int style)
+static bool ThreadSafeMessageBox(OpenSYGUI* gui, const bilingual_str& message, const std::string& caption, unsigned int style)
 {
     bool modal = (style & CClientUIInterface::MODAL);
     // The SECURE flag has no effect in the Qt GUI.
@@ -1565,7 +1565,7 @@ static bool ThreadSafeMessageBox(OpenSyriaGUI* gui, const bilingual_str& message
 
     QString detailed_message; // This is original message, in English, for googling and referencing.
     if (message.original != message.translated) {
-        detailed_message = OpenSyriaGUI::tr("Original message:") + "\n" + QString::fromStdString(message.original);
+        detailed_message = OpenSYGUI::tr("Original message:") + "\n" + QString::fromStdString(message.original);
     }
 
     // In case of modal message, use blocking connection to wait for user to click a button
@@ -1580,21 +1580,21 @@ static bool ThreadSafeMessageBox(OpenSyriaGUI* gui, const bilingual_str& message
     return ret;
 }
 
-void OpenSyriaGUI::subscribeToCoreSignals()
+void OpenSYGUI::subscribeToCoreSignals()
 {
     // Connect signals to client
     m_handler_message_box = m_node.handleMessageBox(std::bind(ThreadSafeMessageBox, this, std::placeholders::_1, std::placeholders::_2, std::placeholders::_3));
     m_handler_question = m_node.handleQuestion(std::bind(ThreadSafeMessageBox, this, std::placeholders::_1, std::placeholders::_3, std::placeholders::_4));
 }
 
-void OpenSyriaGUI::unsubscribeFromCoreSignals()
+void OpenSYGUI::unsubscribeFromCoreSignals()
 {
     // Disconnect signals from client
     m_handler_message_box->disconnect();
     m_handler_question->disconnect();
 }
 
-bool OpenSyriaGUI::isPrivacyModeActivated() const
+bool OpenSYGUI::isPrivacyModeActivated() const
 {
     assert(m_mask_values_action);
     return m_mask_values_action->isChecked();
@@ -1605,11 +1605,11 @@ UnitDisplayStatusBarControl::UnitDisplayStatusBarControl(const PlatformStyle* pl
 {
     createContextMenu();
     setToolTip(tr("Unit to show amounts in. Click to select another unit."));
-    QList<OpenSyriaUnit> units = OpenSyriaUnits::availableUnits();
+    QList<OpenSYUnit> units = OpenSYUnits::availableUnits();
     int max_width = 0;
     const QFontMetrics fm(font());
-    for (const OpenSyriaUnit unit : units) {
-        max_width = qMax(max_width, GUIUtil::TextWidth(fm, OpenSyriaUnits::longName(unit)));
+    for (const OpenSYUnit unit : units) {
+        max_width = qMax(max_width, GUIUtil::TextWidth(fm, OpenSYUnits::longName(unit)));
     }
     setMinimumSize(max_width, 0);
     setAlignment(Qt::AlignRight | Qt::AlignVCenter);
@@ -1638,8 +1638,8 @@ void UnitDisplayStatusBarControl::changeEvent(QEvent* e)
 void UnitDisplayStatusBarControl::createContextMenu()
 {
     menu = new QMenu(this);
-    for (const OpenSyriaUnit u : OpenSyriaUnits::availableUnits()) {
-        menu->addAction(OpenSyriaUnits::longName(u))->setData(QVariant::fromValue(u));
+    for (const OpenSYUnit u : OpenSYUnits::availableUnits()) {
+        menu->addAction(OpenSYUnits::longName(u))->setData(QVariant::fromValue(u));
     }
     connect(menu, &QMenu::triggered, this, &UnitDisplayStatusBarControl::onMenuSelection);
 }
@@ -1660,9 +1660,9 @@ void UnitDisplayStatusBarControl::setOptionsModel(OptionsModel *_optionsModel)
 }
 
 /** When Display Units are changed on OptionsModel it will refresh the display text of the control on the status bar */
-void UnitDisplayStatusBarControl::updateDisplayUnit(OpenSyriaUnit newUnits)
+void UnitDisplayStatusBarControl::updateDisplayUnit(OpenSYUnit newUnits)
 {
-    setText(OpenSyriaUnits::longName(newUnits));
+    setText(OpenSYUnits::longName(newUnits));
 }
 
 /** Shows context menu with Display Unit options by the mouse coordinates */

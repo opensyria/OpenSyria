@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_SCRIPT_SIGNINGPROVIDER_H
-#define OPENSYRIA_SCRIPT_SIGNINGPROVIDER_H
+#ifndef OPENSY_SCRIPT_SIGNINGPROVIDER_H
+#define OPENSY_SCRIPT_SIGNINGPROVIDER_H
 
 #include <addresstype.h>
 #include <attributes.h>
@@ -337,4 +337,4 @@ public:
     bool GetTaprootBuilder(const XOnlyPubKey& output_key, TaprootBuilder& builder) const override;
 };
 
-#endif // OPENSYRIA_SCRIPT_SIGNINGPROVIDER_H
+#endif // OPENSY_SCRIPT_SIGNINGPROVIDER_H

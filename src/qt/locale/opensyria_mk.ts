@@ -54,11 +54,11 @@
         <translation type="unfinished">Избери</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Ова се вашите OpenSyria-адреси за испраќање плаќања. Секогаш проверувајте ја количината и адресите за примање пред да испраќате монети.</translation>
+        <source>These are your OpenSY addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Ова се вашите OpenSY-адреси за испраќање плаќања. Секогаш проверувајте ја количината и адресите за примање пред да испраќате монети.</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your OpenSY addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Ова се вашите биткоин-адреси за примање плаќања. Користете го копчето „Создавање нови адреси“ во јазичето за примање за да создадете нови адреси. Потпишувањето е можно само со „наследни“ адреси.</translation>
     </message>
@@ -235,7 +235,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>OpenSyriaApplication</name>
+    <name>OpenSYApplication</name>
     <message>
         <source>Settings file %1 might be corrupt or invalid.</source>
         <translation type="unfinished">Датотеката со поставки %1 може да е оштетена или неважечка.</translation>
@@ -367,7 +367,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>OpenSyriaGUI</name>
+    <name>OpenSYGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation type="unfinished">Преглед</translation>
@@ -434,7 +434,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Проксито е &lt;b&gt;дозволено&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a OpenSyria address</source>
+        <source>Send coins to a OpenSY address</source>
         <translation type="unfinished">Испрати биткоини на биткоин-адреса</translation>
     </message>
     <message>
@@ -478,7 +478,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Потпиши &amp;порака...</translation>
     </message>
     <message>
-        <source>Sign messages with your OpenSyria addresses to prove you own them</source>
+        <source>Sign messages with your OpenSY addresses to prove you own them</source>
         <translation type="unfinished">Напишете пораки со вашата биткоин-адреса за да докажете дека е ваша.</translation>
     </message>
     <message>
@@ -486,7 +486,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;Потврди порака...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified OpenSyria addresses</source>
+        <source>Verify messages to ensure they were signed with specified OpenSY addresses</source>
         <translation type="unfinished">Потврдување на пораките за да се знае дека се напишани со дадените биткоин-адреси.</translation>
     </message>
     <message>
@@ -546,7 +546,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Поврзување со врсници...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and opensyria: URIs)</source>
+        <source>Request payments (generates QR codes and opensy: URIs)</source>
         <translation type="unfinished">Барање за плаќања (создава QR-кодови и биткоин: URI)</translation>
     </message>
     <message>
@@ -602,7 +602,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Во тек</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction</source>
+        <source>Load Partially Signed OpenSY Transaction</source>
         <translation type="unfinished">Вчитајте делумно потпишана биткоин-трансакција</translation>
     </message>
     <message>
@@ -610,7 +610,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Вчитајте PSBT од &amp;клипбордот...</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction from clipboard</source>
+        <source>Load Partially Signed OpenSY Transaction from clipboard</source>
         <translation type="unfinished">Вчитајте делумно потпишана биткоин-трансакција од клипбордот</translation>
     </message>
     <message>
@@ -630,7 +630,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;Примање на адреси</translation>
     </message>
     <message>
-        <source>Open a opensyria: URI</source>
+        <source>Open a opensy: URI</source>
         <translation type="unfinished">Отвори биткоин: URI</translation>
     </message>
     <message>
@@ -660,7 +660,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Затвори ги сите паричници</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible OpenSyria command-line options</source>
+        <source>Show the %1 help message to get a list with possible OpenSY command-line options</source>
         <translation type="unfinished">Прикажи %1 помошна порака за да добиеш список на можни биткоин-команди.</translation>
     </message>
     <message>
@@ -720,7 +720,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;Покажи</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to OpenSyria network.</source>
+        <source>%n active connection(s) to OpenSY network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />
@@ -957,7 +957,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
 <context>
     <name>Intro</name>
     <message>
-        <source>OpenSyria</source>
+        <source>OpenSY</source>
         <translation type="unfinished">Биткоин</translation>
     </message>
     <message numerus="yes">
@@ -1349,7 +1349,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     </context>
 <context>
-    <name>opensyria-core</name>
+    <name>opensy-core</name>
     <message>
         <source>default wallet</source>
         <translation type="unfinished">Паричник по подразбирање</translation>

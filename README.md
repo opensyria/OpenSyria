@@ -1,4 +1,4 @@
-OpenSyria Core
+OpenSY
 =====================================
 
 <p align="center">
@@ -18,31 +18,31 @@ OpenSyria Core
 |--------|-------|
 | **Status** | ✅ Mainnet Active |
 | **Launch Date** | December 8, 2025 |
-| **Seed Node** | `seed.opensyria.net` |
-| **Block Explorer** | 🔍 [explorer.opensyria.net](https://explorer.opensyria.net) |
-| **Website** | 🌐 [opensyria.net](https://opensyria.net) |
+| **Seed Node** | `seed.opensy.net` |
+| **Block Explorer** | 🔍 [explorer.opensy.net](https://explorer.opensy.net) |
+| **Website** | 🌐 [opensy.net](https://opensy.net) |
 
 ## Quick Start
 
 ```bash
 # Clone the repository
-git clone https://github.com/opensyria/OpenSyria.git
-cd OpenSyria
+git clone https://github.com/opensy/OpenSY.git
+cd OpenSY
 
 # Build
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
 
 # Run a node
-./build/bin/opensyriad -daemon -addnode=node1.opensyria.net
+./build/bin/opensyd -daemon -addnode=node1.opensy.net
 
 # Check sync status
-./build/bin/opensyria-cli getblockchaininfo
+./build/bin/opensy-cli getblockchaininfo
 ```
 
-## What is OpenSyria?
+## What is OpenSY?
 
-OpenSyria (SYL) is a cryptocurrency forked from Bitcoin Core, created to support
+OpenSY (SYL) is a cryptocurrency forked from Bitcoin Core, created to support
 the Syrian community with a modern, decentralized digital currency. It maintains
 Bitcoin's proven security model while introducing Syria-specific customizations.
 
@@ -71,7 +71,7 @@ Bitcoin's proven security model while introducing Syria-specific customizations.
 
 ### ⚡ RandomX - CPU-Friendly Mining from Day One
 
-**OpenSyria uses RandomX proof-of-work from block 1!**
+**OpenSY uses RandomX proof-of-work from block 1!**
 
 | Block | Algorithm | Hardware |
 |-------|-----------|----------|
@@ -90,13 +90,13 @@ RandomX is an ASIC-resistant, CPU-optimized algorithm (used by Monero). This mak
 ### Solo Mining (CPU)
 ```bash
 # Create a wallet
-./build/bin/opensyria-cli createwallet "my-wallet"
+./build/bin/opensy-cli createwallet "my-wallet"
 
 # Get a mining address
-./build/bin/opensyria-cli getnewaddress "mining"
+./build/bin/opensy-cli getnewaddress "mining"
 
 # Mine blocks (CPU mining)
-./build/bin/opensyria-cli generatetoaddress 10 ADDRESS
+./build/bin/opensy-cli generatetoaddress 10 ADDRESS
 ```
 
 ### CPU Mining Hardware
@@ -111,7 +111,7 @@ For optimal mining, consider high-core-count CPUs:
 # Build and mine
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
-./build/bin/opensyria-cli generatetoaddress 100 YOUR_ADDRESS
+./build/bin/opensy-cli generatetoaddress 100 YOUR_ADDRESS
 ```
 
 > **Note:** Block rewards require 100 confirmations (~3.3 hours) to mature.
@@ -126,15 +126,15 @@ cmake --build build -j$(nproc)
 
 ## Connect
 
-- **Website:** https://opensyria.net
-- **Explorer:** https://explorer.opensyria.net
-- **GitHub:** https://github.com/opensyria/OpenSyria
-- **DNS Seed:** seed.opensyria.net:9633
+- **Website:** https://opensy.net
+- **Explorer:** https://explorer.opensy.net
+- **GitHub:** https://github.com/opensy/OpenSY
+- **DNS Seed:** seed.opensy.net:9633
 - **Primary Node:** 157.175.40.131:9633
 
 ## License
 
-OpenSyria Core is released under the terms of the MIT license. See [COPYING](COPYING) for more
+OpenSY is released under the terms of the MIT license. See [COPYING](COPYING) for more
 information or see https://opensource.org/license/MIT.
 
 ---

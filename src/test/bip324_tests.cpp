@@ -1,5 +1,5 @@
 // Copyright (c) 2023 The Bitcoin Core developers
-// Copyright (c) 2024 The OpenSyria Core developers
+// Copyright (c) 2024 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -27,10 +27,10 @@ BOOST_AUTO_TEST_CASE(packet_test_vectors) {
     // as that is what the test vectors are written for.
     SelectParams(ChainType::MAIN);
 
-    // OpenSyria BIP324 test vector
-    // Generated using OpenSyria's HKDF salt: "opensyria_v2_shared_secret" + 0x53594c4d
+    // OpenSY BIP324 test vector
+    // Generated using OpenSY's HKDF salt: "opensy_v2_shared_secret" + 0x53594c4d
     // Input keys are from Bitcoin's BIP324 test vectors (first vector)
-    // Output values (session_id, garbage terminators, ciphertext) are OpenSyria-specific
+    // Output values (session_id, garbage terminators, ciphertext) are OpenSY-specific
     
     // Input parameters
     const uint32_t in_idx = 1;
@@ -40,7 +40,7 @@ BOOST_AUTO_TEST_CASE(packet_test_vectors) {
     const bool in_initiating = true;
     const auto in_contents = ParseHex<std::byte>("8e");
     
-    // Expected outputs (OpenSyria-specific)
+    // Expected outputs (OpenSY-specific)
     const auto expected_send_garbage = ParseHex<std::byte>("1b4f4037feef79e9389c7f6646451d92");
     const auto expected_recv_garbage = ParseHex<std::byte>("85004b90f2543551b40f0b78016b4f91");
     const auto expected_session_id = ParseHex<std::byte>("fea954a1c326a6648a898908bf0c3d7a8c6e489e8937864cc880f58c0b9cf707");

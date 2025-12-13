@@ -2,12 +2,12 @@
 
 ## Supported Versions
 
-See our website for versions of OpenSyria Core that are currently supported with
-security updates: https://opensyria.net/en/lifecycle/#schedule
+See our website for versions of OpenSY that are currently supported with
+security updates: https://opensy.net/en/lifecycle/#schedule
 
 ## Reporting a Vulnerability
 
-To report security issues send an email to security@opensyria.net (not for support).
+To report security issues send an email to security@opensy.net (not for support).
 
 **Please do not report security vulnerabilities through public GitHub issues.**
 
@@ -34,21 +34,21 @@ We kindly ask that you:
 
 ## Security Contacts
 
-The OpenSyria Core security team can be reached at:
+The OpenSY security team can be reached at:
 
 | Contact | Email |
 |---------|-------|
-| Security Team | security@opensyria.net |
+| Security Team | security@opensy.net |
 
 <!-- TODO: Add GPG keys for encrypted communication once team keys are established -->
 
 ## Bug Bounty
 
 We are currently establishing a bug bounty program. Details will be announced at
-https://opensyria.net/security/ once available.
+https://opensy.net/security/ once available.
 
 ## Acknowledgments
 
-We appreciate the security research community's efforts in helping keep OpenSyria safe.
+We appreciate the security research community's efforts in helping keep OpenSY safe.
 Reporters who follow responsible disclosure guidelines will be credited (with permission)
 in our security advisories.

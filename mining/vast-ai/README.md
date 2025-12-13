@@ -1,4 +1,4 @@
-# OpenSyria Mining on Vast.ai - Quick Start Guide
+# OpenSY Mining on Vast.ai - Quick Start Guide
 
 > **Last Updated:** December 9, 2025
 > **Block Reward:** 500 SYL
@@ -41,7 +41,7 @@
 SSH into your Vast.ai instance and run this one-liner:
 
 ```bash
-curl -sSL https://raw.githubusercontent.com/opensyria/OpenSyria/main/mining/vast-ai/setup.sh | bash
+curl -sSL https://raw.githubusercontent.com/opensy/OpenSY/main/mining/vast-ai/setup.sh | bash
 ```
 
 Or manually:
@@ -55,35 +55,35 @@ SSH into your Vast.ai instance and run:
 apt-get update && apt-get install -y git build-essential cmake libboost-all-dev \
   libevent-dev libssl-dev libsqlite3-dev jq screen
 
-# 2. Clone and build OpenSyria
+# 2. Clone and build OpenSY
 cd /root
-git clone https://github.com/opensyria/OpenSyria.git
-cd OpenSyria
+git clone https://github.com/opensy/OpenSY.git
+cd OpenSY
 cmake -B build -DBUILD_DAEMON=ON -DBUILD_CLI=ON -DBUILD_TESTS=OFF -DBUILD_GUI=OFF
 cmake --build build -j$(nproc)
 
 # 3. Create config
-mkdir -p ~/.opensyria
-cat > ~/.opensyria/opensyria.conf << 'EOF'
+mkdir -p ~/.opensy
+cat > ~/.opensy/opensy.conf << 'EOF'
 server=1
 daemon=0
 printtoconsole=1
 addnode=157.175.40.131:9633
-addnode=seed.opensyria.net:9633
+addnode=seed.opensy.net:9633
 rpcuser=miner
 rpcpassword=minerpass123
 rpcallowip=127.0.0.1
 EOF
 
 # 4. Start daemon in background
-screen -dmS opensyriad ./build/bin/opensyriad -printtoconsole
+screen -dmS opensyd ./build/bin/opensyd -printtoconsole
 
 # 5. Wait for sync (usually fast, ~1-2 minutes)
 sleep 30
-./build/bin/opensyria-cli getblockchaininfo
+./build/bin/opensy-cli getblockchaininfo
 
 # 6. Start mining in a screen session
-screen -dmS miner bash -c 'while true; do ./build/bin/opensyria-cli generatetoaddress 1 syl1q0y76xxxdfvhfad2sju4fymnsn8zs5lndpwhufw 500000000 2>/dev/null || sleep 5; done'
+screen -dmS miner bash -c 'while true; do ./build/bin/opensy-cli generatetoaddress 1 syl1q0y76xxxdfvhfad2sju4fymnsn8zs5lndpwhufw 500000000 2>/dev/null || sleep 5; done'
 
 # 7. Monitor mining
 screen -r miner  # Ctrl+A, D to detach
@@ -97,16 +97,16 @@ screen -r miner  # Ctrl+A, D to detach
 screen -r miner
 
 # Check block count
-./build/bin/opensyria-cli getblockcount
+./build/bin/opensy-cli getblockcount
 
 # Check network hashrate
-./build/bin/opensyria-cli getmininginfo
+./build/bin/opensy-cli getmininginfo
 ```
 
 ### Check balance on AWS main node:
 ```bash
 ssh ubuntu@157.175.40.131
-opensyria-cli -rpcwallet=founders-wallet getbalance
+opensy-cli -rpcwallet=founders-wallet getbalance
 ```
 
 ## Competition Analysis
@@ -134,7 +134,7 @@ Current competitor: `syl1qckjw8ardqpt6zcw9aylckxfw62swzq7gkjm794`
 |------|-------|
 | **Mining Address** | `syl1q0y76xxxdfvhfad2sju4fymnsn8zs5lndpwhufw` |
 | **Seed Node** | `157.175.40.131:9633` |
-| **DNS Seed** | `seed.opensyria.net` |
+| **DNS Seed** | `seed.opensy.net` |
 | **Block Reward** | 500 SYL |
 | **Block Time** | ~10 minutes |
 | **Current Difficulty** | 1 |
@@ -151,8 +151,8 @@ At current rates (December 2025):
 ### "Connection refused" error
 ```bash
 # Restart daemon
-pkill opensyriad
-screen -dmS opensyriad ./build/bin/opensyriad -printtoconsole
+pkill opensyd
+screen -dmS opensyd ./build/bin/opensyd -printtoconsole
 sleep 30
 ```
 

@@ -54,11 +54,11 @@
         <translation type="unfinished">ምረጥ</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your OpenSY addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished">ክፍያዎችን ለመላክ እነዚህ  የእርስዎ ቢትኮይን አድራሻዎች ናቸው። ሳንቲሞችን/ኮይኖች ከመላክዎ በፊት ሁል ጊዜ መጠኑን እና የተቀባዩን አድራሻ ያረጋግጡ።</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your OpenSY addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">እነኚህ የቢትኮይን አድራሻዎች የክፍያ መቀበያ አድራሻዎችዎ ናችው። "ተቀበል" በሚለው መደብ ውስጥ ያለውን "አዲስ የመቀበያ አድራሻ ይፍጠሩ" የሚለውን አዝራር ይጠቀሙ።
 መፈረም የሚቻለው "ሌጋሲ" በሚል ምድብ ስር በተመደቡ አድራሻዎች ብቻ ነው።</translation>
@@ -232,7 +232,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>OpenSyriaApplication</name>
+    <name>OpenSYApplication</name>
     <message>
         <source>Internal error</source>
         <translation type="unfinished">ውስጣዊ ስህተት</translation>
@@ -317,7 +317,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>OpenSyriaGUI</name>
+    <name>OpenSYGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation type="unfinished">&amp;አጠቃላይ እይታ</translation>
@@ -379,8 +379,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;የይለፍ ቃል ቀይር…</translation>
     </message>
     <message>
-        <source>Sign messages with your OpenSyria addresses to prove you own them</source>
-        <translation type="unfinished">በእርሶ የተያዙ መሆኑን ለማረጋገጥ በOpenSyria አድራሻዎችዎ መልዕክቶችን ይፈርሙ</translation>
+        <source>Sign messages with your OpenSY addresses to prove you own them</source>
+        <translation type="unfinished">በእርሶ የተያዙ መሆኑን ለማረጋገጥ በOpenSY አድራሻዎችዎ መልዕክቶችን ይፈርሙ</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -443,11 +443,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">እሳድግ</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to OpenSyria network.</source>
+        <source>%n active connection(s) to OpenSY network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n active connection(s) to OpenSyria network.</numerusform>
-            <numerusform>%n active connection(s) to OpenSyria network.</numerusform>
+            <numerusform>%n active connection(s) to OpenSY network.</numerusform>
+            <numerusform>%n active connection(s) to OpenSY network.</numerusform>
         </translation>
     </message>
     <message>
@@ -618,7 +618,7 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">እንኳን  ወድ %1 በደህና መጣህ።</translation>
     </message>
     <message>
-        <source>OpenSyria</source>
+        <source>OpenSY</source>
         <translation type="unfinished">ቢትኮይን</translation>
     </message>
     <message numerus="yes">
@@ -710,8 +710,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">የአካባቢ አድራሻዎች</translation>
     </message>
     <message>
-        <source>Network addresses that your OpenSyria node is currently using to communicate with other nodes.</source>
-        <translation type="unfinished">የእርስዎ OpenSyria ኖድ ከሌሎች ኖዶች ጋር ለመገናኘት በአሁኑ ጊዜ እየተጠቀመበት ያለው የአውታረ መረብ አድራሻ።</translation>
+        <source>Network addresses that your OpenSY node is currently using to communicate with other nodes.</source>
+        <translation type="unfinished">የእርስዎ OpenSY ኖድ ከሌሎች ኖዶች ጋር ለመገናኘት በአሁኑ ጊዜ እየተጠቀመበት ያለው የአውታረ መረብ አድራሻ።</translation>
     </message>
     <message>
         <source>Hide Peers Detail</source>
@@ -927,7 +927,7 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     </context>
 <context>
-    <name>opensyria-core</name>
+    <name>opensy-core</name>
     <message>
         <source>default wallet</source>
         <translation type="unfinished">መደበኛ ዋሌት</translation>

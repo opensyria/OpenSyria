@@ -1,9 +1,9 @@
-// Copyright (c) 2023 The OpenSyria Core developers
+// Copyright (c) 2023 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_KERNEL_CS_MAIN_H
-#define OPENSYRIA_KERNEL_CS_MAIN_H
+#ifndef OPENSY_KERNEL_CS_MAIN_H
+#define OPENSY_KERNEL_CS_MAIN_H
 
 #include <sync.h>
 
@@ -19,4 +19,4 @@
  */
 extern RecursiveMutex cs_main;
 
-#endif // OPENSYRIA_KERNEL_CS_MAIN_H
+#endif // OPENSY_KERNEL_CS_MAIN_H

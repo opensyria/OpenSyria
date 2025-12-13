@@ -1,10 +1,10 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2012-2022 The OpenSyria Core developers
+// Copyright (c) 2012-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_NODE_INTERFACE_UI_H
-#define OPENSYRIA_NODE_INTERFACE_UI_H
+#ifndef OPENSY_NODE_INTERFACE_UI_H
+#define OPENSY_NODE_INTERFACE_UI_H
 
 #include <cstdint>
 #include <functional>
@@ -121,4 +121,4 @@ bool InitError(const bilingual_str& str, const std::vector<std::string>& details
 
 extern CClientUIInterface uiInterface;
 
-#endif // OPENSYRIA_NODE_INTERFACE_UI_H
+#endif // OPENSY_NODE_INTERFACE_UI_H

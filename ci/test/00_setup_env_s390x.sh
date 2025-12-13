@@ -11,10 +11,10 @@ export PACKAGES="python3-zmq"
 export CONTAINER_NAME=ci_s390x
 export CI_IMAGE_NAME_TAG="mirror.gcr.io/ubuntu:24.04"
 export CI_IMAGE_PLATFORM="linux/s390x"
-export TEST_RUNNER_EXTRA="--exclude rpc_bind,feature_bind_extra"  # Excluded for now, see https://github.com/opensyria/opensyria/issues/17765#issuecomment-602068547
+export TEST_RUNNER_EXTRA="--exclude rpc_bind,feature_bind_extra"  # Excluded for now, see https://github.com/opensy/opensy/issues/17765#issuecomment-602068547
 export RUN_FUNCTIONAL_TESTS=true
 export GOAL="install"
-export OPENSYRIA_CONFIG="\
+export OPENSY_CONFIG="\
   --preset=dev-mode \
   -DREDUCE_EXPORTS=ON \
 "

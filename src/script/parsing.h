@@ -1,9 +1,9 @@
-// Copyright (c) 2018-present The OpenSyria Core developers
+// Copyright (c) 2018-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_SCRIPT_PARSING_H
-#define OPENSYRIA_SCRIPT_PARSING_H
+#ifndef OPENSY_SCRIPT_PARSING_H
+#define OPENSY_SCRIPT_PARSING_H
 
 #include <span.h>
 
@@ -37,4 +37,4 @@ std::span<const char> Expr(std::span<const char>& sp);
 
 } // namespace script
 
-#endif // OPENSYRIA_SCRIPT_PARSING_H
+#endif // OPENSY_SCRIPT_PARSING_H

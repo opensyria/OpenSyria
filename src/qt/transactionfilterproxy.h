@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2021 The OpenSyria Core developers
+// Copyright (c) 2011-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_TRANSACTIONFILTERPROXY_H
-#define OPENSYRIA_QT_TRANSACTIONFILTERPROXY_H
+#ifndef OPENSY_QT_TRANSACTIONFILTERPROXY_H
+#define OPENSY_QT_TRANSACTIONFILTERPROXY_H
 
 #include <consensus/amount.h>
 
@@ -49,4 +49,4 @@ private:
     bool showInactive{true};
 };
 
-#endif // OPENSYRIA_QT_TRANSACTIONFILTERPROXY_H
+#endif // OPENSY_QT_TRANSACTIONFILTERPROXY_H

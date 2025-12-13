@@ -1,6 +1,6 @@
-# User-space, Statically Defined Tracing (USDT) for OpenSyria Core
+# User-space, Statically Defined Tracing (USDT) for OpenSY
 
-OpenSyria Core includes statically defined tracepoints to allow for more
+OpenSY includes statically defined tracepoints to allow for more
 observability during development, debugging, code review, and production usage.
 These tracepoints make it possible to keep track of custom statistics and
 enable detailed monitoring of otherwise hidden internals. They have
@@ -11,7 +11,7 @@ eBPF and USDT Overview
 ======================
 
                 ┌──────────────────┐            ┌──────────────┐
-                │ tracing script   │            │ opensyriad     │
+                │ tracing script   │            │ opensyd     │
                 │==================│      2.    │==============│
                 │  eBPF  │ tracing │      hooks │              │
                 │  code  │ logic   │      into┌─┤►tracepoint 1─┼───┐ 3.
@@ -171,7 +171,7 @@ Arguments passed:
 
 The following tracepoints cover the in-memory UTXO cache. UTXOs are, for example,
 added to and removed (spent) from the cache when we connect a new block.
-**Note**: OpenSyria Core uses temporary clones of the _main_ UTXO cache
+**Note**: OpenSY uses temporary clones of the _main_ UTXO cache
 (`chainstate.CoinsTip()`). For example, the RPCs `generateblock` and
 `getblocktemplate` call `TestBlockValidity()`, which applies the UTXO set
 changes to a temporary cache. Similarly, mempool consistency checks, which are
@@ -323,7 +323,7 @@ Arguments passed:
 1. Transaction ID (hash) as `pointer to unsigned chars` (i.e. 32 bytes in little-endian)
 2. Reject reason as `pointer to C-style String` (max. length 118 characters)
 
-## Adding tracepoints to OpenSyria Core
+## Adding tracepoints to OpenSY
 
 Use the `TRACEPOINT` macro to add a new tracepoint. If not yet included, include
 `util/trace.h` (defines the tracepoint macros) with `#include <util/trace.h>`.
@@ -422,31 +422,31 @@ maximum expected string size if known.
 
 ## Listing available tracepoints
 
-Multiple tools can list the available tracepoints in a `opensyriad` binary with
+Multiple tools can list the available tracepoints in a `opensyd` binary with
 USDT support.
 
 ### GDB - GNU Project Debugger
 
-To list probes in OpenSyria Core, use `info probes` in `gdb`:
+To list probes in OpenSY, use `info probes` in `gdb`:
 
 ```
-$ gdb ./build/bin/opensyriad
+$ gdb ./build/bin/opensyd
 …
 (gdb) info probes
 Type Provider   Name             Where              Semaphore Object
-stap net        inbound_message  0x000000000014419e 0x0000000000d29bd2 /build/bin/opensyriad
-stap net        outbound_message 0x0000000000107c05 0x0000000000d29bd0 /build/bin/opensyriad
-stap validation block_connected  0x00000000002fb10c 0x0000000000d29bd8 /build/bin/opensyriad
+stap net        inbound_message  0x000000000014419e 0x0000000000d29bd2 /build/bin/opensyd
+stap net        outbound_message 0x0000000000107c05 0x0000000000d29bd0 /build/bin/opensyd
+stap validation block_connected  0x00000000002fb10c 0x0000000000d29bd8 /build/bin/opensyd
 …
 ```
 
 ### With `readelf`
 
-The `readelf` tool can be used to display the USDT tracepoints in OpenSyria Core.
+The `readelf` tool can be used to display the USDT tracepoints in OpenSY.
 Look for the notes with the description `NT_STAPSDT`.
 
 ```
-$ readelf -n ./build/bin/opensyriad | grep NT_STAPSDT -A 4 -B 2
+$ readelf -n ./build/bin/opensyd | grep NT_STAPSDT -A 4 -B 2
 Displaying notes found in: .note.stapsdt
   Owner                 Data size	Description
   stapsdt              0x0000005d	NT_STAPSDT (SystemTap probe descriptors)
@@ -470,7 +470,7 @@ between distributions. For example, on
 [ubuntu binary]: https://github.com/iovisor/bcc/blob/master/INSTALL.md#ubuntu---binary
 
 ```
-$ tplist -l ./build/bin/opensyriad -v
+$ tplist -l ./build/bin/opensyd -v
 b'net':b'outbound_message' [sema 0xd29bd0]
   1 location(s)
   6 argument(s)

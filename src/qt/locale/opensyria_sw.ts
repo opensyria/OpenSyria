@@ -54,13 +54,13 @@
         <translation type="unfinished">Chagua</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Hizi ndizo anwani zako za kutuma malipo ya sarafu ya OpenSyria. Hakikisha kila wakati kiwango na anwani ya kupokea kabla ya kutuma sarafu.</translation>
+        <source>These are your OpenSY addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Hizi ndizo anwani zako za kutuma malipo ya sarafu ya OpenSY. Hakikisha kila wakati kiwango na anwani ya kupokea kabla ya kutuma sarafu.</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your OpenSY addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Hizi ndizo anwani zako za OpenSyria za kupokea malipo. Tumia kitufe cha 'Unda anwani mpya ya kupokea' kwenye kichupo cha kupokea ili kuunda anwani mpya.
+        <translation type="unfinished">Hizi ndizo anwani zako za OpenSY za kupokea malipo. Tumia kitufe cha 'Unda anwani mpya ya kupokea' kwenye kichupo cha kupokea ili kuunda anwani mpya.
 Kutia sahihi kunawezekana tu kwa anwani za aina ya 'urithi'.</translation>
     </message>
     <message>
@@ -161,7 +161,7 @@ Kutia sahihi kunawezekana tu kwa anwani za aina ya 'urithi'.</translation>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR SYL&lt;/b&gt;!</source>
-        <translation type="unfinished">Ilani: Ikiwa utasimba pochi yako na ukapoteza nenosiri lako, &lt;b&gt; UTAPOTEZA OPENSYRIA ZAKO ZOTE &lt;/b&gt;!</translation>
+        <translation type="unfinished">Ilani: Ikiwa utasimba pochi yako na ukapoteza nenosiri lako, &lt;b&gt; UTAPOTEZA OPENSY ZAKO ZOTE &lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -253,7 +253,7 @@ Kutia sahihi kunawezekana tu kwa anwani za aina ya 'urithi'.</translation>
     </message>
 </context>
 <context>
-    <name>OpenSyriaApplication</name>
+    <name>OpenSYApplication</name>
     <message>
         <source>Settings file %1 might be corrupt or invalid.</source>
         <translation type="unfinished">Faili ya mipangilio ya asilimia %1 inaweza kuwa mbovu au batili.</translation>
@@ -347,7 +347,7 @@ Kutia sahihi kunawezekana tu kwa anwani za aina ya 'urithi'.</translation>
     </message>
 </context>
 <context>
-    <name>OpenSyriaGUI</name>
+    <name>OpenSYGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation type="unfinished">&amp;Muhtasari</translation>
@@ -410,8 +410,8 @@ Kutia sahihi kunawezekana tu kwa anwani za aina ya 'urithi'.</translation>
         <translation type="unfinished">Proxy &lt;b&gt;imeamilishwa&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a OpenSyria address</source>
-        <translation type="unfinished">Tuma sarafu kwa anwani ya OpenSyria</translation>
+        <source>Send coins to a OpenSY address</source>
+        <translation type="unfinished">Tuma sarafu kwa anwani ya OpenSY</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -455,16 +455,16 @@ Kutia sahihi kunawezekana tu kwa anwani za aina ya 'urithi'.</translation>
         <translation type="unfinished">Saini &amp;ujumbe...</translation>
     </message>
     <message>
-        <source>Sign messages with your OpenSyria addresses to prove you own them</source>
-        <translation type="unfinished">Saini ujumbe na anwani zako za OpenSyria ili kuthibitisha umiliki wao.</translation>
+        <source>Sign messages with your OpenSY addresses to prove you own them</source>
+        <translation type="unfinished">Saini ujumbe na anwani zako za OpenSY ili kuthibitisha umiliki wao.</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Thibitisha ujumbe...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified OpenSyria addresses</source>
-        <translation type="unfinished">Hakikisha ujumbe umethibitishwa kuwa ulisainiwa na anwani za OpenSyria zilizotajwa</translation>
+        <source>Verify messages to ensure they were signed with specified OpenSY addresses</source>
+        <translation type="unfinished">Hakikisha ujumbe umethibitishwa kuwa ulisainiwa na anwani za OpenSY zilizotajwa</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -523,8 +523,8 @@ Kutia sahihi kunawezekana tu kwa anwani za aina ya 'urithi'.</translation>
         <translation type="unfinished">Kuunganisha na wenzako wa kushirikiana...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and opensyria: URIs)</source>
-        <translation type="unfinished">Omba malipo (huzalisha nambari za QR na opensyria: URIs)</translation>
+        <source>Request payments (generates QR codes and opensy: URIs)</source>
+        <translation type="unfinished">Omba malipo (huzalisha nambari za QR na opensy: URIs)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -574,16 +574,16 @@ Kutia sahihi kunawezekana tu kwa anwani za aina ya 'urithi'.</translation>
         <translation type="unfinished">Imesasishwa</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction</source>
-        <translation type="unfinished">Pakia Muamala wa OpenSyria Uliosainiwa Kiasi</translation>
+        <source>Load Partially Signed OpenSY Transaction</source>
+        <translation type="unfinished">Pakia Muamala wa OpenSY Uliosainiwa Kiasi</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">Pakia PSBT kutoka &amp;clipboard...</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction from clipboard</source>
-        <translation type="unfinished">Pakia Muamala wa OpenSyria Uliosainiwa Kiasi kutoka kwenye ubao wa kunakili</translation>
+        <source>Load Partially Signed OpenSY Transaction from clipboard</source>
+        <translation type="unfinished">Pakia Muamala wa OpenSY Uliosainiwa Kiasi kutoka kwenye ubao wa kunakili</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -602,8 +602,8 @@ Kutia sahihi kunawezekana tu kwa anwani za aina ya 'urithi'.</translation>
         <translation type="unfinished">&amp;Inapokea anwani</translation>
     </message>
     <message>
-        <source>Open a opensyria: URI</source>
-        <translation type="unfinished">Fungua opensyria: URI</translation>
+        <source>Open a opensy: URI</source>
+        <translation type="unfinished">Fungua opensy: URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -640,8 +640,8 @@ Kutia sahihi kunawezekana tu kwa anwani za aina ya 'urithi'.</translation>
         <translation type="unfinished">Hamisha mkoba</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible OpenSyria command-line options</source>
-        <translation type="unfinished">Onyesha %1 ujumbe wa usaidizi ili kupata orodha na chaguo zinazowezekana za mstari wa amri za OpenSyria</translation>
+        <source>Show the %1 help message to get a list with possible OpenSY command-line options</source>
+        <translation type="unfinished">Onyesha %1 ujumbe wa usaidizi ili kupata orodha na chaguo zinazowezekana za mstari wa amri za OpenSY</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -700,11 +700,11 @@ Kutia sahihi kunawezekana tu kwa anwani za aina ya 'urithi'.</translation>
         <translation type="unfinished">Jinsi &amp; jinsi</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to OpenSyria network.</source>
+        <source>%n active connection(s) to OpenSY network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>miunganisho %n inayotumika kwa mtandao wa OpenSyria.</numerusform>
-            <numerusform>miunganisho %ninayotumika kwa mtandao wa OpenSyria.</numerusform>
+            <numerusform>miunganisho %n inayotumika kwa mtandao wa OpenSY.</numerusform>
+            <numerusform>miunganisho %ninayotumika kwa mtandao wa OpenSY.</numerusform>
         </translation>
     </message>
     <message>
@@ -1500,7 +1500,7 @@ Mchakato wa uhamiaji utaunda nakala rudufu ya pochi kabla ya kuhama. Faili hii y
     </message>
     </context>
 <context>
-    <name>opensyria-core</name>
+    <name>opensy-core</name>
     <message>
         <source>More than one onion bind address is provided. Using %s for the automatically created Tor onion service.</source>
         <translation type="unfinished">Zaidi ya anuani moja ya onion bind imetolewa. Inatumia %skwa ajili ya huduma ya Tor onion inayotengeneza kiotomatiki. </translation>

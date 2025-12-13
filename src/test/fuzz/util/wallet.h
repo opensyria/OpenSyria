@@ -1,9 +1,9 @@
-// Copyright (c) 2024-present The OpenSyria Core developers
+// Copyright (c) 2024-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_TEST_FUZZ_UTIL_WALLET_H
-#define OPENSYRIA_TEST_FUZZ_UTIL_WALLET_H
+#ifndef OPENSY_TEST_FUZZ_UTIL_WALLET_H
+#define OPENSY_TEST_FUZZ_UTIL_WALLET_H
 
 #include <test/fuzz/FuzzedDataProvider.h>
 #include <test/fuzz/fuzz.h>
@@ -77,4 +77,4 @@ struct FuzzedWallet {
 };
 }
 
-#endif // OPENSYRIA_TEST_FUZZ_UTIL_WALLET_H
+#endif // OPENSY_TEST_FUZZ_UTIL_WALLET_H

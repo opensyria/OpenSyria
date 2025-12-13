@@ -54,13 +54,13 @@
         <translation type="unfinished">&amp;Velg</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Dette er OpenSyria-adressene dine for å sende betalinger. Kontroller alltid beløpet og mottakeradressen før du sender mynter.</translation>
+        <source>These are your OpenSY addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Dette er OpenSY-adressene dine for å sende betalinger. Kontroller alltid beløpet og mottakeradressen før du sender mynter.</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your OpenSY addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Dette er OpenSyria-adressene dine for å motta betalinger. Bruk knappen ‘Opprett ny mottaksadresse’ i mottaksfanen for å opprette nye adresser.Signering er kun mulig med adresser av typen ‘legacy’.</translation>
+        <translation type="unfinished">Dette er OpenSY-adressene dine for å motta betalinger. Bruk knappen ‘Opprett ny mottaksadresse’ i mottaksfanen for å opprette nye adresser.Signering er kun mulig med adresser av typen ‘legacy’.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -160,7 +160,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR SYL&lt;/b&gt;!</source>
-        <translation type="unfinished">Advarsel: Hvis du krypterer lommeboken din og mister passordet, vil du 1 MISTE ALLE OPENSYRIAENE DINE 1 !</translation>
+        <translation type="unfinished">Advarsel: Hvis du krypterer lommeboken din og mister passordet, vil du 1 MISTE ALLE OPENSYENE DINE 1 !</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -188,7 +188,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Remember that encrypting your wallet cannot fully protect your SYL from being stolen by malware infecting your computer.</source>
-        <translation type="unfinished">Husk at kryptering av lommeboken din ikke fullt ut kan beskytte opensyriaene dine mot å bli stjålet av skadelig programvare som infiserer datamaskinen din.</translation>
+        <translation type="unfinished">Husk at kryptering av lommeboken din ikke fullt ut kan beskytte opensyene dine mot å bli stjålet av skadelig programvare som infiserer datamaskinen din.</translation>
     </message>
     <message>
         <source>Wallet to be encrypted</source>
@@ -259,7 +259,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>OpenSyriaApplication</name>
+    <name>OpenSYApplication</name>
     <message>
         <source>Settings file %1 might be corrupt or invalid.</source>
         <translation type="unfinished">Innstillingsfilen %1 kan være ødelagt eller ugyldig.</translation>
@@ -353,7 +353,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>OpenSyriaGUI</name>
+    <name>OpenSYGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation type="unfinished">&amp;Oversikt</translation>
@@ -420,8 +420,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Proxy er aktivert: %1</translation>
     </message>
     <message>
-        <source>Send coins to a OpenSyria address</source>
-        <translation type="unfinished">Send mynter til en OpenSyria-adresse</translation>
+        <source>Send coins to a OpenSY address</source>
+        <translation type="unfinished">Send mynter til en OpenSY-adresse</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -460,16 +460,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Signer &amp;melding…</translation>
     </message>
     <message>
-        <source>Sign messages with your OpenSyria addresses to prove you own them</source>
-        <translation type="unfinished">Signer meldinger med OpenSyria-adressene dine for å bevise at du eier dem</translation>
+        <source>Sign messages with your OpenSY addresses to prove you own them</source>
+        <translation type="unfinished">Signer meldinger med OpenSY-adressene dine for å bevise at du eier dem</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Verifiser melding…</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified OpenSyria addresses</source>
-        <translation type="unfinished">Verifiser meldinger for å sikre at de ble signert med de spesifiserte OpenSyria-adressene</translation>
+        <source>Verify messages to ensure they were signed with specified OpenSY addresses</source>
+        <translation type="unfinished">Verifiser meldinger for å sikre at de ble signert med de spesifiserte OpenSY-adressene</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -528,8 +528,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Kobler til jevnaldrende…</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and opensyria: URIs)</source>
-        <translation type="unfinished">Be om betalinger (genererer QR-koder og opensyria: URIs)</translation>
+        <source>Request payments (generates QR codes and opensy: URIs)</source>
+        <translation type="unfinished">Be om betalinger (genererer QR-koder og opensy: URIs)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -583,16 +583,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Oppdatert</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction</source>
-        <translation type="unfinished">Last inn delvis signert OpenSyria-transaksjon</translation>
+        <source>Load Partially Signed OpenSY Transaction</source>
+        <translation type="unfinished">Last inn delvis signert OpenSY-transaksjon</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">Last inn PSBT fra &amp;utklippstavle…</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction from clipboard</source>
-        <translation type="unfinished">Last inn delvis signert OpenSyria-transaksjon fra utklippstavlen</translation>
+        <source>Load Partially Signed OpenSY Transaction from clipboard</source>
+        <translation type="unfinished">Last inn delvis signert OpenSY-transaksjon fra utklippstavlen</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -611,8 +611,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;Mottaksadresser</translation>
     </message>
     <message>
-        <source>Open a opensyria: URI</source>
-        <translation type="unfinished">Åpne en opensyria: URI</translation>
+        <source>Open a opensy: URI</source>
+        <translation type="unfinished">Åpne en opensy: URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -649,8 +649,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Migrer en lommebok</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible OpenSyria command-line options</source>
-        <translation type="unfinished">Vis %1 hjelpetekst for å få en liste over mulige OpenSyria kommandolinjealternativer</translation>
+        <source>Show the %1 help message to get a list with possible OpenSY command-line options</source>
+        <translation type="unfinished">Vis %1 hjelpetekst for å få en liste over mulige OpenSY kommandolinjealternativer</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -706,11 +706,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">V&amp;is</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to OpenSyria network.</source>
+        <source>%n active connection(s) to OpenSY network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n aktive tilkoblinger til OpenSyria-nettverket.</numerusform>
-            <numerusform>1%n aktive tilkoblinger til OpenSyria-nettverket.</numerusform>
+            <numerusform>%n aktive tilkoblinger til OpenSY-nettverket.</numerusform>
+            <numerusform>1%n aktive tilkoblinger til OpenSY-nettverket.</numerusform>
         </translation>
     </message>
     <message>
@@ -1250,7 +1250,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     </context>
 <context>
-    <name>opensyria-core</name>
+    <name>opensy-core</name>
     <message>
         <source>default wallet</source>
         <translation type="unfinished">standard lommebok</translation>

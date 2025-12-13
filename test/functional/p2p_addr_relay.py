@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2020-2021 The OpenSyria Core developers
+# Copyright (c) 2020-2021 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """
@@ -20,7 +20,7 @@ from test_framework.p2p import (
     p2p_lock,
     P2P_SERVICES,
 )
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_equal,
     assert_greater_than,
@@ -84,7 +84,7 @@ class AddrReceiver(P2PInterface):
         return self.message_count['getaddr'] > 0
 
 
-class AddrTest(OpenSyriaTestFramework):
+class AddrTest(OpenSYTestFramework):
     counter = 0
     mocktime = int(time.time())
 
@@ -129,10 +129,10 @@ class AddrTest(OpenSyriaTestFramework):
         source.send_and_ping(msg)
         # invoke m_next_addr_send timer:
         # `addr` messages are sent on an exponential distribution with mean interval of 30s.
-        # OpenSyria: Use 2 minutes (120s) instead of 10 minutes (600s) to stay under
-        # CHAIN_SYNC_TIMEOUT (4min for OpenSyria vs 20min for Bitcoin).
+        # OpenSY: Use 2 minutes (120s) instead of 10 minutes (600s) to stay under
+        # CHAIN_SYNC_TIMEOUT (4min for OpenSY vs 20min for Bitcoin).
         # With 120s, probability is (1 - e^-(120/30)) = 98.2% per call.
-        self.mocktime += 2 * 60  # OpenSyria: reduced from 10 * 60 to avoid peer eviction
+        self.mocktime += 2 * 60  # OpenSY: reduced from 10 * 60 to avoid peer eviction
         self.nodes[0].setmocktime(self.mocktime)
         for peer in receivers:
             peer.sync_with_ping()
@@ -228,7 +228,7 @@ class AddrTest(OpenSyriaTestFramework):
         # addr_source sends 2 addresses to node0
         msg = self.setup_addr_msg(2)
         addr_source.send_and_ping(msg)
-        self.mocktime += 2 * 60  # OpenSyria: reduced from 30 * 60 to avoid peer eviction
+        self.mocktime += 2 * 60  # OpenSY: reduced from 30 * 60 to avoid peer eviction
         self.nodes[0].setmocktime(self.mocktime)
         receiver_peer.sync_with_ping()
         blackhole_peer.sync_with_ping()
@@ -288,14 +288,14 @@ class AddrTest(OpenSyriaTestFramework):
             first_octet = i >> 8
             second_octet = i % 256
             a = f"{first_octet}.{second_octet}.1.1"
-            self.nodes[0].addpeeraddress(a, 9633)  # OpenSyria default port
+            self.nodes[0].addpeeraddress(a, 9633)  # OpenSY default port
 
         full_outbound_peer.send_and_ping(msg_getaddr())
         block_relay_peer.send_and_ping(msg_getaddr())
         inbound_peer.send_and_ping(msg_getaddr())
 
         # invoke m_next_addr_send timer, see under send_addr_msg() function for rationale
-        self.mocktime += 2 * 60  # OpenSyria: reduced from 10 * 60 to avoid peer eviction
+        self.mocktime += 2 * 60  # OpenSY: reduced from 10 * 60 to avoid peer eviction
         self.nodes[0].setmocktime(self.mocktime)
         inbound_peer.wait_until(lambda: inbound_peer.addr_received() is True)
 
@@ -307,7 +307,7 @@ class AddrTest(OpenSyriaTestFramework):
         received_addrs_before = inbound_peer.num_ipv4_received
         with self.nodes[0].assert_debug_log(['Ignoring repeated "getaddr".']):
             inbound_peer.send_and_ping(msg_getaddr())
-        self.mocktime += 2 * 60  # OpenSyria: reduced from 10 * 60 to avoid peer eviction
+        self.mocktime += 2 * 60  # OpenSY: reduced from 10 * 60 to avoid peer eviction
         self.nodes[0].setmocktime(self.mocktime)
         inbound_peer.sync_with_ping()
         received_addrs_after = inbound_peer.num_ipv4_received

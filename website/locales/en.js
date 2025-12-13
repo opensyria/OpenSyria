@@ -1,6 +1,6 @@
 module.exports = {
   // Site
-  siteName: 'OpenSyria',
+  siteName: 'OpenSY',
   tagline: "Syria's First Cryptocurrency",
   genesisQuote: '"Dec 8 2024 - Syria Liberated from Assad"',
   genesisCaption: '— Genesis Block Message',
@@ -17,7 +17,7 @@ module.exports = {
   
   // Hero Section
   hero: {
-    title: 'OpenSyria',
+    title: 'OpenSY',
     subtitle: "Syria's First Blockchain",
     description: 'A decentralized cryptocurrency built for the Syrian community. Forked from Bitcoin Core with Syria-specific customizations.',
     launchDate: 'Launched December 8, 2025',
@@ -37,7 +37,7 @@ module.exports = {
   
   // Features Section
   features: {
-    title: 'Why OpenSyria?',
+    title: 'Why OpenSY?',
     subtitle: 'Built on Bitcoin\'s proven technology with Syria-specific enhancements',
     items: [
       {
@@ -95,16 +95,16 @@ module.exports = {
     title: 'Quick Start',
     subtitle: 'Get your node running in minutes',
     steps: [
-      { title: 'Clone', code: 'git clone https://github.com/opensyria/OpenSyria.git' },
-      { title: 'Build', code: 'cd OpenSyria && cmake -B build && cmake --build build -j$(nproc)' },
-      { title: 'Run', code: './build/bin/opensyriad -daemon -addnode=node1.opensyria.net' },
-      { title: 'Check', code: './build/bin/opensyria-cli getblockchaininfo' }
+      { title: 'Clone', code: 'git clone https://github.com/opensy/OpenSY.git' },
+      { title: 'Build', code: 'cd OpenSY && cmake -B build && cmake --build build -j$(nproc)' },
+      { title: 'Run', code: './build/bin/opensyd -daemon -addnode=node1.opensy.net' },
+      { title: 'Check', code: './build/bin/opensy-cli getblockchaininfo' }
     ]
   },
   
   // Footer
   footer: {
-    copyright: '© 2025 OpenSyria. Open source under MIT License.',
+    copyright: '© 2025 OpenSY. Open source under MIT License.',
     freesyria: 'سوريا حرة',
     links: {
       title: 'Links',
@@ -128,7 +128,7 @@ module.exports = {
   
   // Download Page
   download: {
-    title: 'Download OpenSyria',
+    title: 'Download OpenSY',
     subtitle: 'Choose your platform',
     buildFromSource: 'Build from Source',
     buildInstructions: 'For maximum security, we recommend building from source:',
@@ -144,20 +144,20 @@ module.exports = {
   // Docs Page
   docs: {
     title: 'Documentation',
-    subtitle: 'Everything you need to know about OpenSyria',
+    subtitle: 'Everything you need to know about OpenSY',
     guides: [
-      { title: 'Wallet Backup & Restore', description: 'Learn how to safely backup and restore your wallet.', link: 'https://github.com/opensyria/OpenSyria/blob/main/docs/WALLET_RESTORE_GUIDE.md' },
-      { title: 'Node Operator Guide', description: 'Complete guide to running a full node.', link: 'https://github.com/opensyria/OpenSyria/blob/main/docs/NODE_OPERATOR_GUIDE.md' },
-      { title: 'Mining Guide', description: 'Start mining OpenSyria with your hardware.', link: 'https://github.com/opensyria/OpenSyria#mining' }
+      { title: 'Wallet Backup & Restore', description: 'Learn how to safely backup and restore your wallet.', link: 'https://github.com/opensy/OpenSY/blob/main/docs/WALLET_RESTORE_GUIDE.md' },
+      { title: 'Node Operator Guide', description: 'Complete guide to running a full node.', link: 'https://github.com/opensy/OpenSY/blob/main/docs/NODE_OPERATOR_GUIDE.md' },
+      { title: 'Mining Guide', description: 'Start mining OpenSY with your hardware.', link: 'https://github.com/opensy/OpenSY#mining' }
     ]
   },
   
   // Community Page
   community: {
     title: 'Join the Community',
-    subtitle: 'Connect with OpenSyria supporters worldwide',
+    subtitle: 'Connect with OpenSY supporters worldwide',
     channels: [
-      { name: 'GitHub', description: 'Contribute to development', icon: '💻', link: 'https://github.com/opensyria/OpenSyria' },
+      { name: 'GitHub', description: 'Contribute to development', icon: '💻', link: 'https://github.com/opensy/OpenSY' },
       { name: 'Twitter/X', description: 'Follow for updates', icon: '🐦', link: '#' },
       { name: 'Telegram', description: 'Chat with the community', icon: '💬', link: '#' },
       { name: 'Discord', description: 'Developer discussions', icon: '🎮', link: '#' }

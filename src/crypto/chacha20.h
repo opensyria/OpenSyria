@@ -1,9 +1,9 @@
-// Copyright (c) 2017-present The OpenSyria Core developers
+// Copyright (c) 2017-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_CRYPTO_CHACHA20_H
-#define OPENSYRIA_CRYPTO_CHACHA20_H
+#ifndef OPENSY_CRYPTO_CHACHA20_H
+#define OPENSY_CRYPTO_CHACHA20_H
 
 #include <array>
 #include <cstddef>
@@ -155,4 +155,4 @@ public:
     void Crypt(std::span<const std::byte> input, std::span<std::byte> output) noexcept;
 };
 
-#endif // OPENSYRIA_CRYPTO_CHACHA20_H
+#endif // OPENSY_CRYPTO_CHACHA20_H

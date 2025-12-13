@@ -1,4 +1,4 @@
-// Copyright (c) 2025 The OpenSyria Core developers
+// Copyright (c) 2025 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -613,7 +613,7 @@ BOOST_AUTO_TEST_CASE(randomx_typical_block_header_size)
     DataStream ss{};
     ss << header;
     
-    // Bitcoin/OpenSyria block header should be exactly 80 bytes
+    // Bitcoin/OpenSY block header should be exactly 80 bytes
     BOOST_CHECK_EQUAL(ss.size(), 80u);
 }
 

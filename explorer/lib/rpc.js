@@ -3,7 +3,7 @@ const axios = require('axios');
 const rpcConfig = {
     host: process.env.RPC_HOST || '127.0.0.1',
     port: process.env.RPC_PORT || 9632,
-    user: process.env.RPC_USER || 'opensyria',
+    user: process.env.RPC_USER || 'opensy',
     password: process.env.RPC_PASSWORD || ''
 };
 

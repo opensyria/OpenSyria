@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The OpenSyria Core developers
+// Copyright (c) 2009-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UTIL_EPOCHGUARD_H
-#define OPENSYRIA_UTIL_EPOCHGUARD_H
+#ifndef OPENSY_UTIL_EPOCHGUARD_H
+#define OPENSY_UTIL_EPOCHGUARD_H
 
 #include <threadsafety.h>
 #include <util/macros.h>
@@ -99,4 +99,4 @@ public:
 
 #define WITH_FRESH_EPOCH(epoch) const Epoch::Guard UNIQUE_NAME(epoch_guard_)(epoch)
 
-#endif // OPENSYRIA_UTIL_EPOCHGUARD_H
+#endif // OPENSY_UTIL_EPOCHGUARD_H

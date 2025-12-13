@@ -1,12 +1,12 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_COMMON_SYSTEM_H
-#define OPENSYRIA_COMMON_SYSTEM_H
+#ifndef OPENSY_COMMON_SYSTEM_H
+#define OPENSY_COMMON_SYSTEM_H
 
-#include <opensyria-build-config.h> // IWYU pragma: keep
+#include <opensy-build-config.h> // IWYU pragma: keep
 
 #include <cstdint>
 #include <optional>
@@ -35,4 +35,4 @@ int GetNumCores();
  */
 std::optional<size_t> GetTotalRAM();
 
-#endif // OPENSYRIA_COMMON_SYSTEM_H
+#endif // OPENSY_COMMON_SYSTEM_H

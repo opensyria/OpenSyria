@@ -5,40 +5,40 @@ for the process.*
 *version* Release Notes Draft
 ===============================
 
-OpenSyria Core version *version* is now available from:
+OpenSY version *version* is now available from:
 
-  <https://opensyria.net/bin/opensyria-core-*version*/>
+  <https://opensy.net/bin/opensy-core-*version*/>
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensyria/issues>
+  <https://github.com/opensy/opensy/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensyria.net/en/list/announcements/join/>
+  <https://opensy.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============
 
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes in some cases), then run the
-installer (on Windows) or just copy over `/Applications/OpenSyria-Qt` (on macOS)
-or `opensyriad`/`opensyria-qt` (on Linux).
+installer (on Windows) or just copy over `/Applications/OpenSY-Qt` (on macOS)
+or `opensyd`/`opensy-qt` (on Linux).
 
-Upgrading directly from a version of OpenSyria Core that has reached its EOL is
+Upgrading directly from a version of OpenSY that has reached its EOL is
 possible, but it might take some time if the data directory needs to be migrated. Old
-wallet versions of OpenSyria Core are generally supported.
+wallet versions of OpenSY are generally supported.
 
 Compatibility
 ==============
 
-OpenSyria Core is supported and tested on the following operating systems or newer:
-Linux Kernel 3.17, macOS 14, and Windows 10 (version 1903). OpenSyria
+OpenSY is supported and tested on the following operating systems or newer:
+Linux Kernel 3.17, macOS 14, and Windows 10 (version 1903). OpenSY
 Core should also work on most other Unix-like systems but is not as
-frequently tested on them. It is not recommended to use OpenSyria Core on
+frequently tested on them. It is not recommended to use OpenSY on
 unsupported systems.
 
 Notable changes
@@ -96,4 +96,4 @@ Thanks to everyone who directly contributed to this release:
 
 
 As well as to everyone that helped with translations on
-[Transifex](https://explore.transifex.com/opensyria/opensyria/).
+[Transifex](https://explore.transifex.com/opensy/opensy/).

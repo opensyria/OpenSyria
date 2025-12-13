@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2022 The OpenSyria Core developers
+# Copyright (c) 2015-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test transaction signing using the signrawtransactionwithkey RPC."""
@@ -12,7 +12,7 @@ from test_framework.address import (
     p2a,
     script_to_p2sh,
 )
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_equal,
     assert_raises_rpc_error,
@@ -44,7 +44,7 @@ INPUTS = [
 ]
 OUTPUTS = {'fNvkyvYVnhhB7Yq6xbB8kANVHkq39QiSD9': 0.1}
 
-class SignRawTransactionWithKeyTest(OpenSyriaTestFramework):
+class SignRawTransactionWithKeyTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
 

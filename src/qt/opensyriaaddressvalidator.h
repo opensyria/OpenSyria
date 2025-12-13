@@ -1,35 +1,35 @@
-// Copyright (c) 2011-2020 The OpenSyria Core developers
+// Copyright (c) 2011-2020 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_OPENSYRIAADDRESSVALIDATOR_H
-#define OPENSYRIA_QT_OPENSYRIAADDRESSVALIDATOR_H
+#ifndef OPENSY_QT_OPENSYADDRESSVALIDATOR_H
+#define OPENSY_QT_OPENSYADDRESSVALIDATOR_H
 
 #include <QValidator>
 
 /** Base58 entry widget validator, checks for valid characters and
  * removes some whitespace.
  */
-class OpenSyriaAddressEntryValidator : public QValidator
+class OpenSYAddressEntryValidator : public QValidator
 {
     Q_OBJECT
 
 public:
-    explicit OpenSyriaAddressEntryValidator(QObject *parent);
+    explicit OpenSYAddressEntryValidator(QObject *parent);
 
     State validate(QString &input, int &pos) const override;
 };
 
-/** OpenSyria address widget validator, checks for a valid opensyria address.
+/** OpenSY address widget validator, checks for a valid opensy address.
  */
-class OpenSyriaAddressCheckValidator : public QValidator
+class OpenSYAddressCheckValidator : public QValidator
 {
     Q_OBJECT
 
 public:
-    explicit OpenSyriaAddressCheckValidator(QObject *parent);
+    explicit OpenSYAddressCheckValidator(QObject *parent);
 
     State validate(QString &input, int &pos) const override;
 };
 
-#endif // OPENSYRIA_QT_OPENSYRIAADDRESSVALIDATOR_H
+#endif // OPENSY_QT_OPENSYADDRESSVALIDATOR_H

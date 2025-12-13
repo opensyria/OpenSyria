@@ -2,41 +2,41 @@
 
 # backward compatibility for existing gentoo layout 
 #
-if [ -d "/var/lib/opensyria/.opensyria" ]; then
-	OPENSYRIAD_DEFAULT_DATADIR="/var/lib/opensyria/.opensyria"
+if [ -d "/var/lib/opensy/.opensy" ]; then
+	OPENSYD_DEFAULT_DATADIR="/var/lib/opensy/.opensy"
 else
-	OPENSYRIAD_DEFAULT_DATADIR="/var/lib/opensyriad"
+	OPENSYD_DEFAULT_DATADIR="/var/lib/opensyd"
 fi
 
-OPENSYRIAD_CONFIGFILE=${OPENSYRIAD_CONFIGFILE:-/etc/opensyria/opensyria.conf}
-OPENSYRIAD_PIDDIR=${OPENSYRIAD_PIDDIR:-/var/run/opensyriad}
-OPENSYRIAD_PIDFILE=${OPENSYRIAD_PIDFILE:-${OPENSYRIAD_PIDDIR}/opensyriad.pid}
-OPENSYRIAD_DATADIR=${OPENSYRIAD_DATADIR:-${OPENSYRIAD_DEFAULT_DATADIR}}
-OPENSYRIAD_USER=${OPENSYRIAD_USER:-${OPENSYRIA_USER:-opensyria}}
-OPENSYRIAD_GROUP=${OPENSYRIAD_GROUP:-opensyria}
-OPENSYRIAD_BIN=${OPENSYRIAD_BIN:-/usr/bin/opensyriad}
-OPENSYRIAD_NICE=${OPENSYRIAD_NICE:-${NICELEVEL:-0}}
-OPENSYRIAD_OPTS="${OPENSYRIAD_OPTS:-${OPENSYRIA_OPTS}}"
+OPENSYD_CONFIGFILE=${OPENSYD_CONFIGFILE:-/etc/opensy/opensy.conf}
+OPENSYD_PIDDIR=${OPENSYD_PIDDIR:-/var/run/opensyd}
+OPENSYD_PIDFILE=${OPENSYD_PIDFILE:-${OPENSYD_PIDDIR}/opensyd.pid}
+OPENSYD_DATADIR=${OPENSYD_DATADIR:-${OPENSYD_DEFAULT_DATADIR}}
+OPENSYD_USER=${OPENSYD_USER:-${OPENSY_USER:-opensy}}
+OPENSYD_GROUP=${OPENSYD_GROUP:-opensy}
+OPENSYD_BIN=${OPENSYD_BIN:-/usr/bin/opensyd}
+OPENSYD_NICE=${OPENSYD_NICE:-${NICELEVEL:-0}}
+OPENSYD_OPTS="${OPENSYD_OPTS:-${OPENSY_OPTS}}"
 
-name="OpenSyria Core Daemon"
-description="OpenSyria cryptocurrency P2P network daemon"
+name="OpenSY Daemon"
+description="OpenSY cryptocurrency P2P network daemon"
 
-command="/usr/bin/opensyriad"
-command_args="-pid=\"${OPENSYRIAD_PIDFILE}\" \
-		-conf=\"${OPENSYRIAD_CONFIGFILE}\" \
-		-datadir=\"${OPENSYRIAD_DATADIR}\" \
+command="/usr/bin/opensyd"
+command_args="-pid=\"${OPENSYD_PIDFILE}\" \
+		-conf=\"${OPENSYD_CONFIGFILE}\" \
+		-datadir=\"${OPENSYD_DATADIR}\" \
 		-daemon \
-		${OPENSYRIAD_OPTS}"
+		${OPENSYD_OPTS}"
 
-required_files="${OPENSYRIAD_CONFIGFILE}"
-start_stop_daemon_args="-u ${OPENSYRIAD_USER} \
-			-N ${OPENSYRIAD_NICE} -w 2000"
-pidfile="${OPENSYRIAD_PIDFILE}"
+required_files="${OPENSYD_CONFIGFILE}"
+start_stop_daemon_args="-u ${OPENSYD_USER} \
+			-N ${OPENSYD_NICE} -w 2000"
+pidfile="${OPENSYD_PIDFILE}"
 
 # The retry schedule to use when stopping the daemon. Could be either
 # a timeout in seconds or multiple signal/timeout pairs (like
 # "SIGKILL/180 SIGTERM/300")
-retry="${OPENSYRIAD_SIGTERM_TIMEOUT}"
+retry="${OPENSYD_SIGTERM_TIMEOUT}"
 
 depend() {
 	need localmount net
@@ -50,30 +50,30 @@ start_pre() {
 	checkpath \
 	-d \
 	--mode 0750 \
-	--owner "${OPENSYRIAD_USER}:${OPENSYRIAD_GROUP}" \
-	"${OPENSYRIAD_DATADIR}"
+	--owner "${OPENSYD_USER}:${OPENSYD_GROUP}" \
+	"${OPENSYD_DATADIR}"
 
 	checkpath \
 	-d \
 	--mode 0755 \
-	--owner "${OPENSYRIAD_USER}:${OPENSYRIAD_GROUP}" \
-	"${OPENSYRIAD_PIDDIR}"
+	--owner "${OPENSYD_USER}:${OPENSYD_GROUP}" \
+	"${OPENSYD_PIDDIR}"
 
 	checkpath -f \
-	-o "${OPENSYRIAD_USER}:${OPENSYRIAD_GROUP}" \
+	-o "${OPENSYD_USER}:${OPENSYD_GROUP}" \
 	-m 0660 \
-	"${OPENSYRIAD_CONFIGFILE}"
+	"${OPENSYD_CONFIGFILE}"
 
 	checkconfig || return 1
 }
 
 checkconfig()
 {
-	if grep -qs '^rpcuser=' "${OPENSYRIAD_CONFIGFILE}" && \
-		! grep -qs '^rpcpassword=' "${OPENSYRIAD_CONFIGFILE}" ; then
+	if grep -qs '^rpcuser=' "${OPENSYD_CONFIGFILE}" && \
+		! grep -qs '^rpcpassword=' "${OPENSYD_CONFIGFILE}" ; then
 		eerror ""
-		eerror "ERROR: You must set a secure rpcpassword to run opensyriad."
-		eerror "The setting must appear in ${OPENSYRIAD_CONFIGFILE}"
+		eerror "ERROR: You must set a secure rpcpassword to run opensyd."
+		eerror "The setting must appear in ${OPENSYD_CONFIGFILE}"
 		eerror ""
 		eerror "This password is security critical to securing wallets "
 		eerror "and must not be the same as the rpcuser setting."
@@ -85,7 +85,7 @@ checkconfig()
 		eerror "It is recommended that you also set alertnotify so you are "
 		eerror "notified of problems:"
 		eerror ""
-		eerror "ie: alertnotify=echo %%s | mail -s \"OpenSyria Alert\"" \
+		eerror "ie: alertnotify=echo %%s | mail -s \"OpenSY Alert\"" \
 			"admin@foo.com"
 		eerror ""
 		return 1

@@ -85,7 +85,7 @@ ELF_ABIS: dict[lief.ELF.ARCH, dict[lief.Header.ENDIANNESS, list[int]]] = {
 
 # Allowed NEEDED libraries
 ELF_ALLOWED_LIBRARIES = {
-# opensyriad and opensyria-qt
+# opensyd and opensy-qt
 'libc.so.6', # C library
 'libpthread.so.0', # threading
 'libm.so.6', # math library
@@ -96,17 +96,17 @@ ELF_ALLOWED_LIBRARIES = {
 'ld64.so.1', # POWER64 ABIv1 dynamic linker
 'ld64.so.2', # POWER64 ABIv2 dynamic linker
 'ld-linux-riscv64-lp64d.so.1', # 64-bit RISC-V dynamic linker
-# opensyria-qt only
+# opensy-qt only
 'libfontconfig.so.1', # font support
 'libfreetype.so.6', # font parsing
 'libdl.so.2', # programming interface to dynamic linker
 }
 
 MACHO_ALLOWED_LIBRARIES = {
-# opensyriad and opensyria-qt
+# opensyd and opensy-qt
 'libc++.1.dylib', # C++ Standard Library
 'libSystem.B.dylib', # libc, libm, libpthread, libinfo
-# opensyria-qt only
+# opensy-qt only
 'AppKit', # user interface
 'ApplicationServices', # common application tasks.
 'Carbon', # deprecated c back-compat API
@@ -135,7 +135,7 @@ PE_ALLOWED_LIBRARIES = {
 'msvcrt.dll', # C standard library for MSVC
 'SHELL32.dll', # shell API
 'WS2_32.dll', # sockets
-# opensyria-qt only
+# opensy-qt only
 'api-ms-win-core-synch-l1-2-0.dll', # Synchronization Primitives API
 'api-ms-win-core-winrt-l1-1-0.dll', # Windows Runtime API
 'api-ms-win-core-winrt-string-l1-1-0.dll', # WinRT String API

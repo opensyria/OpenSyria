@@ -1,9 +1,9 @@
-// Copyright (c) 2022-present The OpenSyria Core developers
+// Copyright (c) 2022-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_NODE_CONNECTION_TYPES_H
-#define OPENSYRIA_NODE_CONNECTION_TYPES_H
+#ifndef OPENSY_NODE_CONNECTION_TYPES_H
+#define OPENSY_NODE_CONNECTION_TYPES_H
 
 #include <cstdint>
 #include <string>
@@ -14,7 +14,7 @@
  *
  * If adding or removing types, please update CONNECTION_TYPE_DOC in
  * src/rpc/net.cpp and src/qt/rpcconsole.cpp, as well as the descriptions in
- * src/qt/guiutil.cpp and src/opensyria-cli.cpp::NetinfoRequestHandler. */
+ * src/qt/guiutil.cpp and src/opensy-cli.cpp::NetinfoRequestHandler. */
 enum class ConnectionType {
     /**
      * Inbound connections are those initiated by a peer. This is the only
@@ -48,7 +48,7 @@ enum class ConnectionType {
      *   evict only if this longer-known peer is offline.
      * - move node addresses from New to Tried table, so that we have more
      *   connectable addresses in our AddrMan.
-     * Note that in the literature ("Eclipse Attacks on OpenSyria’s Peer-to-Peer Network")
+     * Note that in the literature ("Eclipse Attacks on OpenSY’s Peer-to-Peer Network")
      * only the latter feature is referred to as "feeler connections",
      * although in our codebase feeler connections encompass test-before-evict as well.
      * We make these connections approximately every FEELER_INTERVAL:
@@ -90,4 +90,4 @@ enum class TransportProtocolType : uint8_t {
 /** Convert TransportProtocolType enum to a string value */
 std::string TransportTypeAsString(TransportProtocolType transport_type);
 
-#endif // OPENSYRIA_NODE_CONNECTION_TYPES_H
+#endif // OPENSY_NODE_CONNECTION_TYPES_H

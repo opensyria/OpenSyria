@@ -1,11 +1,11 @@
 # =============================================================================
-# OpenSyria Docker Compose
+# OpenSY Docker Compose
 # =============================================================================
-# Deploy a complete OpenSyria node with optional services.
+# Deploy a complete OpenSY node with optional services.
 #
 # Usage:
 #   docker compose up -d              # Start all services
-#   docker compose up -d opensyriad   # Start only the node
+#   docker compose up -d opensyd   # Start only the node
 #   docker compose logs -f            # View logs
 #   docker compose down               # Stop all services
 # =============================================================================
@@ -14,14 +14,14 @@ version: '3.8'
 
 services:
   # ---------------------------------------------------------------------------
-  # OpenSyria Core Node
+  # OpenSY Node
   # ---------------------------------------------------------------------------
-  opensyriad:
+  opensyd:
     build:
       context: ../../..
       dockerfile: contrib/deploy/docker/Dockerfile
-    image: opensyria/node:latest
-    container_name: opensyria-node
+    image: opensy/node:latest
+    container_name: opensy-node
     restart: unless-stopped
     
     # Port mappings
@@ -31,13 +31,13 @@ services:
     
     # Data persistence
     volumes:
-      - opensyria-data:/home/opensyria/.opensyria
+      - opensy-data:/home/opensy/.opensy
       # Mount custom config (optional):
-      # - ./opensyria.conf:/home/opensyria/.opensyria/opensyria.conf:ro
+      # - ./opensy.conf:/home/opensy/.opensy/opensy.conf:ro
     
     # Environment variables
     environment:
-      - OPENSYRIA_DATA=/home/opensyria/.opensyria
+      - OPENSY_DATA=/home/opensy/.opensy
     
     # Resource limits
     deploy:
@@ -51,7 +51,7 @@ services:
     
     # Healthcheck
     healthcheck:
-      test: ["CMD", "opensyria-cli", "-datadir=/home/opensyria/.opensyria", "getblockchaininfo"]
+      test: ["CMD", "opensy-cli", "-datadir=/home/opensy/.opensy", "getblockchaininfo"]
       interval: 60s
       timeout: 10s
       retries: 3
@@ -65,17 +65,17 @@ services:
         max-file: "5"
     
     networks:
-      - opensyria-net
+      - opensy-net
 
   # ---------------------------------------------------------------------------
   # Block Explorer (Optional)
   # ---------------------------------------------------------------------------
   explorer:
     image: btcpayserver/btc-rpc-explorer:latest
-    container_name: opensyria-explorer
+    container_name: opensy-explorer
     restart: unless-stopped
     depends_on:
-      opensyriad:
+      opensyd:
         condition: service_healthy
     
     ports:
@@ -84,17 +84,17 @@ services:
     environment:
       BTCEXP_HOST: "0.0.0.0"
       BTCEXP_PORT: "3002"
-      BTCEXP_BITCOIND_HOST: "opensyriad"
+      BTCEXP_BITCOIND_HOST: "opensyd"
       BTCEXP_BITCOIND_PORT: "9632"
-      BTCEXP_BITCOIND_USER: "${RPC_USER:-opensyriarpc}"
+      BTCEXP_BITCOIND_USER: "${RPC_USER:-opensyrpc}"
       BTCEXP_BITCOIND_PASS: "${RPC_PASS:-changeme}"
-      BTCEXP_SITE_TITLE: "OpenSyria Explorer"
-      BTCEXP_SITE_DESC: "OpenSyria Blockchain Explorer"
+      BTCEXP_SITE_TITLE: "OpenSY Explorer"
+      BTCEXP_SITE_DESC: "OpenSY Blockchain Explorer"
       BTCEXP_NO_RATES: "true"
       BTCEXP_PRIVACY_MODE: "false"
     
     networks:
-      - opensyria-net
+      - opensy-net
     
     profiles:
       - explorer
@@ -104,7 +104,7 @@ services:
   # ---------------------------------------------------------------------------
   node-exporter:
     image: prom/node-exporter:latest
-    container_name: opensyria-node-exporter
+    container_name: opensy-node-exporter
     restart: unless-stopped
     
     ports:
@@ -121,7 +121,7 @@ services:
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
     
     networks:
-      - opensyria-net
+      - opensy-net
     
     profiles:
       - monitoring
@@ -130,16 +130,16 @@ services:
 # Volumes
 # =============================================================================
 volumes:
-  opensyria-data:
-    name: opensyria-blockchain-data
+  opensy-data:
+    name: opensy-blockchain-data
     driver: local
 
 # =============================================================================
 # Networks
 # =============================================================================
 networks:
-  opensyria-net:
-    name: opensyria-network
+  opensy-net:
+    name: opensy-network
     driver: bridge
     ipam:
       config:

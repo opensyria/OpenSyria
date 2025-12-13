@@ -47,24 +47,24 @@
     </message>
     <message>
         <source>Choose the address to send coins to</source>
-        <translation type="unfinished">Επιλέξτε τη διεύθυνση στην οποία θα στείλετε opensyria</translation>
+        <translation type="unfinished">Επιλέξτε τη διεύθυνση στην οποία θα στείλετε opensy</translation>
     </message>
     <message>
         <source>Choose the address to receive coins with</source>
-        <translation type="unfinished">Επιλέξτε τη διεύθυνση παραλαβής opensyria</translation>
+        <translation type="unfinished">Επιλέξτε τη διεύθυνση παραλαβής opensy</translation>
     </message>
     <message>
         <source>C&amp;hoose</source>
         <translation type="unfinished">Ε&amp;πιλογή</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Αυτές είναι οι OpenSyria διευθύνσεις σας για να στέλνετε πληρωμές. Να ελέγχετε πάντα το ποσό, καθώς και τη διεύθυνση παραλήπτη πριν στείλετε νομίσματα.</translation>
+        <source>These are your OpenSY addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Αυτές είναι οι OpenSY διευθύνσεις σας για να στέλνετε πληρωμές. Να ελέγχετε πάντα το ποσό, καθώς και τη διεύθυνση παραλήπτη πριν στείλετε νομίσματα.</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your OpenSY addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Αυτές είναι οι OpenSyria διευθύνσεις για τη λήψη πληρωμών. Χρησιμοποιήστε το κουμπί  'Δημιουργία νέας διεύθυνσης λήψεων' στο παράθυρο λήψεων για τη δημιουργία νέας διεύθυνσης.
+        <translation type="unfinished">Αυτές είναι οι OpenSY διευθύνσεις για τη λήψη πληρωμών. Χρησιμοποιήστε το κουμπί  'Δημιουργία νέας διεύθυνσης λήψεων' στο παράθυρο λήψεων για τη δημιουργία νέας διεύθυνσης.
 Η υπογραφή είναι διαθέσιμη μόνο σε διευθύνσεις 'παλαιού τύπου'.</translation>
     </message>
     <message>
@@ -165,7 +165,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR SYL&lt;/b&gt;!</source>
-        <translation type="unfinished">Προσοχή! Εάν κρυπτογραφήσετε το πορτοφόλι σας και χάσετε τη φράση πρόσβασης, θα &lt;b&gt; ΧΑΣΕΤΕ ΟΛΑ ΤΑ OPENSYRIA ΣΑΣ&lt;/b&gt;!</translation>
+        <translation type="unfinished">Προσοχή! Εάν κρυπτογραφήσετε το πορτοφόλι σας και χάσετε τη φράση πρόσβασης, θα &lt;b&gt; ΧΑΣΕΤΕ ΟΛΑ ΤΑ OPENSY ΣΑΣ&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -260,7 +260,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>OpenSyriaApplication</name>
+    <name>OpenSYApplication</name>
     <message>
         <source>Settings file %1 might be corrupt or invalid.</source>
         <translation type="unfinished">Το αρχείο ρυθμίσεων %1 ενδέχεται να είναι κατεστραμμένο ή μη έγκυρο.</translation>
@@ -323,8 +323,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Ποσό</translation>
     </message>
     <message>
-        <source>Enter a OpenSyria address (e.g. %1)</source>
-        <translation type="unfinished">Εισάγετε μια διεύθυνση OpenSyria (π.χ. %1)</translation>
+        <source>Enter a OpenSY address (e.g. %1)</source>
+        <translation type="unfinished">Εισάγετε μια διεύθυνση OpenSY (π.χ. %1)</translation>
     </message>
     <message>
         <source>Unroutable</source>
@@ -441,7 +441,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>OpenSyriaGUI</name>
+    <name>OpenSYGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation type="unfinished">&amp;Επισκόπηση</translation>
@@ -508,8 +508,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Ο Proxy είναι &lt;b&gt;ενεργοποιημένος&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a OpenSyria address</source>
-        <translation type="unfinished">Στείλτε κέρματα σε μια διεύθυνση OpenSyria</translation>
+        <source>Send coins to a OpenSY address</source>
+        <translation type="unfinished">Στείλτε κέρματα σε μια διεύθυνση OpenSY</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -552,16 +552,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Υπογραφή &amp;μηνύματος...</translation>
     </message>
     <message>
-        <source>Sign messages with your OpenSyria addresses to prove you own them</source>
-        <translation type="unfinished">Υπογράψτε μηνύματα με τις διευθύνσεις OpenSyria σας για να αποδείξετε ότι σας ανήκουν</translation>
+        <source>Sign messages with your OpenSY addresses to prove you own them</source>
+        <translation type="unfinished">Υπογράψτε μηνύματα με τις διευθύνσεις OpenSY σας για να αποδείξετε ότι σας ανήκουν</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Επιβεβαίωση μηνύματος...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified OpenSyria addresses</source>
-        <translation type="unfinished">Επαληθεύστε μηνύματα για να βεβαιωθείτε ότι υπογράφηκαν με τις καθορισμένες διευθύνσεις OpenSyria</translation>
+        <source>Verify messages to ensure they were signed with specified OpenSY addresses</source>
+        <translation type="unfinished">Επαληθεύστε μηνύματα για να βεβαιωθείτε ότι υπογράφηκαν με τις καθορισμένες διευθύνσεις OpenSY</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -620,8 +620,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Σύνδεση σε κόμβους...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and opensyria: URIs)</source>
-        <translation type="unfinished">Αίτηση πληρωμών (δημιουργεί QR codes και opensyria: URI)</translation>
+        <source>Request payments (generates QR codes and opensy: URIs)</source>
+        <translation type="unfinished">Αίτηση πληρωμών (δημιουργεί QR codes και opensy: URI)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -675,16 +675,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Ενημερωμένο</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction</source>
-        <translation type="unfinished">Φόρτωση μερικώς υπογεγραμμένης συναλλαγής OpenSyria</translation>
+        <source>Load Partially Signed OpenSY Transaction</source>
+        <translation type="unfinished">Φόρτωση μερικώς υπογεγραμμένης συναλλαγής OpenSY</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">Φόρτωσε PSBT από &amp;πρόχειρο...</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction from clipboard</source>
-        <translation type="unfinished">Φόρτωση μερικώς υπογεγραμμένης συναλλαγής OpenSyria από το πρόχειρο</translation>
+        <source>Load Partially Signed OpenSY Transaction from clipboard</source>
+        <translation type="unfinished">Φόρτωση μερικώς υπογεγραμμένης συναλλαγής OpenSY από το πρόχειρο</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -703,8 +703,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Διευθύνσεις &amp;παραλαβής</translation>
     </message>
     <message>
-        <source>Open a opensyria: URI</source>
-        <translation type="unfinished">Ανοίξτε ένα opensyria: URI</translation>
+        <source>Open a opensy: URI</source>
+        <translation type="unfinished">Ανοίξτε ένα opensy: URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -741,8 +741,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Μετεγκατάσταση ενός πορτοφολιού</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible OpenSyria command-line options</source>
-        <translation type="unfinished">Εμφανίστε το μήνυμα βοήθειας του %1 για να δείτε μια λίστα με τις διαθέσιμες επιλογές της γραμμής εντολών του OpenSyria</translation>
+        <source>Show the %1 help message to get a list with possible OpenSY command-line options</source>
+        <translation type="unfinished">Εμφανίστε το μήνυμα βοήθειας του %1 για να δείτε μια λίστα με τις διαθέσιμες επιλογές της γραμμής εντολών του OpenSY</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -797,11 +797,11 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Ε&amp;μφάνιση</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to OpenSyria network.</source>
+        <source>%n active connection(s) to OpenSY network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n active connection(s) to OpenSyria network.</numerusform>
-            <numerusform>%n ενεργές συνδέσεις στο δίκτυο OpenSyria.</numerusform>
+            <numerusform>%n active connection(s) to OpenSY network.</numerusform>
+            <numerusform>%n ενεργές συνδέσεις στο δίκτυο OpenSY.</numerusform>
         </translation>
     </message>
     <message>
@@ -1311,8 +1311,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">Επεξεργασία διεύθυνσης αποστολής</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid OpenSyria address.</source>
-        <translation type="unfinished">Η διεύθυνση "%1" δεν είναι έγκυρη OpenSyria διεύθυνση.</translation>
+        <source>The entered address "%1" is not a valid OpenSY address.</source>
+        <translation type="unfinished">Η διεύθυνση "%1" δεν είναι έγκυρη OpenSY διεύθυνση.</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -1464,8 +1464,8 @@ The migration process will create a backup of the wallet before migrating. This 
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the OpenSyria block chain.</source>
-        <translation type="unfinished">Το %1 θα κατεβάσει και θα αποθηκεύσει ένα αντίγραφο της αλυσίδας block του OpenSyria.</translation>
+        <source>%1 will download and store a copy of the OpenSY block chain.</source>
+        <translation type="unfinished">Το %1 θα κατεβάσει και θα αποθηκεύσει ένα αντίγραφο της αλυσίδας block του OpenSY.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -1487,8 +1487,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">Φόρμα</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the opensyria network, as detailed below.</source>
-        <translation type="unfinished">Οι πρόσφατες συναλλαγές ενδέχεται να μην είναι ακόμα ορατές και επομένως η ισορροπία του πορτοφολιού σας μπορεί να είναι εσφαλμένη. Αυτές οι πληροφορίες θα είναι σωστές όταν ολοκληρωθεί το συγχρονισμό του πορτοφολιού σας με το δίκτυο OpenSyria, όπως περιγράφεται παρακάτω.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the opensy network, as detailed below.</source>
+        <translation type="unfinished">Οι πρόσφατες συναλλαγές ενδέχεται να μην είναι ακόμα ορατές και επομένως η ισορροπία του πορτοφολιού σας μπορεί να είναι εσφαλμένη. Αυτές οι πληροφορίες θα είναι σωστές όταν ολοκληρωθεί το συγχρονισμό του πορτοφολιού σας με το δίκτυο OpenSY, όπως περιγράφεται παρακάτω.</translation>
     </message>
     <message>
         <source>Attempting to spend SYL that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
@@ -1546,8 +1546,8 @@ The migration process will create a backup of the wallet before migrating. This 
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open opensyria URI</source>
-        <translation type="unfinished">Ανοίξτε το opensyria URI</translation>
+        <source>Open opensy URI</source>
+        <translation type="unfinished">Ανοίξτε το opensy URI</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -1592,11 +1592,11 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <source>Full path to a %1 compatible script (e.g. C:\Downloads\hwi.exe or /Users/you/Downloads/hwi.py). Beware: malware can steal your coins!</source>
-        <translation type="unfinished">Πλήρης διαδρομή ενός script συμβατού με το %1 (π.χ.: C:\Downloads\hwi.exe ή /Users/you/Downloads/hwi.py). Προσοχή: ένα κακόβουλο λογισμικό μπορεί να κλέψει τα opensyria σας!</translation>
+        <translation type="unfinished">Πλήρης διαδρομή ενός script συμβατού με το %1 (π.χ.: C:\Downloads\hwi.exe ή /Users/you/Downloads/hwi.py). Προσοχή: ένα κακόβουλο λογισμικό μπορεί να κλέψει τα opensy σας!</translation>
     </message>
     <message>
-        <source>Automatically open the OpenSyria client port on the router. This only works when your router supports PCP or NAT-PMP and it is enabled. The external port could be random.</source>
-        <translation type="unfinished">Ανοίξτε αυτόματα τη πόρτα του OpenSyria client στο router. Αυτό λειτουργεί μόνο όταν το router σας υποστηρίζει PCP ή NAT-PMP και είναι ενεργοποιημένο. Η εξωτερική πόρτα μπορεί να είναι τυχαία.</translation>
+        <source>Automatically open the OpenSY client port on the router. This only works when your router supports PCP or NAT-PMP and it is enabled. The external port could be random.</source>
+        <translation type="unfinished">Ανοίξτε αυτόματα τη πόρτα του OpenSY client στο router. Αυτό λειτουργεί μόνο όταν το router σας υποστηρίζει PCP ή NAT-PMP και είναι ενεργοποιημένο. Η εξωτερική πόρτα μπορεί να είναι τυχαία.</translation>
     </message>
     <message>
         <source>Map port using PCP or NA&amp;T-PMP</source>
@@ -1726,8 +1726,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">Επιτρέπονται εισερχόμενες &amp;συνδέσεις</translation>
     </message>
     <message>
-        <source>Connect to the OpenSyria network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">Σύνδεση στο δίκτυο OpenSyria μέσω SOCKS5 proxy.</translation>
+        <source>Connect to the OpenSY network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">Σύνδεση στο δίκτυο OpenSY μέσω SOCKS5 proxy.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1802,8 +1802,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">Επιλογή εμφάνισης ή όχι των δυνατοτήτων ελέγχου κερμάτων.</translation>
     </message>
     <message>
-        <source>Connect to the OpenSyria network through a separate SOCKS5 proxy for Tor onion services.</source>
-        <translation type="unfinished">Συνδεθείτε στο δίκτυο OpenSyria μέσω ξεχωριστού SOCKS5 proxy για τις υπηρεσίες onion του Tor.</translation>
+        <source>Connect to the OpenSY network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <translation type="unfinished">Συνδεθείτε στο δίκτυο OpenSY μέσω ξεχωριστού SOCKS5 proxy για τις υπηρεσίες onion του Tor.</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
@@ -1899,8 +1899,8 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">Φόρμα</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the OpenSyria network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">Οι πληροφορίες που εμφανίζονται μπορεί να είναι ξεπερασμένες. Το πορτοφόλι σας συγχρονίζεται αυτόματα με το δίκτυο OpenSyria μετά από μια σύνδεση, αλλά αυτή η διαδικασία δεν έχει ακόμη ολοκληρωθεί.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the OpenSY network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">Οι πληροφορίες που εμφανίζονται μπορεί να είναι ξεπερασμένες. Το πορτοφόλι σας συγχρονίζεται αυτόματα με το δίκτυο OpenSY μετά από μια σύνδεση, αλλά αυτή η διαδικασία δεν έχει ακόμη ολοκληρωθεί.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -2090,16 +2090,16 @@ The migration process will create a backup of the wallet before migrating. This 
         <translation type="unfinished">Σφάλμα αίτησης πληρωμής</translation>
     </message>
     <message>
-        <source>Cannot start opensyria: click-to-pay handler</source>
-        <translation type="unfinished">Δεν είναι δυνατή η εκκίνηση του opensyria: χειριστής click-to-pay</translation>
+        <source>Cannot start opensy: click-to-pay handler</source>
+        <translation type="unfinished">Δεν είναι δυνατή η εκκίνηση του opensy: χειριστής click-to-pay</translation>
     </message>
     <message>
         <source>URI handling</source>
         <translation type="unfinished">χειρισμός URI</translation>
     </message>
     <message>
-        <source>'opensyria://' is not a valid URI. Use 'opensyria:' instead.</source>
-        <translation type="unfinished">Το 'opensyria://' δεν είναι έγκυρο URI. Αντ' αυτού χρησιμοποιήστε το 'opensyria:'.</translation>
+        <source>'opensy://' is not a valid URI. Use 'opensy:' instead.</source>
+        <translation type="unfinished">Το 'opensy://' δεν είναι έγκυρο URI. Αντ' αυτού χρησιμοποιήστε το 'opensy:'.</translation>
     </message>
     <message>
         <source>Cannot process payment request because BIP70 is not supported.
@@ -2110,8 +2110,8 @@ If you are receiving this error you should request the merchant provide a BIP21 
 Εάν λαμβάνετε αυτό το σφάλμα, θα πρέπει να ζητήσετε από τον έμπορο να παρέχει ένα URI συμβατό με το BIP21.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid OpenSyria address or malformed URI parameters.</source>
-        <translation type="unfinished">Δεν είναι δυνατή η ανάλυση του URI! Αυτό μπορεί να προκληθεί από μη έγκυρη διεύθυνση OpenSyria ή παραμορφωμένες παραμέτρους URI.</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid OpenSY address or malformed URI parameters.</source>
+        <translation type="unfinished">Δεν είναι δυνατή η ανάλυση του URI! Αυτό μπορεί να προκληθεί από μη έγκυρη διεύθυνση OpenSY ή παραμορφωμένες παραμέτρους URI.</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -2263,8 +2263,8 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished">Τοπικές Διευθύνσεις</translation>
     </message>
     <message>
-        <source>Network addresses that your OpenSyria node is currently using to communicate with other nodes.</source>
-        <translation type="unfinished">Διευθύνσεις δικτύου που χρησιμοποιεί αυτήν τη στιγμή ο OpenSyria κόμβος σας για να επικοινωνεί με άλλους κόμβους.</translation>
+        <source>Network addresses that your OpenSY node is currently using to communicate with other nodes.</source>
+        <translation type="unfinished">Διευθύνσεις δικτύου που χρησιμοποιεί αυτήν τη στιγμή ο OpenSY κόμβος σας για να επικοινωνεί με άλλους κόμβους.</translation>
     </message>
     <message>
         <source>Block chain</source>
@@ -2714,8 +2714,8 @@ For more information on using this console, type %6.
         <translation type="unfinished">&amp;Μήνυμα:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the OpenSyria network.</source>
-        <translation type="unfinished">Ένα προαιρετικό μήνυμα που επισυνάπτεται στο αίτημα πληρωμής, το οποίο θα εμφανιστεί όταν το αίτημα ανοίξει. Σημείωση: Το μήνυμα δεν θα αποσταλεί με την πληρωμή μέσω του δικτύου OpenSyria.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the OpenSY network.</source>
+        <translation type="unfinished">Ένα προαιρετικό μήνυμα που επισυνάπτεται στο αίτημα πληρωμής, το οποίο θα εμφανιστεί όταν το αίτημα ανοίξει. Σημείωση: Το μήνυμα δεν θα αποσταλεί με την πληρωμή μέσω του δικτύου OpenSY.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2908,7 +2908,7 @@ For more information on using this console, type %6.
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation type="unfinished">Αποστολή opensyria</translation>
+        <translation type="unfinished">Αποστολή opensy</translation>
     </message>
     <message>
         <source>Coin Control Features</source>
@@ -3007,8 +3007,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 qirsh
 Σημείωση: Εφόσον η χρέωση υπολογίζεται ανά byte, ένας ρυθμός χρέωσης των «100 qirsh ανά kvB» για μέγεθος συναλλαγής 500 ψηφιακών bytes (το μισό του 1 kvB) θα απέφερε χρέωση μόλις 50 qirsh.</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for opensyria transactions than the network can process.</source>
-        <translation type="unfinished">Όταν υπάρχει λιγότερος όγκος συναλλαγών από το χώρο στα blocks, οι εξορύκτες καθώς και οι κόμβοι αναμετάδοσης μπορούν να επιβάλουν ένα ελάχιστο τέλος. Η πληρωμή μόνο αυτού του ελάχιστου τέλους είναι μια χαρά, αλλά γνωρίζετε ότι αυτό μπορεί να οδηγήσει σε μια συναλλαγή που δεν επιβεβαιώνεται όταν θα υπάρχει μεγαλύτερη ζήτηση για συναλλαγές opensyria από ότι μπορεί να επεξεργαστεί το δίκτυο.</translation>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for opensy transactions than the network can process.</source>
+        <translation type="unfinished">Όταν υπάρχει λιγότερος όγκος συναλλαγών από το χώρο στα blocks, οι εξορύκτες καθώς και οι κόμβοι αναμετάδοσης μπορούν να επιβάλουν ένα ελάχιστο τέλος. Η πληρωμή μόνο αυτού του ελάχιστου τέλους είναι μια χαρά, αλλά γνωρίζετε ότι αυτό μπορεί να οδηγήσει σε μια συναλλαγή που δεν επιβεβαιώνεται όταν θα υπάρχει μεγαλύτερη ζήτηση για συναλλαγές opensy από ότι μπορεί να επεξεργαστεί το δίκτυο.</translation>
     </message>
     <message>
         <source>A too low fee might result in a never confirming transaction (read the tooltip)</source>
@@ -3089,8 +3089,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 qirsh
         <translation type="unfinished">Δη&amp;μιουργία Ανυπόγραφου</translation>
     </message>
     <message>
-        <source>Creates a Partially Signed OpenSyria Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
-        <translation type="unfinished">Δημιουργεί μια συναλλαγή OpenSyria με μερική υπογραφή (PSBT) για χρήση με π.χ. ένα πορτοφόλι %1 εκτός σύνδεσης ή ένα hardware πορτοφόλι συμβατό με PSBT.</translation>
+        <source>Creates a Partially Signed OpenSY Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <translation type="unfinished">Δημιουργεί μια συναλλαγή OpenSY με μερική υπογραφή (PSBT) για χρήση με π.χ. ένα πορτοφόλι %1 εκτός σύνδεσης ή ένα hardware πορτοφόλι συμβατό με PSBT.</translation>
     </message>
     <message>
         <source>%1 to '%2'</source>
@@ -3145,9 +3145,9 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 qirsh
         <translation type="unfinished"> Μπορείτε να αυξήσετε αργότερα την αμοιβή (σήματα Αντικατάσταση-By-Fee, BIP-125).</translation>
     </message>
     <message>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed OpenSyria Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed OpenSY Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
-        <translation type="unfinished">Παρακαλούμε, ελέγξτε την πρόταση συναλλαγής. Θα παραχθεί μια συναλλαγή OpenSyria με μερική υπογραφή (PSBT), την οποία μπορείτε να αντιγράψετε και στη συνέχεια να υπογράψετε με π.χ. ένα πορτοφόλι %1 εκτός σύνδεσης ή ένα πορτοφόλι υλικού συμβατό με το PSBT.</translation>
+        <translation type="unfinished">Παρακαλούμε, ελέγξτε την πρόταση συναλλαγής. Θα παραχθεί μια συναλλαγή OpenSY με μερική υπογραφή (PSBT), την οποία μπορείτε να αντιγράψετε και στη συνέχεια να υπογράψετε με π.χ. ένα πορτοφόλι %1 εκτός σύνδεσης ή ένα πορτοφόλι υλικού συμβατό με το PSBT.</translation>
     </message>
     <message>
         <source>%1 from wallet '%2'</source>
@@ -3159,9 +3159,9 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 qirsh
         <translation type="unfinished">Θέλετε να δημιουργήσετε αυτήν τη συναλλαγή;</translation>
     </message>
     <message>
-        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed OpenSyria Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed OpenSY Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can send their transaction or create a PSBT. This string is displayed when both private keys and PSBT controls are enabled.</extracomment>
-        <translation type="unfinished">Παρακαλώ, ελέγξτε τη συναλλαγή σας. Μπορείτε να δημιουργήσετε και να στείλετε αυτήν τη συναλλαγή ή να δημιουργήσετε μια μερικώς υπογεγραμμένη συναλλαγή OpenSyria (PSBT), την οποία μπορείτε να αποθηκεύσετε ή να αντιγράψετε και στη συνέχεια να υπογράψετε, π.χ. με ένα πορτοφόλι εκτός σύνδεσης %1 ή ένα hardware πορτοφόλι συμβατό με PSBT.</translation>
+        <translation type="unfinished">Παρακαλώ, ελέγξτε τη συναλλαγή σας. Μπορείτε να δημιουργήσετε και να στείλετε αυτήν τη συναλλαγή ή να δημιουργήσετε μια μερικώς υπογεγραμμένη συναλλαγή OpenSY (PSBT), την οποία μπορείτε να αποθηκεύσετε ή να αντιγράψετε και στη συνέχεια να υπογράψετε, π.χ. με ένα πορτοφόλι εκτός σύνδεσης %1 ή ένα hardware πορτοφόλι συμβατό με PSBT.</translation>
     </message>
     <message>
         <source>Please, review your transaction.</source>
@@ -3196,7 +3196,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 qirsh
     </message>
     <message>
         <source>Confirm send coins</source>
-        <translation type="unfinished"> Επιβεβαιώστε την αποστολή opensyria</translation>
+        <translation type="unfinished"> Επιβεβαιώστε την αποστολή opensy</translation>
     </message>
     <message>
         <source>The recipient address is not valid. Please recheck.</source>
@@ -3234,8 +3234,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 qirsh
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid OpenSyria address</source>
-        <translation type="unfinished">Προειδοποίηση: Μη έγκυρη διεύθυνση OpenSyria</translation>
+        <source>Warning: Invalid OpenSY address</source>
+        <translation type="unfinished">Προειδοποίηση: Μη έγκυρη διεύθυνση OpenSY</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -3273,8 +3273,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 qirsh
         <translation type="unfinished">Επιλογή διεύθυνσης που έχει ήδη χρησιμοποιηθεί</translation>
     </message>
     <message>
-        <source>The OpenSyria address to send the payment to</source>
-        <translation type="unfinished">Η διεύθυνση OpenSyria που θα σταλεί η πληρωμή</translation>
+        <source>The OpenSY address to send the payment to</source>
+        <translation type="unfinished">Η διεύθυνση OpenSY που θα σταλεί η πληρωμή</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -3309,8 +3309,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 qirsh
         <translation type="unfinished">Εισάγετε μία ετικέτα για αυτή την διεύθυνση για να προστεθεί στη λίστα με τις χρησιμοποιημένες διευθύνσεις</translation>
     </message>
     <message>
-        <source>A message that was attached to the opensyria: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the OpenSyria network.</source>
-        <translation type="unfinished">Ένα μήνυμα που επισυνάφθηκε στο opensyria: URI το οποίο θα αποθηκευτεί με τη συναλλαγή για αναφορά. Σημείωση: Αυτό το μήνυμα δεν θα σταλεί μέσω του δικτύου OpenSyria.</translation>
+        <source>A message that was attached to the opensy: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the OpenSY network.</source>
+        <translation type="unfinished">Ένα μήνυμα που επισυνάφθηκε στο opensy: URI το οποίο θα αποθηκευτεί με τη συναλλαγή για αναφορά. Σημείωση: Αυτό το μήνυμα δεν θα σταλεί μέσω του δικτύου OpenSY.</translation>
     </message>
 </context>
 <context>
@@ -3336,11 +3336,11 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 qirsh
     </message>
     <message>
         <source>You can sign messages/agreements with your legacy (P2PKH) addresses to prove you can receive SYL sent to them. Be careful not to sign anything vague or random, as phishing attacks may try to trick you into signing your identity over to them. Only sign fully-detailed statements you agree to.</source>
-        <translation type="unfinished">Μπορείτε να υπογράψετε μηνύματα/συμφωνίες με τις παλαιότερες (P2PKH) διευθύνσεις σας για να αποδείξετε ότι μπορείτε να λαμβάνετε opensyria που αποστέλλονται σε αυτές. Προσέξτε να μην υπογράψετε τίποτα αόριστο ή τυχαίο, καθώς οι επιθέσεις ηλεκτρονικού "ψαρέματος" (phishing) ενδέχεται να προσπαθήσουν να σας ξεγελάσουν ώστε να τους υπογράψετε την ταυτότητά σας. Υπογράφετε μόνο πλήρως λεπτομερείς δηλώσεις με τις οποίες συμφωνείτε.</translation>
+        <translation type="unfinished">Μπορείτε να υπογράψετε μηνύματα/συμφωνίες με τις παλαιότερες (P2PKH) διευθύνσεις σας για να αποδείξετε ότι μπορείτε να λαμβάνετε opensy που αποστέλλονται σε αυτές. Προσέξτε να μην υπογράψετε τίποτα αόριστο ή τυχαίο, καθώς οι επιθέσεις ηλεκτρονικού "ψαρέματος" (phishing) ενδέχεται να προσπαθήσουν να σας ξεγελάσουν ώστε να τους υπογράψετε την ταυτότητά σας. Υπογράφετε μόνο πλήρως λεπτομερείς δηλώσεις με τις οποίες συμφωνείτε.</translation>
     </message>
     <message>
-        <source>The OpenSyria address to sign the message with</source>
-        <translation type="unfinished">Διεύθυνση OpenSyria που θα υπογράψει το μήνυμα</translation>
+        <source>The OpenSY address to sign the message with</source>
+        <translation type="unfinished">Διεύθυνση OpenSY που θα υπογράψει το μήνυμα</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3363,8 +3363,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 qirsh
         <translation type="unfinished">Αντιγραφή της επιλεγμένης υπογραφής στο πρόχειρο</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this OpenSyria address</source>
-        <translation type="unfinished">Υπογράψτε το μήνυμα για να αποδείξετε πως σας ανήκει η συγκεκριμένη διεύθυνση OpenSyria</translation>
+        <source>Sign the message to prove you own this OpenSY address</source>
+        <translation type="unfinished">Υπογράψτε το μήνυμα για να αποδείξετε πως σας ανήκει η συγκεκριμένη διεύθυνση OpenSY</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3387,8 +3387,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 qirsh
         <translation type="unfinished">Εισαγάγετε τη διεύθυνση του παραλήπτη, το μήνυμα (βεβαιωθείτε ότι αντιγράφετε σωστά τα διαλείμματα γραμμής, τα κενά, τις καρτέλες κλπ.) και την υπογραφή παρακάτω για να επαληθεύσετε το μήνυμα. Προσέξτε να μην ερμηνεύσετε περισσότερα στην υπογραφή από ότι περιέχει το ίδιο το υπογεγραμμένο μήνυμα, ώστε να αποφύγετε να εξαπατηθείτε από μια επίθεση τύπου man-in-the-middle. Σημειώστε ότι αυτό αποδεικνύει μόνο ότι το υπογράφον μέρος μπορεί να λαμβάνει με τη διεύθυνση, δεν μπορεί να αποδείξει την αποστολή κάποιας συναλλαγής!</translation>
     </message>
     <message>
-        <source>The OpenSyria address the message was signed with</source>
-        <translation type="unfinished">Διεύθυνση OpenSyria με την οποία έχει υπογραφεί το μήνυμα</translation>
+        <source>The OpenSY address the message was signed with</source>
+        <translation type="unfinished">Διεύθυνση OpenSY με την οποία έχει υπογραφεί το μήνυμα</translation>
     </message>
     <message>
         <source>The signed message to verify</source>
@@ -3399,8 +3399,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 qirsh
         <translation type="unfinished">Η υπογραφή που δόθηκε όταν υπογράφηκε το μήνυμα</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified OpenSyria address</source>
-        <translation type="unfinished">Επαληθεύστε το μήνυμα για να αποδειχθεί πως υπογράφηκε από τη συγκεκριμένη διεύθυνση OpenSyria</translation>
+        <source>Verify the message to ensure it was signed with the specified OpenSY address</source>
+        <translation type="unfinished">Επαληθεύστε το μήνυμα για να αποδειχθεί πως υπογράφηκε από τη συγκεκριμένη διεύθυνση OpenSY</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3932,7 +3932,7 @@ Go to File &gt; Open Wallet to load a wallet.
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation type="unfinished">Αποστολή opensyria</translation>
+        <translation type="unfinished">Αποστολή opensy</translation>
     </message>
     <message>
         <source>Fee bump error</source>
@@ -4037,7 +4037,7 @@ Go to File &gt; Open Wallet to load a wallet.
     </message>
 </context>
 <context>
-    <name>opensyria-core</name>
+    <name>opensy-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">Οι προγραμματιστές %s</translation>

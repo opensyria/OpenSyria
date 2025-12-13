@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_SUPPORT_ALLOCATORS_SECURE_H
-#define OPENSYRIA_SUPPORT_ALLOCATORS_SECURE_H
+#ifndef OPENSY_SUPPORT_ALLOCATORS_SECURE_H
+#define OPENSY_SUPPORT_ALLOCATORS_SECURE_H
 
 #include <support/lockedpool.h>
 #include <support/cleanse.h>
@@ -81,4 +81,4 @@ secure_unique_ptr<T> make_secure_unique(Args&&... as)
     }
 }
 
-#endif // OPENSYRIA_SUPPORT_ALLOCATORS_SECURE_H
+#endif // OPENSY_SUPPORT_ALLOCATORS_SECURE_H

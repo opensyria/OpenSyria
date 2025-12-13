@@ -54,31 +54,31 @@ set(CMAKE_AUTOUIC ON)
 set(CMAKE_AUTOUIC_SEARCH_PATHS forms)
 
 set(CMAKE_AUTORCC OFF)
-configure_file(opensyria_locale.qrc opensyria_locale.qrc USE_SOURCE_PERMISSIONS COPYONLY)
-qt6_add_resources(OPENSYRIA_QRC opensyria.qrc)
-qt6_add_resources(OPENSYRIA_LOCALE_QRC ${CMAKE_CURRENT_BINARY_DIR}/opensyria_locale.qrc)
+configure_file(opensy_locale.qrc opensy_locale.qrc USE_SOURCE_PERMISSIONS COPYONLY)
+qt6_add_resources(OPENSY_QRC opensy.qrc)
+qt6_add_resources(OPENSY_LOCALE_QRC ${CMAKE_CURRENT_BINARY_DIR}/opensy_locale.qrc)
 # See: https://bugreports.qt.io/browse/QTBUG-141858.
 get_target_property(warn_flags warn_interface INTERFACE_COMPILE_OPTIONS)
 if("-Wtrailing-whitespace=any" IN_LIST warn_flags)
-  set_source_files_properties(${OPENSYRIA_QRC} ${OPENSYRIA_LOCALE_QRC} PROPERTIES COMPILE_OPTIONS -Wno-trailing-whitespace)
+  set_source_files_properties(${OPENSY_QRC} ${OPENSY_LOCALE_QRC} PROPERTIES COMPILE_OPTIONS -Wno-trailing-whitespace)
 endif()
 unset(warn_flags)
 
-# The opensyriaqt sources have to include headers in
+# The opensyqt sources have to include headers in
 # order to parse them to collect translatable strings.
-add_library(opensyriaqt STATIC EXCLUDE_FROM_ALL
+add_library(opensyqt STATIC EXCLUDE_FROM_ALL
   bantablemodel.cpp
   bantablemodel.h
-  opensyria.cpp
-  opensyria.h
-  opensyriaaddressvalidator.cpp
-  opensyriaaddressvalidator.h
-  opensyriaamountfield.cpp
-  opensyriaamountfield.h
-  opensyriagui.cpp
-  opensyriagui.h
-  opensyriaunits.cpp
-  opensyriaunits.h
+  opensy.cpp
+  opensy.h
+  opensyaddressvalidator.cpp
+  opensyaddressvalidator.h
+  opensyamountfield.cpp
+  opensyamountfield.h
+  opensygui.cpp
+  opensygui.h
+  opensyunits.cpp
+  opensyunits.h
   clientmodel.cpp
   clientmodel.h
   csvmodelwriter.cpp
@@ -127,15 +127,15 @@ add_library(opensyriaqt STATIC EXCLUDE_FROM_ALL
   utilitydialog.h
   $<$<PLATFORM_ID:Windows>:winshutdownmonitor.cpp>
   $<$<PLATFORM_ID:Windows>:winshutdownmonitor.h>
-  ${OPENSYRIA_QRC}
-  ${OPENSYRIA_LOCALE_QRC}
+  ${OPENSY_QRC}
+  ${OPENSY_LOCALE_QRC}
 )
-target_compile_definitions(opensyriaqt
+target_compile_definitions(opensyqt
   PUBLIC
     QT_NO_KEYWORDS
     QT_USE_QSTRINGBUILDER
 )
-target_include_directories(opensyriaqt
+target_include_directories(opensyqt
   PUBLIC
     $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src>
 )
@@ -143,12 +143,12 @@ set_property(SOURCE macnotificationhandler.mm
   # Ignore warnings "'NSUserNotificationCenter' is deprecated: first deprecated in macOS 11.0".
   APPEND PROPERTY COMPILE_OPTIONS -Wno-deprecated-declarations
 )
-target_link_libraries(opensyriaqt
+target_link_libraries(opensyqt
   PUBLIC
     Qt6::Widgets
   PRIVATE
     core_interface
-    opensyria_cli
+    opensy_cli
     leveldb
     Boost::headers
     $<TARGET_NAME_IF_EXISTS:QRencode::QRencode>
@@ -157,7 +157,7 @@ target_link_libraries(opensyriaqt
 )
 
 if(ENABLE_WALLET)
-  target_sources(opensyriaqt
+  target_sources(opensyqt
     PRIVATE
       addressbookpage.cpp
       addressbookpage.h
@@ -220,21 +220,21 @@ if(ENABLE_WALLET)
       walletview.cpp
       walletview.h
   )
-  target_link_libraries(opensyriaqt
+  target_link_libraries(opensyqt
     PRIVATE
-      opensyria_wallet
+      opensy_wallet
       Qt6::Network
   )
 endif()
 
 if(WITH_DBUS)
-  target_link_libraries(opensyriaqt PRIVATE Qt6::DBus)
+  target_link_libraries(opensyqt PRIVATE Qt6::DBus)
 endif()
 
 if(qt_lib_type STREQUAL "STATIC_LIBRARY")
   # We want to define static plugins to link ourselves, thus preventing
   # automatic linking against a "sane" set of default static plugins.
-  qt6_import_plugins(opensyriaqt
+  qt6_import_plugins(opensyqt
     EXCLUDE_BY_TYPE
       accessiblebridge
       platforms
@@ -255,45 +255,45 @@ endif()
 
 add_subdirectory(locale)
 
-add_executable(opensyria-qt
+add_executable(opensy-qt
   main.cpp
-  ../init/opensyria-qt.cpp
+  ../init/opensy-qt.cpp
 )
-  set_target_properties(opensyria-qt PROPERTIES OUTPUT_NAME opensyria-qt)
-  set_target_properties(opensyria-qt PROPERTIES OUTPUT_NAME opensyria-qt)
+  set_target_properties(opensy-qt PROPERTIES OUTPUT_NAME opensy-qt)
+  set_target_properties(opensy-qt PROPERTIES OUTPUT_NAME opensy-qt)
 
-add_windows_resources(opensyria-qt res/opensyria-qt-res.rc)
-add_windows_application_manifest(opensyria-qt)
+add_windows_resources(opensy-qt res/opensy-qt-res.rc)
+add_windows_application_manifest(opensy-qt)
 
-target_link_libraries(opensyria-qt
+target_link_libraries(opensy-qt
   core_interface
-  opensyriaqt
-  opensyria_node
+  opensyqt
+  opensy_node
 )
 
-import_plugins(opensyria-qt)
-install_binary_component(opensyria-qt HAS_MANPAGE)
+import_plugins(opensy-qt)
+install_binary_component(opensy-qt HAS_MANPAGE)
 if(WIN32)
-  set_target_properties(opensyria-qt PROPERTIES WIN32_EXECUTABLE TRUE)
+  set_target_properties(opensy-qt PROPERTIES WIN32_EXECUTABLE TRUE)
 endif()
 
 if(ENABLE_IPC)
-  add_executable(opensyria-gui
+  add_executable(opensy-gui
     main.cpp
-    ../init/opensyria-gui.cpp
+    ../init/opensy-gui.cpp
   )
-    set_target_properties(opensyria-gui PROPERTIES OUTPUT_NAME opensyria-gui)
-    set_target_properties(opensyria-gui PROPERTIES OUTPUT_NAME opensyria-gui)
-  target_link_libraries(opensyria-gui
+    set_target_properties(opensy-gui PROPERTIES OUTPUT_NAME opensy-gui)
+    set_target_properties(opensy-gui PROPERTIES OUTPUT_NAME opensy-gui)
+  target_link_libraries(opensy-gui
     core_interface
-    opensyriaqt
-    opensyria_node
-    opensyria_ipc
+    opensyqt
+    opensy_node
+    opensy_ipc
   )
-  import_plugins(opensyria-gui)
-  install_binary_component(opensyria-gui INTERNAL)
+  import_plugins(opensy-gui)
+  install_binary_component(opensy-gui INTERNAL)
   if(WIN32)
-    set_target_properties(opensyria-gui PROPERTIES WIN32_EXECUTABLE TRUE)
+    set_target_properties(opensy-gui PROPERTIES WIN32_EXECUTABLE TRUE)
   endif()
 endif()
 

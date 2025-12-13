@@ -1,9 +1,9 @@
-// Copyright (c) 2013-2020 The OpenSyria Core developers
+// Copyright (c) 2013-2020 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_NOUI_H
-#define OPENSYRIA_NOUI_H
+#ifndef OPENSY_NOUI_H
+#define OPENSY_NOUI_H
 
 #include <string>
 
@@ -16,13 +16,13 @@ bool noui_ThreadSafeQuestion(const bilingual_str& /* ignored interactive message
 /** Non-GUI handler, which only logs a message. */
 void noui_InitMessage(const std::string& message);
 
-/** Connect all opensyriad signal handlers */
+/** Connect all opensyd signal handlers */
 void noui_connect();
 
-/** Redirect all opensyriad signal handlers to LogInfo. Used to check or suppress output during test runs that produce expected errors */
+/** Redirect all opensyd signal handlers to LogInfo. Used to check or suppress output during test runs that produce expected errors */
 void noui_test_redirect();
 
 /** Reconnects the regular Non-GUI handlers after having used noui_test_redirect */
 void noui_reconnect();
 
-#endif // OPENSYRIA_NOUI_H
+#endif // OPENSY_NOUI_H

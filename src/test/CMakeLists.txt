@@ -4,7 +4,7 @@
 
 # Do not use generator expressions in test sources because the
 # SOURCES property is processed to gather test suite macros.
-add_executable(test_opensyria
+add_executable(test_opensy
   main.cpp
   addrman_tests.cpp
   allocator_tests.cpp
@@ -134,11 +134,11 @@ add_executable(test_opensyria
   validationinterface_tests.cpp
   versionbits_tests.cpp
 )
-set_target_properties(test_opensyria PROPERTIES OUTPUT_NAME test_opensyria)
-set_target_properties(test_opensyria PROPERTIES OUTPUT_NAME test_opensyria)
+set_target_properties(test_opensy PROPERTIES OUTPUT_NAME test_opensy)
+set_target_properties(test_opensy PROPERTIES OUTPUT_NAME test_opensy)
 
 include(TargetDataSources)
-target_json_data_sources(test_opensyria
+target_json_data_sources(test_opensy
   data/base58_encode_decode.json
   data/bip341_wallet_vectors.json
   data/blockfilters.json
@@ -149,20 +149,20 @@ target_json_data_sources(test_opensyria
   data/tx_invalid.json
   data/tx_valid.json
 )
-target_raw_data_sources(test_opensyria NAMESPACE test::data
+target_raw_data_sources(test_opensy NAMESPACE test::data
   data/asmap.raw
 )
 
-add_windows_application_manifest(test_opensyria)
+add_windows_application_manifest(test_opensy)
 
-# Get secp256k1 include paths without linking (it's already linked transitively via opensyria_common)
-target_include_directories(test_opensyria PRIVATE $<TARGET_PROPERTY:secp256k1,INTERFACE_INCLUDE_DIRECTORIES>)
+# Get secp256k1 include paths without linking (it's already linked transitively via opensy_common)
+target_include_directories(test_opensy PRIVATE $<TARGET_PROPERTY:secp256k1,INTERFACE_INCLUDE_DIRECTORIES>)
 
-target_link_libraries(test_opensyria
+target_link_libraries(test_opensy
   core_interface
   test_util
-  opensyria_cli
-  opensyria_node
+  opensy_cli
+  opensy_node
   minisketch
   Boost::headers
   libevent::extra
@@ -173,18 +173,18 @@ if(ENABLE_WALLET)
 endif()
 
 if(ENABLE_IPC)
-  target_link_libraries(opensyria_ipc_test
+  target_link_libraries(opensy_ipc_test
     PRIVATE
       core_interface
       univalue
       Boost::headers
   )
 
-  target_sources(test_opensyria
+  target_sources(test_opensy
     PRIVATE
       ipc_tests.cpp
   )
-  target_link_libraries(test_opensyria opensyria_ipc_test opensyria_ipc)
+  target_link_libraries(test_opensy opensy_ipc_test opensy_ipc)
 
   configure_file(.clang-tidy.in .clang-tidy USE_SOURCE_PERMISSIONS COPYONLY)
 endif()
@@ -204,7 +204,7 @@ function(add_boost_test source_file)
   )
   foreach(test_suite_name IN LISTS test_suite_macro)
     add_test(NAME ${test_suite_name}
-      COMMAND test_opensyria --run_test=${test_suite_name} --catch_system_error=no --log_level=test_suite -- DEBUG_LOG_OUT
+      COMMAND test_opensy --run_test=${test_suite_name} --catch_system_error=no --log_level=test_suite -- DEBUG_LOG_OUT
     )
     set_property(TEST ${test_suite_name} PROPERTY
       SKIP_REGULAR_EXPRESSION
@@ -216,8 +216,8 @@ function(add_boost_test source_file)
 endfunction()
 
 function(add_all_test_targets)
-  get_target_property(test_source_dir test_opensyria SOURCE_DIR)
-  get_target_property(test_sources test_opensyria SOURCES)
+  get_target_property(test_source_dir test_opensy SOURCE_DIR)
+  get_target_property(test_sources test_opensy SOURCES)
   foreach(test_source ${test_sources})
     cmake_path(IS_RELATIVE test_source result)
     if(result)
@@ -229,4 +229,4 @@ endfunction()
 
 add_all_test_targets()
 
-install_binary_component(test_opensyria INTERNAL)
+install_binary_component(test_opensy INTERNAL)

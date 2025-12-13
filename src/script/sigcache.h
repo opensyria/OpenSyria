@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_SCRIPT_SIGCACHE_H
-#define OPENSYRIA_SCRIPT_SIGCACHE_H
+#ifndef OPENSY_SCRIPT_SIGCACHE_H
+#define OPENSY_SCRIPT_SIGCACHE_H
 
 #include <consensus/amount.h>
 #include <crypto/sha256.h>
@@ -73,4 +73,4 @@ public:
     bool VerifySchnorrSignature(std::span<const unsigned char> sig, const XOnlyPubKey& pubkey, const uint256& sighash) const override;
 };
 
-#endif // OPENSYRIA_SCRIPT_SIGCACHE_H
+#endif // OPENSY_SCRIPT_SIGCACHE_H

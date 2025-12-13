@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2022 The OpenSyria Core developers
+# Copyright (c) 2015-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test multisig RPCs"""
@@ -13,7 +13,7 @@ from test_framework.descriptors import descsum_create
 from test_framework.key import ECPubKey
 from test_framework.messages import COIN
 from test_framework.script_util import keys_to_multisig_script
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_raises_rpc_error,
     assert_equal,
@@ -24,15 +24,15 @@ from test_framework.wallet import (
     getnewdestination,
 )
 
-class RpcCreateMultiSigTest(OpenSyriaTestFramework):
+class RpcCreateMultiSigTest(OpenSYTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 3
 
     def skip_test_if_missing_module(self):
-        # TODO: Regenerate BIP67 test vectors with OpenSyria addresses
+        # TODO: Regenerate BIP67 test vectors with OpenSY addresses
         # The test_sortedmulti_descriptors_bip67() function has hardcoded Bitcoin
-        # testnet addresses that need to be regenerated for OpenSyria's address format.
+        # testnet addresses that need to be regenerated for OpenSY's address format.
         # To fix: Run the test on Linux, capture the correct addresses, update test data.
         self.skip_if_platform_not_linux()  # BIP67 test data has Bitcoin testnet addresses
 

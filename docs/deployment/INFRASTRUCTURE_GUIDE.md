@@ -1,10 +1,10 @@
-# OpenSyria Infrastructure Deployment Guide
+# OpenSY Infrastructure Deployment Guide
 
 ## AWS + Cloudflare Production Deployment
 
 **Total Monthly Cost: ~$15-50/month (scales with usage)**
 
-This guide walks you through deploying production-ready OpenSyria blockchain infrastructure using AWS and Cloudflare.
+This guide walks you through deploying production-ready OpenSY blockchain infrastructure using AWS and Cloudflare.
 
 ---
 
@@ -15,7 +15,7 @@ This guide walks you through deploying production-ready OpenSyria blockchain inf
 3. [Phase 1: AWS Account Setup](#3-phase-1-aws-account-setup)
 4. [Phase 2: Launch First Seed Node](#4-phase-2-launch-first-seed-node)
 5. [Phase 3: Server Configuration](#5-phase-3-server-configuration)
-6. [Phase 4: Build & Install OpenSyria](#6-phase-4-build--install-opensyria)
+6. [Phase 4: Build & Install OpenSY](#6-phase-4-build--install-opensy)
 7. [Phase 5: Configure DNS (Cloudflare)](#7-phase-5-configure-dns-cloudflare)
 8. [Phase 6: DNS Seeder Setup](#8-phase-6-dns-seeder-setup)
 9. [Phase 7: Block Explorer](#9-phase-7-block-explorer)
@@ -52,7 +52,7 @@ This guide walks you through deploying production-ready OpenSyria blockchain inf
 │  + DNS Seeder │       │               │       │  + Nginx      │
 └───────────────┘       └───────────────┘       └───────────────┘
 
-Domain: opensyria.net (Namecheap → Cloudflare DNS)
+Domain: opensy.net (Namecheap → Cloudflare DNS)
 
 Cost Breakdown (Minimum):
 ├── AWS EC2 t3.small (seed1):     ~$15/month
@@ -74,26 +74,26 @@ Cost Breakdown (Minimum):
 |---------|-----|--------|
 | ✅ AWS | https://aws.amazon.com | Your account ready |
 | ✅ Cloudflare | https://cloudflare.com | Active, DNS configured |
-| ✅ Namecheap | https://namecheap.com | Domain: opensyria.net |
+| ✅ Namecheap | https://namecheap.com | Domain: opensy.net |
 
 ### 2.2 Local Requirements
 
 ```bash
 # SSH key for server access
-ssh-keygen -t ed25519 -C "opensyria-aws"
+ssh-keygen -t ed25519 -C "opensy-aws"
 cat ~/.ssh/id_ed25519.pub  # Copy this for AWS
 ```
 
 ### 2.3 Current Status (Updated Dec 8, 2025)
 
-- [x] Domain `opensyria.net` registered
+- [x] Domain `opensy.net` registered
 - [x] Cloudflare DNS active
 - [x] Nameservers configured
 - [x] AWS account created
 - [x] EC2 instance launched (157.175.40.131, Bahrain me-south-1)
-- [x] OpenSyria v30.99.0 built and running
+- [x] OpenSY v30.99.0 built and running
 - [x] Genesis chain mined (7,000+ blocks)
-- [x] DNS seeder operational (seed.opensyria.net)
+- [x] DNS seeder operational (seed.opensy.net)
 - [x] External peers connecting! ✅ **NETWORK IS LIVE**
 
 ---
@@ -112,7 +112,7 @@ cat ~/.ssh/id_ed25519.pub  # Copy this for AWS
 ### 3.2 Create IAM User (Best Practice)
 
 1. Go to **IAM** → **Users** → **Add user**
-2. Username: `opensyria-admin`
+2. Username: `opensy-admin`
 3. Access: **AWS Management Console**
 4. Permissions: **AdministratorAccess** (or EC2FullAccess for limited)
 5. Save credentials securely
@@ -142,7 +142,7 @@ cat ~/.ssh/id_ed25519.pub  # Copy this for AWS
 #### Basic Settings
 | Setting | Value |
 |---------|-------|
-| **Name** | `opensyria-seed-1` |
+| **Name** | `opensy-seed-1` |
 | **AMI** | Ubuntu Server 24.04 LTS (64-bit x86) |
 | **Architecture** | 64-bit (x86) |
 
@@ -158,15 +158,15 @@ cat ~/.ssh/id_ed25519.pub  # Copy this for AWS
 
 #### Key Pair
 1. Click **Create new key pair**
-2. Name: `opensyria-key`
+2. Name: `opensy-key`
 3. Type: **ED25519** (or RSA)
 4. Format: **.pem**
 5. **Download and save securely!**
 
 ```bash
 # After download, secure the key
-mv ~/Downloads/opensyria-key.pem ~/.ssh/
-chmod 400 ~/.ssh/opensyria-key.pem
+mv ~/Downloads/opensy-key.pem ~/.ssh/
+chmod 400 ~/.ssh/opensy-key.pem
 ```
 
 #### Network Settings (Security Group)
@@ -176,13 +176,13 @@ Click **Edit** and configure:
 | Type | Protocol | Port | Source | Description |
 |------|----------|------|--------|-------------|
 | SSH | TCP | 22 | My IP | SSH access |
-| Custom TCP | TCP | **9633** | 0.0.0.0/0 | OpenSyria P2P |
+| Custom TCP | TCP | **9633** | 0.0.0.0/0 | OpenSY P2P |
 | Custom TCP | TCP | **9632** | My IP | RPC (restricted) |
 | Custom TCP | TCP | **19633** | 0.0.0.0/0 | Testnet P2P |
 | Custom UDP | UDP | **53** | 0.0.0.0/0 | DNS Seeder |
 | Custom TCP | TCP | **53** | 0.0.0.0/0 | DNS Seeder |
 
-> **Security Group Name:** `opensyria-sg`
+> **Security Group Name:** `opensy-sg`
 
 #### Storage
 
@@ -222,10 +222,10 @@ Static IP that persists across restarts:
 
 ```bash
 # Connect to your server
-ssh -i ~/.ssh/opensyria-key.pem ubuntu@YOUR_PUBLIC_IP
+ssh -i ~/.ssh/opensy-key.pem ubuntu@YOUR_PUBLIC_IP
 
 # Example:
-ssh -i ~/.ssh/opensyria-key.pem ubuntu@3.28.123.45
+ssh -i ~/.ssh/opensy-key.pem ubuntu@3.28.123.45
 ```
 
 ### 5.2 Initial System Setup
@@ -238,7 +238,7 @@ sudo apt update && sudo apt upgrade -y
 sudo timedatectl set-timezone Asia/Riyadh  # Or your preference
 
 # Set hostname
-sudo hostnamectl set-hostname opensyria-seed-1
+sudo hostnamectl set-hostname opensy-seed-1
 
 # Install essential packages
 sudo apt install -y \
@@ -265,9 +265,9 @@ sudo ufw default allow outgoing
 
 # Allow required ports
 sudo ufw allow 22/tcp comment 'SSH'
-sudo ufw allow 9633/tcp comment 'OpenSyria P2P'
-sudo ufw allow 9632/tcp comment 'OpenSyria RPC'
-sudo ufw allow 19633/tcp comment 'OpenSyria Testnet'
+sudo ufw allow 9633/tcp comment 'OpenSY P2P'
+sudo ufw allow 9632/tcp comment 'OpenSY RPC'
+sudo ufw allow 19633/tcp comment 'OpenSY Testnet'
 sudo ufw allow 53/udp comment 'DNS Seeder'
 sudo ufw allow 53/tcp comment 'DNS Seeder'
 
@@ -287,21 +287,21 @@ sudo systemctl start fail2ban
 sudo fail2ban-client status
 ```
 
-### 5.5 Create OpenSyria User
+### 5.5 Create OpenSY User
 
 ```bash
 # Create dedicated user
-sudo useradd -m -s /bin/bash opensyria
-sudo usermod -aG sudo opensyria
+sudo useradd -m -s /bin/bash opensy
+sudo usermod -aG sudo opensy
 
 # Create directories
-sudo mkdir -p /opt/opensyria
-sudo chown opensyria:opensyria /opt/opensyria
+sudo mkdir -p /opt/opensy
+sudo chown opensy:opensy /opt/opensy
 ```
 
 ---
 
-## 6. Phase 4: Build & Install OpenSyria
+## 6. Phase 4: Build & Install OpenSY
 
 ### 6.1 Install Build Dependencies
 
@@ -321,12 +321,12 @@ sudo apt install -y \
 ### 6.2 Clone and Build
 
 ```bash
-# Switch to opensyria user
-sudo su - opensyria
+# Switch to opensy user
+sudo su - opensy
 
 # Clone repository
-cd /opt/opensyria
-git clone https://github.com/opensyria/OpenSyria.git source
+cd /opt/opensy
+git clone https://github.com/opensy/OpenSY.git source
 cd source
 
 # Build (daemon and CLI only, no GUI)
@@ -341,8 +341,8 @@ cmake -B build \
 cmake --build build -j$(nproc)
 
 # Verify build
-./build/bin/opensyriad --version
-./build/bin/opensyria-cli --version
+./build/bin/opensyd --version
+./build/bin/opensy-cli --version
 ```
 
 ### 6.3 Install Binaries
@@ -352,23 +352,23 @@ cmake --build build -j$(nproc)
 sudo cmake --install build --prefix /usr/local
 
 # Verify installation
-which opensyriad
-opensyriad --version
+which opensyd
+opensyd --version
 ```
 
-### 6.4 Configure OpenSyria Node
+### 6.4 Configure OpenSY Node
 
 ```bash
-# Create config directory (as opensyria user)
-mkdir -p ~/.opensyria
+# Create config directory (as opensy user)
+mkdir -p ~/.opensy
 
 # Generate secure RPC password
 RPC_PASS=$(openssl rand -hex 32)
 
 # Create configuration
-cat > ~/.opensyria/opensyria.conf << EOF
-# OpenSyria Seed Node Configuration
-# Server: seed1.opensyria.net
+cat > ~/.opensy/opensy.conf << EOF
+# OpenSY Seed Node Configuration
+# Server: seed1.opensy.net
 
 # =============
 # NETWORK
@@ -386,7 +386,7 @@ maxuploadtarget=5000
 # =============
 # RPC
 # =============
-rpcuser=opensyriarpc
+rpcuser=opensyrpc
 rpcpassword=${RPC_PASS}
 rpcbind=127.0.0.1
 rpcallowip=127.0.0.1
@@ -415,12 +415,12 @@ par=2
 # SEEDS
 # =============
 # Will be populated as more nodes come online
-# seednode=seed2.opensyria.net:9633
+# seednode=seed2.opensy.net:9633
 EOF
 
 # Save credentials for reference
-echo "RPC Password: ${RPC_PASS}" > ~/.opensyria/.rpc_credentials
-chmod 600 ~/.opensyria/.rpc_credentials
+echo "RPC Password: ${RPC_PASS}" > ~/.opensy/.rpc_credentials
+chmod 600 ~/.opensy/.rpc_credentials
 
 # Display password (save this!)
 echo "=========================================="
@@ -436,20 +436,20 @@ echo "=========================================="
 exit
 
 # Create service file
-sudo tee /etc/systemd/system/opensyriad.service << 'EOF'
+sudo tee /etc/systemd/system/opensyd.service << 'EOF'
 [Unit]
-Description=OpenSyria Daemon
-Documentation=https://opensyria.net/
+Description=OpenSY Daemon
+Documentation=https://opensy.net/
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=forking
-User=opensyria
-Group=opensyria
+User=opensy
+Group=opensy
 
-ExecStart=/usr/local/bin/opensyriad -daemon -conf=/home/opensyria/.opensyria/opensyria.conf -datadir=/home/opensyria/.opensyria
-ExecStop=/usr/local/bin/opensyria-cli -conf=/home/opensyria/.opensyria/opensyria.conf stop
+ExecStart=/usr/local/bin/opensyd -daemon -conf=/home/opensy/.opensy/opensy.conf -datadir=/home/opensy/.opensy
+ExecStop=/usr/local/bin/opensy-cli -conf=/home/opensy/.opensy/opensy.conf stop
 
 Restart=on-failure
 RestartSec=30
@@ -468,30 +468,30 @@ EOF
 
 # Enable and start
 sudo systemctl daemon-reload
-sudo systemctl enable opensyriad
-sudo systemctl start opensyriad
+sudo systemctl enable opensyd
+sudo systemctl start opensyd
 
 # Check status
-sudo systemctl status opensyriad
+sudo systemctl status opensyd
 ```
 
 ### 6.6 Verify Node Operation
 
 ```bash
-# Switch to opensyria user
-sudo su - opensyria
+# Switch to opensy user
+sudo su - opensy
 
 # Check blockchain info
-opensyria-cli getblockchaininfo
+opensy-cli getblockchaininfo
 
 # Check network info
-opensyria-cli getnetworkinfo
+opensy-cli getnetworkinfo
 
 # Check peer connections (will be empty initially)
-opensyria-cli getpeerinfo
+opensy-cli getpeerinfo
 
 # Check if listening
-opensyria-cli getnetworkinfo | grep -A5 "localaddresses"
+opensy-cli getnetworkinfo | grep -A5 "localaddresses"
 ```
 
 ---
@@ -507,7 +507,7 @@ curl ifconfig.me
 
 ### 7.2 Add DNS Records in Cloudflare
 
-Go to Cloudflare Dashboard → `opensyria.net` → **DNS**
+Go to Cloudflare Dashboard → `opensy.net` → **DNS**
 
 Add these records:
 
@@ -524,16 +524,16 @@ Add these records:
 
 | Type | Name | Content | TTL |
 |------|------|---------|-----|
-| NS | `seed` | `ns1.opensyria.net` | Auto |
+| NS | `seed` | `ns1.opensy.net` | Auto |
 
-This delegates `seed.opensyria.net` to your DNS seeder.
+This delegates `seed.opensy.net` to your DNS seeder.
 
 ### 7.4 Verify DNS
 
 ```bash
 # Test from your local machine
-dig node1.opensyria.net
-dig ns1.opensyria.net
+dig node1.opensy.net
+dig ns1.opensy.net
 
 # Should return your server IP
 ```
@@ -544,13 +544,13 @@ dig ns1.opensyria.net
 
 ### 8.1 Copy Pre-built Seeder
 
-The seeder is already in your repo at `/contrib/seeder/opensyria-seeder/`
+The seeder is already in your repo at `/contrib/seeder/opensy-seeder/`
 
 ```bash
-# On server, as opensyria user
-sudo su - opensyria
+# On server, as opensy user
+sudo su - opensy
 
-cd /opt/opensyria/source/contrib/seeder/opensyria-seeder
+cd /opt/opensy/source/contrib/seeder/opensy-seeder
 
 # Build if not already built
 make
@@ -563,7 +563,7 @@ make
 
 ```bash
 # Test run (foreground)
-./dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net -p 5353
+./dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net -p 5353
 
 # Press Ctrl+C to stop after testing
 ```
@@ -575,17 +575,17 @@ make
 exit
 
 # Create service
-sudo tee /etc/systemd/system/opensyria-seeder.service << 'EOF'
+sudo tee /etc/systemd/system/opensy-seeder.service << 'EOF'
 [Unit]
-Description=OpenSyria DNS Seeder
-After=network.target opensyriad.service
-Wants=opensyriad.service
+Description=OpenSY DNS Seeder
+After=network.target opensyd.service
+Wants=opensyd.service
 
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/opt/opensyria/source/contrib/seeder/opensyria-seeder
-ExecStart=/opt/opensyria/source/contrib/seeder/opensyria-seeder/dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net
+WorkingDirectory=/opt/opensy/source/contrib/seeder/opensy-seeder
+ExecStart=/opt/opensy/source/contrib/seeder/opensy-seeder/dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net
 Restart=always
 RestartSec=30
 
@@ -595,11 +595,11 @@ EOF
 
 # Enable and start
 sudo systemctl daemon-reload
-sudo systemctl enable opensyria-seeder
-sudo systemctl start opensyria-seeder
+sudo systemctl enable opensy-seeder
+sudo systemctl start opensy-seeder
 
 # Check status
-sudo systemctl status opensyria-seeder
+sudo systemctl status opensy-seeder
 ```
 
 > **Note:** DNS seeder runs as root to bind to port 53.
@@ -608,7 +608,7 @@ sudo systemctl status opensyria-seeder
 
 ```bash
 # From your local machine
-dig seed.opensyria.net
+dig seed.opensy.net
 
 # Should eventually return node IPs once peers connect
 ```
@@ -634,21 +634,21 @@ BTCEXP_HOST=127.0.0.1
 BTCEXP_PORT=3002
 BTCEXP_BITCOIND_HOST=127.0.0.1
 BTCEXP_BITCOIND_PORT=9632
-BTCEXP_BITCOIND_USER=opensyriarpc
+BTCEXP_BITCOIND_USER=opensyrpc
 BTCEXP_BITCOIND_PASS=YOUR_RPC_PASSWORD
-BTCEXP_SITE_TITLE=OpenSyria Explorer
+BTCEXP_SITE_TITLE=OpenSY Explorer
 BTCEXP_NO_RATES=true
 EOF
 
 # Create service
-sudo tee /etc/systemd/system/opensyria-explorer.service << 'EOF'
+sudo tee /etc/systemd/system/opensy-explorer.service << 'EOF'
 [Unit]
-Description=OpenSyria Block Explorer
-After=opensyriad.service
+Description=OpenSY Block Explorer
+After=opensyd.service
 
 [Service]
 Type=simple
-User=opensyria
+User=opensy
 ExecStart=/usr/bin/btc-rpc-explorer
 Restart=always
 
@@ -657,8 +657,8 @@ WantedBy=multi-user.target
 EOF
 
 sudo systemctl daemon-reload
-sudo systemctl enable opensyria-explorer
-sudo systemctl start opensyria-explorer
+sudo systemctl enable opensy-explorer
+sudo systemctl start opensy-explorer
 ```
 
 ### 9.2 Setup Nginx Reverse Proxy
@@ -671,7 +671,7 @@ sudo apt install -y nginx certbot python3-certbot-nginx
 sudo tee /etc/nginx/sites-available/explorer << 'EOF'
 server {
     listen 80;
-    server_name explorer.opensyria.net opensyria.net www.opensyria.net;
+    server_name explorer.opensy.net opensy.net www.opensy.net;
 
     location / {
         proxy_pass http://127.0.0.1:3002;
@@ -702,7 +702,7 @@ In Cloudflare, add:
 
 ```bash
 # Get SSL certificate
-sudo certbot --nginx -d opensyria.net -d www.opensyria.net -d explorer.opensyria.net
+sudo certbot --nginx -d opensy.net -d www.opensy.net -d explorer.opensy.net
 
 # Auto-renewal is configured automatically
 ```
@@ -715,18 +715,18 @@ sudo certbot --nginx -d opensyria.net -d www.opensyria.net -d explorer.opensyria
 
 ```bash
 # Create monitoring script
-sudo tee /opt/opensyria/monitor.sh << 'EOF'
+sudo tee /opt/opensy/monitor.sh << 'EOF'
 #!/bin/bash
-echo "=== OpenSyria Node Status ==="
+echo "=== OpenSY Node Status ==="
 echo "Date: $(date)"
 echo ""
 
 echo "=== Blockchain Info ==="
-opensyria-cli getblockchaininfo | grep -E "chain|blocks|headers|verificationprogress"
+opensy-cli getblockchaininfo | grep -E "chain|blocks|headers|verificationprogress"
 echo ""
 
 echo "=== Network Info ==="
-opensyria-cli getnetworkinfo | grep -E "connections|version"
+opensy-cli getnetworkinfo | grep -E "connections|version"
 echo ""
 
 echo "=== System Resources ==="
@@ -736,14 +736,14 @@ echo "Load: $(uptime | awk -F'load average:' '{print $2}')"
 echo ""
 
 echo "=== Services ==="
-systemctl is-active opensyriad && echo "opensyriad: running" || echo "opensyriad: STOPPED"
-systemctl is-active opensyria-seeder && echo "seeder: running" || echo "seeder: STOPPED"
+systemctl is-active opensyd && echo "opensyd: running" || echo "opensyd: STOPPED"
+systemctl is-active opensy-seeder && echo "seeder: running" || echo "seeder: STOPPED"
 EOF
 
-chmod +x /opt/opensyria/monitor.sh
+chmod +x /opt/opensy/monitor.sh
 
 # Run it
-/opt/opensyria/monitor.sh
+/opt/opensy/monitor.sh
 ```
 
 ### 10.2 CloudWatch Monitoring (AWS)
@@ -764,8 +764,8 @@ chmod +x /opt/opensyria/monitor.sh
 1. Launch new EC2 instance in different region (e.g., `eu-central-1`)
 2. Repeat Phase 3-6
 3. Add DNS records:
-   - `node2.opensyria.net` → new IP
-   - `seed2.opensyria.net` → new IP
+   - `node2.opensy.net` → new IP
+   - `seed2.opensy.net` → new IP
 
 ### 11.2 Update chainparams.cpp
 
@@ -773,8 +773,8 @@ After multiple nodes are running:
 
 ```cpp
 // In src/kernel/chainparams.cpp
-vSeeds.emplace_back("seed.opensyria.net");
-vSeeds.emplace_back("seed2.opensyria.net");
+vSeeds.emplace_back("seed.opensy.net");
+vSeeds.emplace_back("seed2.opensy.net");
 
 // Fixed seeds (backup)
 // Run: contrib/seeds/generate-seeds.py
@@ -807,35 +807,35 @@ vSeeds.emplace_back("seed2.opensyria.net");
 
 ```bash
 # Daily: Check node status
-/opt/opensyria/monitor.sh
+/opt/opensy/monitor.sh
 
 # Weekly: Update system
 sudo apt update && sudo apt upgrade -y
 
 # Weekly: Check logs
-journalctl -u opensyriad --since "1 week ago" | tail -100
+journalctl -u opensyd --since "1 week ago" | tail -100
 
 # Monthly: Rotate RPC password
 NEW_PASS=$(openssl rand -hex 32)
-sed -i "s/rpcpassword=.*/rpcpassword=${NEW_PASS}/" ~/.opensyria/opensyria.conf
-sudo systemctl restart opensyriad
+sed -i "s/rpcpassword=.*/rpcpassword=${NEW_PASS}/" ~/.opensy/opensy.conf
+sudo systemctl restart opensyd
 ```
 
-### 12.2 Update OpenSyria
+### 12.2 Update OpenSY
 
 ```bash
-cd /opt/opensyria/source
+cd /opt/opensy/source
 git pull origin main
 cmake --build build -j$(nproc)
 sudo cmake --install build --prefix /usr/local
-sudo systemctl restart opensyriad
+sudo systemctl restart opensyd
 ```
 
 ### 12.3 Backup
 
 ```bash
 # Backup wallet (if any)
-opensyria-cli backupwallet ~/wallet-backup-$(date +%Y%m%d).dat
+opensy-cli backupwallet ~/wallet-backup-$(date +%Y%m%d).dat
 
 # Copy to S3
 aws s3 cp ~/wallet-backup-*.dat s3://your-bucket/backups/
@@ -849,35 +849,35 @@ aws s3 cp ~/wallet-backup-*.dat s3://your-bucket/backups/
 
 ```bash
 # Node
-sudo systemctl start|stop|restart|status opensyriad
+sudo systemctl start|stop|restart|status opensyd
 
 # Seeder
-sudo systemctl start|stop|restart|status opensyria-seeder
+sudo systemctl start|stop|restart|status opensy-seeder
 
 # Explorer
-sudo systemctl start|stop|restart|status opensyria-explorer
+sudo systemctl start|stop|restart|status opensy-explorer
 ```
 
 ### Useful CLI Commands
 
 ```bash
 # Blockchain
-opensyria-cli getblockchaininfo
-opensyria-cli getblockcount
-opensyria-cli getbestblockhash
+opensy-cli getblockchaininfo
+opensy-cli getblockcount
+opensy-cli getbestblockhash
 
 # Network
-opensyria-cli getnetworkinfo
-opensyria-cli getpeerinfo
-opensyria-cli getconnectioncount
+opensy-cli getnetworkinfo
+opensy-cli getpeerinfo
+opensy-cli getconnectioncount
 
 # Mining (testnet/regtest)
-opensyria-cli generatetoaddress 1 $(opensyria-cli getnewaddress)
+opensy-cli generatetoaddress 1 $(opensy-cli getnewaddress)
 
 # Wallet
-opensyria-cli createwallet "main"
-opensyria-cli getnewaddress
-opensyria-cli getbalance
+opensy-cli createwallet "main"
+opensy-cli getnewaddress
+opensy-cli getbalance
 ```
 
 ### Port Reference
@@ -892,9 +892,9 @@ opensyria-cli getbalance
 
 ### URLs (After Deployment)
 
-- **Website:** https://opensyria.net
-- **Explorer:** https://explorer.opensyria.net
-- **Seed DNS:** seed.opensyria.net
+- **Website:** https://opensy.net
+- **Explorer:** https://explorer.opensy.net
+- **Seed DNS:** seed.opensy.net
 
 ---
 

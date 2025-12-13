@@ -1,9 +1,9 @@
-// Copyright (c) 2023 The OpenSyria Core developers
+// Copyright (c) 2023 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_COMMON_INIT_H
-#define OPENSYRIA_COMMON_INIT_H
+#ifndef OPENSY_COMMON_INIT_H
+#define OPENSY_COMMON_INIT_H
 
 #include <util/translation.h>
 
@@ -36,4 +36,4 @@ using SettingsAbortFn = std::function<bool(const bilingual_str& message, const s
 std::optional<ConfigError> InitConfig(ArgsManager& args, SettingsAbortFn settings_abort_fn = nullptr);
 } // namespace common
 
-#endif // OPENSYRIA_COMMON_INIT_H
+#endif // OPENSY_COMMON_INIT_H

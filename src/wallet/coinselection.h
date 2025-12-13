@@ -1,9 +1,9 @@
-// Copyright (c) 2017-2022 The OpenSyria Core developers
+// Copyright (c) 2017-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_WALLET_COINSELECTION_H
-#define OPENSYRIA_WALLET_COINSELECTION_H
+#ifndef OPENSY_WALLET_COINSELECTION_H
+#define OPENSY_WALLET_COINSELECTION_H
 
 #include <consensus/amount.h>
 #include <consensus/consensus.h>
@@ -463,4 +463,4 @@ util::Result<SelectionResult> KnapsackSolver(std::vector<OutputGroup>& groups, c
                                              CAmount change_target, FastRandomContext& rng, int max_selection_weight);
 } // namespace wallet
 
-#endif // OPENSYRIA_WALLET_COINSELECTION_H
+#endif // OPENSY_WALLET_COINSELECTION_H

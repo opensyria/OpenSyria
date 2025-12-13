@@ -1,6 +1,6 @@
-# 🔐 OpenSyria Wallet Backup & Restore Guide
+# 🔐 OpenSY Wallet Backup & Restore Guide
 
-This guide explains how to backup and restore your OpenSyria wallet.
+This guide explains how to backup and restore your OpenSY wallet.
 
 ## Backup Types
 
@@ -19,22 +19,22 @@ Both can fully restore your funds. Keep both for redundancy.
 
 ```bash
 # Using CLI
-opensyria-cli -rpcwallet=YOUR_WALLET backupwallet /path/to/backup.dat
+opensy-cli -rpcwallet=YOUR_WALLET backupwallet /path/to/backup.dat
 
 # Example
-opensyria-cli -rpcwallet=founders-wallet backupwallet ~/Desktop/wallet-backup.dat
+opensy-cli -rpcwallet=founders-wallet backupwallet ~/Desktop/wallet-backup.dat
 ```
 
 ### Method 2: Export Descriptors (.json)
 
 ```bash
 # Export with private keys (KEEP THIS SECURE!)
-opensyria-cli -rpcwallet=YOUR_WALLET listdescriptors true > wallet-descriptors.json
+opensy-cli -rpcwallet=YOUR_WALLET listdescriptors true > wallet-descriptors.json
 ```
 
-### Using GUI (OpenSyria-Qt)
+### Using GUI (OpenSY-Qt)
 
-1. Open OpenSyria-Qt
+1. Open OpenSY-Qt
 2. Go to **File** → **Backup Wallet...**
 3. Choose location and save
 
@@ -47,27 +47,27 @@ opensyria-cli -rpcwallet=YOUR_WALLET listdescriptors true > wallet-descriptors.j
 **Option A: Replace wallet directory**
 ```bash
 # Stop the node first
-opensyria-cli stop
+opensy-cli stop
 
 # Copy backup to wallet directory
 # Linux/Mac:
-cp /path/to/backup.dat ~/.opensyria/wallets/restored-wallet/wallet.dat
+cp /path/to/backup.dat ~/.opensy/wallets/restored-wallet/wallet.dat
 
 # Start node
-opensyriad -daemon
+opensyd -daemon
 ```
 
 **Option B: Using CLI (recommended)**
 ```bash
 # Create new wallet and restore
-opensyria-cli restorewallet "restored-wallet" /path/to/backup.dat
+opensy-cli restorewallet "restored-wallet" /path/to/backup.dat
 ```
 
 ### Method 2: From Descriptors JSON
 
 ```bash
 # 1. Create a new blank descriptor wallet
-opensyria-cli createwallet "restored-wallet" false true true
+opensy-cli createwallet "restored-wallet" false true true
 
 # 2. Read your descriptors file and import
 # The JSON file contains an array of descriptors like:
@@ -78,7 +78,7 @@ opensyria-cli createwallet "restored-wallet" false true true
 # }
 
 # 3. Import each descriptor (example for one):
-opensyria-cli -rpcwallet=restored-wallet importdescriptors '[
+opensy-cli -rpcwallet=restored-wallet importdescriptors '[
   {
     "desc": "wpkh(xprv9s21ZrQH143K...)/*",
     "timestamp": "now",
@@ -88,12 +88,12 @@ opensyria-cli -rpcwallet=restored-wallet importdescriptors '[
 ]'
 
 # 4. Rescan blockchain
-opensyria-cli -rpcwallet=restored-wallet rescanblockchain
+opensy-cli -rpcwallet=restored-wallet rescanblockchain
 ```
 
 ### Method 3: Using GUI
 
-1. Open OpenSyria-Qt
+1. Open OpenSY-Qt
 2. Go to **File** → **Open Wallet...**
 3. Select your backup file
 
@@ -104,27 +104,27 @@ opensyria-cli -rpcwallet=restored-wallet rescanblockchain
 ### Scenario: Lost computer, have descriptors backup
 
 ```bash
-# 1. Install OpenSyria on new computer
-git clone https://github.com/opensyria/OpenSyria.git
-cd OpenSyria && cmake -B build && cmake --build build
+# 1. Install OpenSY on new computer
+git clone https://github.com/opensy/OpenSY.git
+cd OpenSY && cmake -B build && cmake --build build
 
 # 2. Start node and sync
-./build/bin/opensyriad -daemon -addnode=node1.opensyria.net
+./build/bin/opensyd -daemon -addnode=node1.opensy.net
 
 # 3. Wait for sync (check progress)
-./build/bin/opensyria-cli getblockchaininfo
+./build/bin/opensy-cli getblockchaininfo
 
 # 4. Create wallet and import descriptors
-./build/bin/opensyria-cli createwallet "recovered" false true true
+./build/bin/opensy-cli createwallet "recovered" false true true
 
 # 5. Import your descriptors (from your backup JSON)
-./build/bin/opensyria-cli -rpcwallet=recovered importdescriptors '[...]'
+./build/bin/opensy-cli -rpcwallet=recovered importdescriptors '[...]'
 
 # 6. Rescan to find transactions
-./build/bin/opensyria-cli -rpcwallet=recovered rescanblockchain
+./build/bin/opensy-cli -rpcwallet=recovered rescanblockchain
 
 # 7. Check balance
-./build/bin/opensyria-cli -rpcwallet=recovered getbalance
+./build/bin/opensy-cli -rpcwallet=recovered getbalance
 ```
 
 ---
@@ -187,16 +187,16 @@ gpg wallet-backup.dat.gpg
 ### "Wallet not found"
 ```bash
 # List available wallets
-opensyria-cli listwallets
+opensy-cli listwallets
 
 # Load wallet
-opensyria-cli loadwallet "wallet-name"
+opensy-cli loadwallet "wallet-name"
 ```
 
 ### "Balance is 0 after restore"
 ```bash
 # Rescan the blockchain
-opensyria-cli -rpcwallet=YOUR_WALLET rescanblockchain
+opensy-cli -rpcwallet=YOUR_WALLET rescanblockchain
 ```
 
 ### "Descriptor import failed"
@@ -208,8 +208,8 @@ opensyria-cli -rpcwallet=YOUR_WALLET rescanblockchain
 
 ## 📞 Need Help?
 
-- GitHub Issues: https://github.com/opensyria/OpenSyria/issues
-- Documentation: https://github.com/opensyria/OpenSyria/tree/main/docs
+- GitHub Issues: https://github.com/opensy/OpenSY/issues
+- Documentation: https://github.com/opensy/OpenSY/tree/main/docs
 
 ---
 

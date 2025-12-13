@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2018 The OpenSyria Core developers
+// Copyright (c) 2011-2018 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_MACDOCKICONHANDLER_H
-#define OPENSYRIA_QT_MACDOCKICONHANDLER_H
+#ifndef OPENSY_QT_MACDOCKICONHANDLER_H
+#define OPENSY_QT_MACDOCKICONHANDLER_H
 
 #include <QObject>
 
@@ -24,4 +24,4 @@ private:
     MacDockIconHandler();
 };
 
-#endif // OPENSYRIA_QT_MACDOCKICONHANDLER_H
+#endif // OPENSY_QT_MACDOCKICONHANDLER_H

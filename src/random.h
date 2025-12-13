@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_RANDOM_H
-#define OPENSYRIA_RANDOM_H
+#ifndef OPENSY_RANDOM_H
+#define OPENSY_RANDOM_H
 
 #include <crypto/chacha20.h>
 #include <crypto/common.h>
@@ -474,4 +474,4 @@ inline uint256 GetRandHash() noexcept
  */
 bool Random_SanityCheck();
 
-#endif // OPENSYRIA_RANDOM_H
+#endif // OPENSY_RANDOM_H

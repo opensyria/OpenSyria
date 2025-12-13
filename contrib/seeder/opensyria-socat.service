@@ -1,7 +1,7 @@
 [Unit]
-Description=OpenSyria DNS Socat Bridge (IPv4 to IPv6)
-After=network.target opensyria-seeder.service
-Requires=opensyria-seeder.service
+Description=OpenSY DNS Socat Bridge (IPv4 to IPv6)
+After=network.target opensy-seeder.service
+Requires=opensy-seeder.service
 
 [Service]
 Type=simple

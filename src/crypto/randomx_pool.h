@@ -1,9 +1,9 @@
-// Copyright (c) 2025 The OpenSyria Core developers
+// Copyright (c) 2025 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_CRYPTO_RANDOMX_POOL_H
-#define OPENSYRIA_CRYPTO_RANDOMX_POOL_H
+#ifndef OPENSY_CRYPTO_RANDOMX_POOL_H
+#define OPENSY_CRYPTO_RANDOMX_POOL_H
 
 #include <crypto/randomx_context.h>
 #include <sync.h>
@@ -155,4 +155,4 @@ private:
 //! Global RandomX context pool instance
 extern RandomXContextPool g_randomx_pool;
 
-#endif // OPENSYRIA_CRYPTO_RANDOMX_POOL_H
+#endif // OPENSY_CRYPTO_RANDOMX_POOL_H

@@ -1,10 +1,10 @@
-// Copyright (c) 2023 The OpenSyria Core developers
+// Copyright (c) 2023 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <node/kernel_notifications.h>
 
-#include <opensyria-build-config.h> // IWYU pragma: keep
+#include <opensy-build-config.h> // IWYU pragma: keep
 
 #include <chain.h>
 #include <common/args.h>

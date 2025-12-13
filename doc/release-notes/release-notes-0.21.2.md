@@ -1,44 +1,44 @@
 0.21.2 Release Notes
 ====================
 
-OpenSyria Core version 0.21.2 is now available from:
+OpenSY version 0.21.2 is now available from:
 
-  <https://opensyria.net/bin/opensyria-core-0.21.2/>
+  <https://opensy.net/bin/opensy-core-0.21.2/>
 
 This minor release includes various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensyria/issues>
+  <https://github.com/opensy/opensy/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensyria.net/en/list/announcements/join/>
+  <https://opensy.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============
 
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes in some cases), then run the
-installer (on Windows) or just copy over `/Applications/OpenSyria-Qt` (on Mac)
-or `opensyriad`/`opensyria-qt` (on Linux).
+installer (on Windows) or just copy over `/Applications/OpenSY-Qt` (on Mac)
+or `opensyd`/`opensy-qt` (on Linux).
 
-Upgrading directly from a version of OpenSyria Core that has reached its EOL is
+Upgrading directly from a version of OpenSY that has reached its EOL is
 possible, but it might take some time if the data directory needs to be migrated. Old
-wallet versions of OpenSyria Core are generally supported.
+wallet versions of OpenSY are generally supported.
 
 Compatibility
 ==============
 
-OpenSyria Core is supported and extensively tested on operating systems
-using the Linux kernel, macOS 10.12+, and Windows 7 and newer.  OpenSyria
+OpenSY is supported and extensively tested on operating systems
+using the Linux kernel, macOS 10.12+, and Windows 7 and newer.  OpenSY
 Core should also work on most other Unix-like systems but is not as
-frequently tested on them.  It is not recommended to use OpenSyria Core on
+frequently tested on them.  It is not recommended to use OpenSY on
 unsupported systems.
 
-From OpenSyria Core 0.20.0 onwards, macOS versions earlier than 10.12 are no
-longer supported. Additionally, OpenSyria Core does not yet change appearance
+From OpenSY 0.20.0 onwards, macOS versions earlier than 10.12 are no
+longer supported. Additionally, OpenSY does not yet change appearance
 when macOS "dark mode" is activated.
 
 
@@ -106,4 +106,4 @@ Thanks to everyone who directly contributed to this release:
 
 
 As well as to everyone that helped with translations on
-[Transifex](https://www.transifex.com/opensyria/opensyria/).
+[Transifex](https://www.transifex.com/opensy/opensy/).

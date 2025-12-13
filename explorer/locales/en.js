@@ -1,6 +1,6 @@
 module.exports = {
     // Site
-    siteName: 'OpenSyria Explorer',
+    siteName: 'OpenSY Explorer',
     siteTagline: 'Explore the blockchain of Free Syria',
     
     // Navigation

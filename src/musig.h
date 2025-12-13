@@ -1,9 +1,9 @@
-// Copyright (c) 2024-present The OpenSyria Core developers
+// Copyright (c) 2024-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_MUSIG_H
-#define OPENSYRIA_MUSIG_H
+#ifndef OPENSY_MUSIG_H
+#define OPENSY_MUSIG_H
 
 #include <pubkey.h>
 
@@ -69,4 +69,4 @@ uint256 MuSig2SessionID(const CPubKey& script_pubkey, const CPubKey& part_pubkey
 
 std::optional<std::vector<uint8_t>> CreateMuSig2AggregateSig(const std::vector<CPubKey>& participants, const CPubKey& aggregate_pubkey, const std::vector<std::pair<uint256, bool>>& tweaks, const uint256& sighash, const std::map<CPubKey, std::vector<uint8_t>>& pubnonces, const std::map<CPubKey, uint256>& partial_sigs);
 
-#endif // OPENSYRIA_MUSIG_H
+#endif // OPENSY_MUSIG_H

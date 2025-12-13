@@ -1,9 +1,9 @@
-// Copyright (c) 2021-2022 The OpenSyria Core developers
+// Copyright (c) 2021-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_POLICY_PACKAGES_H
-#define OPENSYRIA_POLICY_PACKAGES_H
+#ifndef OPENSY_POLICY_PACKAGES_H
+#define OPENSY_POLICY_PACKAGES_H
 
 #include <consensus/consensus.h>
 #include <consensus/validation.h>
@@ -94,4 +94,4 @@ bool IsChildWithParentsTree(const Package& package);
  */
 uint256 GetPackageHash(const std::vector<CTransactionRef>& transactions);
 
-#endif // OPENSYRIA_POLICY_PACKAGES_H
+#endif // OPENSY_POLICY_PACKAGES_H

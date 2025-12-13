@@ -1,11 +1,11 @@
-OpenSyria-Qt version 0.8.3 is now available from:
-  http://sourceforge.net/projects/opensyria/files/OpenSyria/opensyria-0.8.3/
+OpenSY-Qt version 0.8.3 is now available from:
+  http://sourceforge.net/projects/opensy/files/OpenSY/opensy-0.8.3/
 
 This is a maintenance release to fix a denial-of-service attack that
 can cause nodes to crash.
 
 Please report bugs using the issue tracker at github:
-  https://github.com/opensyria/opensyria/issues
+  https://github.com/opensy/opensy/issues
 
 0.8.3 Release notes
 

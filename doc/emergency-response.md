@@ -1,4 +1,4 @@
-# OpenSyria Emergency Response Procedures
+# OpenSY Emergency Response Procedures
 
 **Version:** 1.0  
 **Date:** December 2025  
@@ -8,7 +8,7 @@
 
 ## Overview
 
-This document outlines procedures for responding to security incidents, network attacks, and critical software issues affecting the OpenSyria network. All node operators and core developers should be familiar with these procedures.
+This document outlines procedures for responding to security incidents, network attacks, and critical software issues affecting the OpenSY network. All node operators and core developers should be familiar with these procedures.
 
 ---
 
@@ -16,15 +16,15 @@ This document outlines procedures for responding to security incidents, network 
 
 ### Security Team
 
-- **Primary Contact:** security@opensyria.org
-- **PGP Key ID:** [Published on opensyria.org/security]
+- **Primary Contact:** security@opensy.org
+- **PGP Key ID:** [Published on opensy.org/security]
 - **Response Time SLA:** 24 hours for critical issues
 
 ### Communication Channels
 
-- **Private Disclosure:** security@opensyria.org (encrypted)
+- **Private Disclosure:** security@opensy.org (encrypted)
 - **Developer Coordination:** Private IRC/Matrix channel (invite-only)
-- **Public Announcements:** opensyria.org/announcements
+- **Public Announcements:** opensy.org/announcements
 
 ---
 
@@ -108,13 +108,13 @@ This document outlines procedures for responding to security incidents, network 
 **Command-Line Mitigations:**
 ```bash
 # Reduce memory usage
-opensyriad -maxconnections=8 -maxmempool=100 -dbcache=100
+opensyd -maxconnections=8 -maxmempool=100 -dbcache=100
 
 # Disconnect misbehaving peers (via RPC)
-opensyria-cli disconnectnode "<ip:port>"
+opensy-cli disconnectnode "<ip:port>"
 
 # Ban attacking IP
-opensyria-cli setban "<ip>" "add" 86400
+opensy-cli setban "<ip>" "add" 86400
 ```
 
 ---
@@ -159,7 +159,7 @@ If block times deviate significantly (>2x or <0.5x target):
 ### Security Advisory Template
 
 ```
-OpenSyria Security Advisory [OSA-YYYY-XXX]
+OpenSY Security Advisory [OSA-YYYY-XXX]
 
 Title: [Brief Description]
 Severity: [Critical/High/Medium/Low]

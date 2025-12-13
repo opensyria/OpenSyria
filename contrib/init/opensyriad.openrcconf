@@ -1,33 +1,33 @@
-# /etc/conf.d/opensyriad: config file for /etc/init.d/opensyriad
+# /etc/conf.d/opensyd: config file for /etc/init.d/opensyd
 
 # Config file location
-#OPENSYRIAD_CONFIGFILE="/etc/opensyria/opensyria.conf"
+#OPENSYD_CONFIGFILE="/etc/opensy/opensy.conf"
 
-# What directory to write pidfile to?  (created and owned by $OPENSYRIAD_USER)
-#OPENSYRIAD_PIDDIR="/var/run/opensyriad"
+# What directory to write pidfile to?  (created and owned by $OPENSYD_USER)
+#OPENSYD_PIDDIR="/var/run/opensyd"
 
 # What filename to give the pidfile
-#OPENSYRIAD_PIDFILE="${OPENSYRIAD_PIDDIR}/opensyriad.pid"
+#OPENSYD_PIDFILE="${OPENSYD_PIDDIR}/opensyd.pid"
 
-# Where to write opensyriad data (be mindful that the blockchain is large)
-#OPENSYRIAD_DATADIR="/var/lib/opensyriad"
+# Where to write opensyd data (be mindful that the blockchain is large)
+#OPENSYD_DATADIR="/var/lib/opensyd"
 
-# User and group to own opensyriad process
-#OPENSYRIAD_USER="opensyria"
-#OPENSYRIAD_GROUP="opensyria"
+# User and group to own opensyd process
+#OPENSYD_USER="opensy"
+#OPENSYD_GROUP="opensy"
 
-# Path to opensyriad executable
-#OPENSYRIAD_BIN="/usr/bin/opensyriad"
+# Path to opensyd executable
+#OPENSYD_BIN="/usr/bin/opensyd"
 
-# Nice value to run opensyriad under
-#OPENSYRIAD_NICE=0
+# Nice value to run opensyd under
+#OPENSYD_NICE=0
 
 # Additional options (avoid -conf and -datadir, use flags above)
-#OPENSYRIAD_OPTS=""
+#OPENSYD_OPTS=""
 
-# The timeout in seconds OpenRC will wait for opensyriad to terminate
+# The timeout in seconds OpenRC will wait for opensyd to terminate
 # after a SIGTERM has been raised.
 # Note that this will be mapped as argument to start-stop-daemon's
 # '--retry' option, which means you can specify a retry schedule
 # here. For more information see man 8 start-stop-daemon.
-OPENSYRIAD_SIGTERM_TIMEOUT=600
+OPENSYD_SIGTERM_TIMEOUT=600

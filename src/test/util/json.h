@@ -1,9 +1,9 @@
-// Copyright (c) 2023-present The OpenSyria Core developers
+// Copyright (c) 2023-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_TEST_UTIL_JSON_H
-#define OPENSYRIA_TEST_UTIL_JSON_H
+#ifndef OPENSY_TEST_UTIL_JSON_H
+#define OPENSY_TEST_UTIL_JSON_H
 
 #include <univalue.h>
 
@@ -11,4 +11,4 @@
 
 UniValue read_json(std::string_view jsondata);
 
-#endif // OPENSYRIA_TEST_UTIL_JSON_H
+#endif // OPENSY_TEST_UTIL_JSON_H

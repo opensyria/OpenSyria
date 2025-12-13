@@ -1,9 +1,9 @@
-// Copyright (c) 2018 The OpenSyria Core developers
+// Copyright (c) 2018 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_COMPAT_STDIN_H
-#define OPENSYRIA_COMPAT_STDIN_H
+#ifndef OPENSY_COMPAT_STDIN_H
+#define OPENSY_COMPAT_STDIN_H
 
 struct NoechoInst {
     NoechoInst();
@@ -15,4 +15,4 @@ struct NoechoInst {
 bool StdinTerminal();
 bool StdinReady();
 
-#endif // OPENSYRIA_COMPAT_STDIN_H
+#endif // OPENSY_COMPAT_STDIN_H

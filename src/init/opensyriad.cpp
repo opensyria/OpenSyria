@@ -1,4 +1,4 @@
-// Copyright (c) 2021-2022 The OpenSyria Core developers
+// Copyright (c) 2021-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -18,12 +18,12 @@ using node::NodeContext;
 
 namespace init {
 namespace {
-const char* EXE_NAME = "opensyriad";
+const char* EXE_NAME = "opensyd";
 
-class OpenSyriadInit : public interfaces::Init
+class OpenSYdInit : public interfaces::Init
 {
 public:
-    OpenSyriadInit(NodeContext& node) : m_node(node)
+    OpenSYdInit(NodeContext& node) : m_node(node)
     {
         InitContext(m_node);
         m_node.init = this;
@@ -45,6 +45,6 @@ public:
 namespace interfaces {
 std::unique_ptr<Init> MakeNodeInit(NodeContext& node, int argc, char* argv[], int& exit_status)
 {
-    return std::make_unique<init::OpenSyriadInit>(node);
+    return std::make_unique<init::OpenSYdInit>(node);
 }
 } // namespace interfaces

@@ -1,6 +1,6 @@
-# OpenSyria Block Explorer | مستكشف سلسلة الكتل
+# OpenSY Block Explorer | مستكشف سلسلة الكتل
 
-A lightweight, bilingual (Arabic/English) block explorer for the OpenSyria blockchain.
+A lightweight, bilingual (Arabic/English) block explorer for the OpenSY blockchain.
 
 مستكشف بسيط وخفيف لسلسلة كتل سوريا المفتوحة، يدعم العربية والإنجليزية.
 
@@ -17,7 +17,7 @@ A lightweight, bilingual (Arabic/English) block explorer for the OpenSyria block
 ### Prerequisites | المتطلبات
 
 - Node.js 18+
-- Running OpenSyria node with RPC enabled
+- Running OpenSY node with RPC enabled
 
 ### Installation | التثبيت
 
@@ -37,7 +37,7 @@ Edit `.env`:
 # Node RPC Connection
 RPC_HOST=127.0.0.1
 RPC_PORT=9632
-RPC_USER=opensyria
+RPC_USER=opensy
 RPC_PASSWORD=your_password
 
 # Explorer
@@ -54,7 +54,7 @@ DEFAULT_LANG=ar   # ar or en
 ssh -i ~/.ssh/key.pem user@server
 
 # Clone explorer or copy files
-cd /opt/opensyria
+cd /opt/opensy
 git pull  # or copy explorer folder
 
 # Install and run
@@ -65,7 +65,7 @@ nano .env  # Edit RPC credentials
 
 # Start with PM2 (recommended)
 npm install -g pm2
-pm2 start server.js --name opensyria-explorer
+pm2 start server.js --name opensy-explorer
 pm2 save
 pm2 startup
 ```
@@ -75,7 +75,7 @@ pm2 startup
 ```nginx
 server {
     listen 80;
-    server_name explorer.opensyria.net;
+    server_name explorer.opensy.net;
     
     location / {
         proxy_pass http://127.0.0.1:3000;
@@ -92,7 +92,7 @@ server {
 
 ```bash
 sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d explorer.opensyria.net
+sudo certbot --nginx -d explorer.opensy.net
 ```
 
 ## API Endpoints

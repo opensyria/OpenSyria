@@ -1,9 +1,9 @@
-// Copyright (c) 2021 The OpenSyria Core developers
+// Copyright (c) 2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_IPC_EXCEPTION_H
-#define OPENSYRIA_IPC_EXCEPTION_H
+#ifndef OPENSY_IPC_EXCEPTION_H
+#define OPENSY_IPC_EXCEPTION_H
 
 #include <stdexcept>
 
@@ -17,4 +17,4 @@ public:
 };
 } // namespace ipc
 
-#endif // OPENSYRIA_IPC_EXCEPTION_H
+#endif // OPENSY_IPC_EXCEPTION_H

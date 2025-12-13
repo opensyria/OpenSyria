@@ -1,15 +1,15 @@
 #!/bin/bash
 # =============================================================================
-# OpenSyria Node Setup Script
+# OpenSY Node Setup Script
 # =============================================================================
-# This script automates the initial setup of an OpenSyria seed node.
+# This script automates the initial setup of an OpenSY seed node.
 # Supports: Ubuntu 22.04+ (AMD64 and ARM64)
 #
 # Usage:
-#   curl -sSL https://raw.githubusercontent.com/opensyria/OpenSyria/main/contrib/deploy/setup-node.sh | bash
+#   curl -sSL https://raw.githubusercontent.com/opensy/OpenSY/main/contrib/deploy/setup-node.sh | bash
 #
 # Or download and run:
-#   wget https://raw.githubusercontent.com/opensyria/OpenSyria/main/contrib/deploy/setup-node.sh
+#   wget https://raw.githubusercontent.com/opensy/OpenSY/main/contrib/deploy/setup-node.sh
 #   chmod +x setup-node.sh
 #   sudo ./setup-node.sh
 # =============================================================================
@@ -24,12 +24,12 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-OPENSYRIA_USER="opensyria"
-OPENSYRIA_HOME="/home/${OPENSYRIA_USER}"
-OPENSYRIA_DATA="${OPENSYRIA_HOME}/.opensyria"
-OPENSYRIA_SRC="/opt/opensyria"
-OPENSYRIA_REPO="https://github.com/opensyria/OpenSyria.git"
-OPENSYRIA_BRANCH="main"
+OPENSY_USER="opensy"
+OPENSY_HOME="/home/${OPENSY_USER}"
+OPENSY_DATA="${OPENSY_HOME}/.opensy"
+OPENSY_SRC="/opt/opensy"
+OPENSY_REPO="https://github.com/opensy/OpenSY.git"
+OPENSY_BRANCH="main"
 
 # Default ports
 P2P_PORT=9633
@@ -132,20 +132,20 @@ install_dependencies() {
 }
 
 create_user() {
-    log_info "Creating opensyria user..."
+    log_info "Creating opensy user..."
     
-    if id "$OPENSYRIA_USER" &>/dev/null; then
-        log_warn "User $OPENSYRIA_USER already exists"
+    if id "$OPENSY_USER" &>/dev/null; then
+        log_warn "User $OPENSY_USER already exists"
     else
-        useradd -m -s /bin/bash "$OPENSYRIA_USER"
-        log_success "User $OPENSYRIA_USER created"
+        useradd -m -s /bin/bash "$OPENSY_USER"
+        log_success "User $OPENSY_USER created"
     fi
     
     # Create directories
-    mkdir -p "$OPENSYRIA_SRC"
-    mkdir -p "$OPENSYRIA_DATA"
-    chown -R "$OPENSYRIA_USER:$OPENSYRIA_USER" "$OPENSYRIA_SRC"
-    chown -R "$OPENSYRIA_USER:$OPENSYRIA_USER" "$OPENSYRIA_DATA"
+    mkdir -p "$OPENSY_SRC"
+    mkdir -p "$OPENSY_DATA"
+    chown -R "$OPENSY_USER:$OPENSY_USER" "$OPENSY_SRC"
+    chown -R "$OPENSY_USER:$OPENSY_USER" "$OPENSY_DATA"
 }
 
 configure_firewall() {
@@ -157,8 +157,8 @@ configure_firewall() {
     # SSH
     ufw allow 22/tcp comment 'SSH'
     
-    # OpenSyria P2P
-    ufw allow ${P2P_PORT}/tcp comment 'OpenSyria P2P'
+    # OpenSY P2P
+    ufw allow ${P2P_PORT}/tcp comment 'OpenSY P2P'
     
     # Enable firewall
     echo "y" | ufw enable
@@ -190,28 +190,28 @@ EOF
 }
 
 clone_repository() {
-    log_info "Cloning OpenSyria repository..."
+    log_info "Cloning OpenSY repository..."
     
-    if [[ -d "${OPENSYRIA_SRC}/source" ]]; then
+    if [[ -d "${OPENSY_SRC}/source" ]]; then
         log_warn "Repository already exists, pulling latest changes..."
-        cd "${OPENSYRIA_SRC}/source"
-        sudo -u "$OPENSYRIA_USER" git pull origin "$OPENSYRIA_BRANCH"
+        cd "${OPENSY_SRC}/source"
+        sudo -u "$OPENSY_USER" git pull origin "$OPENSY_BRANCH"
     else
-        sudo -u "$OPENSYRIA_USER" git clone "$OPENSYRIA_REPO" "${OPENSYRIA_SRC}/source"
-        cd "${OPENSYRIA_SRC}/source"
-        sudo -u "$OPENSYRIA_USER" git checkout "$OPENSYRIA_BRANCH"
+        sudo -u "$OPENSY_USER" git clone "$OPENSY_REPO" "${OPENSY_SRC}/source"
+        cd "${OPENSY_SRC}/source"
+        sudo -u "$OPENSY_USER" git checkout "$OPENSY_BRANCH"
     fi
     
     log_success "Repository cloned/updated"
 }
 
-build_opensyria() {
-    log_info "Building OpenSyria (this may take 10-30 minutes)..."
+build_opensy() {
+    log_info "Building OpenSY (this may take 10-30 minutes)..."
     
-    cd "${OPENSYRIA_SRC}/source"
+    cd "${OPENSY_SRC}/source"
     
     # Configure build
-    sudo -u "$OPENSYRIA_USER" cmake -B build \
+    sudo -u "$OPENSY_USER" cmake -B build \
         -DCMAKE_BUILD_TYPE=Release \
         -DBUILD_GUI=OFF \
         -DBUILD_TESTS=OFF
@@ -219,14 +219,14 @@ build_opensyria() {
     # Build with all available cores
     CORES=$(nproc)
     log_info "Building with $CORES cores..."
-    sudo -u "$OPENSYRIA_USER" cmake --build build -j"$CORES"
+    sudo -u "$OPENSY_USER" cmake --build build -j"$CORES"
     
     # Verify build
-    if [[ -f "${OPENSYRIA_SRC}/source/build/bin/opensyriad" ]]; then
+    if [[ -f "${OPENSY_SRC}/source/build/bin/opensyd" ]]; then
         log_success "Build completed successfully"
-        "${OPENSYRIA_SRC}/source/build/bin/opensyriad" --version
+        "${OPENSY_SRC}/source/build/bin/opensyd" --version
     else
-        log_error "Build failed - opensyriad binary not found"
+        log_error "Build failed - opensyd binary not found"
         exit 1
     fi
 }
@@ -235,7 +235,7 @@ generate_config() {
     log_info "Generating configuration..."
     
     # Generate secure RPC credentials
-    RPC_USER="opensyriarpc"
+    RPC_USER="opensyrpc"
     RPC_PASS=$(openssl rand -hex 32)
     
     # Prompt for node name
@@ -243,10 +243,10 @@ generate_config() {
     NODE_NAME=${NODE_NAME:-"node1"}
     
     # Create configuration file
-    cat > "${OPENSYRIA_DATA}/opensyria.conf" << EOF
+    cat > "${OPENSY_DATA}/opensy.conf" << EOF
 # =============================================================================
-# OpenSyria Node Configuration
-# Node: ${NODE_NAME}.opensyria.net
+# OpenSY Node Configuration
+# Node: ${NODE_NAME}.opensy.net
 # Generated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
 # =============================================================================
 
@@ -302,58 +302,58 @@ par=2
 # Seed Nodes
 # ------------------------------------------------------------------------------
 # Connect to official seed nodes
-seednode=seed.opensyria.net:9633
-seednode=seed2.opensyria.net:9633
-seednode=seed3.opensyria.net:9633
+seednode=seed.opensy.net:9633
+seednode=seed2.opensy.net:9633
+seednode=seed3.opensy.net:9633
 
 # Add manual seed node IPs if DNS seeds are not yet active
 # addnode=<IP>:9633
 EOF
     
-    chown "$OPENSYRIA_USER:$OPENSYRIA_USER" "${OPENSYRIA_DATA}/opensyria.conf"
-    chmod 600 "${OPENSYRIA_DATA}/opensyria.conf"
+    chown "$OPENSY_USER:$OPENSY_USER" "${OPENSY_DATA}/opensy.conf"
+    chmod 600 "${OPENSY_DATA}/opensy.conf"
     
     # Save credentials separately
-    cat > "${OPENSYRIA_DATA}/.rpc_credentials" << EOF
+    cat > "${OPENSY_DATA}/.rpc_credentials" << EOF
 RPC_USER=${RPC_USER}
 RPC_PASS=${RPC_PASS}
 EOF
-    chown "$OPENSYRIA_USER:$OPENSYRIA_USER" "${OPENSYRIA_DATA}/.rpc_credentials"
-    chmod 600 "${OPENSYRIA_DATA}/.rpc_credentials"
+    chown "$OPENSY_USER:$OPENSY_USER" "${OPENSY_DATA}/.rpc_credentials"
+    chmod 600 "${OPENSY_DATA}/.rpc_credentials"
     
     log_success "Configuration generated"
-    log_info "RPC credentials saved to ${OPENSYRIA_DATA}/.rpc_credentials"
+    log_info "RPC credentials saved to ${OPENSY_DATA}/.rpc_credentials"
 }
 
 create_systemd_service() {
     log_info "Creating systemd service..."
     
-    cat > /etc/systemd/system/opensyriad.service << EOF
+    cat > /etc/systemd/system/opensyd.service << EOF
 [Unit]
-Description=OpenSyria daemon
-Documentation=https://opensyria.net/
+Description=OpenSY daemon
+Documentation=https://opensy.net/
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=forking
-User=${OPENSYRIA_USER}
-Group=${OPENSYRIA_USER}
+User=${OPENSY_USER}
+Group=${OPENSY_USER}
 
-Environment="HOME=${OPENSYRIA_HOME}"
+Environment="HOME=${OPENSY_HOME}"
 
-ExecStart=${OPENSYRIA_SRC}/source/build/bin/opensyriad \\
+ExecStart=${OPENSY_SRC}/source/build/bin/opensyd \\
     -daemon \\
-    -pid=${OPENSYRIA_DATA}/opensyriad.pid \\
-    -conf=${OPENSYRIA_DATA}/opensyria.conf \\
-    -datadir=${OPENSYRIA_DATA}
+    -pid=${OPENSY_DATA}/opensyd.pid \\
+    -conf=${OPENSY_DATA}/opensy.conf \\
+    -datadir=${OPENSY_DATA}
 
-ExecStop=${OPENSYRIA_SRC}/source/build/bin/opensyria-cli \\
-    -conf=${OPENSYRIA_DATA}/opensyria.conf \\
-    -datadir=${OPENSYRIA_DATA} \\
+ExecStop=${OPENSY_SRC}/source/build/bin/opensy-cli \\
+    -conf=${OPENSY_DATA}/opensy.conf \\
+    -datadir=${OPENSY_DATA} \\
     stop
 
-PIDFile=${OPENSYRIA_DATA}/opensyriad.pid
+PIDFile=${OPENSY_DATA}/opensyd.pid
 
 Restart=on-failure
 RestartSec=30
@@ -375,34 +375,34 @@ WantedBy=multi-user.target
 EOF
     
     # Create helper script
-    cat > /usr/local/bin/opensyria-cli << 'EOF'
+    cat > /usr/local/bin/opensy-cli << 'EOF'
 #!/bin/bash
-exec /opt/opensyria/source/build/bin/opensyria-cli \
-    -conf=/home/opensyria/.opensyria/opensyria.conf \
-    -datadir=/home/opensyria/.opensyria \
+exec /opt/opensy/source/build/bin/opensy-cli \
+    -conf=/home/opensy/.opensy/opensy.conf \
+    -datadir=/home/opensy/.opensy \
     "$@"
 EOF
-    chmod +x /usr/local/bin/opensyria-cli
+    chmod +x /usr/local/bin/opensy-cli
     
     systemctl daemon-reload
-    systemctl enable opensyriad
+    systemctl enable opensyd
     
     log_success "Systemd service created"
 }
 
 start_node() {
-    log_info "Starting OpenSyria node..."
+    log_info "Starting OpenSY node..."
     
-    systemctl start opensyriad
+    systemctl start opensyd
     
     # Wait for node to start
     sleep 5
     
-    if systemctl is-active --quiet opensyriad; then
-        log_success "OpenSyria node started successfully"
+    if systemctl is-active --quiet opensyd; then
+        log_success "OpenSY node started successfully"
     else
-        log_error "Failed to start OpenSyria node"
-        journalctl -u opensyriad --no-pager -n 50
+        log_error "Failed to start OpenSY node"
+        journalctl -u opensyd --no-pager -n 50
         exit 1
     fi
 }
@@ -412,31 +412,31 @@ print_summary() {
     
     echo ""
     echo "============================================================================="
-    echo -e "${GREEN}OpenSyria Node Setup Complete!${NC}"
+    echo -e "${GREEN}OpenSY Node Setup Complete!${NC}"
     echo "============================================================================="
     echo ""
     echo "Node Information:"
     echo "  - Public IP: ${PUBLIC_IP}"
     echo "  - P2P Port: ${P2P_PORT}"
     echo "  - RPC Port: ${RPC_PORT} (localhost only)"
-    echo "  - Data Directory: ${OPENSYRIA_DATA}"
+    echo "  - Data Directory: ${OPENSY_DATA}"
     echo ""
     echo "Useful Commands:"
-    echo "  - Check status:     systemctl status opensyriad"
-    echo "  - View logs:        journalctl -u opensyriad -f"
-    echo "  - Blockchain info:  opensyria-cli getblockchaininfo"
-    echo "  - Peer info:        opensyria-cli getpeerinfo"
-    echo "  - Network info:     opensyria-cli getnetworkinfo"
-    echo "  - Stop node:        systemctl stop opensyriad"
-    echo "  - Restart node:     systemctl restart opensyriad"
+    echo "  - Check status:     systemctl status opensyd"
+    echo "  - View logs:        journalctl -u opensyd -f"
+    echo "  - Blockchain info:  opensy-cli getblockchaininfo"
+    echo "  - Peer info:        opensy-cli getpeerinfo"
+    echo "  - Network info:     opensy-cli getnetworkinfo"
+    echo "  - Stop node:        systemctl stop opensyd"
+    echo "  - Restart node:     systemctl restart opensyd"
     echo ""
     echo "RPC Credentials:"
-    echo "  - Stored in: ${OPENSYRIA_DATA}/.rpc_credentials"
+    echo "  - Stored in: ${OPENSY_DATA}/.rpc_credentials"
     echo ""
     echo "Next Steps:"
     echo "  1. Wait for blockchain sync to complete"
     echo "  2. Add this node's IP to DNS seeds"
-    echo "  3. Monitor with: journalctl -u opensyriad -f"
+    echo "  3. Monitor with: journalctl -u opensyd -f"
     echo ""
     echo "============================================================================="
 }
@@ -448,7 +448,7 @@ print_summary() {
 main() {
     echo ""
     echo "============================================================================="
-    echo "  OpenSyria Node Setup Script"
+    echo "  OpenSY Node Setup Script"
     echo "  Version: 1.0"
     echo "============================================================================="
     echo ""
@@ -458,7 +458,7 @@ main() {
     detect_architecture
     
     echo ""
-    read -p "This will install OpenSyria node on this system. Continue? [y/N] " -n 1 -r
+    read -p "This will install OpenSY node on this system. Continue? [y/N] " -n 1 -r
     echo ""
     if [[ ! $REPLY =~ ^[Yy]$ ]]; then
         log_info "Installation cancelled"
@@ -470,7 +470,7 @@ main() {
     configure_firewall
     configure_fail2ban
     clone_repository
-    build_opensyria
+    build_opensy
     generate_config
     create_systemd_service
     start_node

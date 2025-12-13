@@ -1,10 +1,10 @@
-# OpenSyria DNS Seeder
+# OpenSY DNS Seeder
 
-This document describes how to set up and run a DNS seeder for the OpenSyria network.
+This document describes how to set up and run a DNS seeder for the OpenSY network.
 
 ## Overview
 
-The DNS seeder crawls the OpenSyria network for active nodes and serves their IP addresses via DNS. When a new OpenSyria node starts, it queries `seed.opensyria.net` to discover peers to connect to.
+The DNS seeder crawls the OpenSY network for active nodes and serves their IP addresses via DNS. When a new OpenSY node starts, it queries `seed.opensy.net` to discover peers to connect to.
 
 ## Prerequisites
 
@@ -14,18 +14,18 @@ The DNS seeder crawls the OpenSyria network for active nodes and serves their IP
 
 ## Building the Seeder
 
-The OpenSyria seeder is a fork of bitcoin-seeder, available at:
-https://github.com/opensyria/opensyria-seeder
+The OpenSY seeder is a fork of bitcoin-seeder, available at:
+https://github.com/opensy/opensy-seeder
 
 ```bash
 # Clone and build
-git clone https://github.com/opensyria/opensyria-seeder.git
-cd opensyria-seeder
+git clone https://github.com/opensy/opensy-seeder.git
+cd opensy-seeder
 make
 
 # Install
-sudo mkdir -p /opt/opensyria-seeder
-sudo cp dnsseed /opt/opensyria-seeder/
+sudo mkdir -p /opt/opensy-seeder
+sudo cp dnsseed /opt/opensy-seeder/
 ```
 
 ## DNS Configuration
@@ -39,8 +39,8 @@ You need to set up DNS records to delegate `seed.yourdomain.net` to your seeder 
 | NS | seed | ns1.yourdomain.net |
 | A | ns1 | YOUR_SERVER_IP |
 
-Example for opensyria.net (in Cloudflare):
-- NS record: `seed` → `ns1.opensyria.net`
+Example for opensy.net (in Cloudflare):
+- NS record: `seed` → `ns1.opensy.net`
 - A record: `ns1` → `157.175.40.131`
 
 ## IPv4/IPv6 Bridge Setup
@@ -56,18 +56,18 @@ sudo apt-get install -y socat
 
 ### Seeder Service
 
-Create `/etc/systemd/system/opensyria-seeder.service`:
+Create `/etc/systemd/system/opensy-seeder.service`:
 
 ```ini
 [Unit]
-Description=OpenSyria DNS Seeder
+Description=OpenSY DNS Seeder
 After=network.target
 
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/opt/opensyria-seeder
-ExecStart=/opt/opensyria-seeder/dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net -p 5353 -s 157.175.40.131
+WorkingDirectory=/opt/opensy-seeder
+ExecStart=/opt/opensy-seeder/dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net -p 5353 -s 157.175.40.131
 Restart=always
 RestartSec=10
 
@@ -77,13 +77,13 @@ WantedBy=multi-user.target
 
 ### Socat Bridge Service
 
-Create `/etc/systemd/system/opensyria-socat.service`:
+Create `/etc/systemd/system/opensy-socat.service`:
 
 ```ini
 [Unit]
-Description=OpenSyria DNS Socat Bridge (IPv4 to IPv6)
-After=network.target opensyria-seeder.service
-Requires=opensyria-seeder.service
+Description=OpenSY DNS Socat Bridge (IPv4 to IPv6)
+After=network.target opensy-seeder.service
+Requires=opensy-seeder.service
 
 [Service]
 Type=simple
@@ -100,9 +100,9 @@ WantedBy=multi-user.target
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable opensyria-seeder opensyria-socat
-sudo systemctl start opensyria-seeder
-sudo systemctl start opensyria-socat
+sudo systemctl enable opensy-seeder opensy-socat
+sudo systemctl start opensy-seeder
+sudo systemctl start opensy-socat
 ```
 
 ## Firewall Configuration
@@ -125,8 +125,8 @@ Usage: ./dnsseed -h <host> -n <ns> [-m <mbox>] [-t <threads>] [-p <port>]
 
 Options:
 -s <seed>       Seed node to collect peers from (replaces default)
--h <host>       Hostname of the DNS seed (e.g., seed.opensyria.net)
--n <ns>         Hostname of the nameserver (e.g., ns1.opensyria.net)
+-h <host>       Hostname of the DNS seed (e.g., seed.opensy.net)
+-n <ns>         Hostname of the nameserver (e.g., ns1.opensy.net)
 -m <mbox>       E-Mail address reported in SOA records
 -t <threads>    Number of crawlers to run in parallel (default 96)
 -d <threads>    Number of DNS server threads (default 4)
@@ -142,20 +142,20 @@ Options:
 
 ```bash
 # Direct query to seeder
-dig @YOUR_SERVER_IP seed.opensyria.net A +short
+dig @YOUR_SERVER_IP seed.opensy.net A +short
 
 # Query via public DNS (after propagation)
-dig @8.8.8.8 seed.opensyria.net A +short
+dig @8.8.8.8 seed.opensy.net A +short
 
 # Check service status
-sudo systemctl status opensyria-seeder opensyria-socat
+sudo systemctl status opensy-seeder opensy-socat
 ```
 
 ## Monitoring
 
 Check seeder statistics:
 ```bash
-journalctl -u opensyria-seeder -f
+journalctl -u opensy-seeder -f
 ```
 
 Output shows: available nodes, tried nodes, banned nodes, DNS requests.
@@ -164,18 +164,18 @@ Output shows: available nodes, tried nodes, banned nodes, DNS requests.
 
 | Service | Host | Details |
 |---------|------|---------|
-| DNS Seed | seed.opensyria.net | Primary seeder |
-| Nameserver | ns1.opensyria.net | 157.175.40.131 |
+| DNS Seed | seed.opensy.net | Primary seeder |
+| Nameserver | ns1.opensy.net | 157.175.40.131 |
 
 ## Troubleshooting
 
 ### No DNS responses
-1. Check if seeder is running: `systemctl status opensyria-seeder`
-2. Check if socat is running: `systemctl status opensyria-socat`
-3. Test locally: `dig @127.0.0.1 -p 5353 seed.opensyria.net A +short`
+1. Check if seeder is running: `systemctl status opensy-seeder`
+2. Check if socat is running: `systemctl status opensy-socat`
+3. Test locally: `dig @127.0.0.1 -p 5353 seed.opensy.net A +short`
 4. Check firewall: `sudo iptables -L -n | grep 53`
 
 ### Seeder shows 0 available nodes
-1. Ensure at least one OpenSyria node is running and reachable
+1. Ensure at least one OpenSY node is running and reachable
 2. Use `-s IP_ADDRESS` to specify a known good seed node
 3. Use `--wipeban` to clear banned node list

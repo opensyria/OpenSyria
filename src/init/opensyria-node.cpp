@@ -1,4 +1,4 @@
-// Copyright (c) 2021-2022 The OpenSyria Core developers
+// Copyright (c) 2021-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -16,12 +16,12 @@
 
 namespace init {
 namespace {
-const char* EXE_NAME = "opensyria-node";
+const char* EXE_NAME = "opensy-node";
 
-class OpenSyriaNodeInit : public interfaces::Init
+class OpenSYNodeInit : public interfaces::Init
 {
 public:
-    OpenSyriaNodeInit(node::NodeContext& node, const char* arg0)
+    OpenSYNodeInit(node::NodeContext& node, const char* arg0)
         : m_node(node),
           m_ipc(interfaces::MakeIpc(EXE_NAME, arg0, *this))
     {
@@ -48,8 +48,8 @@ public:
 namespace interfaces {
 std::unique_ptr<Init> MakeNodeInit(node::NodeContext& node, int argc, char* argv[], int& exit_status)
 {
-    auto init = std::make_unique<init::OpenSyriaNodeInit>(node, argc > 0 ? argv[0] : "");
-    // Check if opensyria-node is being invoked as an IPC server. If so, then
+    auto init = std::make_unique<init::OpenSYNodeInit>(node, argc > 0 ? argv[0] : "");
+    // Check if opensy-node is being invoked as an IPC server. If so, then
     // bypass normal execution and just respond to requests over the IPC
     // channel and return null.
     if (init->m_ipc->startSpawnedProcess(argc, argv, exit_status)) {

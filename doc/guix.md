@@ -1,3 +1,3 @@
-# Bootstrappable OpenSyria Core Builds
+# Bootstrappable OpenSY Builds
 
 See [contrib/guix/README.md](../contrib/guix/README.md)

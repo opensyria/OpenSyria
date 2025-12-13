@@ -1,11 +1,11 @@
-// Copyright (c) 2011-2022 The OpenSyria Core developers
+// Copyright (c) 2011-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_RPCCONSOLE_H
-#define OPENSYRIA_QT_RPCCONSOLE_H
+#ifndef OPENSY_QT_RPCCONSOLE_H
+#define OPENSY_QT_RPCCONSOLE_H
 
-#include <opensyria-build-config.h> // IWYU pragma: keep
+#include <opensy-build-config.h> // IWYU pragma: keep
 
 #include <qt/clientmodel.h>
 #include <qt/guiutil.h>
@@ -39,7 +39,7 @@ class QMenu;
 class QItemSelection;
 QT_END_NAMESPACE
 
-/** Local OpenSyria RPC console. */
+/** Local OpenSY RPC console. */
 class RPCConsole: public QWidget
 {
     Q_OBJECT
@@ -210,4 +210,4 @@ protected:
     }
 };
 
-#endif // OPENSYRIA_QT_RPCCONSOLE_H
+#endif // OPENSY_QT_RPCCONSOLE_H

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 """
-Convert Bitcoin xpub/xprv test vectors to OpenSyria spub/sprv in descriptor_tests.cpp
+Convert Bitcoin xpub/xprv test vectors to OpenSY spub/sprv in descriptor_tests.cpp
 
 This script converts all Bitcoin-style BIP32 extended keys (xpub/xprv/tpub/tprv)
-to OpenSyria equivalents (spub/sprv/stpb/stpv).
+to OpenSY equivalents (spub/sprv/stpb/stpv).
 
-OpenSyria BIP32 version bytes:
+OpenSY BIP32 version bytes:
   Mainnet: EXT_PUBLIC_KEY = 0x04535944 (prefix "spub")
            EXT_SECRET_KEY = 0x04535945 (prefix "sprv")  
   Testnet: EXT_PUBLIC_KEY = 0x04355359 (prefix "stpb")
@@ -85,16 +85,16 @@ BITCOIN_XPRV = bytes([0x04, 0x88, 0xAD, 0xE4])  # xprv
 BITCOIN_TPUB = bytes([0x04, 0x35, 0x87, 0xCF])  # tpub
 BITCOIN_TPRV = bytes([0x04, 0x35, 0x83, 0x94])  # tprv
 
-# OpenSyria version bytes (from chainparams.cpp)
+# OpenSY version bytes (from chainparams.cpp)
 # Mainnet: produces "spub" and "sprv" prefixes
-OPENSYRIA_XPUB = bytes([0x04, 0x53, 0x59, 0x4C])  # spub
-OPENSYRIA_XPRV = bytes([0x04, 0x53, 0x59, 0x45])  # sprv
+OPENSY_XPUB = bytes([0x04, 0x53, 0x59, 0x4C])  # spub
+OPENSY_XPRV = bytes([0x04, 0x53, 0x59, 0x45])  # sprv
 # Testnet: produces "stpb" and "stpv" prefixes
-OPENSYRIA_TPUB = bytes([0x04, 0x35, 0x53, 0x59])  # stpb
-OPENSYRIA_TPRV = bytes([0x04, 0x35, 0x53, 0x45])  # stpv
+OPENSY_TPUB = bytes([0x04, 0x35, 0x53, 0x59])  # stpb
+OPENSY_TPRV = bytes([0x04, 0x35, 0x53, 0x45])  # stpv
 
 def convert_key(key_str):
-    """Convert a Bitcoin BIP32 key to OpenSyria format."""
+    """Convert a Bitcoin BIP32 key to OpenSY format."""
     try:
         version, rest = decode_bip32_key(key_str)
     except Exception as e:
@@ -103,13 +103,13 @@ def convert_key(key_str):
     
     # Determine new version
     if version == BITCOIN_XPUB:
-        new_version = OPENSYRIA_XPUB
+        new_version = OPENSY_XPUB
     elif version == BITCOIN_XPRV:
-        new_version = OPENSYRIA_XPRV
+        new_version = OPENSY_XPRV
     elif version == BITCOIN_TPUB:
-        new_version = OPENSYRIA_TPUB
+        new_version = OPENSY_TPUB
     elif version == BITCOIN_TPRV:
-        new_version = OPENSYRIA_TPRV
+        new_version = OPENSY_TPRV
     else:
         print(f"Unknown version {version.hex()} for {key_str}")
         return None

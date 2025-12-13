@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2022 The OpenSyria Core developers
+# Copyright (c) 2014-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test mempool re-org scenarios.
@@ -19,7 +19,7 @@ from test_framework.p2p import (
     P2PTxInvStore,
     p2p_lock,
 )
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import assert_equal, assert_raises_rpc_error
 from test_framework.wallet import MiniWallet
 from test_framework.blocktools import (
@@ -30,7 +30,7 @@ from test_framework.blocktools import (
 # needs to be long enough to allow MTP to move arbitrarily forward
 FORK_LENGTH = 20
 
-class MempoolCoinbaseTest(OpenSyriaTestFramework):
+class MempoolCoinbaseTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.extra_args = [
@@ -130,7 +130,7 @@ class MempoolCoinbaseTest(OpenSyriaTestFramework):
         self.nodes[0].setmocktime(now)
 
         # Start with a 200 block chain
-        assert_equal(self.nodes[0].getblockcount(), 200)  # OpenSyria: shorter chain
+        assert_equal(self.nodes[0].getblockcount(), 200)  # OpenSY: shorter chain
 
         self.log.info("Add 4 coinbase utxos to the miniwallet")
         # Block 76 contains the first spendable coinbase txs.

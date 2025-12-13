@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The OpenSyria Core developers
+// Copyright (c) 2009-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_PRIMITIVES_BLOCK_H
-#define OPENSYRIA_PRIMITIVES_BLOCK_H
+#ifndef OPENSY_PRIMITIVES_BLOCK_H
+#define OPENSY_PRIMITIVES_BLOCK_H
 
 #include <primitives/transaction.h>
 #include <serialize.h>
@@ -155,4 +155,4 @@ struct CBlockLocator
     }
 };
 
-#endif // OPENSYRIA_PRIMITIVES_BLOCK_H
+#endif // OPENSY_PRIMITIVES_BLOCK_H

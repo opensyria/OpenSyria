@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2022 The OpenSyria Core developers
+// Copyright (c) 2011-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_SENDCOINSENTRY_H
-#define OPENSYRIA_QT_SENDCOINSENTRY_H
+#ifndef OPENSY_QT_SENDCOINSENTRY_H
+#define OPENSY_QT_SENDCOINSENTRY_H
 
 #include <qt/sendcoinsrecipient.h>
 
@@ -21,7 +21,7 @@ namespace Ui {
 }
 
 /**
- * A single entry in the dialog for sending opensyrias.
+ * A single entry in the dialog for sending opensys.
  */
 class SendCoinsEntry : public QWidget
 {
@@ -79,4 +79,4 @@ private:
     bool updateLabel(const QString &address);
 };
 
-#endif // OPENSYRIA_QT_SENDCOINSENTRY_H
+#endif // OPENSY_QT_SENDCOINSENTRY_H

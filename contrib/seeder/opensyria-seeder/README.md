@@ -1,11 +1,11 @@
-opensyria-seeder
+opensy-seeder
 ================
 
-OpenSyria-seeder is a crawler for the OpenSyria network, which exposes a list
+OpenSY-seeder is a crawler for the OpenSY network, which exposes a list
 of reliable nodes via a built-in DNS server.
 
 This is a fork of [bitcoin-seeder](https://github.com/sipa/bitcoin-seeder)
-customized for the OpenSyria blockchain.
+customized for the OpenSY blockchain.
 
 Features
 --------
@@ -50,7 +50,7 @@ This will produce the `dnsseed` binary.
 Usage
 -----
 
-Assuming you want to run a DNS seed on `seed.opensyria.net`, you will need:
+Assuming you want to run a DNS seed on `seed.opensy.net`, you will need:
 
 1. A server with a static public IP address
 2. Port 53 (UDP and TCP) open and not used by another service
@@ -61,31 +61,31 @@ Assuming you want to run a DNS seed on `seed.opensyria.net`, you will need:
 Add these records to your domain (e.g., in Cloudflare):
 
 ```
-ns1.opensyria.net.    IN  A      <your-server-ip>
-seed.opensyria.net.   IN  NS     ns1.opensyria.net.
+ns1.opensy.net.    IN  A      <your-server-ip>
+seed.opensy.net.   IN  NS     ns1.opensy.net.
 ```
 
 ### Running the Seeder
 
 ```bash
 # Basic usage
-./dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net
+./dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net
 
 # With initial seed nodes
-./dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net \
+./dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net \
     -s 192.168.1.100:9633 -s 192.168.1.101:9633
 
 # For testnet
-./dnsseed -h seed-testnet.opensyria.net -n ns1.opensyria.net \
-    -m admin@opensyria.net --testnet
+./dnsseed -h seed-testnet.opensy.net -n ns1.opensy.net \
+    -m admin@opensy.net --testnet
 ```
 
 ### Command Line Options
 
 ```
 -s <seed>       Seed node to collect peers from
--h <host>       Hostname of the DNS seed (e.g., seed.opensyria.net)
--n <ns>         Hostname of the nameserver (e.g., ns1.opensyria.net)
+-h <host>       Hostname of the DNS seed (e.g., seed.opensy.net)
+-n <ns>         Hostname of the nameserver (e.g., ns1.opensy.net)
 -m <mbox>       E-Mail address reported in SOA records
 -t <threads>    Number of crawlers to run in parallel (default 96)
 -d <threads>    Number of DNS server threads (default 4)
@@ -100,18 +100,18 @@ seed.opensyria.net.   IN  NS     ns1.opensyria.net.
 
 ### Running as a Service
 
-Create `/etc/systemd/system/opensyria-seeder.service`:
+Create `/etc/systemd/system/opensy-seeder.service`:
 
 ```ini
 [Unit]
-Description=OpenSyria DNS Seeder
+Description=OpenSY DNS Seeder
 After=network.target
 
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/opt/opensyria-seeder
-ExecStart=/opt/opensyria-seeder/dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net
+WorkingDirectory=/opt/opensy-seeder
+ExecStart=/opt/opensy-seeder/dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net
 Restart=always
 RestartSec=30
 
@@ -123,8 +123,8 @@ Then enable and start:
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable opensyria-seeder
-sudo systemctl start opensyria-seeder
+sudo systemctl enable opensy-seeder
+sudo systemctl start opensy-seeder
 ```
 
 Network Parameters
@@ -142,9 +142,9 @@ After starting the seeder, test with:
 
 ```bash
 # Query your DNS seeder
-dig seed.opensyria.net @<your-server-ip>
+dig seed.opensy.net @<your-server-ip>
 
-# Should return IP addresses of discovered OpenSyria nodes
+# Should return IP addresses of discovered OpenSY nodes
 ```
 
 Troubleshooting
@@ -167,7 +167,7 @@ echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
 If the seeder finds no nodes, provide initial seeds:
 
 ```bash
-./dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net \
+./dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net \
     -s <known-node-ip>:9633
 ```
 
@@ -177,4 +177,4 @@ License
 This software is released under the MIT license.
 
 Based on bitcoin-seeder by Pieter Wuille (sipa).
-Modified for OpenSyria by the OpenSyria developers.
+Modified for OpenSY by the OpenSY developers.

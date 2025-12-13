@@ -1,9 +1,9 @@
-// Copyright (c) 2018-2022 The OpenSyria Core developers
+// Copyright (c) 2018-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_INTERFACES_HANDLER_H
-#define OPENSYRIA_INTERFACES_HANDLER_H
+#ifndef OPENSY_INTERFACES_HANDLER_H
+#define OPENSY_INTERFACES_HANDLER_H
 
 #include <functional>
 #include <memory>
@@ -36,4 +36,4 @@ std::unique_ptr<Handler> MakeCleanupHandler(std::function<void()> cleanup);
 
 } // namespace interfaces
 
-#endif // OPENSYRIA_INTERFACES_HANDLER_H
+#endif // OPENSY_INTERFACES_HANDLER_H

@@ -61,7 +61,7 @@ fn app() -> AppResult {
     }
 
     let build_dir = Path::new(build_dir);
-    let test_exe = build_dir.join("bin/test_opensyria");
+    let test_exe = build_dir.join("bin/test_opensy");
 
     sanity_check(&test_exe)?;
 

@@ -1,9 +1,9 @@
-// Copyright (c) 2019-present The OpenSyria Core developers
+// Copyright (c) 2019-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_SCRIPT_MINISCRIPT_H
-#define OPENSYRIA_SCRIPT_MINISCRIPT_H
+#ifndef OPENSY_SCRIPT_MINISCRIPT_H
+#define OPENSY_SCRIPT_MINISCRIPT_H
 
 #include <algorithm>
 #include <compare>
@@ -2247,7 +2247,7 @@ enum class DecodeContext {
     ENDIF_ELSE,
 };
 
-//! Parse a miniscript from an opensyria script
+//! Parse a miniscript from an opensy script
 template<typename Key, typename Ctx, typename I>
 inline NodeRef<Key> DecodeScript(I& in, I last, const Ctx& ctx)
 {
@@ -2658,4 +2658,4 @@ inline NodeRef<typename Ctx::Key> FromScript(const CScript& script, const Ctx& c
 
 } // namespace miniscript
 
-#endif // OPENSYRIA_SCRIPT_MINISCRIPT_H
+#endif // OPENSY_SCRIPT_MINISCRIPT_H

@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The OpenSyria Core developers
+// Copyright (c) 2009-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_SYNC_H
-#define OPENSYRIA_SYNC_H
+#ifndef OPENSY_SYNC_H
+#define OPENSY_SYNC_H
 
 #ifdef DEBUG_LOCKCONTENTION
 #include <logging.h>
@@ -130,7 +130,7 @@ using Mutex = AnnotatedMixin<std::mutex>;
  * eventually move all the mutexes into classes so they are not globally
  * visible.
  *
- * See: https://github.com/OpenSyria/OpenSyria/pull/20272#issuecomment-720755781
+ * See: https://github.com/OpenSY/OpenSY/pull/20272#issuecomment-720755781
  */
 class GlobalMutex : public Mutex { };
 
@@ -289,4 +289,4 @@ inline MutexType* MaybeCheckNotHeld(MutexType* m) LOCKS_EXCLUDED(m) LOCK_RETURNE
 //! gcc and the -Wreturn-stack-address flag in clang, both enabled by default.
 #define WITH_LOCK(cs, code) (MaybeCheckNotHeld(cs), [&]() -> decltype(auto) { LOCK(cs); code; }())
 
-#endif // OPENSYRIA_SYNC_H
+#endif // OPENSY_SYNC_H

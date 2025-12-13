@@ -1,10 +1,10 @@
-// Copyright (c) 2022-present The OpenSyria Core developers
+// Copyright (c) 2022-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#define OPENSYRIAKERNEL_BUILD
+#define OPENSYKERNEL_BUILD
 
-#include <kernel/opensyriakernel.h>
+#include <kernel/opensykernel.h>
 
 #include <chain.h>
 #include <coins.h>
@@ -53,7 +53,7 @@
 
 using util::ImmediateTaskRunner;
 
-// Define G_TRANSLATION_FUN symbol in libopensyriakernel library so users of the
+// Define G_TRANSLATION_FUN symbol in libopensykernel library so users of the
 // library aren't required to export this symbol
 extern const std::function<std::string(const char*)> G_TRANSLATION_FUN{nullptr};
 

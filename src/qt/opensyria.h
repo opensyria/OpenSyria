@@ -1,11 +1,11 @@
-// Copyright (c) 2011-present The OpenSyria Core developers
+// Copyright (c) 2011-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_OPENSYRIA_H
-#define OPENSYRIA_QT_OPENSYRIA_H
+#ifndef OPENSY_QT_OPENSY_H
+#define OPENSY_QT_OPENSY_H
 
-#include <opensyria-build-config.h> // IWYU pragma: keep
+#include <opensy-build-config.h> // IWYU pragma: keep
 
 #include <interfaces/node.h>
 #include <qt/initexecutor.h>
@@ -16,7 +16,7 @@
 
 #include <QApplication>
 
-class OpenSyriaGUI;
+class OpenSYGUI;
 class ClientModel;
 class NetworkStyle;
 class OptionsModel;
@@ -30,13 +30,13 @@ class Init;
 } // namespace interfaces
 
 
-/** Main OpenSyria application object */
-class OpenSyriaApplication: public QApplication
+/** Main OpenSY application object */
+class OpenSYApplication: public QApplication
 {
     Q_OBJECT
 public:
-    explicit OpenSyriaApplication();
-    ~OpenSyriaApplication();
+    explicit OpenSYApplication();
+    ~OpenSYApplication();
 
 #ifdef ENABLE_WALLET
     /// Create payment server
@@ -60,7 +60,7 @@ public:
     /// Request core initialization
     void requestInitialize();
 
-    /// Get window identifier of QMainWindow (OpenSyriaGUI)
+    /// Get window identifier of QMainWindow (OpenSYGUI)
     WId getMainWinId() const;
 
     /// Setup platform style
@@ -84,7 +84,7 @@ public Q_SLOTS:
 Q_SIGNALS:
     void requestedInitialize();
     void requestedShutdown();
-    void windowShown(OpenSyriaGUI* window);
+    void windowShown(OpenSYGUI* window);
 
 protected:
     bool event(QEvent* e) override;
@@ -93,7 +93,7 @@ private:
     std::optional<InitExecutor> m_executor;
     OptionsModel* optionsModel{nullptr};
     ClientModel* clientModel{nullptr};
-    OpenSyriaGUI* window{nullptr};
+    OpenSYGUI* window{nullptr};
     QTimer* pollShutdownTimer{nullptr};
 #ifdef ENABLE_WALLET
     PaymentServer* paymentServer{nullptr};
@@ -109,4 +109,4 @@ private:
 
 int GuiMain(int argc, char* argv[]);
 
-#endif // OPENSYRIA_QT_OPENSYRIA_H
+#endif // OPENSY_QT_OPENSY_H

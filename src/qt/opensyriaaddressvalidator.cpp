@@ -1,8 +1,8 @@
-// Copyright (c) 2011-2018 The OpenSyria Core developers
+// Copyright (c) 2011-2018 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/opensyriaaddressvalidator.h>
+#include <qt/opensyaddressvalidator.h>
 
 #include <key_io.h>
 
@@ -15,12 +15,12 @@
   - All lower-case letters except for 'l'
 */
 
-OpenSyriaAddressEntryValidator::OpenSyriaAddressEntryValidator(QObject *parent) :
+OpenSYAddressEntryValidator::OpenSYAddressEntryValidator(QObject *parent) :
     QValidator(parent)
 {
 }
 
-QValidator::State OpenSyriaAddressEntryValidator::validate(QString &input, int &pos) const
+QValidator::State OpenSYAddressEntryValidator::validate(QString &input, int &pos) const
 {
     Q_UNUSED(pos);
 
@@ -80,15 +80,15 @@ QValidator::State OpenSyriaAddressEntryValidator::validate(QString &input, int &
     return state;
 }
 
-OpenSyriaAddressCheckValidator::OpenSyriaAddressCheckValidator(QObject *parent) :
+OpenSYAddressCheckValidator::OpenSYAddressCheckValidator(QObject *parent) :
     QValidator(parent)
 {
 }
 
-QValidator::State OpenSyriaAddressCheckValidator::validate(QString &input, int &pos) const
+QValidator::State OpenSYAddressCheckValidator::validate(QString &input, int &pos) const
 {
     Q_UNUSED(pos);
-    // Validate the passed OpenSyria address
+    // Validate the passed OpenSY address
     if (IsValidDestinationString(input.toStdString())) {
         return QValidator::Acceptable;
     }

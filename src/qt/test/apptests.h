@@ -1,28 +1,28 @@
-// Copyright (c) 2018-2020 The OpenSyria Core developers
+// Copyright (c) 2018-2020 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_TEST_APPTESTS_H
-#define OPENSYRIA_QT_TEST_APPTESTS_H
+#ifndef OPENSY_QT_TEST_APPTESTS_H
+#define OPENSY_QT_TEST_APPTESTS_H
 
 #include <QObject>
 #include <set>
 #include <string>
 #include <utility>
 
-class OpenSyriaApplication;
-class OpenSyriaGUI;
+class OpenSYApplication;
+class OpenSYGUI;
 class RPCConsole;
 
 class AppTests : public QObject
 {
     Q_OBJECT
 public:
-    explicit AppTests(OpenSyriaApplication& app) : m_app(app) {}
+    explicit AppTests(OpenSYApplication& app) : m_app(app) {}
 
 private Q_SLOTS:
     void appTests();
-    void guiTests(OpenSyriaGUI* window);
+    void guiTests(OpenSYGUI* window);
     void consoleTests(RPCConsole* console);
 
 private:
@@ -37,8 +37,8 @@ private:
         ~HandleCallback();
     };
 
-    //! OpenSyria application.
-    OpenSyriaApplication& m_app;
+    //! OpenSY application.
+    OpenSYApplication& m_app;
 
     //! Set of pending callback names. Used to track expected callbacks and shut
     //! down the app after the last callback has been handled and all tests have
@@ -47,4 +47,4 @@ private:
     std::multiset<std::string> m_callbacks;
 };
 
-#endif // OPENSYRIA_QT_TEST_APPTESTS_H
+#endif // OPENSY_QT_TEST_APPTESTS_H

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2022 The OpenSyria Core developers
+# Copyright (c) 2014-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the fundrawtransaction RPC."""
@@ -16,7 +16,7 @@ from test_framework.messages import (
     CTransaction,
     CTxOut,
 )
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_not_equal,
     assert_approx,
@@ -39,7 +39,7 @@ def get_unspent(listunspent, amount):
             return utx
     raise AssertionError('Could not find unspent with amount={}'.format(amount))
 
-class RawTransactionsTest(OpenSyriaTestFramework):
+class RawTransactionsTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 4
         self.extra_args = [[
@@ -186,14 +186,14 @@ class RawTransactionsTest(OpenSyriaTestFramework):
     def test_change_position(self):
         """Ensure setting changePosition in fundraw with an exact match is handled properly."""
         self.log.info("Test fundrawtxn changePosition option")
-        rawmatch = self.nodes[2].createrawtransaction([], {self.nodes[2].getnewaddress():10000})  # OpenSyria: 10000 SYL block reward
+        rawmatch = self.nodes[2].createrawtransaction([], {self.nodes[2].getnewaddress():10000})  # OpenSY: 10000 SYL block reward
         rawmatch = self.nodes[2].fundrawtransaction(rawmatch, changePosition=1, subtractFeeFromOutputs=[0])
         assert_equal(rawmatch["changepos"], -1)
 
         self.nodes[3].createwallet(wallet_name="wwatch", disable_private_keys=True)
         wwatch = self.nodes[3].get_wallet_rpc('wwatch')
         watchonly_address = self.nodes[0].getnewaddress()
-        self.watchonly_amount = Decimal(40000)  # OpenSyria: 4 block rewards (40000 SYL)
+        self.watchonly_amount = Decimal(40000)  # OpenSY: 4 block rewards (40000 SYL)
         import_res = wwatch.importdescriptors([{"desc": self.nodes[0].getaddressinfo(watchonly_address)["desc"], "timestamp": "now"}])
         assert_equal(import_res[0]["success"], True)
         self.watchonly_utxo = self.create_outpoints(self.nodes[0], outputs=[{watchonly_address: self.watchonly_amount}])[0]
@@ -308,7 +308,7 @@ class RawTransactionsTest(OpenSyriaTestFramework):
         dec_tx  = self.nodes[2].decoderawtransaction(rawtx)
         assert_equal(utx['txid'], dec_tx['vin'][0]['txid'])
 
-        assert_raises_rpc_error(-5, "Change address must be a valid opensyria address", self.nodes[2].fundrawtransaction, rawtx, changeAddress='foobar')
+        assert_raises_rpc_error(-5, "Change address must be a valid opensy address", self.nodes[2].fundrawtransaction, rawtx, changeAddress='foobar')
 
     def test_valid_change_address(self):
         self.log.info("Test fundrawtxn with a provided change address")
@@ -669,7 +669,7 @@ class RawTransactionsTest(OpenSyriaTestFramework):
             self.generate(self.nodes[1], 1)
 
             # Make sure funds are received at node1.
-            assert_equal(oldBalance+Decimal('10001.10000000'), self.nodes[0].getbalance())  # OpenSyria: 10000 block reward + 1.10 tx output
+            assert_equal(oldBalance+Decimal('10001.10000000'), self.nodes[0].getbalance())  # OpenSY: 10000 block reward + 1.10 tx output
 
             # Restore pre-test wallet state
             wallet.sendall(recipients=[df_wallet.getnewaddress(), df_wallet.getnewaddress(), df_wallet.getnewaddress()])
@@ -724,7 +724,7 @@ class RawTransactionsTest(OpenSyriaTestFramework):
         fundedAndSignedTx = self.nodes[1].signrawtransactionwithwallet(fundedTx['hex'])
         self.nodes[1].sendrawtransaction(fundedAndSignedTx['hex'])
         self.generate(self.nodes[1], 1)
-        assert_equal(oldBalance+Decimal('10000.19000000'), self.nodes[0].getbalance())  # OpenSyria: 0.19+block reward (10000 SYL)
+        assert_equal(oldBalance+Decimal('10000.19000000'), self.nodes[0].getbalance())  # OpenSY: 0.19+block reward (10000 SYL)
 
     def test_op_return(self):
         self.log.info("Test fundrawtxn with OP_RETURN and no vin")
@@ -1454,7 +1454,7 @@ class RawTransactionsTest(OpenSyriaTestFramework):
         # If rounding up, then the calculated fee will be 126 + 78 = 204.
         # In the former case, the calculated needed fee is higher than the actual fee being paid, so an assertion is reached
         # To test this does not happen, we subtract 202 sats from the input value. If working correctly, this should
-        # fail with insufficient funds rather than opensyriad asserting.
+        # fail with insufficient funds rather than opensyd asserting.
         rawtx = w.createrawtransaction(inputs=[], outputs=[{self.nodes[0].getnewaddress(address_type="bech32"): 1 - 0.00000202}])
         assert_raises_rpc_error(-4, "Insufficient funds", w.fundrawtransaction, rawtx, fee_rate=1.85)
 

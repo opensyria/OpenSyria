@@ -1,46 +1,46 @@
 0.19.1 Release Notes
 ===============================
 
-OpenSyria Core version 0.19.1 is now available from:
+OpenSY version 0.19.1 is now available from:
 
-  <https://opensyria.net/bin/opensyria-core-0.19.1/>
+  <https://opensy.net/bin/opensy-core-0.19.1/>
 
 This minor release includes various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensyria/issues>
+  <https://github.com/opensy/opensy/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensyria.net/en/list/announcements/join/>
+  <https://opensy.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============
 
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the
-installer (on Windows) or just copy over `/Applications/OpenSyria-Qt` (on Mac)
-or `opensyriad`/`opensyria-qt` (on Linux).
+installer (on Windows) or just copy over `/Applications/OpenSY-Qt` (on Mac)
+or `opensyd`/`opensy-qt` (on Linux).
 
-Upgrading directly from a version of OpenSyria Core that has reached its EOL is
+Upgrading directly from a version of OpenSY that has reached its EOL is
 possible, but it might take some time if the datadir needs to be migrated. Old
-wallet versions of OpenSyria Core are generally supported.
+wallet versions of OpenSY are generally supported.
 
 Compatibility
 ==============
 
-OpenSyria Core is supported and extensively tested on operating systems using
+OpenSY is supported and extensively tested on operating systems using
 the Linux kernel, macOS 10.10+, and Windows 7 and newer. It is not recommended
-to use OpenSyria Core on unsupported systems.
+to use OpenSY on unsupported systems.
 
-OpenSyria Core should also work on most other Unix-like systems but is not
+OpenSY should also work on most other Unix-like systems but is not
 as frequently tested on them.
 
-From OpenSyria Core 0.17.0 onwards, macOS versions earlier than 10.10 are no
-longer supported, as OpenSyria Core is now built using Qt 5.9.x which requires
-macOS 10.10+. Additionally, OpenSyria Core does not yet change appearance when
+From OpenSY 0.17.0 onwards, macOS versions earlier than 10.10 are no
+longer supported, as OpenSY is now built using Qt 5.9.x which requires
+macOS 10.10+. Additionally, OpenSY does not yet change appearance when
 macOS "dark mode" is activated.
 
 In addition to previously supported CPU platforms, this release's pre-compiled
@@ -72,7 +72,7 @@ distribution provides binaries for the RISC-V platform.
 
 ### Tests and QA
 - #17416 Appveyor improvement - text file for vcpkg package list (sipsorcery)
-- #17488 fix "opensyriad already running" warnings on macOS (fanquake)
+- #17488 fix "opensyd already running" warnings on macOS (fanquake)
 - #17980 add missing #include to fix compiler errors (kallewoof)
 
 ### Platform support
@@ -112,4 +112,4 @@ Thanks to everyone who directly contributed to this release:
 - Wladimir J. van der Laan
 
 As well as to everyone that helped with translations on
-[Transifex](https://www.transifex.com/opensyria/opensyria/).
+[Transifex](https://www.transifex.com/opensy/opensy/).

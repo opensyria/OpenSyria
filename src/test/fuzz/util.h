@@ -1,9 +1,9 @@
-// Copyright (c) 2009-2022 The OpenSyria Core developers
+// Copyright (c) 2009-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_TEST_FUZZ_UTIL_H
-#define OPENSYRIA_TEST_FUZZ_UTIL_H
+#ifndef OPENSY_TEST_FUZZ_UTIL_H
+#define OPENSY_TEST_FUZZ_UTIL_H
 
 #include <addresstype.h>
 #include <arith_uint256.h>
@@ -340,4 +340,4 @@ void ReadFromStream(FuzzedDataProvider& fuzzed_data_provider, Stream& stream) no
     }
 }
 
-#endif // OPENSYRIA_TEST_FUZZ_UTIL_H
+#endif // OPENSY_TEST_FUZZ_UTIL_H

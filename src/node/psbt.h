@@ -1,9 +1,9 @@
-// Copyright (c) 2009-2021 The OpenSyria Core developers
+// Copyright (c) 2009-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_NODE_PSBT_H
-#define OPENSYRIA_NODE_PSBT_H
+#ifndef OPENSY_NODE_PSBT_H
+#define OPENSY_NODE_PSBT_H
 
 #include <psbt.h>
 
@@ -55,4 +55,4 @@ struct PSBTAnalysis {
 PSBTAnalysis AnalyzePSBT(PartiallySignedTransaction psbtx);
 } // namespace node
 
-#endif // OPENSYRIA_NODE_PSBT_H
+#endif // OPENSY_NODE_PSBT_H

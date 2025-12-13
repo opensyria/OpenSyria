@@ -1,9 +1,9 @@
-// Copyright (c) 2020-present The OpenSyria Core developers
+// Copyright (c) 2020-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_TXREQUEST_H
-#define OPENSYRIA_TXREQUEST_H
+#ifndef OPENSY_TXREQUEST_H
+#define OPENSY_TXREQUEST_H
 
 #include <primitives/transaction.h>
 #include <net.h>
@@ -95,7 +95,7 @@
  *
  * Context:
  * - In an earlier version of the transaction request logic it was possible for a peer to prevent us from seeing a
- *   specific transaction. See https://opensyria.net/en/2024/07/03/disclose_already_asked_for.
+ *   specific transaction. See https://opensy.net/en/2024/07/03/disclose_already_asked_for.
  */
 class TxRequestTracker {
     // Avoid littering this header file with implementation details.
@@ -215,4 +215,4 @@ public:
     void PostGetRequestableSanityCheck(std::chrono::microseconds now) const;
 };
 
-#endif // OPENSYRIA_TXREQUEST_H
+#endif // OPENSY_TXREQUEST_H

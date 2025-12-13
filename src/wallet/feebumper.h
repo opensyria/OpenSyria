@@ -1,9 +1,9 @@
-// Copyright (c) 2017-2021 The OpenSyria Core developers
+// Copyright (c) 2017-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_WALLET_FEEBUMPER_H
-#define OPENSYRIA_WALLET_FEEBUMPER_H
+#ifndef OPENSY_WALLET_FEEBUMPER_H
+#define OPENSY_WALLET_FEEBUMPER_H
 
 #include <consensus/consensus.h>
 #include <script/interpreter.h>
@@ -124,4 +124,4 @@ public:
 } // namespace feebumper
 } // namespace wallet
 
-#endif // OPENSYRIA_WALLET_FEEBUMPER_H
+#endif // OPENSY_WALLET_FEEBUMPER_H

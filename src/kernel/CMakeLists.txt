@@ -1,15 +1,15 @@
-# Copyright (c) 2024-present The OpenSyria Core developers
+# Copyright (c) 2024-present The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
 
 include(GNUInstallDirs)
 
-# TODO: libopensyriakernel is a work in progress consensus engine
+# TODO: libopensykernel is a work in progress consensus engine
 #       library, as more and more modules are decoupled from the
 #       consensus engine, this list will shrink to only those
 #       which are absolutely necessary.
-add_library(opensyriakernel
-  opensyriakernel.cpp
+add_library(opensykernel
+  opensykernel.cpp
   chain.cpp
   checks.cpp
   chainparams.cpp
@@ -80,12 +80,12 @@ add_library(opensyriakernel
   ../validation.cpp
   ../validationinterface.cpp
   ../versionbits.cpp
-  $<TARGET_OBJECTS:opensyria_clientversion>
-  $<TARGET_OBJECTS:opensyria_crypto>
+  $<TARGET_OBJECTS:opensy_clientversion>
+  $<TARGET_OBJECTS:opensy_crypto>
   $<TARGET_OBJECTS:leveldb>
   $<TARGET_OBJECTS:crc32c>
 )
-target_link_libraries(opensyriakernel
+target_link_libraries(opensykernel
   PRIVATE
     core_interface
     secp256k1_objs
@@ -96,30 +96,30 @@ target_link_libraries(opensyriakernel
     Boost::headers
 )
 
-target_include_directories(opensyriakernel PRIVATE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/leveldb/include>)
+target_include_directories(opensykernel PRIVATE $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/src/leveldb/include>)
 
-# Add a convenience libopensyriakernel target as a synonym for opensyriakernel.
-add_custom_target(libopensyriakernel)
-add_dependencies(libopensyriakernel opensyriakernel)
+# Add a convenience libopensykernel target as a synonym for opensykernel.
+add_custom_target(libopensykernel)
+add_dependencies(libopensykernel opensykernel)
 
-get_target_property(opensyriakernel_type opensyriakernel TYPE)
-if(opensyriakernel_type STREQUAL "STATIC_LIBRARY")
-  target_compile_definitions(opensyriakernel PUBLIC OPENSYRIAKERNEL_STATIC)
+get_target_property(opensykernel_type opensykernel TYPE)
+if(opensykernel_type STREQUAL "STATIC_LIBRARY")
+  target_compile_definitions(opensykernel PUBLIC OPENSYKERNEL_STATIC)
 endif()
 
-configure_file(${PROJECT_SOURCE_DIR}/libopensyriakernel.pc.in ${PROJECT_BINARY_DIR}/libopensyriakernel.pc @ONLY)
-install(FILES ${PROJECT_BINARY_DIR}/libopensyriakernel.pc DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig" COMPONENT libopensyriakernel)
+configure_file(${PROJECT_SOURCE_DIR}/libopensykernel.pc.in ${PROJECT_BINARY_DIR}/libopensykernel.pc @ONLY)
+install(FILES ${PROJECT_BINARY_DIR}/libopensykernel.pc DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig" COMPONENT libopensykernel)
 
-install(TARGETS opensyriakernel
+install(TARGETS opensykernel
   RUNTIME
     DESTINATION ${CMAKE_INSTALL_BINDIR}
-    COMPONENT libopensyriakernel
+    COMPONENT libopensykernel
   LIBRARY
     DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    COMPONENT libopensyriakernel
+    COMPONENT libopensykernel
   ARCHIVE
     DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    COMPONENT libopensyriakernel
+    COMPONENT libopensykernel
 )
 
-install(FILES opensyriakernel.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} COMPONENT libopensyriakernel)
+install(FILES opensykernel.h DESTINATION ${CMAKE_INSTALL_INCLUDEDIR} COMPONENT libopensykernel)

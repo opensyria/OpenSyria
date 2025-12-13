@@ -1,12 +1,12 @@
-// Copyright (c) 2011-2020 The OpenSyria Core developers
+// Copyright (c) 2011-2020 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_PAYMENTSERVER_H
-#define OPENSYRIA_QT_PAYMENTSERVER_H
+#ifndef OPENSY_QT_PAYMENTSERVER_H
+#define OPENSY_QT_PAYMENTSERVER_H
 
 // This class handles payment requests from clicking on
-// opensyria: URIs
+// opensy: URIs
 //
 // This is somewhat tricky, because we have to deal with
 // the situation where the user clicks on a link during
@@ -50,7 +50,7 @@ class QLocalServer;
 class QUrl;
 QT_END_NAMESPACE
 
-extern const QString OPENSYRIA_IPC_PREFIX;
+extern const QString OPENSY_IPC_PREFIX;
 
 class PaymentServer : public QObject
 {
@@ -104,4 +104,4 @@ private:
     OptionsModel* optionsModel{nullptr};
 };
 
-#endif // OPENSYRIA_QT_PAYMENTSERVER_H
+#endif // OPENSY_QT_PAYMENTSERVER_H

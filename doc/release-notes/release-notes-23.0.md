@@ -1,40 +1,40 @@
 23.0 Release Notes
 ==================
 
-OpenSyria Core version 23.0 is now available from:
+OpenSY version 23.0 is now available from:
 
-  <https://opensyria.net/bin/opensyria-core-23.0/>
+  <https://opensy.net/bin/opensy-core-23.0/>
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensyria/issues>
+  <https://github.com/opensy/opensy/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensyria.net/en/list/announcements/join/>
+  <https://opensy.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============
 
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes in some cases), then run the
-installer (on Windows) or just copy over `/Applications/OpenSyria-Qt` (on Mac)
-or `opensyriad`/`opensyria-qt` (on Linux).
+installer (on Windows) or just copy over `/Applications/OpenSY-Qt` (on Mac)
+or `opensyd`/`opensy-qt` (on Linux).
 
-Upgrading directly from a version of OpenSyria Core that has reached its EOL is
+Upgrading directly from a version of OpenSY that has reached its EOL is
 possible, but it might take some time if the data directory needs to be migrated. Old
-wallet versions of OpenSyria Core are generally supported.
+wallet versions of OpenSY are generally supported.
 
 Compatibility
 ==============
 
-OpenSyria Core is supported and extensively tested on operating systems
-using the Linux kernel, macOS 10.15+, and Windows 7 and newer.  OpenSyria
+OpenSY is supported and extensively tested on operating systems
+using the Linux kernel, macOS 10.15+, and Windows 7 and newer.  OpenSY
 Core should also work on most other Unix-like systems but is not as
-frequently tested on them.  It is not recommended to use OpenSyria Core on
+frequently tested on them.  It is not recommended to use OpenSY on
 unsupported systems.
 
 Notable changes
@@ -43,13 +43,13 @@ Notable changes
 P2P and network changes
 -----------------------
 
-- A opensyriad node will no longer rumour addresses to inbound peers by default.
+- A opensyd node will no longer rumour addresses to inbound peers by default.
   They will become eligible for address gossip after sending an ADDR, ADDRV2,
   or GETADDR message. (#21528)
 
-- Before this release, OpenSyria Core had a strong preference to try to connect only to peers that listen on port 8333. As a result of that, OpenSyria nodes listening on non-standard ports would likely not get any OpenSyria Core peers connecting to them. This preference has been removed. (#23542)
+- Before this release, OpenSY had a strong preference to try to connect only to peers that listen on port 8333. As a result of that, OpenSY nodes listening on non-standard ports would likely not get any OpenSY peers connecting to them. This preference has been removed. (#23542)
 
-- Full support has been added for the CJDNS network. See the new option `-cjdnsreachable` and [doc/cjdns.md](https://github.com/opensyria/opensyria/tree/23.x/doc/cjdns.md) (#23077)
+- Full support has been added for the CJDNS network. See the new option `-cjdnsreachable` and [doc/cjdns.md](https://github.com/opensy/opensy/tree/23.x/doc/cjdns.md) (#23077)
 
 Fee estimation changes
 ----------------------
@@ -67,13 +67,13 @@ Otherwise, please use the `rescanblockchain` RPC to trigger a rescan. (#23123)
 Tracepoints and Userspace, Statically Defined Tracing support
 -------------------------------------------------------------
 
-OpenSyria Core release binaries for Linux now include experimental tracepoints which
+OpenSY release binaries for Linux now include experimental tracepoints which
 act as an interface for process-internal events. These can be used for review,
 debugging, monitoring, and more. The tracepoint API is semi-stable. While the API
 is tested, process internals might change between releases requiring changes to the
 tracepoints. Information about the existing tracepoints can be found under
-[doc/tracing.md](https://github.com/opensyria/opensyria/blob/23.x/doc/tracing.md) and
-usage examples are provided in [contrib/tracing/](https://github.com/opensyria/opensyria/tree/23.x/contrib/tracing).
+[doc/tracing.md](https://github.com/opensy/opensy/blob/23.x/doc/tracing.md) and
+usage examples are provided in [contrib/tracing/](https://github.com/opensy/opensy/tree/23.x/contrib/tracing).
 
 Updated RPCs
 ------------
@@ -131,7 +131,7 @@ Files
 -----
 
 * On startup, the list of banned hosts and networks (via `setban` RPC) in
-  `banlist.dat` is ignored and only `banlist.json` is considered. OpenSyria Core
+  `banlist.dat` is ignored and only `banlist.json` is considered. OpenSY
   version 22.x is the only version that can read `banlist.dat` and also write
   it to `banlist.json`. If `banlist.json` already exists, version 22.x will not
   try to translate the `banlist.dat` into json. After an upgrade, `listbanned`
@@ -163,7 +163,7 @@ Tools and Utilities
 
 - CLI `-addrinfo` now returns a single field for the number of `onion` addresses
   known to the node instead of separate `torv2` and `torv3` fields, as support
-  for Tor V2 addresses was removed from OpenSyria Core in 22.0. (#22544)
+  for Tor V2 addresses was removed from OpenSY in 22.0. (#22544)
 
 Wallet
 ------
@@ -254,8 +254,8 @@ Thanks to everyone who directly contributed to this release:
 - Arnab Sen
 - Ben Woosley
 - benthecarman
-- OpenSyria Hodler
-- OpenSyriaTsunami
+- OpenSY Hodler
+- OpenSYTsunami
 - brianddk
 - Bruno Garcia
 - CallMeMisterOwl
@@ -370,4 +370,4 @@ Thanks to everyone who directly contributed to this release:
 - Zero-1729
 
 As well as to everyone that helped with translations on
-[Transifex](https://www.transifex.com/opensyria/opensyria/).
+[Transifex](https://www.transifex.com/opensy/opensy/).

@@ -1,9 +1,9 @@
-// Copyright (c) 2014-2020 The OpenSyria Core developers
+// Copyright (c) 2014-2020 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_CHAINPARAMSBASE_H
-#define OPENSYRIA_CHAINPARAMSBASE_H
+#ifndef OPENSY_CHAINPARAMSBASE_H
+#define OPENSY_CHAINPARAMSBASE_H
 
 #include <util/chaintype.h>
 
@@ -14,8 +14,8 @@
 class ArgsManager;
 
 /**
- * CBaseChainParams defines the base parameters (shared between opensyria-cli and opensyriad)
- * of a given instance of the OpenSyria system.
+ * CBaseChainParams defines the base parameters (shared between opensy-cli and opensyd)
+ * of a given instance of the OpenSY system.
  */
 class CBaseChainParams
 {
@@ -54,4 +54,4 @@ void SelectBaseParams(const ChainType chain);
 /** List of possible chain / network names  */
 #define LIST_CHAIN_NAMES "main, test, testnet4, signet, regtest"
 
-#endif // OPENSYRIA_CHAINPARAMSBASE_H
+#endif // OPENSY_CHAINPARAMSBASE_H

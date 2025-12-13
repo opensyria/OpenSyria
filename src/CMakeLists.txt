@@ -4,7 +4,7 @@
 
 include(AddWindowsResources)
 
-configure_file(${PROJECT_SOURCE_DIR}/cmake/opensyria-build-config.h.in opensyria-build-config.h USE_SOURCE_PERMISSIONS @ONLY)
+configure_file(${PROJECT_SOURCE_DIR}/cmake/opensy-build-config.h.in opensy-build-config.h USE_SOURCE_PERMISSIONS @ONLY)
 include_directories(${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 
 #=============================
@@ -39,19 +39,19 @@ if(NOT CMAKE_ARCHIVE_OUTPUT_DIRECTORY)
 endif()
 
 add_custom_target(generate_build_info
-  BYPRODUCTS ${PROJECT_BINARY_DIR}/src/opensyria-build-info.h
-  COMMAND ${CMAKE_COMMAND} -DBUILD_INFO_HEADER_PATH=${PROJECT_BINARY_DIR}/src/opensyria-build-info.h -DSOURCE_DIR=${PROJECT_SOURCE_DIR} -P ${PROJECT_SOURCE_DIR}/cmake/script/GenerateBuildInfo.cmake
-  COMMENT "Generating opensyria-build-info.h"
+  BYPRODUCTS ${PROJECT_BINARY_DIR}/src/opensy-build-info.h
+  COMMAND ${CMAKE_COMMAND} -DBUILD_INFO_HEADER_PATH=${PROJECT_BINARY_DIR}/src/opensy-build-info.h -DSOURCE_DIR=${PROJECT_SOURCE_DIR} -P ${PROJECT_SOURCE_DIR}/cmake/script/GenerateBuildInfo.cmake
+  COMMENT "Generating opensy-build-info.h"
   VERBATIM
 )
-add_library(opensyria_clientversion STATIC EXCLUDE_FROM_ALL
+add_library(opensy_clientversion STATIC EXCLUDE_FROM_ALL
   clientversion.cpp
 )
-target_link_libraries(opensyria_clientversion
+target_link_libraries(opensy_clientversion
   PRIVATE
     core_interface
 )
-add_dependencies(opensyria_clientversion generate_build_info)
+add_dependencies(opensy_clientversion generate_build_info)
 
 add_subdirectory(crypto)
 add_subdirectory(util)
@@ -59,7 +59,7 @@ if(ENABLE_IPC)
   add_subdirectory(ipc)
 endif()
 
-add_library(opensyria_consensus STATIC EXCLUDE_FROM_ALL
+add_library(opensy_consensus STATIC EXCLUDE_FROM_ALL
   arith_uint256.cpp
   consensus/merkle.cpp
   consensus/tx_check.cpp
@@ -72,10 +72,10 @@ add_library(opensyria_consensus STATIC EXCLUDE_FROM_ALL
   script/script_error.cpp
   uint256.cpp
 )
-target_link_libraries(opensyria_consensus
+target_link_libraries(opensy_consensus
   PRIVATE
     core_interface
-    opensyria_crypto
+    opensy_crypto
     secp256k1
 )
 
@@ -84,8 +84,8 @@ if(WITH_ZMQ)
 endif()
 
 # Home for common functionality shared by different executables and libraries.
-# Similar to `opensyria_util` library, but higher-level.
-add_library(opensyria_common STATIC EXCLUDE_FROM_ALL
+# Similar to `opensy_util` library, but higher-level.
+add_library(opensy_common STATIC EXCLUDE_FROM_ALL
   addresstype.cpp
   base58.cpp
   bech32.cpp
@@ -138,11 +138,11 @@ add_library(opensyria_common STATIC EXCLUDE_FROM_ALL
   script/signingprovider.cpp
   script/solver.cpp
 )
-target_link_libraries(opensyria_common
+target_link_libraries(opensy_common
   PRIVATE
     core_interface
-    opensyria_consensus
-    opensyria_util
+    opensy_consensus
+    opensy_util
     univalue
     secp256k1
     Boost::headers
@@ -156,29 +156,29 @@ if(ENABLE_WALLET)
   add_subdirectory(wallet)
 
   if(BUILD_WALLET_TOOL)
-    add_executable(opensyria-wallet
-      opensyria-wallet.cpp
-      init/opensyria-wallet.cpp
+    add_executable(opensy-wallet
+      opensy-wallet.cpp
+      init/opensy-wallet.cpp
       wallet/wallettool.cpp
     )
-    set_target_properties(opensyria-wallet PROPERTIES OUTPUT_NAME opensyria-wallet)
-    set_target_properties(opensyria-wallet PROPERTIES OUTPUT_NAME opensyria-wallet)
-    add_windows_resources(opensyria-wallet opensyria-wallet-res.rc)
-    add_windows_application_manifest(opensyria-wallet)
-    target_link_libraries(opensyria-wallet
+    set_target_properties(opensy-wallet PROPERTIES OUTPUT_NAME opensy-wallet)
+    set_target_properties(opensy-wallet PROPERTIES OUTPUT_NAME opensy-wallet)
+    add_windows_resources(opensy-wallet opensy-wallet-res.rc)
+    add_windows_application_manifest(opensy-wallet)
+    target_link_libraries(opensy-wallet
       core_interface
-      opensyria_wallet
-      opensyria_common
-      opensyria_util
+      opensy_wallet
+      opensy_common
+      opensy_util
       Boost::headers
     )
-    install_binary_component(opensyria-wallet HAS_MANPAGE)
+    install_binary_component(opensy-wallet HAS_MANPAGE)
   endif()
 endif()
 
 
-# P2P and RPC server functionality used by `opensyriad` and `opensyria-qt` executables.
-add_library(opensyria_node STATIC EXCLUDE_FROM_ALL
+# P2P and RPC server functionality used by `opensyd` and `opensy-qt` executables.
+add_library(opensy_node STATIC EXCLUDE_FROM_ALL
   addrdb.cpp
   addrman.cpp
   banman.cpp
@@ -271,16 +271,16 @@ add_library(opensyria_node STATIC EXCLUDE_FROM_ALL
   validation.cpp
   validationinterface.cpp
   versionbits.cpp
-  $<$<TARGET_EXISTS:opensyria_wallet>:wallet/init.cpp>
-  $<$<NOT:$<TARGET_EXISTS:opensyria_wallet>>:dummywallet.cpp>
+  $<$<TARGET_EXISTS:opensy_wallet>:wallet/init.cpp>
+  $<$<NOT:$<TARGET_EXISTS:opensy_wallet>>:dummywallet.cpp>
 )
-target_link_libraries(opensyria_node
+target_link_libraries(opensy_node
   PRIVATE
     core_interface
-    opensyria_common
-    opensyria_util
+    opensy_common
+    opensy_util
     randomx
-    $<TARGET_NAME_IF_EXISTS:opensyria_zmq>
+    $<TARGET_NAME_IF_EXISTS:opensy_zmq>
     leveldb
     minisketch
     univalue
@@ -291,125 +291,125 @@ target_link_libraries(opensyria_node
     $<TARGET_NAME_IF_EXISTS:USDT::headers>
 )
 
-# OpenSyria wrapper executable that can call other executables.
-if(BUILD_OPENSYRIA_BIN)
-  add_executable(opensyria opensyria.cpp)
-  set_target_properties(opensyria PROPERTIES OUTPUT_NAME opensyria)
-  set_target_properties(opensyria PROPERTIES OUTPUT_NAME opensyria)
-  add_windows_resources(opensyria opensyria-res.rc)
-  add_windows_application_manifest(opensyria)
-  target_link_libraries(opensyria core_interface opensyria_common opensyria_util)
-  install_binary_component(opensyria HAS_MANPAGE)
+# OpenSY wrapper executable that can call other executables.
+if(BUILD_OPENSY_BIN)
+  add_executable(opensy opensy.cpp)
+  set_target_properties(opensy PROPERTIES OUTPUT_NAME opensy)
+  set_target_properties(opensy PROPERTIES OUTPUT_NAME opensy)
+  add_windows_resources(opensy opensy-res.rc)
+  add_windows_application_manifest(opensy)
+  target_link_libraries(opensy core_interface opensy_common opensy_util)
+  install_binary_component(opensy HAS_MANPAGE)
 endif()
 
-# OpenSyria Core opensyriad.
+# OpenSY opensyd.
 if(BUILD_DAEMON)
-  add_executable(opensyriad
-    opensyriad.cpp
-    init/opensyriad.cpp
+  add_executable(opensyd
+    opensyd.cpp
+    init/opensyd.cpp
   )
-    set_target_properties(opensyriad PROPERTIES OUTPUT_NAME opensyriad)
-    set_target_properties(opensyriad PROPERTIES OUTPUT_NAME opensyriad)
-  add_windows_resources(opensyriad opensyriad-res.rc)
-  add_windows_application_manifest(opensyriad)
-  target_link_libraries(opensyriad
+    set_target_properties(opensyd PROPERTIES OUTPUT_NAME opensyd)
+    set_target_properties(opensyd PROPERTIES OUTPUT_NAME opensyd)
+  add_windows_resources(opensyd opensyd-res.rc)
+  add_windows_application_manifest(opensyd)
+  target_link_libraries(opensyd
     core_interface
-    opensyria_node
-    $<TARGET_NAME_IF_EXISTS:opensyria_wallet>
+    opensy_node
+    $<TARGET_NAME_IF_EXISTS:opensy_wallet>
   )
-  install_binary_component(opensyriad HAS_MANPAGE)
+  install_binary_component(opensyd HAS_MANPAGE)
 endif()
 if(ENABLE_IPC AND BUILD_DAEMON)
-  add_executable(opensyria-node
-    opensyriad.cpp
-    init/opensyria-node.cpp
+  add_executable(opensy-node
+    opensyd.cpp
+    init/opensy-node.cpp
   )
-    set_target_properties(opensyria-node PROPERTIES OUTPUT_NAME opensyria-node)
-    set_target_properties(opensyria-node PROPERTIES OUTPUT_NAME opensyria-node)
-  target_link_libraries(opensyria-node
+    set_target_properties(opensy-node PROPERTIES OUTPUT_NAME opensy-node)
+    set_target_properties(opensy-node PROPERTIES OUTPUT_NAME opensy-node)
+  target_link_libraries(opensy-node
     core_interface
-    opensyria_node
-    opensyria_ipc
-    $<TARGET_NAME_IF_EXISTS:opensyria_wallet>
+    opensy_node
+    opensy_ipc
+    $<TARGET_NAME_IF_EXISTS:opensy_wallet>
   )
-  install_binary_component(opensyria-node INTERNAL)
+  install_binary_component(opensy-node INTERNAL)
 endif()
 
 if(ENABLE_IPC AND BUILD_TESTS)
-    # opensyria_ipc_test library target is defined here in src/CMakeLists.txt
+    # opensy_ipc_test library target is defined here in src/CMakeLists.txt
     # instead of src/test/CMakeLists.txt so capnp files in src/test/ are able to
     # reference capnp files in src/ipc/capnp/ by relative path. The Cap'n Proto
     # compiler only allows importing by relative path when the importing and
     # imported files are underneath the same compilation source prefix, so the
     # source prefix must be src/, not src/test/
-    add_library(opensyria_ipc_test STATIC EXCLUDE_FROM_ALL
+    add_library(opensy_ipc_test STATIC EXCLUDE_FROM_ALL
       test/ipc_test.cpp
     )
-    target_capnp_sources(opensyria_ipc_test ${PROJECT_SOURCE_DIR}
+    target_capnp_sources(opensy_ipc_test ${PROJECT_SOURCE_DIR}
       test/ipc_test.capnp
     )
-    add_dependencies(opensyria_ipc_test opensyria_ipc_headers)
+    add_dependencies(opensy_ipc_test opensy_ipc_headers)
 endif()
 
 
-add_library(opensyria_cli STATIC EXCLUDE_FROM_ALL
+add_library(opensy_cli STATIC EXCLUDE_FROM_ALL
   compat/stdin.cpp
   rpc/client.cpp
 )
-target_link_libraries(opensyria_cli
+target_link_libraries(opensy_cli
   PUBLIC
     core_interface
     univalue
 )
 
 
-# OpenSyria RPC client
+# OpenSY RPC client
 if(BUILD_CLI)
-  add_executable(opensyria-cli opensyria-cli.cpp)
-  set_target_properties(opensyria-cli PROPERTIES OUTPUT_NAME opensyria-cli)
-  set_target_properties(opensyria-cli PROPERTIES OUTPUT_NAME opensyria-cli)
-  add_windows_resources(opensyria-cli opensyria-cli-res.rc)
-  add_windows_application_manifest(opensyria-cli)
-  target_link_libraries(opensyria-cli
+  add_executable(opensy-cli opensy-cli.cpp)
+  set_target_properties(opensy-cli PROPERTIES OUTPUT_NAME opensy-cli)
+  set_target_properties(opensy-cli PROPERTIES OUTPUT_NAME opensy-cli)
+  add_windows_resources(opensy-cli opensy-cli-res.rc)
+  add_windows_application_manifest(opensy-cli)
+  target_link_libraries(opensy-cli
     core_interface
-    opensyria_cli
-    opensyria_common
-    opensyria_util
+    opensy_cli
+    opensy_common
+    opensy_util
     libevent::core
     libevent::extra
   )
-  install_binary_component(opensyria-cli HAS_MANPAGE)
+  install_binary_component(opensy-cli HAS_MANPAGE)
 endif()
 
 
 if(BUILD_TX)
-  add_executable(opensyria-tx opensyria-tx.cpp)
-  set_target_properties(opensyria-tx PROPERTIES OUTPUT_NAME opensyria-tx)
-  set_target_properties(opensyria-tx PROPERTIES OUTPUT_NAME opensyria-tx)
-  add_windows_resources(opensyria-tx opensyria-tx-res.rc)
-  add_windows_application_manifest(opensyria-tx)
-  target_link_libraries(opensyria-tx
+  add_executable(opensy-tx opensy-tx.cpp)
+  set_target_properties(opensy-tx PROPERTIES OUTPUT_NAME opensy-tx)
+  set_target_properties(opensy-tx PROPERTIES OUTPUT_NAME opensy-tx)
+  add_windows_resources(opensy-tx opensy-tx-res.rc)
+  add_windows_application_manifest(opensy-tx)
+  target_link_libraries(opensy-tx
     core_interface
-    opensyria_common
-    opensyria_util
+    opensy_common
+    opensy_util
     univalue
   )
-  install_binary_component(opensyria-tx HAS_MANPAGE)
+  install_binary_component(opensy-tx HAS_MANPAGE)
 endif()
 
 
 if(BUILD_UTIL)
-  add_executable(opensyria-util opensyria-util.cpp)
-  set_target_properties(opensyria-util PROPERTIES OUTPUT_NAME opensyria-util)
-  set_target_properties(opensyria-util PROPERTIES OUTPUT_NAME opensyria-util)
-  add_windows_resources(opensyria-util opensyria-util-res.rc)
-  add_windows_application_manifest(opensyria-util)
-  target_link_libraries(opensyria-util
+  add_executable(opensy-util opensy-util.cpp)
+  set_target_properties(opensy-util PROPERTIES OUTPUT_NAME opensy-util)
+  set_target_properties(opensy-util PROPERTIES OUTPUT_NAME opensy-util)
+  add_windows_resources(opensy-util opensy-util-res.rc)
+  add_windows_application_manifest(opensy-util)
+  target_link_libraries(opensy-util
     core_interface
-    opensyria_common
-    opensyria_util
+    opensy_common
+    opensy_util
   )
-  install_binary_component(opensyria-util HAS_MANPAGE)
+  install_binary_component(opensy-util HAS_MANPAGE)
 endif()
 
 
@@ -424,18 +424,18 @@ if(BUILD_KERNEL_LIB)
     add_subdirectory(test/kernel)
   endif()
   if(BUILD_UTIL_CHAINSTATE)
-    add_executable(opensyria-chainstate
-      opensyria-chainstate.cpp
+    add_executable(opensy-chainstate
+      opensy-chainstate.cpp
     )
-    set_target_properties(opensyria-chainstate PROPERTIES OUTPUT_NAME opensyria-chainstate)
-    set_target_properties(opensyria-chainstate PROPERTIES OUTPUT_NAME opensyria-chainstate)
-    add_windows_application_manifest(opensyria-chainstate)
-    target_link_libraries(opensyria-chainstate
+    set_target_properties(opensy-chainstate PROPERTIES OUTPUT_NAME opensy-chainstate)
+    set_target_properties(opensy-chainstate PROPERTIES OUTPUT_NAME opensy-chainstate)
+    add_windows_application_manifest(opensy-chainstate)
+    target_link_libraries(opensy-chainstate
       PRIVATE
         core_interface
-        opensyriakernel
+        opensykernel
     )
-    install_binary_component(opensyria-chainstate INTERNAL)
+    install_binary_component(opensy-chainstate INTERNAL)
   endif()
 endif()
 

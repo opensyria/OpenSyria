@@ -6,7 +6,7 @@
 #include "serialize.h"
 #include "uint256.h"
 
-#define OPENSYRIA_SEED_NONCE  0x0963539a019ca550ULL
+#define OPENSY_SEED_NONCE  0x0963539a019ca550ULL
 
 using namespace std;
 
@@ -75,12 +75,12 @@ class CNode {
   
   void PushVersion() {
     int64 nTime = time(NULL);
-    uint64 nLocalNonce = OPENSYRIA_SEED_NONCE;
+    uint64 nLocalNonce = OPENSY_SEED_NONCE;
     int64 nLocalServices = 0;
     CAddress me(CService("0.0.0.0"));
     BeginMessage("version");
     int nBestHeight = GetRequireHeight();
-    string ver = "/opensyria-seeder:1.0.0/";
+    string ver = "/opensy-seeder:1.0.0/";
     uint8_t fRelayTxs = 0;
     vSend << PROTOCOL_VERSION << nLocalServices << nTime << you << me << nLocalNonce << ver << nBestHeight << fRelayTxs;
     EndMessage();
@@ -306,7 +306,7 @@ bool TestNode(const CService &cip, int &ban, int &clientV, std::string &clientSV
 
 /*
 int main(void) {
-  CService ip("seed.opensyria.net", 9633, true);
+  CService ip("seed.opensy.net", 9633, true);
   vector<CAddress> vAddr;
   vAddr.clear();
   int ban = 0;

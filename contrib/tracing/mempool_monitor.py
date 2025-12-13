@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-# Copyright (c) 2022 The OpenSyria Core developers
+# Copyright (c) 2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-""" Example logging OpenSyria Core mempool events using the mempool:added,
+""" Example logging OpenSY mempool events using the mempool:added,
     mempool:removed, mempool:replaced, and mempool:rejected tracepoints. """
 
 import curses
@@ -121,16 +121,16 @@ int trace_replaced(struct pt_regs *ctx) {
 
 
 def main(pid):
-    print(f"Hooking into opensyriad with pid {pid}")
-    opensyriad_with_usdts = USDT(pid=int(pid))
+    print(f"Hooking into opensyd with pid {pid}")
+    opensyd_with_usdts = USDT(pid=int(pid))
 
     # attaching the trace functions defined in the BPF program
     # to the tracepoints
-    opensyriad_with_usdts.enable_probe(probe="mempool:added", fn_name="trace_added")
-    opensyriad_with_usdts.enable_probe(probe="mempool:removed", fn_name="trace_removed")
-    opensyriad_with_usdts.enable_probe(probe="mempool:replaced", fn_name="trace_replaced")
-    opensyriad_with_usdts.enable_probe(probe="mempool:rejected", fn_name="trace_rejected")
-    bpf = BPF(text=PROGRAM, usdt_contexts=[opensyriad_with_usdts])
+    opensyd_with_usdts.enable_probe(probe="mempool:added", fn_name="trace_added")
+    opensyd_with_usdts.enable_probe(probe="mempool:removed", fn_name="trace_removed")
+    opensyd_with_usdts.enable_probe(probe="mempool:replaced", fn_name="trace_replaced")
+    opensyd_with_usdts.enable_probe(probe="mempool:rejected", fn_name="trace_rejected")
+    bpf = BPF(text=PROGRAM, usdt_contexts=[opensyd_with_usdts])
 
     events = []
 
@@ -372,7 +372,7 @@ class Dashboard:
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
-        print("USAGE: ", sys.argv[0], "<pid of opensyriad>")
+        print("USAGE: ", sys.argv[0], "<pid of opensyd>")
         exit(1)
 
     pid = sys.argv[1]

@@ -1,4 +1,4 @@
-# OpenSyria Tidy
+# OpenSY Tidy
 
 Example Usage:
 
@@ -7,5 +7,5 @@ cmake -S . -B build -DLLVM_DIR=$(llvm-config --cmakedir) -DCMAKE_BUILD_TYPE=Rele
 
 cmake --build build -j$(nproc)
 
-cmake --build build --target opensyria-tidy-tests -j$(nproc)
+cmake --build build --target opensy-tidy-tests -j$(nproc)
 ```

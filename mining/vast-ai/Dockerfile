@@ -1,4 +1,4 @@
-# OpenSyria GPU Miner for Vast.ai
+# OpenSY GPU Miner for Vast.ai
 FROM ubuntu:22.04
 
 ENV DEBIAN_FRONTEND=noninteractive
@@ -18,37 +18,37 @@ RUN apt-get update && apt-get install -y \
     jq \
     && rm -rf /var/lib/apt/lists/*
 
-# Create opensyria user
-RUN useradd -m -s /bin/bash opensyria
+# Create opensy user
+RUN useradd -m -s /bin/bash opensy
 
 # Set working directory
-WORKDIR /home/opensyria
+WORKDIR /home/opensy
 
-# Download and extract OpenSyria binaries (will be built from source)
+# Download and extract OpenSY binaries (will be built from source)
 # For now, we'll clone and build
-RUN git clone https://github.com/opensyria/OpenSyria.git /home/opensyria/OpenSyria
+RUN git clone https://github.com/opensy/OpenSY.git /home/opensy/OpenSY
 
-WORKDIR /home/opensyria/OpenSyria
+WORKDIR /home/opensy/OpenSY
 
-# Build OpenSyria
+# Build OpenSY
 RUN cmake -B build -DBUILD_DAEMON=ON -DBUILD_CLI=ON -DBUILD_TESTS=OFF -DBUILD_GUI=OFF \
     && cmake --build build -j$(nproc)
 
 # Create data directory
-RUN mkdir -p /home/opensyria/.opensyria
+RUN mkdir -p /home/opensy/.opensy
 
 # Copy startup script
-COPY start-mining.sh /home/opensyria/start-mining.sh
-RUN chmod +x /home/opensyria/start-mining.sh
+COPY start-mining.sh /home/opensy/start-mining.sh
+RUN chmod +x /home/opensy/start-mining.sh
 
 # Set ownership
-RUN chown -R opensyria:opensyria /home/opensyria
+RUN chown -R opensy:opensy /home/opensy
 
-USER opensyria
-WORKDIR /home/opensyria
+USER opensy
+WORKDIR /home/opensy
 
 # Expose P2P port
 EXPOSE 9633
 
 # Default command
-CMD ["/home/opensyria/start-mining.sh"]
+CMD ["/home/opensy/start-mining.sh"]

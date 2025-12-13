@@ -1,11 +1,11 @@
-// Copyright (c) 2011-2022 The OpenSyria Core developers
+// Copyright (c) 2011-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <qt/overviewpage.h>
 #include <qt/forms/ui_overviewpage.h>
 
-#include <qt/opensyriaunits.h>
+#include <qt/opensyunits.h>
 #include <qt/clientmodel.h>
 #include <qt/guiconstants.h>
 #include <qt/guiutil.h>
@@ -85,7 +85,7 @@ public:
             foreground = option.palette.color(QPalette::Text);
         }
         painter->setPen(foreground);
-        QString amountText = OpenSyriaUnits::formatWithUnit(unit, amount, true, OpenSyriaUnits::SeparatorStyle::ALWAYS);
+        QString amountText = OpenSYUnits::formatWithUnit(unit, amount, true, OpenSYUnits::SeparatorStyle::ALWAYS);
         if(!confirmed)
         {
             amountText = QString("[") + amountText + QString("]");
@@ -116,7 +116,7 @@ public:
         return {DECORATION_SIZE + 8 + minimum_text_width, DECORATION_SIZE};
     }
 
-    OpenSyriaUnit unit{OpenSyriaUnit::SYL};
+    OpenSYUnit unit{OpenSYUnit::SYL};
 
 Q_SIGNALS:
     //! An intermediate signal for emitting from the `paint() const` member function.
@@ -186,11 +186,11 @@ OverviewPage::~OverviewPage()
 
 void OverviewPage::setBalance(const interfaces::WalletBalances& balances)
 {
-    OpenSyriaUnit unit = walletModel->getOptionsModel()->getDisplayUnit();
-    ui->labelBalance->setText(OpenSyriaUnits::formatWithPrivacy(unit, balances.balance, OpenSyriaUnits::SeparatorStyle::ALWAYS, m_privacy));
-    ui->labelUnconfirmed->setText(OpenSyriaUnits::formatWithPrivacy(unit, balances.unconfirmed_balance, OpenSyriaUnits::SeparatorStyle::ALWAYS, m_privacy));
-    ui->labelImmature->setText(OpenSyriaUnits::formatWithPrivacy(unit, balances.immature_balance, OpenSyriaUnits::SeparatorStyle::ALWAYS, m_privacy));
-    ui->labelTotal->setText(OpenSyriaUnits::formatWithPrivacy(unit, balances.balance + balances.unconfirmed_balance + balances.immature_balance, OpenSyriaUnits::SeparatorStyle::ALWAYS, m_privacy));
+    OpenSYUnit unit = walletModel->getOptionsModel()->getDisplayUnit();
+    ui->labelBalance->setText(OpenSYUnits::formatWithPrivacy(unit, balances.balance, OpenSYUnits::SeparatorStyle::ALWAYS, m_privacy));
+    ui->labelUnconfirmed->setText(OpenSYUnits::formatWithPrivacy(unit, balances.unconfirmed_balance, OpenSYUnits::SeparatorStyle::ALWAYS, m_privacy));
+    ui->labelImmature->setText(OpenSYUnits::formatWithPrivacy(unit, balances.immature_balance, OpenSYUnits::SeparatorStyle::ALWAYS, m_privacy));
+    ui->labelTotal->setText(OpenSYUnits::formatWithPrivacy(unit, balances.balance + balances.unconfirmed_balance + balances.immature_balance, OpenSYUnits::SeparatorStyle::ALWAYS, m_privacy));
     // only show immature (newly mined) balance if it's non-zero, so as not to complicate things
     // for the non-mining users
     bool showImmature = balances.immature_balance != 0;

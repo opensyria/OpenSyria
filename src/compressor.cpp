@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2021 The OpenSyria Core developers
+// Copyright (c) 2009-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -146,7 +146,7 @@ bool DecompressScript(CScript& script, unsigned int nSize, const CompressedScrip
 // * if e==9, we only know the resulting number is not zero, so output 1 + 10*(n - 1) + 9
 // (this is decodable, as d is in [1-9] and e is in [0-9])
 //
-// OpenSyria modification: For amounts larger than COMPRESS_THRESHOLD, compression would overflow.
+// OpenSY modification: For amounts larger than COMPRESS_THRESHOLD, compression would overflow.
 // For such amounts, we return the raw amount. Since valid compressed values are always < MAX_MONEY
 // after the algorithm, any value >= MAX_MONEY must be a raw (uncompressed) amount that we pass through.
 

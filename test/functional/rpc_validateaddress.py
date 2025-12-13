@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-# Copyright (c) 2023 The OpenSyria Core developers
+# Copyright (c) 2023 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test validateaddress for main chain"""
 
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 
 from test_framework.util import assert_equal
 
@@ -18,7 +18,7 @@ INVALID_DATA = [
     ("syl1qw508d6qejxtdg4y5r3zarvary0c5xw7k6tacwa", "Invalid Bech32 checksum", [42]),
     (
         "BC13W508D6QEJXTDG4Y5R3ZARVARY0C5XW7KN40WF2",
-        "Invalid or unsupported Segwit (Bech32) or Base58 encoding.",  # Invalid HRP for OpenSyria
+        "Invalid or unsupported Segwit (Bech32) or Base58 encoding.",  # Invalid HRP for OpenSY
         [],
     ),
     (
@@ -33,7 +33,7 @@ INVALID_DATA = [
     ),
     (
         "BC1QR508D6QEJXTDG4Y5R3ZARVARYV98GJ9P",
-        "Invalid or unsupported Segwit (Bech32) or Base58 encoding.",  # Invalid HRP for OpenSyria
+        "Invalid or unsupported Segwit (Bech32) or Base58 encoding.",  # Invalid HRP for OpenSY
         [],
     ),
     (
@@ -43,7 +43,7 @@ INVALID_DATA = [
     ),
     (
         "BC1QW508D6QEJXTDG4Y5R3ZARVARY0C5XW7KV8F3t4",
-        "Invalid or unsupported Segwit (Bech32) or Base58 encoding.",  # Invalid HRP for OpenSyria
+        "Invalid or unsupported Segwit (Bech32) or Base58 encoding.",  # Invalid HRP for OpenSY
         [],
     ),
     (
@@ -75,7 +75,7 @@ INVALID_DATA = [
     ),
     (
         "BC1S0XLXVLHEMJA6C4DQV22UAPCTQUPFHLXM9H8Z3K2E72Q4K9HCZ7VQ54WELL",
-        "Invalid or unsupported Segwit (Bech32) or Base58 encoding.",  # Invalid HRP for OpenSyria
+        "Invalid or unsupported Segwit (Bech32) or Base58 encoding.",  # Invalid HRP for OpenSY
         [],
     ),
     (
@@ -95,7 +95,7 @@ INVALID_DATA = [
     ),
     (
         "BC130XLXVLHEMJA6C4DQV22UAPCTQUPFHLXM9H8Z3K2E72Q4K9HCZ7VQ7ZWS8R",
-        "Invalid or unsupported Segwit (Bech32) or Base58 encoding.",  # Invalid HRP for OpenSyria
+        "Invalid or unsupported Segwit (Bech32) or Base58 encoding.",  # Invalid HRP for OpenSY
         [],
     ),
     ("syl1pw5uf7fpw", "Invalid Bech32 address program size (1 byte)", []),
@@ -156,7 +156,7 @@ VALID_DATA = [
 ]
 
 
-class ValidateAddressMainTest(OpenSyriaTestFramework):
+class ValidateAddressMainTest(OpenSYTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.chain = ""  # main

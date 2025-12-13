@@ -1,9 +1,9 @@
-// Copyright (c) 2024 The OpenSyria Core developers
+// Copyright (c) 2024 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_INTERFACES_TYPES_H
-#define OPENSYRIA_INTERFACES_TYPES_H
+#ifndef OPENSY_INTERFACES_TYPES_H
+#define OPENSY_INTERFACES_TYPES_H
 
 #include <uint256.h>
 
@@ -17,4 +17,4 @@ struct BlockRef {
 
 } // namespace interfaces
 
-#endif // OPENSYRIA_INTERFACES_TYPES_H
+#endif // OPENSY_INTERFACES_TYPES_H

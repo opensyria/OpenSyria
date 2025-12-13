@@ -1,17 +1,17 @@
-// Copyright (c) 2009-2022 The OpenSyria Core developers
+// Copyright (c) 2009-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_CLIENTVERSION_H
-#define OPENSYRIA_CLIENTVERSION_H
+#ifndef OPENSY_CLIENTVERSION_H
+#define OPENSY_CLIENTVERSION_H
 
 #include <util/macros.h>
 
-#include <opensyria-build-config.h> // IWYU pragma: keep
+#include <opensy-build-config.h> // IWYU pragma: keep
 
 // Check that required client information is defined
 #if !defined(CLIENT_VERSION_MAJOR) || !defined(CLIENT_VERSION_MINOR) || !defined(CLIENT_VERSION_BUILD) || !defined(CLIENT_VERSION_IS_RELEASE) || !defined(COPYRIGHT_YEAR)
-#error Client version information missing: version is not defined by opensyria-build-config.h or in any other way
+#error Client version information missing: version is not defined by opensy-build-config.h or in any other way
 #endif
 
 //! Copyright string used in Windows .rc files
@@ -41,4 +41,4 @@ std::string LicenseInfo();
 
 #endif // RC_INVOKED
 
-#endif // OPENSYRIA_CLIENTVERSION_H
+#endif // OPENSY_CLIENTVERSION_H

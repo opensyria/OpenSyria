@@ -16,7 +16,7 @@ target_link_libraries(test_fuzz
   PRIVATE
     core_interface
     test_util
-    opensyria_node
+    opensy_node
     Boost::headers
 )
 

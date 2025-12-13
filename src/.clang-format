@@ -99,7 +99,7 @@ IfMacros:
   - KJ_IF_MAYBE
 IncludeBlocks:   Preserve
 IncludeCategories:
-  - Regex:           '^<opensyria-build-config\.h>'
+  - Regex:           '^<opensy-build-config\.h>'
     Priority:        -1
     CaseSensitive:   true
   - Regex:           '^<boost/'

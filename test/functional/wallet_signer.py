@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-# Copyright (c) 2017-2022 The OpenSyria Core developers
+# Copyright (c) 2017-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test external signer.
 
-Verify that a opensyriad node can use an external signer command
+Verify that a opensyd node can use an external signer command
 See also rpc_signer.py for tests without wallet context.
 """
 import os
 import sys
 
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_equal,
     assert_greater_than,
@@ -18,7 +18,7 @@ from test_framework.util import (
 )
 
 
-class WalletSignerTest(OpenSyriaTestFramework):
+class WalletSignerTest(OpenSYTestFramework):
     def mock_signer_path(self):
         path = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'mocks', 'signer.py')
         return sys.executable + " " + path
@@ -55,12 +55,12 @@ class WalletSignerTest(OpenSyriaTestFramework):
         os.remove(os.path.join(node.cwd, "mock_result"))
 
     def skip_test_if_missing_module(self):
-        # TODO: Update mock signer script with OpenSyria addresses
+        # TODO: Update mock signer script with OpenSY addresses
         # The mock signer at test/functional/mocks/signer.py returns hardcoded
         # Bitcoin testnet addresses. These need updating:
-        # - Line ~98: address2 should be OpenSyria P2SH-SegWit format
+        # - Line ~98: address2 should be OpenSY P2SH-SegWit format
         # - Update any other hardcoded addresses in the mock responses
-        # To fix: Update mocks/signer.py with OpenSyria address format.
+        # To fix: Update mocks/signer.py with OpenSY address format.
         self.skip_if_platform_not_linux()  # Mock signer uses Bitcoin addresses
 
     def run_test(self):
@@ -104,7 +104,7 @@ class WalletSignerTest(OpenSyriaTestFramework):
         assert_equal(address_info['hdkeypath'], "m/84h/1h/0h/0/0")
 
         address2 = hww.getnewaddress(address_type="p2sh-segwit")
-        assert_equal(address2, "fnt5s8vfe1n4ZnsLrcehgDEwrqdCSVpUmM")  # OpenSyria p2sh-segwit address
+        assert_equal(address2, "fnt5s8vfe1n4ZnsLrcehgDEwrqdCSVpUmM")  # OpenSY p2sh-segwit address
         address_info = hww.getaddressinfo(address2)
         assert_equal(address_info['solvable'], True)
         assert_equal(address_info['ismine'], True)

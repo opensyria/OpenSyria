@@ -3,10 +3,10 @@
 <plist version="1.0">
 <dict>
 	<key>Label</key>
-	<string>org.opensyria.opensyriad</string>
+	<string>org.opensy.opensyd</string>
 	<key>ProgramArguments</key>
 	<array>
-		<string>/usr/local/bin/opensyriad</string>
+		<string>/usr/local/bin/opensyd</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>

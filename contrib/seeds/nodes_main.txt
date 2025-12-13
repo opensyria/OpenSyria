@@ -1,23 +1,23 @@
-# OpenSyria Mainnet Seed Nodes
+# OpenSY Mainnet Seed Nodes
 #
 # This file is intentionally empty for the initial launch.
-# OpenSyria is a new blockchain and does not yet have established seed nodes.
+# OpenSY is a new blockchain and does not yet have established seed nodes.
 #
 # IMPORTANT: Before mainnet launch, this file should be populated with
-# IP addresses of reliable OpenSyria mainnet nodes.
+# IP addresses of reliable OpenSY mainnet nodes.
 #
 # Format: <ip>:<port> # <optional AS number comment>
 # Example: 192.0.2.1:9633 # AS12345
 #
 # To generate this file after deploying seed nodes:
-#   1. Deploy 10+ geographically distributed OpenSyria nodes
+#   1. Deploy 10+ geographically distributed OpenSY nodes
 #   2. Run: python3 contrib/seeds/makeseeds.py < nodes_main_raw.txt > nodes_main.txt
 #   3. Run: python3 contrib/seeds/generate-seeds.py . > ../src/chainparamsseeds.h
 #
-# OpenSyria Mainnet Seed Nodes
+# OpenSY Mainnet Seed Nodes
 # Updated: December 8, 2025 - Network Launch Day! 🇸🇾
 
 # AWS Bahrain (me-south-1) - Primary Seed Node
 157.175.40.131:9633
 
-# DNS Seed: seed.opensyria.net (resolves via ns1.opensyria.net)
+# DNS Seed: seed.opensy.net (resolves via ns1.opensy.net)

@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_VALIDATIONINTERFACE_H
-#define OPENSYRIA_VALIDATIONINTERFACE_H
+#ifndef OPENSY_VALIDATIONINTERFACE_H
+#define OPENSY_VALIDATIONINTERFACE_H
 
 #include <kernel/chain.h>
 #include <kernel/cs_main.h>
@@ -228,4 +228,4 @@ public:
     void NewPoWValidBlock(const CBlockIndex *, const std::shared_ptr<const CBlock>&);
 };
 
-#endif // OPENSYRIA_VALIDATIONINTERFACE_H
+#endif // OPENSY_VALIDATIONINTERFACE_H

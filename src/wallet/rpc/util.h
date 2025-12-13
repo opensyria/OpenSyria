@@ -1,9 +1,9 @@
-// Copyright (c) 2017-present The OpenSyria Core developers
+// Copyright (c) 2017-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_WALLET_RPC_UTIL_H
-#define OPENSYRIA_WALLET_RPC_UTIL_H
+#ifndef OPENSY_WALLET_RPC_UTIL_H
+#define OPENSY_WALLET_RPC_UTIL_H
 
 #include <rpc/util.h>
 #include <script/script.h>
@@ -58,4 +58,4 @@ void HandleWalletError(const std::shared_ptr<CWallet> wallet, DatabaseStatus& st
 void AppendLastProcessedBlock(UniValue& entry, const CWallet& wallet) EXCLUSIVE_LOCKS_REQUIRED(wallet.cs_wallet);
 } //  namespace wallet
 
-#endif // OPENSYRIA_WALLET_RPC_UTIL_H
+#endif // OPENSY_WALLET_RPC_UTIL_H

@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # Copyright 2014 BitPay Inc.
-# Copyright 2016-present The OpenSyria Core developers
+# Copyright 2016-present The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit.
 """Exercise the utils via json-defined tests."""
 
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 
 import difflib
 import json
@@ -14,7 +14,7 @@ import subprocess
 from pathlib import Path
 
 
-class ToolUtils(OpenSyriaTestFramework):
+class ToolUtils(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 0  # No node/datadir needed
 
@@ -22,19 +22,19 @@ class ToolUtils(OpenSyriaTestFramework):
         pass
 
     def skip_test_if_missing_module(self):
-        self.skip_if_no_opensyria_tx()
-        self.skip_if_no_opensyria_util()
-        # TODO: Update test data JSON files with OpenSyria addresses
+        self.skip_if_no_opensy_tx()
+        self.skip_if_no_opensy_util()
+        # TODO: Update test data JSON files with OpenSY addresses
         # Files in test/functional/data/util/ contain Bitcoin addresses.
         # Some were updated (tt-delin1-out.json, tt-delout1-out.json, tt-locktime317000-out.json)
-        # but opensyria-util-test.json may still have Bitcoin-specific test vectors.
+        # but opensy-util-test.json may still have Bitcoin-specific test vectors.
         # To fix: Run tests on Linux, identify failures, regenerate test vectors.
         self.skip_if_platform_not_linux()  # Test data has Bitcoin addresses
 
     def run_test(self):
         self.testcase_dir = Path(self.config["environment"]["SRCDIR"]) / "test" / "functional" / "data" / "util"
         self.bins = self.get_binaries()
-        with open(self.testcase_dir / "opensyria-util-test.json", encoding="utf8") as f:
+        with open(self.testcase_dir / "opensy-util-test.json", encoding="utf8") as f:
             input_data = json.loads(f.read())
 
         for i, test_obj in enumerate(input_data):
@@ -48,9 +48,9 @@ class ToolUtils(OpenSyriaTestFramework):
         are not as expected. Error is caught by bctester() and reported.
         """
         # Get the exec names and arguments
-        if testObj["exec"] == "./opensyria-util":
+        if testObj["exec"] == "./opensy-util":
             execrun = self.bins.util_argv() + testObj["args"]
-        elif testObj["exec"] == "./opensyria-tx":
+        elif testObj["exec"] == "./opensy-tx":
             execrun = self.bins.tx_argv() + testObj["args"]
 
         # Read the input data (if there is any)

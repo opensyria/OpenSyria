@@ -17,7 +17,7 @@
 extern int nMinimumHeight;
 static inline int GetRequireHeight(const bool testnet = fTestNet)
 {
-    // OpenSyria is a new chain, start from 0
+    // OpenSY is a new chain, start from 0
     return nMinimumHeight ? nMinimumHeight : (testnet ? 0 : 0);
 }
 

@@ -1,8 +1,8 @@
-// Copyright (c) 2009-2022 The OpenSyria Core developers
+// Copyright (c) 2009-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <opensyria-build-config.h> // IWYU pragma: keep
+#include <opensy-build-config.h> // IWYU pragma: keep
 
 #include <arith_uint256.h>
 #include <chain.h>
@@ -29,7 +29,7 @@ static const int CONTINUE_EXECUTION=-1;
 
 const TranslateFn G_TRANSLATION_FUN{nullptr};
 
-static void SetupOpenSyriaUtilArgs(ArgsManager &argsman)
+static void SetupOpenSYUtilArgs(ArgsManager &argsman)
 {
     SetupHelpOptions(argsman);
 
@@ -45,7 +45,7 @@ static void SetupOpenSyriaUtilArgs(ArgsManager &argsman)
 // CONTINUE_EXECUTION when it's expected to continue further.
 static int AppInitUtil(ArgsManager& args, int argc, char* argv[])
 {
-    SetupOpenSyriaUtilArgs(args);
+    SetupOpenSYUtilArgs(args);
     std::string error;
     if (!args.ParseParameters(argc, argv, error)) {
         tfm::format(std::cerr, "Error parsing command line arguments: %s\n", error);
@@ -54,16 +54,16 @@ static int AppInitUtil(ArgsManager& args, int argc, char* argv[])
 
     if (HelpRequested(args) || args.GetBoolArg("-version", false)) {
         // First part of help message is specific to this utility
-        std::string strUsage = CLIENT_NAME " opensyria-util utility version " + FormatFullVersion() + "\n";
+        std::string strUsage = CLIENT_NAME " opensy-util utility version " + FormatFullVersion() + "\n";
 
         if (args.GetBoolArg("-version", false)) {
             strUsage += FormatParagraph(LicenseInfo());
         } else {
             strUsage += "\n"
-                "The opensyria-util tool provides opensyria related functionality that does not rely on the ability to access a running node. Available [commands] are listed below.\n"
+                "The opensy-util tool provides opensy related functionality that does not rely on the ability to access a running node. Available [commands] are listed below.\n"
                 "\n"
-                "Usage:  opensyria-util [options] [command]\n"
-                "or:     opensyria-util [options] grind <hex-block-header>\n";
+                "Usage:  opensy-util [options] [command]\n"
+                "or:     opensy-util [options] grind <hex-block-header>\n";
             strUsage += "\n" + args.GetHelpMessage();
         }
 

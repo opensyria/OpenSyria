@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-# Copyright (c) 2021-2022 The OpenSyria Core developers
+# Copyright (c) 2021-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the scanblocks RPC call."""
 from test_framework.address import address_to_scriptpubkey
 from test_framework.blockfilter import bip158_relevant_scriptpubkeys
 from test_framework.messages import COIN
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_equal,
     assert_raises_rpc_error,
@@ -17,7 +17,7 @@ from test_framework.wallet import (
 )
 
 
-class ScanblocksTest(OpenSyriaTestFramework):
+class ScanblocksTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.extra_args = [["-blockfilterindex=1"], []]
@@ -84,9 +84,9 @@ class ScanblocksTest(OpenSyriaTestFramework):
         # use a pre-calculated one that collides with the regtest genesis block's
         # coinbase output and verify that their BIP158 ranged hashes match
         #
-        # TODO: OpenSyria needs a new pre-calculated false-positive collision
+        # TODO: OpenSY needs a new pre-calculated false-positive collision
         # for its genesis block. The Bitcoin collision (001400000000000000000000000000000000000cadcb)
-        # doesn't work with OpenSyria's different genesis coinbase. Computing a new
+        # doesn't work with OpenSY's different genesis coinbase. Computing a new
         # collision requires brute-forcing ~2^20 hashes. For now, we only test that
         # the real coinbase is found and that filter_false_positives works with it.
         genesis_blockhash = node.getblockhash(0)

@@ -1,4 +1,4 @@
-// Copyright (c) 2010-2021 The OpenSyria Core developers
+// Copyright (c) 2010-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,8 +10,8 @@
 //! dependencies. More complicated types should be defined in dedicated header
 //! files.
 
-#ifndef OPENSYRIA_NODE_TYPES_H
-#define OPENSYRIA_NODE_TYPES_H
+#ifndef OPENSY_NODE_TYPES_H
+#define OPENSY_NODE_TYPES_H
 
 #include <consensus/amount.h>
 #include <cstddef>
@@ -112,4 +112,4 @@ enum class TxBroadcast : uint8_t {
 
 } // namespace node
 
-#endif // OPENSYRIA_NODE_TYPES_H
+#endif // OPENSY_NODE_TYPES_H

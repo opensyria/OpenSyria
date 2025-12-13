@@ -1,9 +1,9 @@
-// Copyright (c) 2018-present The OpenSyria Core developers
+// Copyright (c) 2018-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_INTERFACES_CHAIN_H
-#define OPENSYRIA_INTERFACES_CHAIN_H
+#ifndef OPENSY_INTERFACES_CHAIN_H
+#define OPENSY_INTERFACES_CHAIN_H
 
 #include <blockfilter.h>
 #include <common/settings.h>
@@ -108,13 +108,13 @@ using SettingsUpdate = std::function<std::optional<interfaces::SettingsAction>(c
 //! estimate fees, and submit transactions.
 //!
 //! TODO: Current chain methods are too low level, exposing too much of the
-//! internal workings of the opensyria node, and not being very convenient to use.
+//! internal workings of the opensy node, and not being very convenient to use.
 //! Chain methods should be cleaned up and simplified over time. Examples:
 //!
 //! * The initMessages() and showProgress() methods which the wallet uses to send
 //!   notifications to the GUI should go away when GUI and wallet can directly
 //!   communicate with each other without going through the node
-//!   (https://github.com/OpenSyria/OpenSyria/pull/15288#discussion_r253321096).
+//!   (https://github.com/OpenSY/OpenSY/pull/15288#discussion_r253321096).
 //!
 //! * The handleRpc, registerRpcs, rpcEnableDeprecated methods and other RPC
 //!   methods can go away if wallets listen for HTTP requests on their own
@@ -126,7 +126,7 @@ using SettingsUpdate = std::function<std::optional<interfaces::SettingsAction>(c
 //!
 //! * `guessVerificationProgress` and similar methods can go away if rescan
 //!   logic moves out of the wallet, and the wallet just requests scans from the
-//!   node (https://github.com/OpenSyria/OpenSyria/issues/11756)
+//!   node (https://github.com/OpenSY/OpenSY/issues/11756)
 class Chain
 {
 public:
@@ -431,4 +431,4 @@ std::unique_ptr<Chain> MakeChain(node::NodeContext& node);
 
 } // namespace interfaces
 
-#endif // OPENSYRIA_INTERFACES_CHAIN_H
+#endif // OPENSY_INTERFACES_CHAIN_H

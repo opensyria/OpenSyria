@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The OpenSyria Core developers
+// Copyright (c) 2009-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 // NOTE [RANDOMX CPU MINING]:
-// OpenSyria uses RandomX proof-of-work from block 1, enabling fair CPU mining.
+// OpenSY uses RandomX proof-of-work from block 1, enabling fair CPU mining.
 // No ASIC or GPU advantage - anyone with a modern CPU can participate.
 //
 // MINING RECOMMENDATIONS:

@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The OpenSyria Core developers
+// Copyright (c) 2009-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_TXDB_H
-#define OPENSYRIA_TXDB_H
+#ifndef OPENSY_TXDB_H
+#define OPENSY_TXDB_H
 
 #include <coins.h>
 #include <dbwrapper.h>
@@ -58,4 +58,4 @@ public:
     std::optional<fs::path> StoragePath() { return m_db->StoragePath(); }
 };
 
-#endif // OPENSYRIA_TXDB_H
+#endif // OPENSY_TXDB_H

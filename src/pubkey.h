@@ -1,11 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Copyright (c) 2017 The Zcash developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_PUBKEY_H
-#define OPENSYRIA_PUBKEY_H
+#ifndef OPENSY_PUBKEY_H
+#define OPENSY_PUBKEY_H
 
 #include <hash.h>
 #include <serialize.h>
@@ -382,4 +382,4 @@ struct CExtPubKey {
     [[nodiscard]] bool Derive(CExtPubKey& out, unsigned int nChild, uint256* bip32_tweak_out = nullptr) const;
 };
 
-#endif // OPENSYRIA_PUBKEY_H
+#endif // OPENSY_PUBKEY_H

@@ -5,8 +5,8 @@ For notes on the usage of Assumeutxo, please refer to [the usage doc](/doc/assum
 ## General background
 
 - [assumeutxo proposal](https://github.com/jamesob/assumeutxo-docs/tree/2019-04-proposal/proposal)
-- [Github issue](https://github.com/opensyria/opensyria/issues/15605)
-- [draft PR](https://github.com/opensyria/opensyria/pull/15606)
+- [Github issue](https://github.com/opensy/opensy/issues/15605)
+- [draft PR](https://github.com/opensy/opensy/pull/15606)
 
 ## Design notes
 
@@ -39,7 +39,7 @@ data.
 
 `ChainstateManager` manages a single Chainstate object, for which
 `m_from_snapshot_blockhash` is `std::nullopt`. This chainstate is (maybe obviously)
-considered active. This is the "traditional" mode of operation for opensyriad.
+considered active. This is the "traditional" mode of operation for opensyd.
 
 |    |    |
 | ---------- | ----------- |
@@ -109,7 +109,7 @@ background chainstate's UTXO set contents and ensure it matches the compiled val
 
 The background chainstate data lingers on disk until the program is restarted.
 
-### OpenSyriad restarts sometime after snapshot validation has completed
+### OpenSYd restarts sometime after snapshot validation has completed
 
 After a shutdown and subsequent restart, `LoadChainstate()` cleans up the background
 chainstate with `ValidatedSnapshotCleanup()`, which renames the `chainstate_snapshot`

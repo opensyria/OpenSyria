@@ -1,9 +1,9 @@
-// Copyright (c) The OpenSyria Core developers
+// Copyright (c) The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_TEST_UTIL_TIME_H
-#define OPENSYRIA_TEST_UTIL_TIME_H
+#ifndef OPENSY_TEST_UTIL_TIME_H
+#define OPENSY_TEST_UTIL_TIME_H
 
 #include <util/time.h>
 
@@ -20,4 +20,4 @@ struct ElapseSteady {
     }
 };
 
-#endif // OPENSYRIA_TEST_UTIL_TIME_H
+#endif // OPENSY_TEST_UTIL_TIME_H

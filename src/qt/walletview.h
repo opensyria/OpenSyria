@@ -1,12 +1,12 @@
-// Copyright (c) 2011-2021 The OpenSyria Core developers
+// Copyright (c) 2011-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_WALLETVIEW_H
-#define OPENSYRIA_QT_WALLETVIEW_H
+#ifndef OPENSY_QT_WALLETVIEW_H
+#define OPENSY_QT_WALLETVIEW_H
 
 #include <consensus/amount.h>
-#include <qt/opensyriaunits.h>
+#include <qt/opensyunits.h>
 
 #include <QStackedWidget>
 
@@ -53,7 +53,7 @@ private:
     ClientModel* clientModel{nullptr};
 
     //!
-    //! The wallet model represents an opensyria wallet, and offers access to
+    //! The wallet model represents an opensy wallet, and offers access to
     //! the list of transactions, address book and sending functionality.
     //!
     WalletModel* const walletModel;
@@ -119,9 +119,9 @@ Q_SIGNALS:
     /** Encryption status of wallet changed */
     void encryptionStatusChanged();
     /** Notify that a new transaction appeared */
-    void incomingTransaction(const QString& date, OpenSyriaUnit unit, const CAmount& amount, const QString& type, const QString& address, const QString& label, const QString& walletName);
+    void incomingTransaction(const QString& date, OpenSYUnit unit, const CAmount& amount, const QString& type, const QString& address, const QString& label, const QString& walletName);
     /** Notify that the out of sync warning icon has been pressed */
     void outOfSyncWarningClicked();
 };
 
-#endif // OPENSYRIA_QT_WALLETVIEW_H
+#endif // OPENSY_QT_WALLETVIEW_H

@@ -54,13 +54,13 @@
         <translation type="unfinished">E&amp;scolher</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Estes são os seus endereços OpenSyria para enviar pagamentos. Sempre confira o valor e o endereço de destino antes de enviar SYL.</translation>
+        <source>These are your OpenSY addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Estes são os seus endereços OpenSY para enviar pagamentos. Sempre confira o valor e o endereço de destino antes de enviar SYL.</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your OpenSY addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Estes são seus endereços OpenSyria para receber pagamentos. Use o botão 'Criar novo endereço de recebimento' na aba receber para criar novos endereços.
+        <translation type="unfinished">Estes são seus endereços OpenSY para receber pagamentos. Use o botão 'Criar novo endereço de recebimento' na aba receber para criar novos endereços.
 Só é possível assinar com endereços do tipo 'legado'.</translation>
     </message>
     <message>
@@ -256,7 +256,7 @@ Só é possível assinar com endereços do tipo 'legado'.</translation>
     </message>
 </context>
 <context>
-    <name>OpenSyriaApplication</name>
+    <name>OpenSYApplication</name>
     <message>
         <source>Settings file %1 might be corrupt or invalid.</source>
         <translation type="unfinished">Arquivos de configurações %1 podem estar corrompidos ou inválidos</translation>
@@ -315,8 +315,8 @@ Só é possível assinar com endereços do tipo 'legado'.</translation>
         <translation type="unfinished">Quantia</translation>
     </message>
     <message>
-        <source>Enter a OpenSyria address (e.g. %1)</source>
-        <translation type="unfinished">Informe um endereço OpenSyria (ex: %1)</translation>
+        <source>Enter a OpenSY address (e.g. %1)</source>
+        <translation type="unfinished">Informe um endereço OpenSY (ex: %1)</translation>
     </message>
     <message>
         <source>Ctrl+W</source>
@@ -388,7 +388,7 @@ Só é possível assinar com endereços do tipo 'legado'.</translation>
     </message>
 </context>
 <context>
-    <name>OpenSyriaGUI</name>
+    <name>OpenSYGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation type="unfinished">&amp;Visão geral</translation>
@@ -455,8 +455,8 @@ Só é possível assinar com endereços do tipo 'legado'.</translation>
         <translation type="unfinished">Proxy &lt;b&gt;ativado&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a OpenSyria address</source>
-        <translation type="unfinished">Enviar moedas para um endereço OpenSyria</translation>
+        <source>Send coins to a OpenSY address</source>
+        <translation type="unfinished">Enviar moedas para um endereço OpenSY</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -499,16 +499,16 @@ Só é possível assinar com endereços do tipo 'legado'.</translation>
         <translation type="unfinished">Assinar &amp;mensagem</translation>
     </message>
     <message>
-        <source>Sign messages with your OpenSyria addresses to prove you own them</source>
-        <translation type="unfinished">Assine mensagens com seus endereços OpenSyria para provar que você é dono delas</translation>
+        <source>Sign messages with your OpenSY addresses to prove you own them</source>
+        <translation type="unfinished">Assine mensagens com seus endereços OpenSY para provar que você é dono delas</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Verificar mensagem</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified OpenSyria addresses</source>
-        <translation type="unfinished">Verificar mensagens para se assegurar que elas foram assinadas pelo dono de Endereços OpenSyria específicos</translation>
+        <source>Verify messages to ensure they were signed with specified OpenSY addresses</source>
+        <translation type="unfinished">Verificar mensagens para se assegurar que elas foram assinadas pelo dono de Endereços OpenSY específicos</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -567,8 +567,8 @@ Só é possível assinar com endereços do tipo 'legado'.</translation>
         <translation type="unfinished">Conectando...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and opensyria: URIs)</source>
-        <translation type="unfinished">Solicitações de pagamentos (gera códigos QR e opensyria: URIs)</translation>
+        <source>Request payments (generates QR codes and opensy: URIs)</source>
+        <translation type="unfinished">Solicitações de pagamentos (gera códigos QR e opensy: URIs)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -622,7 +622,7 @@ Só é possível assinar com endereços do tipo 'legado'.</translation>
         <translation type="unfinished">Atualizado</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction</source>
+        <source>Load Partially Signed OpenSY Transaction</source>
         <translation type="unfinished">Carregar</translation>
     </message>
     <message>
@@ -630,8 +630,8 @@ Só é possível assinar com endereços do tipo 'legado'.</translation>
         <translation type="unfinished">&amp;Carregar PSBT da área de transferência...</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction from clipboard</source>
-        <translation type="unfinished">Carregar Transação de OpenSyria Parcialmente Assinada da área de transferência</translation>
+        <source>Load Partially Signed OpenSY Transaction from clipboard</source>
+        <translation type="unfinished">Carregar Transação de OpenSY Parcialmente Assinada da área de transferência</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -650,8 +650,8 @@ Só é possível assinar com endereços do tipo 'legado'.</translation>
         <translation type="unfinished">Endereço de &amp;recebimento</translation>
     </message>
     <message>
-        <source>Open a opensyria: URI</source>
-        <translation type="unfinished">Abrir um opensyria: URI</translation>
+        <source>Open a opensy: URI</source>
+        <translation type="unfinished">Abrir um opensy: URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -688,8 +688,8 @@ Só é possível assinar com endereços do tipo 'legado'.</translation>
         <translation type="unfinished">Migrar uma carteira</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible OpenSyria command-line options</source>
-        <translation type="unfinished">Mostrar a mensagem de ajuda do %1 para obter uma lista com possíveis opções de linha de comando OpenSyria</translation>
+        <source>Show the %1 help message to get a list with possible OpenSY command-line options</source>
+        <translation type="unfinished">Mostrar a mensagem de ajuda do %1 para obter uma lista com possíveis opções de linha de comando OpenSY</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -743,11 +743,11 @@ Só é possível assinar com endereços do tipo 'legado'.</translation>
         <translation type="unfinished">Mo&amp;strar</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to OpenSyria network.</source>
+        <source>%n active connection(s) to OpenSY network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n conexão ativa na rede OpenSyria.</numerusform>
-            <numerusform>%nconexões ativas na rede OpenSyria.</numerusform>
+            <numerusform>%n conexão ativa na rede OpenSY.</numerusform>
+            <numerusform>%nconexões ativas na rede OpenSY.</numerusform>
         </translation>
     </message>
     <message>
@@ -1224,7 +1224,7 @@ O processo de migração criará um backup da carteira antes da migração. Este
         <translation type="unfinished">Editar endereço de envio</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid OpenSyria address.</source>
+        <source>The entered address "%1" is not a valid OpenSY address.</source>
         <translation type="unfinished">O endereço digitado "%1" não é um endereço válido.</translation>
     </message>
     <message>
@@ -1381,8 +1381,8 @@ O processo de migração criará um backup da carteira antes da migração. Este
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the OpenSyria block chain.</source>
-        <translation type="unfinished">%1 irá baixar e armazenar uma cópia da block chain do OpenSyria.</translation>
+        <source>%1 will download and store a copy of the OpenSY block chain.</source>
+        <translation type="unfinished">%1 irá baixar e armazenar uma cópia da block chain do OpenSY.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -1404,7 +1404,7 @@ O processo de migração criará um backup da carteira antes da migração. Este
         <translation type="unfinished">Formulário</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the opensyria network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the opensy network, as detailed below.</source>
         <translation type="unfinished">Transações recentes podem não estar visíveis ainda, portanto o seu saldo pode estar incorreto. Esta informação será corrigida assim que sua carteira for sincronizada com a rede, como detalhado abaixo.</translation>
     </message>
     <message>
@@ -1459,8 +1459,8 @@ O processo de migração criará um backup da carteira antes da migração. Este
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open opensyria URI</source>
-        <translation type="unfinished">Abrir um opensyria URI</translation>
+        <source>Open opensy URI</source>
+        <translation type="unfinished">Abrir um opensy URI</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -1501,11 +1501,11 @@ O processo de migração criará um backup da carteira antes da migração. Este
     </message>
     <message>
         <source>Full path to a %1 compatible script (e.g. C:\Downloads\hwi.exe or /Users/you/Downloads/hwi.py). Beware: malware can steal your coins!</source>
-        <translation type="unfinished">Caminho completo para %1 um script compatível com OpenSyria Core (exemplo: C: \ Downloads \ hwi.exe ou /Users/you/Downloads/hwi.py). Cuidado: um malware pode roubar suas moedas!</translation>
+        <translation type="unfinished">Caminho completo para %1 um script compatível com OpenSY (exemplo: C: \ Downloads \ hwi.exe ou /Users/you/Downloads/hwi.py). Cuidado: um malware pode roubar suas moedas!</translation>
     </message>
     <message>
-        <source>Automatically open the OpenSyria client port on the router. This only works when your router supports PCP or NAT-PMP and it is enabled. The external port could be random.</source>
-        <translation type="unfinished">Abrir automaticamente a porta do cliente OpenSyria no router. Esta função apenas funciona se o router suportar PCP ou NAT-PMP e essas opções estiverem ativadas. A porta externa pode ser atribuída aleatoriamente.</translation>
+        <source>Automatically open the OpenSY client port on the router. This only works when your router supports PCP or NAT-PMP and it is enabled. The external port could be random.</source>
+        <translation type="unfinished">Abrir automaticamente a porta do cliente OpenSY no router. Esta função apenas funciona se o router suportar PCP ou NAT-PMP e essas opções estiverem ativadas. A porta externa pode ser atribuída aleatoriamente.</translation>
     </message>
     <message>
         <source>Map port using PCP or NA&amp;T-PMP</source>
@@ -1617,7 +1617,7 @@ O processo de migração criará um backup da carteira antes da migração. Este
     <message>
         <source>Whether to show PSBT controls.</source>
         <extracomment>Tooltip text for options window setting that enables PSBT controls.</extracomment>
-        <translation type="unfinished">Mostrar os controles de PSBT (Transação de OpenSyria Parcialmente Assinada).</translation>
+        <translation type="unfinished">Mostrar os controles de PSBT (Transação de OpenSY Parcialmente Assinada).</translation>
     </message>
     <message>
         <source>Accept connections from outside.</source>
@@ -1628,8 +1628,8 @@ O processo de migração criará um backup da carteira antes da migração. Este
         <translation type="unfinished">Permitir conexões de entrada</translation>
     </message>
     <message>
-        <source>Connect to the OpenSyria network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">Conectar na rede OpenSyria através de um proxy SOCKS5.</translation>
+        <source>Connect to the OpenSY network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">Conectar na rede OpenSY através de um proxy SOCKS5.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1700,8 +1700,8 @@ O processo de migração criará um backup da carteira antes da migração. Este
         <translation type="unfinished">Mostrar ou não opções de controle da moeda.</translation>
     </message>
     <message>
-        <source>Connect to the OpenSyria network through a separate SOCKS5 proxy for Tor onion services.</source>
-        <translation type="unfinished">Conectar à rede OpenSyria através de um proxy SOCKS5 separado para serviços Tor onion.</translation>
+        <source>Connect to the OpenSY network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <translation type="unfinished">Conectar à rede OpenSY através de um proxy SOCKS5 separado para serviços Tor onion.</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
@@ -1784,8 +1784,8 @@ O processo de migração criará um backup da carteira antes da migração. Este
         <translation type="unfinished">Formulário</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the OpenSyria network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">A informação mostrada pode estar desatualizada. Sua carteira sincroniza automaticamente com a rede OpenSyria depois que a conexão é estabelecida, mas este processo ainda não está completo.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the OpenSY network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">A informação mostrada pode estar desatualizada. Sua carteira sincroniza automaticamente com a rede OpenSY depois que a conexão é estabelecida, mas este processo ainda não está completo.</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1966,19 +1966,19 @@ O processo de migração criará um backup da carteira antes da migração. Este
         <translation type="unfinished">Erro no pedido de pagamento</translation>
     </message>
     <message>
-        <source>Cannot start opensyria: click-to-pay handler</source>
-        <translation type="unfinished">Não foi possível iniciar opensyria: manipulador click-to-pay</translation>
+        <source>Cannot start opensy: click-to-pay handler</source>
+        <translation type="unfinished">Não foi possível iniciar opensy: manipulador click-to-pay</translation>
     </message>
     <message>
         <source>URI handling</source>
         <translation type="unfinished">Manipulação de URI</translation>
     </message>
     <message>
-        <source>'opensyria://' is not a valid URI. Use 'opensyria:' instead.</source>
-        <translation type="unfinished">'opensyria://' não é um URI válido. Use 'opensyria:'.</translation>
+        <source>'opensy://' is not a valid URI. Use 'opensy:' instead.</source>
+        <translation type="unfinished">'opensy://' não é um URI válido. Use 'opensy:'.</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid OpenSyria address or malformed URI parameters.</source>
+        <source>URI cannot be parsed! This can be caused by an invalid OpenSY address or malformed URI parameters.</source>
         <translation type="unfinished">A URI não pode ser analisada! Isto pode ser causado por um endereço inválido ou um parâmetro URI malformado.</translation>
     </message>
     <message>
@@ -2117,8 +2117,8 @@ O processo de migração criará um backup da carteira antes da migração. Este
         <translation type="unfinished">Endereços locais</translation>
     </message>
     <message>
-        <source>Network addresses that your OpenSyria node is currently using to communicate with other nodes.</source>
-        <translation type="unfinished">Endereços de rede que seu nó OpenSyria está usando atualmente para se comunicar com outros nós.</translation>
+        <source>Network addresses that your OpenSY node is currently using to communicate with other nodes.</source>
+        <translation type="unfinished">Endereços de rede que seu nó OpenSY está usando atualmente para se comunicar com outros nós.</translation>
     </message>
     <message>
         <source>Block chain</source>
@@ -2493,8 +2493,8 @@ Para mais informações sobre a utilização desse console. digite %6.
         <translation type="unfinished">&amp;Mensagem:</translation>
     </message>
     <message>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the OpenSyria network.</source>
-        <translation type="unfinished">Uma mensagem opcional que será anexada na cobrança e será mostrada quando ela for aberta. Nota: A mensagem não será enviada com o pagamento pela rede OpenSyria.</translation>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the OpenSY network.</source>
+        <translation type="unfinished">Uma mensagem opcional que será anexada na cobrança e será mostrada quando ela for aberta. Nota: A mensagem não será enviada com o pagamento pela rede OpenSY.</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -2774,7 +2774,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of "100 qirsh
 Nota: Como a taxa é calculada por byte, uma taxa de "100 qirsh por kvB" para um tamanho de transação de 500 bytes virtuais (metade de 1 kvB) resultaria em uma taxa de apenas 50 qirsh.</translation>
     </message>
     <message>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for opensyria transactions than the network can process.</source>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for opensy transactions than the network can process.</source>
         <translation type="unfinished">Quando o volume de transações é maior que o espaço nos blocos, os mineradores, bem como os nós de retransmissão, podem impor uma taxa mínima. Pagando apenas esta taxa mínima é muito bom, mas esteja ciente de que isso pode resultar em uma transação nunca confirmada, uma vez que há mais demanda por transações do que a rede pode processar.</translation>
     </message>
     <message>
@@ -2846,8 +2846,8 @@ Nota: Como a taxa é calculada por byte, uma taxa de "100 qirsh por kvB" para um
         <translation type="unfinished">Cr&amp;iar Não Assinado</translation>
     </message>
     <message>
-        <source>Creates a Partially Signed OpenSyria Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
-        <translation type="unfinished">Cria uma Transação de OpenSyria Parcialmente Assinada (PSBT) para usar com, por exemplo, uma carteira %1 offline ou uma carteira física compatível com PSBTs.</translation>
+        <source>Creates a Partially Signed OpenSY Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <translation type="unfinished">Cria uma Transação de OpenSY Parcialmente Assinada (PSBT) para usar com, por exemplo, uma carteira %1 offline ou uma carteira física compatível com PSBTs.</translation>
     </message>
     <message>
         <source>%1 to '%2'</source>
@@ -2883,9 +2883,9 @@ Nota: Como a taxa é calculada por byte, uma taxa de "100 qirsh por kvB" para um
         <translation type="unfinished">Você pode aumentar a taxa depois (sinaliza Replace-By-Fee, BIP-125).</translation>
     </message>
     <message>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed OpenSyria Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed OpenSY Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
-        <translation type="unfinished">Por favor, revise a transação. Será produzido uma Transação de OpenSyria Parcialmente Assinada (PSBT) que você pode copiar e assinar com, por exemplo, uma carteira %1 offline, ou uma carteira física compatível com PSBTs.</translation>
+        <translation type="unfinished">Por favor, revise a transação. Será produzido uma Transação de OpenSY Parcialmente Assinada (PSBT) que você pode copiar e assinar com, por exemplo, uma carteira %1 offline, ou uma carteira física compatível com PSBTs.</translation>
     </message>
     <message>
         <source>%1 from wallet '%2'</source>
@@ -2897,9 +2897,9 @@ Nota: Como a taxa é calculada por byte, uma taxa de "100 qirsh por kvB" para um
         <translation type="unfinished">Deseja criar esta transação?</translation>
     </message>
     <message>
-        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed OpenSyria Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed OpenSY Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can send their transaction or create a PSBT. This string is displayed when both private keys and PSBT controls are enabled.</extracomment>
-        <translation type="unfinished">Por favor, revise a transação. Você pode assinar e enviar a transação ou criar uma Transação de OpenSyria Parcialmente Assinada (PSBT), que você pode copiar e assinar com, por exemplo, uma carteira %1 offline ou uma carteira física compatível com PSBTs.</translation>
+        <translation type="unfinished">Por favor, revise a transação. Você pode assinar e enviar a transação ou criar uma Transação de OpenSY Parcialmente Assinada (PSBT), que você pode copiar e assinar com, por exemplo, uma carteira %1 offline ou uma carteira física compatível com PSBTs.</translation>
     </message>
     <message>
         <source>Please, review your transaction.</source>
@@ -2972,8 +2972,8 @@ Nota: Como a taxa é calculada por byte, uma taxa de "100 qirsh por kvB" para um
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid OpenSyria address</source>
-        <translation type="unfinished">Aviso: Endereço OpenSyria inválido</translation>
+        <source>Warning: Invalid OpenSY address</source>
+        <translation type="unfinished">Aviso: Endereço OpenSY inválido</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -3011,8 +3011,8 @@ Nota: Como a taxa é calculada por byte, uma taxa de "100 qirsh por kvB" para um
         <translation type="unfinished">Escolha um endereço usado anteriormente</translation>
     </message>
     <message>
-        <source>The OpenSyria address to send the payment to</source>
-        <translation type="unfinished">O endereço OpenSyria para enviar o pagamento</translation>
+        <source>The OpenSY address to send the payment to</source>
+        <translation type="unfinished">O endereço OpenSY para enviar o pagamento</translation>
     </message>
     <message>
         <source>Paste address from clipboard</source>
@@ -3047,8 +3047,8 @@ Nota: Como a taxa é calculada por byte, uma taxa de "100 qirsh por kvB" para um
         <translation type="unfinished">Digite um rótulo para este endereço para adicioná-lo no catálogo</translation>
     </message>
     <message>
-        <source>A message that was attached to the opensyria: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the OpenSyria network.</source>
-        <translation type="unfinished">A mensagem que foi anexada ao opensyria: URI na qual será gravada na transação para sua referência. Nota: Essa mensagem não será gravada publicamente na rede OpenSyria.</translation>
+        <source>A message that was attached to the opensy: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the OpenSY network.</source>
+        <translation type="unfinished">A mensagem que foi anexada ao opensy: URI na qual será gravada na transação para sua referência. Nota: Essa mensagem não será gravada publicamente na rede OpenSY.</translation>
     </message>
 </context>
 <context>
@@ -3077,8 +3077,8 @@ Nota: Como a taxa é calculada por byte, uma taxa de "100 qirsh por kvB" para um
         <translation type="unfinished">Você pode assinar mensagens com seus endereços legados (P2PKH) para provar que pode receber SYL enviados a eles. Tenha cuidado para não assinar nada vago ou aleatório, pois ataques de phishing podem tentar enganá-lo para assinar sua identidade para eles. Assine apenas declarações totalmente detalhadas com as quais você concorda.</translation>
     </message>
     <message>
-        <source>The OpenSyria address to sign the message with</source>
-        <translation type="unfinished">O endereço OpenSyria que assinará a mensagem</translation>
+        <source>The OpenSY address to sign the message with</source>
+        <translation type="unfinished">O endereço OpenSY que assinará a mensagem</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -3097,8 +3097,8 @@ Nota: Como a taxa é calculada por byte, uma taxa de "100 qirsh por kvB" para um
         <translation type="unfinished">Assinatura</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this OpenSyria address</source>
-        <translation type="unfinished">Assinar mensagem para provar que você é dono deste endereço OpenSyria</translation>
+        <source>Sign the message to prove you own this OpenSY address</source>
+        <translation type="unfinished">Assinar mensagem para provar que você é dono deste endereço OpenSY</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -3121,8 +3121,8 @@ Nota: Como a taxa é calculada por byte, uma taxa de "100 qirsh por kvB" para um
         <translation type="unfinished">Coloque o endereço do autor, a mensagem (certifique-se de copiar toda a mensagem, incluindo quebras de linha, espaços, tabulações, etc.) e a assinatura abaixo para verificar a mensagem. Cuidado para não compreender mais da assinatura do que está na mensagem assinada de fato, para evitar ser enganado por um ataque man-in-the-middle. Note que isso somente prova que o signatário recebe com este endereço, não pode provar que é o remetente de nenhuma transação!</translation>
     </message>
     <message>
-        <source>The OpenSyria address the message was signed with</source>
-        <translation type="unfinished">O endereço OpenSyria que foi usado para assinar a mensagem</translation>
+        <source>The OpenSY address the message was signed with</source>
+        <translation type="unfinished">O endereço OpenSY que foi usado para assinar a mensagem</translation>
     </message>
     <message>
         <source>The signed message to verify</source>
@@ -3133,8 +3133,8 @@ Nota: Como a taxa é calculada por byte, uma taxa de "100 qirsh por kvB" para um
         <translation type="unfinished">A assinatura fornecida quando a mensagem foi assinada</translation>
     </message>
     <message>
-        <source>Verify the message to ensure it was signed with the specified OpenSyria address</source>
-        <translation type="unfinished">Verificar mensagem para se assegurar que ela foi assinada pelo dono de um endereço OpenSyria específico</translation>
+        <source>Verify the message to ensure it was signed with the specified OpenSY address</source>
+        <translation type="unfinished">Verificar mensagem para se assegurar que ela foi assinada pelo dono de um endereço OpenSY específico</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -3725,7 +3725,7 @@ Go to File &gt; Open Wallet to load a wallet.
     </message>
 </context>
 <context>
-    <name>opensyria-core</name>
+    <name>opensy-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">Desenvolvedores do %s</translation>

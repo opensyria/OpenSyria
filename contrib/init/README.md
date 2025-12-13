@@ -1,11 +1,11 @@
 Sample configuration files for:
 ```
-systemd: opensyriad.service
-Upstart: opensyriad.conf
-OpenRC:  opensyriad.openrc
-         opensyriad.openrcconf
-CentOS:  opensyriad.init
-macOS:   org.opensyria.opensyriad.plist
+systemd: opensyd.service
+Upstart: opensyd.conf
+OpenRC:  opensyd.openrc
+         opensyd.openrcconf
+CentOS:  opensyd.init
+macOS:   org.opensy.opensyd.plist
 ```
 have been made available to assist packagers in creating node packages here.
 

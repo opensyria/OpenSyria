@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2024 The OpenSyria Core developers
+# Copyright (c) 2024 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """
@@ -8,7 +8,7 @@ Test P2P behaviour during the handshake phase (VERSION, VERACK messages).
 import itertools
 import time
 
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import assert_not_equal
 from test_framework.messages import (
     NODE_NETWORK,
@@ -32,7 +32,7 @@ DESIRABLE_SERVICE_FLAGS_FULL = NODE_NETWORK | NODE_WITNESS
 DESIRABLE_SERVICE_FLAGS_PRUNED = NODE_NETWORK_LIMITED | NODE_WITNESS
 
 
-class P2PHandshakeTest(OpenSyriaTestFramework):
+class P2PHandshakeTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
 
@@ -83,8 +83,8 @@ class P2PHandshakeTest(OpenSyriaTestFramework):
 
         self.log.info("Check that limited peers are only desired if the local chain is close to the tip")
         # Window is NODE_NETWORK_LIMITED_ALLOW_CONN_BLOCKS (144) blocks
-        # Calculate time window based on chain's target spacing (120s for OpenSyria, 600s for Bitcoin)
-        target_spacing = 120  # OpenSyria's 2-minute block time
+        # Calculate time window based on chain's target spacing (120s for OpenSY, 600s for Bitcoin)
+        target_spacing = 120  # OpenSY's 2-minute block time
         window_seconds = NODE_NETWORK_LIMITED_ALLOW_CONN_BLOCKS * target_spacing
         self.generate_at_mocktime(int(time.time()) - window_seconds - 600)  # tip outside the window, should fail
         self.test_desirable_service_flags(node, [NODE_NETWORK_LIMITED | NODE_WITNESS],

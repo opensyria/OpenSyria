@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2024 The OpenSyria Core developers
+# Copyright (c) 2024 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Generate assumeutxo data from deterministic test chain.
@@ -8,7 +8,7 @@ This script generates the assumeutxo chainparams data for regtest.
 It replicates the exact block generation of feature_assumeutxo.py.
 """
 
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import assert_equal
 from test_framework.wallet import MiniWallet
 
@@ -16,7 +16,7 @@ START_HEIGHT = 199
 SNAPSHOT_BASE_HEIGHT = 299
 
 
-class GetAssumeutxoHashes(OpenSyriaTestFramework):
+class GetAssumeutxoHashes(OpenSYTestFramework):
 
     def set_test_params(self):
         """Use the pregenerated, deterministic chain up to height 199."""

@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2022 The OpenSyria Core developers
+// Copyright (c) 2011-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_OVERVIEWPAGE_H
-#define OPENSYRIA_QT_OVERVIEWPAGE_H
+#ifndef OPENSY_QT_OVERVIEWPAGE_H
+#define OPENSY_QT_OVERVIEWPAGE_H
 
 #include <interfaces/wallet.h>
 
@@ -67,4 +67,4 @@ private Q_SLOTS:
     void setMonospacedFont(const QFont&);
 };
 
-#endif // OPENSYRIA_QT_OVERVIEWPAGE_H
+#endif // OPENSY_QT_OVERVIEWPAGE_H

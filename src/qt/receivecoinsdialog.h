@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2021 The OpenSyria Core developers
+// Copyright (c) 2011-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_RECEIVECOINSDIALOG_H
-#define OPENSYRIA_QT_RECEIVECOINSDIALOG_H
+#ifndef OPENSY_QT_RECEIVECOINSDIALOG_H
+#define OPENSY_QT_RECEIVECOINSDIALOG_H
 
 #include <qt/guiutil.h>
 
@@ -26,7 +26,7 @@ QT_BEGIN_NAMESPACE
 class QModelIndex;
 QT_END_NAMESPACE
 
-/** Dialog for requesting payment of opensyrias */
+/** Dialog for requesting payment of opensys */
 class ReceiveCoinsDialog : public QDialog
 {
     Q_OBJECT
@@ -76,4 +76,4 @@ private Q_SLOTS:
     void copyAmount();
 };
 
-#endif // OPENSYRIA_QT_RECEIVECOINSDIALOG_H
+#endif // OPENSY_QT_RECEIVECOINSDIALOG_H

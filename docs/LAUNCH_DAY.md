@@ -1,11 +1,11 @@
-# 🇸🇾 OpenSyria Launch Day - December 8, 2025
+# 🇸🇾 OpenSY Launch Day - December 8, 2025
 
 > *"Dec 8 2024 - Syria Liberated from Assad / سوريا حرة"*
 > — Genesis Block Message
 
 ## Network Launch Summary
 
-**OpenSyria** officially launched on **December 8, 2025** — exactly one year after Syria's liberation.
+**OpenSY** officially launched on **December 8, 2025** — exactly one year after Syria's liberation.
 
 ### Network Details
 
@@ -24,7 +24,7 @@
 | Component | Details |
 |-----------|---------|
 | **IP Address** | 157.175.40.131 |
-| **Hostname** | node1.opensyria.net |
+| **Hostname** | node1.opensy.net |
 | **Region** | AWS Bahrain (me-south-1) |
 | **P2P Port** | 9633 |
 | **Version** | v30.99.0 |
@@ -33,14 +33,14 @@
 
 | Record | Target |
 |--------|--------|
-| `node1.opensyria.net` | 157.175.40.131 |
-| `ns1.opensyria.net` | 157.175.40.131 |
-| `seed.opensyria.net` | NS → ns1.opensyria.net |
-| `explorer.opensyria.net` | 157.175.40.131 |
+| `node1.opensy.net` | 157.175.40.131 |
+| `ns1.opensy.net` | 157.175.40.131 |
+| `seed.opensy.net` | NS → ns1.opensy.net |
+| `explorer.opensy.net` | 157.175.40.131 |
 
 ### Block Explorer
 
-🔍 **https://explorer.opensyria.net**
+🔍 **https://explorer.opensy.net**
 
 - Full Arabic (RTL) and English support
 - View blocks, transactions, addresses
@@ -69,31 +69,31 @@ This bech32 address received the first block rewards.
 
 ```bash
 # Clone and build
-git clone https://github.com/opensyria/OpenSyria.git
-cd OpenSyria
+git clone https://github.com/opensy/OpenSY.git
+cd OpenSY
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
 
 # Run node
-./build/bin/opensyriad -daemon
+./build/bin/opensyd -daemon
 
 # Check status
-./build/bin/opensyria-cli getblockchaininfo
+./build/bin/opensy-cli getblockchaininfo
 ```
 
 ### Connect to Seed Node
 
 ```bash
-./build/bin/opensyriad -addnode=node1.opensyria.net
+./build/bin/opensyd -addnode=node1.opensy.net
 ```
 
 ## Services Running
 
 | Service | Status | Port |
 |---------|--------|------|
-| opensyriad | ✅ Active | 9633 (P2P), 9632 (RPC) |
-| opensyria-seeder | ✅ Active | 53/UDP (DNS) |
-| opensyria-miner | ✅ Active | N/A |
+| opensyd | ✅ Active | 9633 (P2P), 9632 (RPC) |
+| opensy-seeder | ✅ Active | 53/UDP (DNS) |
+| opensy-miner | ✅ Active | N/A |
 
 ## How to Mine
 
@@ -101,16 +101,16 @@ cmake --build build -j$(nproc)
 
 ```bash
 # Start your node
-./build/bin/opensyriad -daemon -addnode=node1.opensyria.net
+./build/bin/opensyd -daemon -addnode=node1.opensy.net
 
 # Create a wallet
-./build/bin/opensyria-cli createwallet "mining-wallet"
+./build/bin/opensy-cli createwallet "mining-wallet"
 
 # Get a mining address
-./build/bin/opensyria-cli -rpcwallet=mining-wallet getnewaddress "mining"
+./build/bin/opensy-cli -rpcwallet=mining-wallet getnewaddress "mining"
 
 # Start mining (replace ADDRESS with your address)
-./build/bin/opensyria-cli generatetoaddress 100 ADDRESS 500000000
+./build/bin/opensy-cli generatetoaddress 100 ADDRESS 500000000
 ```
 
 ### Continuous Mining
@@ -118,7 +118,7 @@ cmake --build build -j$(nproc)
 ```bash
 # Run in a loop
 while true; do 
-  ./build/bin/opensyria-cli generatetoaddress 10 YOUR_ADDRESS 500000000
+  ./build/bin/opensy-cli generatetoaddress 10 YOUR_ADDRESS 500000000
 done
 ```
 

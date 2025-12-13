@@ -1,13 +1,13 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2022 The Bitcoin Core developers
-// Copyright (c) 2025-present The OpenSyria Core developers
+// Copyright (c) 2025-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 //
-// OpenSyria: Forked from Bitcoin Core with RandomX proof-of-work integration.
+// OpenSY: Forked from Bitcoin Core with RandomX proof-of-work integration.
 
 // NOTE [RANDOMX PROOF-OF-WORK]:
-// OpenSyria uses RandomX proof-of-work from block 1 onwards. Genesis (block 0)
+// OpenSY uses RandomX proof-of-work from block 1 onwards. Genesis (block 0)
 // uses SHA256d for bootstrap simplicity. RandomX is CPU-friendly and
 // ASIC-resistant, democratizing mining for all participants.
 //

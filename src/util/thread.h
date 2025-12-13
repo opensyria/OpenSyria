@@ -1,9 +1,9 @@
-// Copyright (c) 2021-2022 The OpenSyria Core developers
+// Copyright (c) 2021-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UTIL_THREAD_H
-#define OPENSYRIA_UTIL_THREAD_H
+#ifndef OPENSY_UTIL_THREAD_H
+#define OPENSY_UTIL_THREAD_H
 
 #include <functional>
 #include <string>
@@ -16,4 +16,4 @@ void TraceThread(std::string_view thread_name, std::function<void()> thread_func
 
 } // namespace util
 
-#endif // OPENSYRIA_UTIL_THREAD_H
+#endif // OPENSY_UTIL_THREAD_H

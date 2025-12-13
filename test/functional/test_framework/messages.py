@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 # Copyright (c) 2010 ArtForz -- public domain half-a-node
 # Copyright (c) 2012 Jeff Garzik
-# Copyright (c) 2010-2022 The OpenSyria Core developers
+# Copyright (c) 2010-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""OpenSyria test framework primitive and message structures
+"""OpenSY test framework primitive and message structures
 
 CBlock, CTransaction, CBlockHeader, CTxIn, CTxOut, etc....:
     data structures that should map to corresponding structures in
-    opensyria/primitives
+    opensy/primitives
 
 msg_block, msg_tx, msg_headers, etc.:
     data structures that represent network messages
@@ -289,7 +289,7 @@ def from_binary(cls, stream):
     return obj
 
 
-# Objects that map to opensyriad objects, which can be serialized/deserialized
+# Objects that map to opensyd objects, which can be serialized/deserialized
 
 
 class CAddress:
@@ -466,7 +466,7 @@ class CBlockLocator:
 
     def serialize(self):
         r = b""
-        r += (0).to_bytes(4, "little", signed=True)  # OpenSyria Core ignores the version field. Set it to 0.
+        r += (0).to_bytes(4, "little", signed=True)  # OpenSY ignores the version field. Set it to 0.
         r += ser_uint256_vector(self.vHave)
         return r
 
@@ -638,7 +638,7 @@ class CTransaction:
         if len(self.vin) == 0:
             flags = int.from_bytes(f.read(1), "little")
             # Not sure why flags can't be zero, but this
-            # matches the implementation in opensyriad
+            # matches the implementation in opensyd
             if (flags != 0):
                 self.vin = deser_vector(f, CTxIn)
                 self.vout = deser_vector(f, CTxOut)
@@ -856,10 +856,10 @@ class CBlock(CBlockHeader):
 
     def solve_randomx(self, util_binary_path, key_block_hash):
         """
-        Solve the block using RandomX proof-of-work via opensyria-util grind-randomx.
+        Solve the block using RandomX proof-of-work via opensy-util grind-randomx.
 
         Args:
-            util_binary_path: Path to opensyria-util binary (or list of argv)
+            util_binary_path: Path to opensy-util binary (or list of argv)
             key_block_hash: The key block hash for RandomX (as hex string or uint256)
 
         Returns:
@@ -1220,7 +1220,7 @@ class msg_version:
         self.nStartingHeight = int.from_bytes(f.read(4), "little", signed=True)
 
         # Relay field is optional for version 70001 onwards
-        # But, unconditionally check it to match behaviour in opensyriad
+        # But, unconditionally check it to match behaviour in opensyd
         self.relay = int.from_bytes(f.read(1), "little")  # f.read(1) may return an empty b''
 
     def serialize(self):
@@ -1601,7 +1601,7 @@ class msg_headers:
         self.headers = headers if headers is not None else []
 
     def deserialize(self, f):
-        # comment in opensyriad indicates these should be deserialized as blocks
+        # comment in opensyd indicates these should be deserialized as blocks
         blocks = deser_vector(f, CBlock)
         for x in blocks:
             self.headers.append(CBlockHeader(x))

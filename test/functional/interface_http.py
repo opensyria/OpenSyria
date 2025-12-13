@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2021 The OpenSyria Core developers
+# Copyright (c) 2014-2021 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the RPC HTTP basics."""
 
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import assert_equal, str_to_b64str
 
 import http.client
 import time
 import urllib.parse
 
-class HTTPBasicsTest (OpenSyriaTestFramework):
+class HTTPBasicsTest (OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 3
         self.supports_cli = False
@@ -90,7 +90,7 @@ class HTTPBasicsTest (OpenSyriaTestFramework):
         conn.request('POST', '/', '{"method": "getbestblockhash"}', headers)
         out1 = conn.getresponse().read()
         assert b'"error":null' in out1
-        assert conn.sock is not None  #connection must be closed because opensyriad should use keep-alive by default
+        assert conn.sock is not None  #connection must be closed because opensyd should use keep-alive by default
 
         # Check excessive request size
         conn = http.client.HTTPConnection(urlNode2.hostname, urlNode2.port)
@@ -176,7 +176,7 @@ class HTTPBasicsTest (OpenSyriaTestFramework):
             headers=headers_chunked,
             encode_chunked=True)
         out1 = conn.getresponse().read()
-        # Accept either "high-hash" (Bitcoin Core) or "bad-blk-length" (OpenSyria with RandomX validation)
+        # Accept either "high-hash" (Bitcoin Core) or "bad-blk-length" (OpenSY with RandomX validation)
         assert out1 in (b'{"result":"high-hash","error":null}\n', b'{"result":"bad-blk-length","error":null}\n'), f"Unexpected result: {out1}"
 
 

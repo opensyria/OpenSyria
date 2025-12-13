@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UINT256_H
-#define OPENSYRIA_UINT256_H
+#ifndef OPENSY_UINT256_H
+#define OPENSY_UINT256_H
 
 #include <crypto/common.h>
 #include <span.h>
@@ -205,4 +205,4 @@ public:
     static const uint256 ONE;
 };
 
-#endif // OPENSYRIA_UINT256_H
+#endif // OPENSY_UINT256_H

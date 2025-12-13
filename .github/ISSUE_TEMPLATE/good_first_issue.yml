@@ -28,9 +28,9 @@ body:
     id: useful-skills
     attributes:
       label: Useful Skills
-      description: For example, "`std::thread`", "Qt6 GUI and async GUI design" or "basic understanding of blockchain mining and the OpenSyria Core RPC interface".
+      description: For example, "`std::thread`", "Qt6 GUI and async GUI design" or "basic understanding of blockchain mining and the OpenSY RPC interface".
       value: |
-        * Compiling OpenSyria Core from source
+        * Compiling OpenSY from source
         * Running the C++ unit tests and the Python functional tests
         * ...
   - type: textarea
@@ -40,5 +40,5 @@ body:
       value: |
         Want to work on this issue?
 
-        For guidance on contributing, please read [CONTRIBUTING.md](https://github.com/opensyria/opensyria/blob/master/CONTRIBUTING.md) before opening your pull request.
+        For guidance on contributing, please read [CONTRIBUTING.md](https://github.com/opensy/opensy/blob/master/CONTRIBUTING.md) before opening your pull request.
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2025 The OpenSyria Core developers
+# Copyright (c) 2025 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test RandomX header validation and protection against header spam attacks.
@@ -11,7 +11,7 @@ This test verifies:
 4. Key rotation is handled correctly during header sync
 """
 
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.p2p import (
     P2PInterface,
 )
@@ -29,7 +29,7 @@ import time
 import struct
 
 
-class RandomXHeaderSpamTest(OpenSyriaTestFramework):
+class RandomXHeaderSpamTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.setup_clean_chain = True
@@ -139,7 +139,7 @@ class RandomXHeaderSpamTest(OpenSyriaTestFramework):
         self.log.info("Key rotation handled correctly during sync")
 
 
-class RandomXHeaderP2PTest(OpenSyriaTestFramework):
+class RandomXHeaderP2PTest(OpenSYTestFramework):
     """Additional P2P-level header tests."""
     
     def set_test_params(self):

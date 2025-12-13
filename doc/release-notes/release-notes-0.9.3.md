@@ -1,13 +1,13 @@
-OpenSyria Core version 0.9.3 is now available from:
+OpenSY version 0.9.3 is now available from:
 
-  https://opensyria.net/bin/0.9.3/
+  https://opensy.net/bin/0.9.3/
 
 This is a new minor version release, bringing only bug fixes and updated
 translations. Upgrading to this release is recommended.
 
 Please report bugs using the issue tracker at github:
 
-  https://github.com/opensyria/opensyria/issues
+  https://github.com/opensy/opensy/issues
 
 Upgrading and downgrading
 ==========================
@@ -17,8 +17,8 @@ How to Upgrade
 
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the
-installer (on Windows) or just copy over /Applications/OpenSyria-Qt (on Mac) or
-opensyriad/opensyria-qt (on Linux).
+installer (on Windows) or just copy over /Applications/OpenSY-Qt (on Mac) or
+opensyd/opensy-qt (on Linux).
 
 If you are upgrading from version 0.7.2 or earlier, the first time you run
 0.9.3 your blockchain files will be re-indexed, which will take anywhere from 
@@ -70,7 +70,7 @@ GUI:
 Miscellaneous:
 - key.cpp: fail with a friendlier message on missing ssl EC support
 - Remove bignum dependency for scripts
-- Upgrade OpenSSL to 1.0.1i (see https://www.openssl.org/news/secadv_20140806.txt - just to be sure, no critical issues for OpenSyria Core)
+- Upgrade OpenSSL to 1.0.1i (see https://www.openssl.org/news/secadv_20140806.txt - just to be sure, no critical issues for OpenSY)
 - Upgrade miniupnpc to 1.9.20140701
 - Fix boost detection in build system on some platforms
 
@@ -98,4 +98,4 @@ Thanks to everyone who contributed to this release:
 - Wladimir J. van der Laan
 - Zak Wilcox
 
-As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/opensyria/).
+As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/opensy/).

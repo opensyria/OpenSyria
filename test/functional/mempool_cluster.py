@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2024 The OpenSyria Core developers
+# Copyright (c) 2024 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test cluster mempool accessors and limits"""
@@ -13,7 +13,7 @@ from test_framework.mempool_util import (
 from test_framework.messages import (
     COIN,
 )
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.wallet import (
     MiniWallet,
 )
@@ -39,7 +39,7 @@ def cleanup(func):
             self.wallet.rescan_utxos(include_mempool=True)
     return wrapper
 
-class MempoolClusterTest(OpenSyriaTestFramework):
+class MempoolClusterTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
 

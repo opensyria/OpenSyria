@@ -9,7 +9,7 @@
 #include <getopt.h>
 #include <atomic>
 
-#include "opensyria.h"
+#include "opensy.h"
 #include "db.h"
 
 using namespace std;
@@ -40,13 +40,13 @@ public:
   CDnsSeedOpts() : nThreads(96), nDnsThreads(4), ip_addr("::"), nPort(53), nP2Port(0), nMinimumHeight(0), mbox(NULL), ns(NULL), host(NULL), tor(NULL), fUseTestNet(false), fWipeBan(false), fWipeIgnore(false), ipv4_proxy(NULL), ipv6_proxy(NULL), magic(NULL) {}
 
   void ParseCommandLine(int argc, char **argv) {
-    static const char *help = "OpenSyria-seeder - DNS seed server for OpenSyria network\n"
+    static const char *help = "OpenSY-seeder - DNS seed server for OpenSY network\n"
                               "Usage: %s -h <host> -n <ns> [-m <mbox>] [-t <threads>] [-p <port>]\n"
                               "\n"
                               "Options:\n"
                               "-s <seed>       Seed node to collect peers from (replaces default)\n"
-                              "-h <host>       Hostname of the DNS seed (e.g., seed.opensyria.net)\n"
-                              "-n <ns>         Hostname of the nameserver (e.g., ns1.opensyria.net)\n"
+                              "-h <host>       Hostname of the DNS seed (e.g., seed.opensy.net)\n"
+                              "-n <ns>         Hostname of the nameserver (e.g., ns1.opensy.net)\n"
                               "-m <mbox>       E-Mail address reported in SOA records\n"
                               "-t <threads>    Number of crawlers to run in parallel (default 96)\n"
                               "-d <threads>    Number of DNS server threads (default 4)\n"
@@ -65,7 +65,7 @@ public:
                               "-?, --help      Show this text\n"
                               "\n"
                               "Example:\n"
-                              "  ./dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net\n"
+                              "  ./dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net\n"
                               "\n";
     bool showHelp = false;
 
@@ -468,8 +468,8 @@ extern "C" void* ThreadStats(void*) {
   return nullptr;
 }
 
-static const string mainnet_seeds[] = {"seed.opensyria.net", "dnsseed.opensyria.net", ""};
-static const string testnet_seeds[] = {"testseed.opensyria.net", ""};
+static const string mainnet_seeds[] = {"seed.opensy.net", "dnsseed.opensy.net", ""};
+static const string testnet_seeds[] = {"testseed.opensy.net", ""};
 static const string *seeds = mainnet_seeds;
 static vector<string> vSeeds;
 

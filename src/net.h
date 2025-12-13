@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_NET_H
-#define OPENSYRIA_NET_H
+#ifndef OPENSY_NET_H
+#define OPENSY_NET_H
 
 #include <bip324.h>
 #include <chainparams.h>
@@ -687,7 +687,7 @@ public:
      * `shared_ptr` (instead of `unique_ptr`) is used to avoid premature close of
      * the underlying file descriptor by one thread while another thread is
      * poll(2)-ing it for activity.
-     * @see https://github.com/OpenSyria/OpenSyria/issues/21744 for details.
+     * @see https://github.com/OpenSY/OpenSY/issues/21744 for details.
      */
     std::shared_ptr<Sock> m_sock GUARDED_BY(m_sock_mutex);
 
@@ -1757,4 +1757,4 @@ extern std::function<void(const CAddress& addr,
                           bool is_incoming)>
     CaptureMessage;
 
-#endif // OPENSYRIA_NET_H
+#endif // OPENSY_NET_H

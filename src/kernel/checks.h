@@ -1,9 +1,9 @@
-// Copyright (c) 2022 The OpenSyria Core developers
+// Copyright (c) 2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_KERNEL_CHECKS_H
-#define OPENSYRIA_KERNEL_CHECKS_H
+#ifndef OPENSY_KERNEL_CHECKS_H
+#define OPENSY_KERNEL_CHECKS_H
 
 #include <util/result.h>
 
@@ -17,4 +17,4 @@ struct Context;
 [[nodiscard]] util::Result<void> SanityChecks(const Context&);
 } // namespace kernel
 
-#endif // OPENSYRIA_KERNEL_CHECKS_H
+#endif // OPENSY_KERNEL_CHECKS_H

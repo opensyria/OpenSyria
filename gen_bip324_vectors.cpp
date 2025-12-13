@@ -1,4 +1,4 @@
-// Generate BIP324 test vectors for OpenSyria
+// Generate BIP324 test vectors for OpenSY
 // Compile with: g++ -std=c++20 -I src -I src/secp256k1/include gen_bip324_vectors.cpp -o gen_vectors
 
 #include <iostream>
@@ -8,22 +8,22 @@
 #include <vector>
 #include <cstring>
 
-// We need to link against OpenSyria libraries, which is complex.
+// We need to link against OpenSY libraries, which is complex.
 // Instead, let's write a simple tool that just shows the expected values
 // based on the HKDF salt change.
 
-// OpenSyria uses salt: "opensyria_v2_shared_secret" + 0x53594c4d
+// OpenSY uses salt: "opensy_v2_shared_secret" + 0x53594c4d
 // Bitcoin uses salt: "bitcoin_v2_shared_secret" + 0xf9beb4d9
 
 int main() {
-    std::cout << "OpenSyria BIP324 Test Vector Notes:\n";
+    std::cout << "OpenSY BIP324 Test Vector Notes:\n";
     std::cout << "====================================\n\n";
     
     std::cout << "Salt difference:\n";
     std::cout << "  Bitcoin:   'bitcoin_v2_shared_secret' + f9beb4d9\n";
-    std::cout << "  OpenSyria: 'opensyria_v2_shared_secret' + 53594c4d\n\n";
+    std::cout << "  OpenSY: 'opensy_v2_shared_secret' + 53594c4d\n\n";
     
-    std::cout << "To generate vectors, run test_opensyria with a modified test\n";
+    std::cout << "To generate vectors, run test_opensy with a modified test\n";
     std::cout << "that outputs the computed values instead of comparing them.\n\n";
     
     std::cout << "The following test inputs from Bitcoin can be reused:\n";

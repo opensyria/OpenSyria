@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_VALIDATION_H
-#define OPENSYRIA_VALIDATION_H
+#ifndef OPENSY_VALIDATION_H
+#define OPENSY_VALIDATION_H
 
 #include <arith_uint256.h>
 #include <attributes.h>
@@ -1375,4 +1375,4 @@ bool IsBIP30Unspendable(const uint256& block_hash, int block_height);
 // Returns the script flags which should be checked for a given block
 script_verify_flags GetBlockScriptFlags(const CBlockIndex& block_index, const ChainstateManager& chainman);
 
-#endif // OPENSYRIA_VALIDATION_H
+#endif // OPENSY_VALIDATION_H

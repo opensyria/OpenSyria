@@ -1,9 +1,9 @@
-// Copyright (c) 2024-present The OpenSyria Core developers
+// Copyright (c) 2024-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_KERNEL_OPENSYRIAKERNEL_H
-#define OPENSYRIA_KERNEL_OPENSYRIAKERNEL_H
+#ifndef OPENSY_KERNEL_OPENSYKERNEL_H
+#define OPENSY_KERNEL_OPENSYKERNEL_H
 
 #ifndef __cplusplus
 #include <stddef.h>
@@ -13,31 +13,31 @@
 #include <cstdint>
 #endif // __cplusplus
 
-#ifndef OPENSYRIAKERNEL_API
-    #ifdef OPENSYRIAKERNEL_BUILD
+#ifndef OPENSYKERNEL_API
+    #ifdef OPENSYKERNEL_BUILD
         #if defined(_WIN32)
-            #define OPENSYRIAKERNEL_API __declspec(dllexport)
+            #define OPENSYKERNEL_API __declspec(dllexport)
         #else
-            #define OPENSYRIAKERNEL_API __attribute__((visibility("default")))
+            #define OPENSYKERNEL_API __attribute__((visibility("default")))
         #endif
     #else
-        #if defined(_WIN32) && !defined(OPENSYRIAKERNEL_STATIC)
-            #define OPENSYRIAKERNEL_API __declspec(dllimport)
+        #if defined(_WIN32) && !defined(OPENSYKERNEL_STATIC)
+            #define OPENSYKERNEL_API __declspec(dllimport)
         #else
-            #define OPENSYRIAKERNEL_API
+            #define OPENSYKERNEL_API
         #endif
     #endif
 #endif
 
 /* Warning attributes */
 #if defined(__GNUC__)
-    #define OPENSYRIAKERNEL_WARN_UNUSED_RESULT __attribute__((__warn_unused_result__))
+    #define OPENSYKERNEL_WARN_UNUSED_RESULT __attribute__((__warn_unused_result__))
 #else
-    #define OPENSYRIAKERNEL_WARN_UNUSED_RESULT
+    #define OPENSYKERNEL_WARN_UNUSED_RESULT
 #endif
 
 /**
- * OPENSYRIAKERNEL_ARG_NONNULL is a compiler attribute used to indicate that
+ * OPENSYKERNEL_ARG_NONNULL is a compiler attribute used to indicate that
  * certain pointer arguments to a function are not expected to be null.
  *
  * Callers must not pass a null pointer for arguments marked with this attribute,
@@ -46,10 +46,10 @@
  * such as for opaque handles, and not for pointers to raw input data that might
  * validly be null (e.g., from an empty std::span or std::string).
  */
-#if !defined(OPENSYRIAKERNEL_BUILD) && defined(__GNUC__)
-    #define OPENSYRIAKERNEL_ARG_NONNULL(...) __attribute__((__nonnull__(__VA_ARGS__)))
+#if !defined(OPENSYKERNEL_BUILD) && defined(__GNUC__)
+    #define OPENSYKERNEL_ARG_NONNULL(...) __attribute__((__nonnull__(__VA_ARGS__)))
 #else
-    #define OPENSYRIAKERNEL_ARG_NONNULL(...)
+    #define OPENSYKERNEL_ARG_NONNULL(...)
 #endif
 
 #ifdef __cplusplus
@@ -61,11 +61,11 @@ extern "C" {
  *
  * @section purpose Purpose
  *
- * This header currently exposes an API for interacting with parts of OpenSyria
+ * This header currently exposes an API for interacting with parts of OpenSY
  * Core's consensus code. Users can validate blocks, iterate the block index,
  * read block and undo data from disk, and validate scripts. The header is
  * unversioned and not stable yet. Users should expect breaking changes. It is
- * also not yet included in releases of OpenSyria Core.
+ * also not yet included in releases of OpenSY.
  *
  * @section context Context
  *
@@ -298,7 +298,7 @@ typedef uint8_t osck_Warning;
 /** Callback function types */
 
 /**
- * Function signature for the global logging callback. All opensyria kernel
+ * Function signature for the global logging callback. All opensy kernel
  * internal logs will pass through this callback.
  */
 typedef void (*osck_LogCallback)(void* user_data, const char* message, size_t message_len);
@@ -484,7 +484,7 @@ typedef uint8_t osck_ChainType;
  * @param[in] raw_transaction_len Length of the serialized transaction.
  * @return                        The transaction, or null on error.
  */
-OPENSYRIAKERNEL_API osck_Transaction* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_create(
+OPENSYKERNEL_API osck_Transaction* OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_create(
     const void* raw_transaction, size_t raw_transaction_len);
 
 /**
@@ -494,8 +494,8 @@ OPENSYRIAKERNEL_API osck_Transaction* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_tr
  * @param[in] transaction Non-null.
  * @return                The copied transaction.
  */
-OPENSYRIAKERNEL_API osck_Transaction* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_copy(
-    const osck_Transaction* transaction) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_Transaction* OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_copy(
+    const osck_Transaction* transaction) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Serializes the transaction through the passed in callback to bytes.
@@ -507,10 +507,10 @@ OPENSYRIAKERNEL_API osck_Transaction* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_tr
  *                        passed back through the writer callback.
  * @return                0 on success.
  */
-OPENSYRIAKERNEL_API int osck_transaction_to_bytes(
+OPENSYKERNEL_API int osck_transaction_to_bytes(
     const osck_Transaction* transaction,
     osck_WriteBytes writer,
-    void* user_data) OPENSYRIAKERNEL_ARG_NONNULL(1, 2);
+    void* user_data) OPENSYKERNEL_ARG_NONNULL(1, 2);
 
 /**
  * @brief Get the number of outputs of a transaction.
@@ -518,8 +518,8 @@ OPENSYRIAKERNEL_API int osck_transaction_to_bytes(
  * @param[in] transaction Non-null.
  * @return                The number of outputs.
  */
-OPENSYRIAKERNEL_API size_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_count_outputs(
-    const osck_Transaction* transaction) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API size_t OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_count_outputs(
+    const osck_Transaction* transaction) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Get the transaction outputs at the provided index. The returned
@@ -530,8 +530,8 @@ OPENSYRIAKERNEL_API size_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_c
  * @param[in] output_index The index of the transaction output to be retrieved.
  * @return                 The transaction output
  */
-OPENSYRIAKERNEL_API const osck_TransactionOutput* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_get_output_at(
-    const osck_Transaction* transaction, size_t output_index) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API const osck_TransactionOutput* OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_get_output_at(
+    const osck_Transaction* transaction, size_t output_index) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Get the transaction input at the provided index. The returned
@@ -542,8 +542,8 @@ OPENSYRIAKERNEL_API const osck_TransactionOutput* OPENSYRIAKERNEL_WARN_UNUSED_RE
  * @param[in] input_index The index of the transaction input to be retrieved.
  * @return                 The transaction input
  */
-OPENSYRIAKERNEL_API const osck_TransactionInput* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_get_input_at(
-    const osck_Transaction* transaction, size_t input_index) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API const osck_TransactionInput* OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_get_input_at(
+    const osck_Transaction* transaction, size_t input_index) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Get the number of inputs of a transaction.
@@ -551,8 +551,8 @@ OPENSYRIAKERNEL_API const osck_TransactionInput* OPENSYRIAKERNEL_WARN_UNUSED_RES
  * @param[in] transaction Non-null.
  * @return                The number of inputs.
  */
-OPENSYRIAKERNEL_API size_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_count_inputs(
-    const osck_Transaction* transaction) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API size_t OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_count_inputs(
+    const osck_Transaction* transaction) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Get the txid of a transaction. The returned txid is not owned and
@@ -561,13 +561,13 @@ OPENSYRIAKERNEL_API size_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_c
  * @param[in] transaction Non-null.
  * @return                The txid.
  */
-OPENSYRIAKERNEL_API const osck_Txid* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_get_txid(
-    const osck_Transaction* transaction) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API const osck_Txid* OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_get_txid(
+    const osck_Transaction* transaction) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * Destroy the transaction.
  */
-OPENSYRIAKERNEL_API void osck_transaction_destroy(osck_Transaction* transaction);
+OPENSYKERNEL_API void osck_transaction_destroy(osck_Transaction* transaction);
 
 ///@}
 
@@ -582,7 +582,7 @@ OPENSYRIAKERNEL_API void osck_transaction_destroy(osck_Transaction* transaction)
  * @param[in] script_pubkey_len Length of the script pubkey data.
  * @return                      The script pubkey.
  */
-OPENSYRIAKERNEL_API osck_ScriptPubkey* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_script_pubkey_create(
+OPENSYKERNEL_API osck_ScriptPubkey* OPENSYKERNEL_WARN_UNUSED_RESULT osck_script_pubkey_create(
     const void* script_pubkey, size_t script_pubkey_len);
 
 /**
@@ -591,8 +591,8 @@ OPENSYRIAKERNEL_API osck_ScriptPubkey* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_s
  * @param[in] script_pubkey Non-null.
  * @return                  The copied script pubkey.
  */
-OPENSYRIAKERNEL_API osck_ScriptPubkey* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_script_pubkey_copy(
-    const osck_ScriptPubkey* script_pubkey) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_ScriptPubkey* OPENSYKERNEL_WARN_UNUSED_RESULT osck_script_pubkey_copy(
+    const osck_ScriptPubkey* script_pubkey) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Verify if the input at input_index of tx_to spends the script pubkey
@@ -613,14 +613,14 @@ OPENSYRIAKERNEL_API osck_ScriptPubkey* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_s
  * @param[out] status           Nullable, will be set to an error code if the operation fails, or OK otherwise.
  * @return                      1 if the script is valid, 0 otherwise.
  */
-OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_script_pubkey_verify(
+OPENSYKERNEL_API int OPENSYKERNEL_WARN_UNUSED_RESULT osck_script_pubkey_verify(
     const osck_ScriptPubkey* script_pubkey,
     int64_t amount,
     const osck_Transaction* tx_to,
     const osck_TransactionOutput** spent_outputs, size_t spent_outputs_len,
     unsigned int input_index,
     osck_ScriptVerificationFlags flags,
-    osck_ScriptVerifyStatus* status) OPENSYRIAKERNEL_ARG_NONNULL(1, 3);
+    osck_ScriptVerifyStatus* status) OPENSYKERNEL_ARG_NONNULL(1, 3);
 
 /**
  * @brief Serializes the script pubkey through the passed in callback to bytes.
@@ -631,15 +631,15 @@ OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_script_pubkey_ve
  *                          passed back through the writer callback.
  * @return                  0 on success.
  */
-OPENSYRIAKERNEL_API int osck_script_pubkey_to_bytes(
+OPENSYKERNEL_API int osck_script_pubkey_to_bytes(
     const osck_ScriptPubkey* script_pubkey,
     osck_WriteBytes writer,
-    void* user_data) OPENSYRIAKERNEL_ARG_NONNULL(1, 2);
+    void* user_data) OPENSYKERNEL_ARG_NONNULL(1, 2);
 
 /**
  * Destroy the script pubkey.
  */
-OPENSYRIAKERNEL_API void osck_script_pubkey_destroy(osck_ScriptPubkey* script_pubkey);
+OPENSYKERNEL_API void osck_script_pubkey_destroy(osck_ScriptPubkey* script_pubkey);
 
 ///@}
 
@@ -655,9 +655,9 @@ OPENSYRIAKERNEL_API void osck_script_pubkey_destroy(osck_ScriptPubkey* script_pu
  * @param[in] amount        The amount associated with the script pubkey for this output.
  * @return                  The transaction output.
  */
-OPENSYRIAKERNEL_API osck_TransactionOutput* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_output_create(
+OPENSYKERNEL_API osck_TransactionOutput* OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_output_create(
     const osck_ScriptPubkey* script_pubkey,
-    int64_t amount) OPENSYRIAKERNEL_ARG_NONNULL(1);
+    int64_t amount) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Get the script pubkey of the output. The returned
@@ -667,8 +667,8 @@ OPENSYRIAKERNEL_API osck_TransactionOutput* OPENSYRIAKERNEL_WARN_UNUSED_RESULT o
  * @param[in] transaction_output Non-null.
  * @return                       The script pubkey.
  */
-OPENSYRIAKERNEL_API const osck_ScriptPubkey* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_output_get_script_pubkey(
-    const osck_TransactionOutput* transaction_output) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API const osck_ScriptPubkey* OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_output_get_script_pubkey(
+    const osck_TransactionOutput* transaction_output) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Get the amount in the output.
@@ -676,8 +676,8 @@ OPENSYRIAKERNEL_API const osck_ScriptPubkey* OPENSYRIAKERNEL_WARN_UNUSED_RESULT 
  * @param[in] transaction_output Non-null.
  * @return                       The amount.
  */
-OPENSYRIAKERNEL_API int64_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_output_get_amount(
-    const osck_TransactionOutput* transaction_output) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API int64_t OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_output_get_amount(
+    const osck_TransactionOutput* transaction_output) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  *  @brief Copy a transaction output.
@@ -685,13 +685,13 @@ OPENSYRIAKERNEL_API int64_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_
  *  @param[in] transaction_output Non-null.
  *  @return                       The copied transaction output.
  */
-OPENSYRIAKERNEL_API osck_TransactionOutput* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_output_copy(
-    const osck_TransactionOutput* transaction_output) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_TransactionOutput* OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_output_copy(
+    const osck_TransactionOutput* transaction_output) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * Destroy the transaction output.
  */
-OPENSYRIAKERNEL_API void osck_transaction_output_destroy(osck_TransactionOutput* transaction_output);
+OPENSYKERNEL_API void osck_transaction_output_destroy(osck_TransactionOutput* transaction_output);
 
 ///@}
 
@@ -708,7 +708,7 @@ OPENSYRIAKERNEL_API void osck_transaction_output_destroy(osck_TransactionOutput*
  * connection is created. This must not be called while a logging connection
  * already exists.
  */
-OPENSYRIAKERNEL_API void osck_logging_disable();
+OPENSYKERNEL_API void osck_logging_disable();
 
 /**
  * @brief Set some options for the global internal logger. This changes global
@@ -717,7 +717,7 @@ OPENSYRIAKERNEL_API void osck_logging_disable();
  *
  * @param[in] options Sets formatting options of the log messages.
  */
-OPENSYRIAKERNEL_API void osck_logging_set_options(const osck_LoggingOptions options);
+OPENSYKERNEL_API void osck_logging_set_options(const osck_LoggingOptions options);
 
 /**
  * @brief Set the log level of the global internal logger. This does not
@@ -734,7 +734,7 @@ OPENSYRIAKERNEL_API void osck_logging_set_options(const osck_LoggingOptions opti
 
  * @param[in] level    Log level at which the log category is set.
  */
-OPENSYRIAKERNEL_API void osck_logging_set_level_category(osck_LogCategory category, osck_LogLevel level);
+OPENSYKERNEL_API void osck_logging_set_level_category(osck_LogCategory category, osck_LogLevel level);
 
 /**
  * @brief Enable a specific log category for the global internal logger. This
@@ -743,7 +743,7 @@ OPENSYRIAKERNEL_API void osck_logging_set_level_category(osck_LogCategory catego
  *
  * @param[in] category If osck_LogCategory_ALL is chosen, all categories will be enabled.
  */
-OPENSYRIAKERNEL_API void osck_logging_enable_category(osck_LogCategory category);
+OPENSYKERNEL_API void osck_logging_enable_category(osck_LogCategory category);
 
 /**
  * @brief Disable a specific log category for the global internal logger. This
@@ -752,7 +752,7 @@ OPENSYRIAKERNEL_API void osck_logging_enable_category(osck_LogCategory category)
  *
  * @param[in] category If osck_LogCategory_ALL is chosen, all categories will be disabled.
  */
-OPENSYRIAKERNEL_API void osck_logging_disable_category(osck_LogCategory category);
+OPENSYKERNEL_API void osck_logging_disable_category(osck_LogCategory category);
 
 /**
  * @brief Start logging messages through the provided callback. Log messages
@@ -767,15 +767,15 @@ OPENSYRIAKERNEL_API void osck_logging_disable_category(osck_LogCategory category
  * @param[in] user_data_destroy_callback Nullable, function for freeing the user data.
  * @return                               A new kernel logging connection, or null on error.
  */
-OPENSYRIAKERNEL_API osck_LoggingConnection* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_logging_connection_create(
+OPENSYKERNEL_API osck_LoggingConnection* OPENSYKERNEL_WARN_UNUSED_RESULT osck_logging_connection_create(
     osck_LogCallback log_callback,
     void* user_data,
-    osck_DestroyCallback user_data_destroy_callback) OPENSYRIAKERNEL_ARG_NONNULL(1);
+    osck_DestroyCallback user_data_destroy_callback) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * Stop logging and destroy the logging connection.
  */
-OPENSYRIAKERNEL_API void osck_logging_connection_destroy(osck_LoggingConnection* logging_connection);
+OPENSYKERNEL_API void osck_logging_connection_destroy(osck_LoggingConnection* logging_connection);
 
 ///@}
 
@@ -791,19 +791,19 @@ OPENSYRIAKERNEL_API void osck_logging_connection_destroy(osck_LoggingConnection*
  * @param[in] chain_type Controls the chain parameters type created.
  * @return               An allocated chain parameters opaque struct.
  */
-OPENSYRIAKERNEL_API osck_ChainParameters* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chain_parameters_create(
+OPENSYKERNEL_API osck_ChainParameters* OPENSYKERNEL_WARN_UNUSED_RESULT osck_chain_parameters_create(
     const osck_ChainType chain_type);
 
 /**
  * Copy the chain parameters.
  */
-OPENSYRIAKERNEL_API osck_ChainParameters* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chain_parameters_copy(
-    const osck_ChainParameters* chain_parameters) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_ChainParameters* OPENSYKERNEL_WARN_UNUSED_RESULT osck_chain_parameters_copy(
+    const osck_ChainParameters* chain_parameters) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * Destroy the chain parameters.
  */
-OPENSYRIAKERNEL_API void osck_chain_parameters_destroy(osck_ChainParameters* chain_parameters);
+OPENSYKERNEL_API void osck_chain_parameters_destroy(osck_ChainParameters* chain_parameters);
 
 ///@}
 
@@ -815,7 +815,7 @@ OPENSYRIAKERNEL_API void osck_chain_parameters_destroy(osck_ChainParameters* cha
 /**
  * Creates an empty context options.
  */
-OPENSYRIAKERNEL_API osck_ContextOptions* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_context_options_create();
+OPENSYKERNEL_API osck_ContextOptions* OPENSYKERNEL_WARN_UNUSED_RESULT osck_context_options_create();
 
 /**
  * @brief Sets the chain params for the context options. The context created
@@ -824,9 +824,9 @@ OPENSYRIAKERNEL_API osck_ContextOptions* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck
  * @param[in] context_options  Non-null, previously created by @ref osck_context_options_create.
  * @param[in] chain_parameters Is set to the context options.
  */
-OPENSYRIAKERNEL_API void osck_context_options_set_chainparams(
+OPENSYKERNEL_API void osck_context_options_set_chainparams(
     osck_ContextOptions* context_options,
-    const osck_ChainParameters* chain_parameters) OPENSYRIAKERNEL_ARG_NONNULL(1, 2);
+    const osck_ChainParameters* chain_parameters) OPENSYKERNEL_ARG_NONNULL(1, 2);
 
 /**
  * @brief Set the kernel notifications for the context options. The context
@@ -835,9 +835,9 @@ OPENSYRIAKERNEL_API void osck_context_options_set_chainparams(
  * @param[in] context_options Non-null, previously created by @ref osck_context_options_create.
  * @param[in] notifications   Is set to the context options.
  */
-OPENSYRIAKERNEL_API void osck_context_options_set_notifications(
+OPENSYKERNEL_API void osck_context_options_set_notifications(
     osck_ContextOptions* context_options,
-    osck_NotificationInterfaceCallbacks notifications) OPENSYRIAKERNEL_ARG_NONNULL(1);
+    osck_NotificationInterfaceCallbacks notifications) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Set the validation interface callbacks for the context options. The
@@ -849,14 +849,14 @@ OPENSYRIAKERNEL_API void osck_context_options_set_notifications(
  * @param[in] validation_interface_callbacks The callbacks used for passing validation information to the
  *                                           user.
  */
-OPENSYRIAKERNEL_API void osck_context_options_set_validation_interface(
+OPENSYKERNEL_API void osck_context_options_set_validation_interface(
     osck_ContextOptions* context_options,
-    osck_ValidationInterfaceCallbacks validation_interface_callbacks) OPENSYRIAKERNEL_ARG_NONNULL(1);
+    osck_ValidationInterfaceCallbacks validation_interface_callbacks) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * Destroy the context options.
  */
-OPENSYRIAKERNEL_API void osck_context_options_destroy(osck_ContextOptions* context_options);
+OPENSYKERNEL_API void osck_context_options_destroy(osck_ContextOptions* context_options);
 
 ///@}
 
@@ -874,14 +874,14 @@ OPENSYRIAKERNEL_API void osck_context_options_destroy(osck_ContextOptions* conte
  * @param[in] context_options Nullable, created by @ref osck_context_options_create.
  * @return                    The allocated context, or null on error.
  */
-OPENSYRIAKERNEL_API osck_Context* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_context_create(
+OPENSYKERNEL_API osck_Context* OPENSYKERNEL_WARN_UNUSED_RESULT osck_context_create(
     const osck_ContextOptions* context_options);
 
 /**
  * Copy the context.
  */
-OPENSYRIAKERNEL_API osck_Context* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_context_copy(
-    const osck_Context* context) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_Context* OPENSYKERNEL_WARN_UNUSED_RESULT osck_context_copy(
+    const osck_Context* context) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Interrupt can be used to halt long-running validation functions like
@@ -890,13 +890,13 @@ OPENSYRIAKERNEL_API osck_Context* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_contex
  * @param[in] context  Non-null.
  * @return             0 if the interrupt was successful, non-zero otherwise.
  */
-OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_context_interrupt(
-    osck_Context* context) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API int OPENSYKERNEL_WARN_UNUSED_RESULT osck_context_interrupt(
+    osck_Context* context) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * Destroy the context.
  */
-OPENSYRIAKERNEL_API void osck_context_destroy(osck_Context* context);
+OPENSYKERNEL_API void osck_context_destroy(osck_Context* context);
 
 ///@}
 
@@ -912,8 +912,8 @@ OPENSYRIAKERNEL_API void osck_context_destroy(osck_Context* context);
  * @param[in] block_tree_entry Non-null.
  * @return                     The previous block tree entry, or null on error or if the current block tree entry is the genesis block.
  */
-OPENSYRIAKERNEL_API const osck_BlockTreeEntry* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_tree_entry_get_previous(
-    const osck_BlockTreeEntry* block_tree_entry) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API const osck_BlockTreeEntry* OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_tree_entry_get_previous(
+    const osck_BlockTreeEntry* block_tree_entry) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Return the height of a certain block tree entry.
@@ -921,8 +921,8 @@ OPENSYRIAKERNEL_API const osck_BlockTreeEntry* OPENSYRIAKERNEL_WARN_UNUSED_RESUL
  * @param[in] block_tree_entry Non-null.
  * @return                     The block height.
  */
-OPENSYRIAKERNEL_API int32_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_tree_entry_get_height(
-    const osck_BlockTreeEntry* block_tree_entry) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API int32_t OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_tree_entry_get_height(
+    const osck_BlockTreeEntry* block_tree_entry) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Return the block hash associated with a block tree entry.
@@ -930,8 +930,8 @@ OPENSYRIAKERNEL_API int32_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_tree_e
  * @param[in] block_tree_entry Non-null.
  * @return                     The block hash.
  */
-OPENSYRIAKERNEL_API const osck_BlockHash* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_tree_entry_get_block_hash(
-    const osck_BlockTreeEntry* block_tree_entry) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API const osck_BlockHash* OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_tree_entry_get_block_hash(
+    const osck_BlockTreeEntry* block_tree_entry) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Check if two block tree entries are equal. Two block tree entries are equal when they
@@ -941,8 +941,8 @@ OPENSYRIAKERNEL_API const osck_BlockHash* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osc
  * @param[in] entry2 Non-null.
  * @return           1 if the block tree entries are equal, 0 otherwise.
  */
-OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_tree_entry_equals(
-    const osck_BlockTreeEntry* entry1, const osck_BlockTreeEntry* entry2) OPENSYRIAKERNEL_ARG_NONNULL(1, 2);
+OPENSYKERNEL_API int OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_tree_entry_equals(
+    const osck_BlockTreeEntry* entry1, const osck_BlockTreeEntry* entry2) OPENSYKERNEL_ARG_NONNULL(1, 2);
 
 ///@}
 
@@ -963,12 +963,12 @@ OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_tree_entry
  *                             data. If the directory does not exist yet, it will be created.
  * @return                     The allocated chainstate manager options, or null on error.
  */
-OPENSYRIAKERNEL_API osck_ChainstateManagerOptions* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chainstate_manager_options_create(
+OPENSYKERNEL_API osck_ChainstateManagerOptions* OPENSYKERNEL_WARN_UNUSED_RESULT osck_chainstate_manager_options_create(
     const osck_Context* context,
     const char* data_directory,
     size_t data_directory_len,
     const char* blocks_directory,
-    size_t blocks_directory_len) OPENSYRIAKERNEL_ARG_NONNULL(1);
+    size_t blocks_directory_len) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Set the number of available worker threads used during validation.
@@ -978,9 +978,9 @@ OPENSYRIAKERNEL_API osck_ChainstateManagerOptions* OPENSYRIAKERNEL_WARN_UNUSED_R
  *                                       used for validation. When set to 0 no parallel verification is done.
  *                                       The value range is clamped internally between 0 and 15.
  */
-OPENSYRIAKERNEL_API void osck_chainstate_manager_options_set_worker_threads_num(
+OPENSYKERNEL_API void osck_chainstate_manager_options_set_worker_threads_num(
     osck_ChainstateManagerOptions* chainstate_manager_options,
-    int worker_threads) OPENSYRIAKERNEL_ARG_NONNULL(1);
+    int worker_threads) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Sets wipe db in the options. In combination with calling
@@ -992,10 +992,10 @@ OPENSYRIAKERNEL_API void osck_chainstate_manager_options_set_worker_threads_num(
  * @param[in] wipe_chainstate_db         Set wipe chainstate db.
  * @return                               0 if the set was successful, non-zero if the set failed.
  */
-OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chainstate_manager_options_set_wipe_dbs(
+OPENSYKERNEL_API int OPENSYKERNEL_WARN_UNUSED_RESULT osck_chainstate_manager_options_set_wipe_dbs(
     osck_ChainstateManagerOptions* chainstate_manager_options,
     int wipe_block_tree_db,
-    int wipe_chainstate_db) OPENSYRIAKERNEL_ARG_NONNULL(1);
+    int wipe_chainstate_db) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Sets block tree db in memory in the options.
@@ -1003,9 +1003,9 @@ OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chainstate_manag
  * @param[in] chainstate_manager_options   Non-null, created by @ref osck_chainstate_manager_options_create.
  * @param[in] block_tree_db_in_memory      Set block tree db in memory.
  */
-OPENSYRIAKERNEL_API void osck_chainstate_manager_options_update_block_tree_db_in_memory(
+OPENSYKERNEL_API void osck_chainstate_manager_options_update_block_tree_db_in_memory(
     osck_ChainstateManagerOptions* chainstate_manager_options,
-    int block_tree_db_in_memory) OPENSYRIAKERNEL_ARG_NONNULL(1);
+    int block_tree_db_in_memory) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Sets chainstate db in memory in the options.
@@ -1013,14 +1013,14 @@ OPENSYRIAKERNEL_API void osck_chainstate_manager_options_update_block_tree_db_in
  * @param[in] chainstate_manager_options Non-null, created by @ref osck_chainstate_manager_options_create.
  * @param[in] chainstate_db_in_memory    Set chainstate db in memory.
  */
-OPENSYRIAKERNEL_API void osck_chainstate_manager_options_update_chainstate_db_in_memory(
+OPENSYKERNEL_API void osck_chainstate_manager_options_update_chainstate_db_in_memory(
     osck_ChainstateManagerOptions* chainstate_manager_options,
-    int chainstate_db_in_memory) OPENSYRIAKERNEL_ARG_NONNULL(1);
+    int chainstate_db_in_memory) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * Destroy the chainstate manager options.
  */
-OPENSYRIAKERNEL_API void osck_chainstate_manager_options_destroy(osck_ChainstateManagerOptions* chainstate_manager_options);
+OPENSYKERNEL_API void osck_chainstate_manager_options_destroy(osck_ChainstateManagerOptions* chainstate_manager_options);
 
 ///@}
 
@@ -1037,8 +1037,8 @@ OPENSYRIAKERNEL_API void osck_chainstate_manager_options_destroy(osck_Chainstate
  * @param[in] chainstate_manager_options Non-null, created by @ref osck_chainstate_manager_options_create.
  * @return                               The allocated chainstate manager, or null on error.
  */
-OPENSYRIAKERNEL_API osck_ChainstateManager* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chainstate_manager_create(
-    const osck_ChainstateManagerOptions* chainstate_manager_options) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_ChainstateManager* OPENSYKERNEL_WARN_UNUSED_RESULT osck_chainstate_manager_create(
+    const osck_ChainstateManagerOptions* chainstate_manager_options) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Triggers the start of a reindex if the wipe options were previously
@@ -1051,10 +1051,10 @@ OPENSYRIAKERNEL_API osck_ChainstateManager* OPENSYRIAKERNEL_WARN_UNUSED_RESULT o
  * @param[in] block_file_paths_data_len Length of the block_file_paths_data and block_file_paths_len arrays.
  * @return                              0 if the import blocks call was completed successfully, non-zero otherwise.
  */
-OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chainstate_manager_import_blocks(
+OPENSYKERNEL_API int OPENSYKERNEL_WARN_UNUSED_RESULT osck_chainstate_manager_import_blocks(
     osck_ChainstateManager* chainstate_manager,
     const char** block_file_paths_data, size_t* block_file_paths_lens,
-    size_t block_file_paths_data_len) OPENSYRIAKERNEL_ARG_NONNULL(1);
+    size_t block_file_paths_data_len) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Process and validate the passed in block with the chainstate
@@ -1073,10 +1073,10 @@ OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chainstate_manag
  *                               before its data was persisted.
  * @return                       0 if processing the block was successful. Will also return 0 for valid, but duplicate blocks.
  */
-OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chainstate_manager_process_block(
+OPENSYKERNEL_API int OPENSYKERNEL_WARN_UNUSED_RESULT osck_chainstate_manager_process_block(
     osck_ChainstateManager* chainstate_manager,
     const osck_Block* block,
-    int* new_block) OPENSYRIAKERNEL_ARG_NONNULL(1, 2, 3);
+    int* new_block) OPENSYKERNEL_ARG_NONNULL(1, 2, 3);
 
 /**
  * @brief Returns the best known currently active chain. Its lifetime is
@@ -1092,8 +1092,8 @@ OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chainstate_manag
  * @param[in] chainstate_manager Non-null.
  * @return                       The chain.
  */
-OPENSYRIAKERNEL_API const osck_Chain* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chainstate_manager_get_active_chain(
-    const osck_ChainstateManager* chainstate_manager) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API const osck_Chain* OPENSYKERNEL_WARN_UNUSED_RESULT osck_chainstate_manager_get_active_chain(
+    const osck_ChainstateManager* chainstate_manager) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Retrieve a block tree entry by its block hash.
@@ -1103,14 +1103,14 @@ OPENSYRIAKERNEL_API const osck_Chain* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_ch
  * @return                       The block tree entry of the block with the passed in hash, or null if
  *                               the block hash is not found.
  */
-OPENSYRIAKERNEL_API const osck_BlockTreeEntry* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chainstate_manager_get_block_tree_entry_by_hash(
+OPENSYKERNEL_API const osck_BlockTreeEntry* OPENSYKERNEL_WARN_UNUSED_RESULT osck_chainstate_manager_get_block_tree_entry_by_hash(
     const osck_ChainstateManager* chainstate_manager,
-    const osck_BlockHash* block_hash) OPENSYRIAKERNEL_ARG_NONNULL(1, 2);
+    const osck_BlockHash* block_hash) OPENSYKERNEL_ARG_NONNULL(1, 2);
 
 /**
  * Destroy the chainstate manager.
  */
-OPENSYRIAKERNEL_API void osck_chainstate_manager_destroy(osck_ChainstateManager* chainstate_manager);
+OPENSYKERNEL_API void osck_chainstate_manager_destroy(osck_ChainstateManager* chainstate_manager);
 
 ///@}
 
@@ -1127,9 +1127,9 @@ OPENSYRIAKERNEL_API void osck_chainstate_manager_destroy(osck_ChainstateManager*
  * @param[in] block_tree_entry   Non-null.
  * @return                       The read out block, or null on error.
  */
-OPENSYRIAKERNEL_API osck_Block* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_read(
+OPENSYKERNEL_API osck_Block* OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_read(
     const osck_ChainstateManager* chainstate_manager,
-    const osck_BlockTreeEntry* block_tree_entry) OPENSYRIAKERNEL_ARG_NONNULL(1, 2);
+    const osck_BlockTreeEntry* block_tree_entry) OPENSYKERNEL_ARG_NONNULL(1, 2);
 
 /**
  * @brief Parse a serialized raw block into a new block object.
@@ -1138,7 +1138,7 @@ OPENSYRIAKERNEL_API osck_Block* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_re
  * @param[in] raw_block_len Length of the serialized block.
  * @return                  The allocated block, or null on error.
  */
-OPENSYRIAKERNEL_API osck_Block* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_create(
+OPENSYKERNEL_API osck_Block* OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_create(
     const void* raw_block, size_t raw_block_len);
 
 /**
@@ -1148,8 +1148,8 @@ OPENSYRIAKERNEL_API osck_Block* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_cr
  * @param[in] block Non-null.
  * @return          The copied block.
  */
-OPENSYRIAKERNEL_API osck_Block* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_copy(
-    const osck_Block* block) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_Block* OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_copy(
+    const osck_Block* block) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Count the number of transactions contained in a block.
@@ -1157,8 +1157,8 @@ OPENSYRIAKERNEL_API osck_Block* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_co
  * @param[in] block Non-null.
  * @return          The number of transactions in the block.
  */
-OPENSYRIAKERNEL_API size_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_count_transactions(
-    const osck_Block* block) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API size_t OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_count_transactions(
+    const osck_Block* block) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Get the transaction at the provided index. The returned transaction
@@ -1168,8 +1168,8 @@ OPENSYRIAKERNEL_API size_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_count_t
  * @param[in] transaction_index The index of the transaction to be retrieved.
  * @return                      The transaction.
  */
-OPENSYRIAKERNEL_API const osck_Transaction* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_get_transaction_at(
-    const osck_Block* block, size_t transaction_index) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API const osck_Transaction* OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_get_transaction_at(
+    const osck_Block* block, size_t transaction_index) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Calculate and return the hash of a block.
@@ -1177,8 +1177,8 @@ OPENSYRIAKERNEL_API const osck_Transaction* OPENSYRIAKERNEL_WARN_UNUSED_RESULT o
  * @param[in] block Non-null.
  * @return    The block hash.
  */
-OPENSYRIAKERNEL_API osck_BlockHash* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_get_hash(
-    const osck_Block* block) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_BlockHash* OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_get_hash(
+    const osck_Block* block) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Serializes the block through the passed in callback to bytes.
@@ -1190,15 +1190,15 @@ OPENSYRIAKERNEL_API osck_BlockHash* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_bloc
  *                      passed back through the writer callback.
  * @return              0 on success.
  */
-OPENSYRIAKERNEL_API int osck_block_to_bytes(
+OPENSYKERNEL_API int osck_block_to_bytes(
     const osck_Block* block,
     osck_WriteBytes writer,
-    void* user_data) OPENSYRIAKERNEL_ARG_NONNULL(1, 2);
+    void* user_data) OPENSYKERNEL_ARG_NONNULL(1, 2);
 
 /**
  * Destroy the block.
  */
-OPENSYRIAKERNEL_API void osck_block_destroy(osck_Block* block);
+OPENSYKERNEL_API void osck_block_destroy(osck_Block* block);
 
 ///@}
 
@@ -1210,14 +1210,14 @@ OPENSYRIAKERNEL_API void osck_block_destroy(osck_Block* block);
 /**
  * Returns the validation mode from an opaque block validation state pointer.
  */
-OPENSYRIAKERNEL_API osck_ValidationMode osck_block_validation_state_get_validation_mode(
-    const osck_BlockValidationState* block_validation_state) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_ValidationMode osck_block_validation_state_get_validation_mode(
+    const osck_BlockValidationState* block_validation_state) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * Returns the validation result from an opaque block validation state pointer.
  */
-OPENSYRIAKERNEL_API osck_BlockValidationResult osck_block_validation_state_get_block_validation_result(
-    const osck_BlockValidationState* block_validation_state) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_BlockValidationResult osck_block_validation_state_get_block_validation_result(
+    const osck_BlockValidationState* block_validation_state) OPENSYKERNEL_ARG_NONNULL(1);
 
 ///@}
 
@@ -1232,8 +1232,8 @@ OPENSYRIAKERNEL_API osck_BlockValidationResult osck_block_validation_state_get_b
  * @param[in] chain Non-null.
  * @return          The current height.
  */
-OPENSYRIAKERNEL_API int32_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chain_get_height(
-    const osck_Chain* chain) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API int32_t OPENSYKERNEL_WARN_UNUSED_RESULT osck_chain_get_height(
+    const osck_Chain* chain) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Retrieve a block tree entry by its height in the currently active chain.
@@ -1244,9 +1244,9 @@ OPENSYRIAKERNEL_API int32_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chain_get_he
  * @return                 The block tree entry at a certain height in the currently active chain, or null
  *                         if the height is out of bounds.
  */
-OPENSYRIAKERNEL_API const osck_BlockTreeEntry* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chain_get_by_height(
+OPENSYKERNEL_API const osck_BlockTreeEntry* OPENSYKERNEL_WARN_UNUSED_RESULT osck_chain_get_by_height(
     const osck_Chain* chain,
-    int block_height) OPENSYRIAKERNEL_ARG_NONNULL(1);
+    int block_height) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Return true if the passed in chain contains the block tree entry.
@@ -1256,9 +1256,9 @@ OPENSYRIAKERNEL_API const osck_BlockTreeEntry* OPENSYRIAKERNEL_WARN_UNUSED_RESUL
  * @return                     1 if the block_tree_entry is in the chain, 0 otherwise.
  *
  */
-OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chain_contains(
+OPENSYKERNEL_API int OPENSYKERNEL_WARN_UNUSED_RESULT osck_chain_contains(
     const osck_Chain* chain,
-    const osck_BlockTreeEntry* block_tree_entry) OPENSYRIAKERNEL_ARG_NONNULL(1, 2);
+    const osck_BlockTreeEntry* block_tree_entry) OPENSYKERNEL_ARG_NONNULL(1, 2);
 
 ///@}
 
@@ -1275,9 +1275,9 @@ OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_chain_contains(
  * @param[in] block_tree_entry   Non-null.
  * @return                       The read out block spent outputs, or null on error.
  */
-OPENSYRIAKERNEL_API osck_BlockSpentOutputs* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_spent_outputs_read(
+OPENSYKERNEL_API osck_BlockSpentOutputs* OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_spent_outputs_read(
     const osck_ChainstateManager* chainstate_manager,
-    const osck_BlockTreeEntry* block_tree_entry) OPENSYRIAKERNEL_ARG_NONNULL(1, 2);
+    const osck_BlockTreeEntry* block_tree_entry) OPENSYKERNEL_ARG_NONNULL(1, 2);
 
 /**
  * @brief Copy a block's spent outputs.
@@ -1285,8 +1285,8 @@ OPENSYRIAKERNEL_API osck_BlockSpentOutputs* OPENSYRIAKERNEL_WARN_UNUSED_RESULT o
  * @param[in] block_spent_outputs Non-null.
  * @return                        The copied block spent outputs.
  */
-OPENSYRIAKERNEL_API osck_BlockSpentOutputs* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_spent_outputs_copy(
-    const osck_BlockSpentOutputs* block_spent_outputs) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_BlockSpentOutputs* OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_spent_outputs_copy(
+    const osck_BlockSpentOutputs* block_spent_outputs) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Returns the number of transaction spent outputs whose data is contained in
@@ -1295,8 +1295,8 @@ OPENSYRIAKERNEL_API osck_BlockSpentOutputs* OPENSYRIAKERNEL_WARN_UNUSED_RESULT o
  * @param[in] block_spent_outputs Non-null.
  * @return                        The number of transaction spent outputs data in the block spent outputs.
  */
-OPENSYRIAKERNEL_API size_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_spent_outputs_count(
-    const osck_BlockSpentOutputs* block_spent_outputs) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API size_t OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_spent_outputs_count(
+    const osck_BlockSpentOutputs* block_spent_outputs) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Returns a transaction spent outputs contained in the block spent
@@ -1307,14 +1307,14 @@ OPENSYRIAKERNEL_API size_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_spent_o
  * @param[in] transaction_spent_outputs_index The index of the transaction spent outputs within the block spent outputs.
  * @return                                    A transaction spent outputs pointer.
  */
-OPENSYRIAKERNEL_API const osck_TransactionSpentOutputs* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_spent_outputs_get_transaction_spent_outputs_at(
+OPENSYKERNEL_API const osck_TransactionSpentOutputs* OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_spent_outputs_get_transaction_spent_outputs_at(
     const osck_BlockSpentOutputs* block_spent_outputs,
-    size_t transaction_spent_outputs_index) OPENSYRIAKERNEL_ARG_NONNULL(1);
+    size_t transaction_spent_outputs_index) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * Destroy the block spent outputs.
  */
-OPENSYRIAKERNEL_API void osck_block_spent_outputs_destroy(osck_BlockSpentOutputs* block_spent_outputs);
+OPENSYKERNEL_API void osck_block_spent_outputs_destroy(osck_BlockSpentOutputs* block_spent_outputs);
 
 ///@}
 
@@ -1329,8 +1329,8 @@ OPENSYRIAKERNEL_API void osck_block_spent_outputs_destroy(osck_BlockSpentOutputs
  * @param[in] transaction_spent_outputs Non-null.
  * @return                              The copied transaction spent outputs.
  */
-OPENSYRIAKERNEL_API osck_TransactionSpentOutputs* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_spent_outputs_copy(
-    const osck_TransactionSpentOutputs* transaction_spent_outputs) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_TransactionSpentOutputs* OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_spent_outputs_copy(
+    const osck_TransactionSpentOutputs* transaction_spent_outputs) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Returns the number of previous transaction outputs contained in the
@@ -1339,8 +1339,8 @@ OPENSYRIAKERNEL_API osck_TransactionSpentOutputs* OPENSYRIAKERNEL_WARN_UNUSED_RE
  * @param[in] transaction_spent_outputs Non-null
  * @return                              The number of spent transaction outputs for the transaction.
  */
-OPENSYRIAKERNEL_API size_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_spent_outputs_count(
-    const osck_TransactionSpentOutputs* transaction_spent_outputs) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API size_t OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_spent_outputs_count(
+    const osck_TransactionSpentOutputs* transaction_spent_outputs) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Returns a coin contained in the transaction spent outputs at a
@@ -1352,14 +1352,14 @@ OPENSYRIAKERNEL_API size_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_s
  *                                      transaction spent outputs.
  * @return                              A coin pointer.
  */
-OPENSYRIAKERNEL_API const osck_Coin* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_spent_outputs_get_coin_at(
+OPENSYKERNEL_API const osck_Coin* OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_spent_outputs_get_coin_at(
     const osck_TransactionSpentOutputs* transaction_spent_outputs,
-    size_t coin_index) OPENSYRIAKERNEL_ARG_NONNULL(1);
+    size_t coin_index) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * Destroy the transaction spent outputs.
  */
-OPENSYRIAKERNEL_API void osck_transaction_spent_outputs_destroy(osck_TransactionSpentOutputs* transaction_spent_outputs);
+OPENSYKERNEL_API void osck_transaction_spent_outputs_destroy(osck_TransactionSpentOutputs* transaction_spent_outputs);
 
 ///@}
 
@@ -1374,8 +1374,8 @@ OPENSYRIAKERNEL_API void osck_transaction_spent_outputs_destroy(osck_Transaction
  * @param[in] transaction_input Non-null.
  * @return                      The copied transaction input.
  */
-OPENSYRIAKERNEL_API osck_TransactionInput* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_input_copy(
-    const osck_TransactionInput* transaction_input) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_TransactionInput* OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_input_copy(
+    const osck_TransactionInput* transaction_input) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Get the transaction out point. The returned transaction out point is
@@ -1384,13 +1384,13 @@ OPENSYRIAKERNEL_API osck_TransactionInput* OPENSYRIAKERNEL_WARN_UNUSED_RESULT os
  * @param[in] transaction_input Non-null.
  * @return                      The transaction out point.
  */
-OPENSYRIAKERNEL_API const osck_TransactionOutPoint* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_input_get_out_point(
-    const osck_TransactionInput* transaction_input) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API const osck_TransactionOutPoint* OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_input_get_out_point(
+    const osck_TransactionInput* transaction_input) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * Destroy the transaction input.
  */
-OPENSYRIAKERNEL_API void osck_transaction_input_destroy(osck_TransactionInput* transaction_input);
+OPENSYKERNEL_API void osck_transaction_input_destroy(osck_TransactionInput* transaction_input);
 
 ///@}
 
@@ -1405,8 +1405,8 @@ OPENSYRIAKERNEL_API void osck_transaction_input_destroy(osck_TransactionInput* t
  * @param[in] transaction_out_point Non-null.
  * @return                          The copied transaction out point.
  */
-OPENSYRIAKERNEL_API osck_TransactionOutPoint* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_out_point_copy(
-    const osck_TransactionOutPoint* transaction_out_point) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_TransactionOutPoint* OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_out_point_copy(
+    const osck_TransactionOutPoint* transaction_out_point) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Get the output position from the transaction out point.
@@ -1414,8 +1414,8 @@ OPENSYRIAKERNEL_API osck_TransactionOutPoint* OPENSYRIAKERNEL_WARN_UNUSED_RESULT
  * @param[in] transaction_out_point Non-null.
  * @return                          The output index.
  */
-OPENSYRIAKERNEL_API uint32_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_out_point_get_index(
-    const osck_TransactionOutPoint* transaction_out_point) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API uint32_t OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_out_point_get_index(
+    const osck_TransactionOutPoint* transaction_out_point) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Get the txid from the transaction out point. The returned txid is
@@ -1424,13 +1424,13 @@ OPENSYRIAKERNEL_API uint32_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction
  * @param[in] transaction_out_point Non-null.
  * @return                          The txid.
  */
-OPENSYRIAKERNEL_API const osck_Txid* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_transaction_out_point_get_txid(
-    const osck_TransactionOutPoint* transaction_out_point) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API const osck_Txid* OPENSYKERNEL_WARN_UNUSED_RESULT osck_transaction_out_point_get_txid(
+    const osck_TransactionOutPoint* transaction_out_point) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * Destroy the transaction out point.
  */
-OPENSYRIAKERNEL_API void osck_transaction_out_point_destroy(osck_TransactionOutPoint* transaction_out_point);
+OPENSYKERNEL_API void osck_transaction_out_point_destroy(osck_TransactionOutPoint* transaction_out_point);
 
 ///@}
 
@@ -1445,8 +1445,8 @@ OPENSYRIAKERNEL_API void osck_transaction_out_point_destroy(osck_TransactionOutP
  * @param[in] txid Non-null.
  * @return         The copied txid.
  */
-OPENSYRIAKERNEL_API osck_Txid* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_txid_copy(
-    const osck_Txid* txid) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_Txid* OPENSYKERNEL_WARN_UNUSED_RESULT osck_txid_copy(
+    const osck_Txid* txid) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Check if two txids are equal.
@@ -1455,8 +1455,8 @@ OPENSYRIAKERNEL_API osck_Txid* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_txid_copy
  * @param[in] txid2 Non-null.
  * @return          0 if the txid is not equal.
  */
-OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_txid_equals(
-    const osck_Txid* txid1, const osck_Txid* txid2) OPENSYRIAKERNEL_ARG_NONNULL(1, 2);
+OPENSYKERNEL_API int OPENSYKERNEL_WARN_UNUSED_RESULT osck_txid_equals(
+    const osck_Txid* txid1, const osck_Txid* txid2) OPENSYKERNEL_ARG_NONNULL(1, 2);
 
 /**
  * @brief Serializes the txid to bytes.
@@ -1464,13 +1464,13 @@ OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_txid_equals(
  * @param[in] txid    Non-null.
  * @param[out] output The serialized txid.
  */
-OPENSYRIAKERNEL_API void osck_txid_to_bytes(
-    const osck_Txid* txid, unsigned char output[32]) OPENSYRIAKERNEL_ARG_NONNULL(1, 2);
+OPENSYKERNEL_API void osck_txid_to_bytes(
+    const osck_Txid* txid, unsigned char output[32]) OPENSYKERNEL_ARG_NONNULL(1, 2);
 
 /**
  * Destroy the txid.
  */
-OPENSYRIAKERNEL_API void osck_txid_destroy(osck_Txid* txid);
+OPENSYKERNEL_API void osck_txid_destroy(osck_Txid* txid);
 
 ///@}
 
@@ -1487,8 +1487,8 @@ OPENSYRIAKERNEL_API void osck_txid_destroy(osck_Txid* txid);
  * @param[in] coin Non-null.
  * @return         The copied coin.
  */
-OPENSYRIAKERNEL_API osck_Coin* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_coin_copy(
-    const osck_Coin* coin) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_Coin* OPENSYKERNEL_WARN_UNUSED_RESULT osck_coin_copy(
+    const osck_Coin* coin) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Returns the block height where the transaction that
@@ -1497,8 +1497,8 @@ OPENSYRIAKERNEL_API osck_Coin* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_coin_copy
  * @param[in] coin Non-null.
  * @return         The block height of the coin.
  */
-OPENSYRIAKERNEL_API uint32_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_coin_confirmation_height(
-    const osck_Coin* coin) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API uint32_t OPENSYKERNEL_WARN_UNUSED_RESULT osck_coin_confirmation_height(
+    const osck_Coin* coin) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Returns whether the containing transaction was a coinbase.
@@ -1506,8 +1506,8 @@ OPENSYRIAKERNEL_API uint32_t OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_coin_confir
  * @param[in] coin Non-null.
  * @return         1 if the coin is a coinbase coin, 0 otherwise.
  */
-OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_coin_is_coinbase(
-    const osck_Coin* coin) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API int OPENSYKERNEL_WARN_UNUSED_RESULT osck_coin_is_coinbase(
+    const osck_Coin* coin) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Return the transaction output of a coin. The returned pointer is
@@ -1516,13 +1516,13 @@ OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_coin_is_coinbase
  * @param[in] coin Non-null.
  * @return         A transaction output pointer.
  */
-OPENSYRIAKERNEL_API const osck_TransactionOutput* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_coin_get_output(
-    const osck_Coin* coin) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API const osck_TransactionOutput* OPENSYKERNEL_WARN_UNUSED_RESULT osck_coin_get_output(
+    const osck_Coin* coin) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * Destroy the coin.
  */
-OPENSYRIAKERNEL_API void osck_coin_destroy(osck_Coin* coin);
+OPENSYKERNEL_API void osck_coin_destroy(osck_Coin* coin);
 
 ///@}
 
@@ -1534,8 +1534,8 @@ OPENSYRIAKERNEL_API void osck_coin_destroy(osck_Coin* coin);
 /**
  * @brief Create a block hash from its raw data.
  */
-OPENSYRIAKERNEL_API osck_BlockHash* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_hash_create(
-    const unsigned char block_hash[32]) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_BlockHash* OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_hash_create(
+    const unsigned char block_hash[32]) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Check if two block hashes are equal.
@@ -1544,8 +1544,8 @@ OPENSYRIAKERNEL_API osck_BlockHash* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_bloc
  * @param[in] hash2 Non-null.
  * @return          0 if the block hashes are not equal.
  */
-OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_hash_equals(
-    const osck_BlockHash* hash1, const osck_BlockHash* hash2) OPENSYRIAKERNEL_ARG_NONNULL(1, 2);
+OPENSYKERNEL_API int OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_hash_equals(
+    const osck_BlockHash* hash1, const osck_BlockHash* hash2) OPENSYKERNEL_ARG_NONNULL(1, 2);
 
 /**
  * @brief Copy a block hash.
@@ -1553,8 +1553,8 @@ OPENSYRIAKERNEL_API int OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_hash_equal
  * @param[in] block_hash Non-null.
  * @return               The copied block hash.
  */
-OPENSYRIAKERNEL_API osck_BlockHash* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_block_hash_copy(
-    const osck_BlockHash* block_hash) OPENSYRIAKERNEL_ARG_NONNULL(1);
+OPENSYKERNEL_API osck_BlockHash* OPENSYKERNEL_WARN_UNUSED_RESULT osck_block_hash_copy(
+    const osck_BlockHash* block_hash) OPENSYKERNEL_ARG_NONNULL(1);
 
 /**
  * @brief Serializes the block hash to bytes.
@@ -1562,13 +1562,13 @@ OPENSYRIAKERNEL_API osck_BlockHash* OPENSYRIAKERNEL_WARN_UNUSED_RESULT osck_bloc
  * @param[in] block_hash     Non-null.
  * @param[in] output         The serialized block hash.
  */
-OPENSYRIAKERNEL_API void osck_block_hash_to_bytes(
-    const osck_BlockHash* block_hash, unsigned char output[32]) OPENSYRIAKERNEL_ARG_NONNULL(1, 2);
+OPENSYKERNEL_API void osck_block_hash_to_bytes(
+    const osck_BlockHash* block_hash, unsigned char output[32]) OPENSYKERNEL_ARG_NONNULL(1, 2);
 
 /**
  * Destroy the block hash.
  */
-OPENSYRIAKERNEL_API void osck_block_hash_destroy(osck_BlockHash* block_hash);
+OPENSYKERNEL_API void osck_block_hash_destroy(osck_BlockHash* block_hash);
 
 ///@}
 
@@ -1576,4 +1576,4 @@ OPENSYRIAKERNEL_API void osck_block_hash_destroy(osck_BlockHash* block_hash);
 } // extern "C"
 #endif // __cplusplus
 
-#endif // OPENSYRIA_KERNEL_OPENSYRIAKERNEL_H
+#endif // OPENSY_KERNEL_OPENSYKERNEL_H

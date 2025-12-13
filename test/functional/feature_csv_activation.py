@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-2022 The OpenSyria Core developers
+# Copyright (c) 2015-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test CSV soft fork activation.
@@ -50,7 +50,7 @@ from test_framework.script import (
     OP_CHECKSEQUENCEVERIFY,
     OP_DROP,
 )
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_equal,
     softfork_active,
@@ -91,7 +91,7 @@ def all_rlt_txs(txs):
 CSV_ACTIVATION_HEIGHT = 432
 
 
-class BIP68_112_113Test(OpenSyriaTestFramework):
+class BIP68_112_113Test(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
         self.setup_clean_chain = True
@@ -164,13 +164,13 @@ class BIP68_112_113Test(OpenSyriaTestFramework):
         for _ in range(number):
             block = self.create_test_block([])
             test_blocks.append(block)
-            self.last_block_time += 120  # OpenSyria: 2-minute blocks
+            self.last_block_time += 120  # OpenSY: 2-minute blocks
             self.tip = block.hash_int
             self.tipheight += 1
         return test_blocks
 
     def create_test_block(self, txs):
-        block = create_block(self.tip, create_coinbase(self.tipheight + 1), self.last_block_time + 120, txlist=txs)  # OpenSyria: 2-minute blocks
+        block = create_block(self.tip, create_coinbase(self.tipheight + 1), self.last_block_time + 120, txlist=txs)  # OpenSY: 2-minute blocks
         block.solve()
         return block
 
@@ -185,7 +185,7 @@ class BIP68_112_113Test(OpenSyriaTestFramework):
         self.miniwallet = MiniWallet(self.nodes[0], mode=MiniWalletMode.RAW_P2PK)
 
         self.log.info("Generate blocks in the past for coinbase outputs.")
-        long_past_time = int(time.time()) - 120 * 1000  # OpenSyria: enough to build up to 1000 blocks 2 minutes apart without worrying about getting into the future
+        long_past_time = int(time.time()) - 120 * 1000  # OpenSY: enough to build up to 1000 blocks 2 minutes apart without worrying about getting into the future
         self.nodes[0].setmocktime(long_past_time - 100)  # enough so that the generated blocks will still all be before long_past_time
         self.coinbase_blocks = self.generate(self.miniwallet, COINBASE_BLOCK_COUNT)  # blocks generated for inputs
         self.nodes[0].setmocktime(0)  # set time back to present so yielded blocks aren't in the future as we advance last_block_time
@@ -201,7 +201,7 @@ class BIP68_112_113Test(OpenSyriaTestFramework):
 
         # Inputs at height = 431
         #
-        # Put inputs for all tests in the chain at height 431 (tip now = 430) (time increases by 120s per block)  # OpenSyria
+        # Put inputs for all tests in the chain at height 431 (tip now = 430) (time increases by 120s per block)  # OpenSY
         # Note we reuse inputs for v1 and v2 txs so must test these separately
         # 16 normal inputs
         bip68inputs = []
@@ -232,12 +232,12 @@ class BIP68_112_113Test(OpenSyriaTestFramework):
         # 1 normal input
         bip113input = self.send_generic_input_tx(self.coinbase_blocks)
 
-        self.nodes[0].setmocktime(self.last_block_time + 120)  # OpenSyria: 2-minute blocks
+        self.nodes[0].setmocktime(self.last_block_time + 120)  # OpenSY: 2-minute blocks
         inputblockhash = self.generate(self.nodes[0], 1)[0]  # 1 block generated for inputs to be in chain at height 431
         self.nodes[0].setmocktime(0)
         self.tip = int(inputblockhash, 16)
         self.tipheight += 1
-        self.last_block_time += 120  # OpenSyria: 2-minute blocks
+        self.last_block_time += 120  # OpenSY: 2-minute blocks
         assert_equal(len(self.nodes[0].getblock(inputblockhash, True)["tx"]), TESTING_TX_COUNT + 1)
 
         # 2 more version 4 blocks
@@ -288,7 +288,7 @@ class BIP68_112_113Test(OpenSyriaTestFramework):
 
         success_txs = []
         # BIP113 tx, -1 CSV tx and empty stack CSV tx should succeed
-        bip113tx_v1.nLockTime = self.last_block_time - 120 * 5  # OpenSyria: = MTP of prior block (not <) but < time put on current block
+        bip113tx_v1.nLockTime = self.last_block_time - 120 * 5  # OpenSY: = MTP of prior block (not <) but < time put on current block
         self.miniwallet.sign_tx(bip113tx_v1)
         success_txs.append(bip113tx_v1)
         success_txs.append(bip112tx_special_v1)
@@ -308,7 +308,7 @@ class BIP68_112_113Test(OpenSyriaTestFramework):
 
         success_txs = []
         # BIP113 tx, -1 CSV tx and empty stack CSV tx should succeed
-        bip113tx_v2.nLockTime = self.last_block_time - 120 * 5  # OpenSyria: = MTP of prior block (not <) but < time put on current block
+        bip113tx_v2.nLockTime = self.last_block_time - 120 * 5  # OpenSY: = MTP of prior block (not <) but < time put on current block
         self.miniwallet.sign_tx(bip113tx_v2)
         success_txs.append(bip113tx_v2)
         success_txs.append(bip112tx_special_v2)
@@ -334,17 +334,17 @@ class BIP68_112_113Test(OpenSyriaTestFramework):
 
         self.log.info("BIP 113 tests")
         # BIP 113 tests should now fail regardless of version number if nLockTime isn't satisfied by new rules
-        bip113tx_v1.nLockTime = self.last_block_time - 120 * 5  # OpenSyria: = MTP of prior block (not <) but < time put on current block
+        bip113tx_v1.nLockTime = self.last_block_time - 120 * 5  # OpenSY: = MTP of prior block (not <) but < time put on current block
         self.miniwallet.sign_tx(bip113tx_v1)
-        bip113tx_v2.nLockTime = self.last_block_time - 120 * 5  # OpenSyria: = MTP of prior block (not <) but < time put on current block
+        bip113tx_v2.nLockTime = self.last_block_time - 120 * 5  # OpenSY: = MTP of prior block (not <) but < time put on current block
         self.miniwallet.sign_tx(bip113tx_v2)
         for bip113tx in [bip113tx_v1, bip113tx_v2]:
             self.send_blocks([self.create_test_block([bip113tx])], success=False, reject_reason='bad-txns-nonfinal')
 
         # BIP 113 tests should now pass if the locktime is < MTP
-        bip113tx_v1.nLockTime = self.last_block_time - 120 * 5 - 1  # OpenSyria: < MTP of prior block
+        bip113tx_v1.nLockTime = self.last_block_time - 120 * 5 - 1  # OpenSY: < MTP of prior block
         self.miniwallet.sign_tx(bip113tx_v1)
-        bip113tx_v2.nLockTime = self.last_block_time - 120 * 5 - 1  # OpenSyria: < MTP of prior block
+        bip113tx_v2.nLockTime = self.last_block_time - 120 * 5 - 1  # OpenSY: < MTP of prior block
         self.miniwallet.sign_tx(bip113tx_v2)
         for bip113tx in [bip113tx_v1, bip113tx_v2]:
             self.send_blocks([self.create_test_block([bip113tx])])
@@ -369,7 +369,7 @@ class BIP68_112_113Test(OpenSyriaTestFramework):
         self.send_blocks([self.create_test_block(bip68success_txs)])
         self.nodes[0].invalidateblock(self.nodes[0].getbestblockhash())
 
-        # All txs without flag fail as we are at delta height = 8 < 10 and delta time = 8 * 120 < 10 * 512  # OpenSyria
+        # All txs without flag fail as we are at delta height = 8 < 10 and delta time = 8 * 120 < 10 * 512  # OpenSY
         bip68timetxs = [tx['tx'] for tx in bip68txs_v2 if not tx['sdf'] and tx['stf']]
         for tx in bip68timetxs:
             self.send_blocks([self.create_test_block([tx])], success=False, reject_reason='bad-txns-nonfinal')
@@ -382,7 +382,7 @@ class BIP68_112_113Test(OpenSyriaTestFramework):
         test_blocks = self.generate_blocks(1)
         self.send_blocks(test_blocks)
 
-        # OpenSyria: With 120s blocks and BIP68 time granularity of 512s:
+        # OpenSY: With 120s blocks and BIP68 time granularity of 512s:
         # - Height lock of 10 blocks needs delta height >= 10
         # - Time lock of 10*512=5120s needs delta time >= 5120s, i.e., 5120/120 = 43 blocks
         # At height 438, delta = 7 blocks, so both height and time txs should still FAIL

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2012-2022 The OpenSyria Core developers
+# Copyright (c) 2012-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 '''
@@ -17,15 +17,15 @@ from test_framework.address import base58_to_byte, byte_to_base58, b58chars  # n
 from test_framework.script import OP_0, OP_1, OP_2, OP_3, OP_16, OP_DUP, OP_EQUAL, OP_EQUALVERIFY, OP_HASH160, OP_CHECKSIG  # noqa: E402
 from test_framework.segwit_addr import bech32_encode, decode_segwit_address, convertbits, CHARSET, Encoding  # noqa: E402
 
-# key types - OpenSyria address prefixes
+# key types - OpenSY address prefixes
 # Mainnet: P2PKH=35 (F), P2SH=36 (F), WIF=128
 # Testnet/Signet/Regtest: P2PKH=95 (f), P2SH=96 (f), WIF=239
-PUBKEY_ADDRESS = 35           # OpenSyria mainnet P2PKH - starts with 'F'
-SCRIPT_ADDRESS = 36           # OpenSyria mainnet P2SH - starts with 'F'
-PUBKEY_ADDRESS_TEST = 95      # OpenSyria testnet P2PKH - starts with 'f'
-SCRIPT_ADDRESS_TEST = 96      # OpenSyria testnet P2SH - starts with 'f'
-PUBKEY_ADDRESS_REGTEST = 95   # OpenSyria regtest P2PKH - starts with 'f'
-SCRIPT_ADDRESS_REGTEST = 96   # OpenSyria regtest P2SH - starts with 'f'
+PUBKEY_ADDRESS = 35           # OpenSY mainnet P2PKH - starts with 'F'
+SCRIPT_ADDRESS = 36           # OpenSY mainnet P2SH - starts with 'F'
+PUBKEY_ADDRESS_TEST = 95      # OpenSY testnet P2PKH - starts with 'f'
+SCRIPT_ADDRESS_TEST = 96      # OpenSY testnet P2SH - starts with 'f'
+PUBKEY_ADDRESS_REGTEST = 95   # OpenSY regtest P2PKH - starts with 'f'
+SCRIPT_ADDRESS_REGTEST = 96   # OpenSY regtest P2SH - starts with 'f'
 PRIVKEY = 128
 PRIVKEY_TEST = 239
 PRIVKEY_REGTEST = 239
@@ -61,7 +61,7 @@ templates = [
   ((PRIVKEY_REGTEST,),        32, (),   (True,  'regtest', False, None), (),            ()),
   ((PRIVKEY_REGTEST,),        32, (1,), (True,  'regtest', True,  None), (),            ())
 ]
-# templates for valid bech32 sequences - OpenSyria HRPs
+# templates for valid bech32 sequences - OpenSY HRPs
 bech32_templates = [
   # hrp, version, witprog_size, metadata, encoding, output_prefix
   ('syl',    0, 20, (False, 'main',    None, True), Encoding.BECH32,  p2wpkh_prefix),
@@ -81,7 +81,7 @@ bech32_templates = [
   ('rsyl',   1, 32, (False, 'regtest', None, True), Encoding.BECH32M, p2tr_prefix),
   ('rsyl',  16, 40, (False, 'regtest', None, True), Encoding.BECH32M, (OP_16, 40))
 ]
-# templates for invalid bech32 sequences - OpenSyria HRPs
+# templates for invalid bech32 sequences - OpenSY HRPs
 bech32_ng_templates = [
   # hrp, version, witprog_size, encoding, invalid_bech32, invalid_checksum, invalid_char
   ('tc',    0, 20, Encoding.BECH32,  False, False, False),

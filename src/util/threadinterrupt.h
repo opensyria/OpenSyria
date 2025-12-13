@@ -1,9 +1,9 @@
-// Copyright (c) 2016-2022 The OpenSyria Core developers
+// Copyright (c) 2016-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UTIL_THREADINTERRUPT_H
-#define OPENSYRIA_UTIL_THREADINTERRUPT_H
+#ifndef OPENSY_UTIL_THREADINTERRUPT_H
+#define OPENSY_UTIL_THREADINTERRUPT_H
 
 #include <sync.h>
 #include <threadsafety.h>
@@ -55,4 +55,4 @@ private:
     std::atomic<bool> flag;
 };
 
-#endif // OPENSYRIA_UTIL_THREADINTERRUPT_H
+#endif // OPENSY_UTIL_THREADINTERRUPT_H

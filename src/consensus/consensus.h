@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_CONSENSUS_CONSENSUS_H
-#define OPENSYRIA_CONSENSUS_CONSENSUS_H
+#ifndef OPENSY_CONSENSUS_CONSENSUS_H
+#define OPENSY_CONSENSUS_CONSENSUS_H
 
 #include <cstdint>
 #include <cstdlib>
@@ -38,4 +38,4 @@ static constexpr unsigned int LOCKTIME_VERIFY_SEQUENCE = (1 << 0);
  */
 static constexpr int64_t MAX_TIMEWARP = 600;
 
-#endif // OPENSYRIA_CONSENSUS_CONSENSUS_H
+#endif // OPENSY_CONSENSUS_CONSENSUS_H

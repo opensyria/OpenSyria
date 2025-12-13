@@ -12,9 +12,9 @@ export CI_BASE_PACKAGES="build-base musl-dev pkgconf curl ccache make ninja git 
 export PIP_PACKAGES="--break-system-packages pyzmq pycapnp"
 export DEP_OPTS="DEBUG=1"
 export GOAL="install"
-export OPENSYRIA_CONFIG="\
+export OPENSY_CONFIG="\
  --preset=dev-mode \
  -DREDUCE_EXPORTS=ON \
  -DCMAKE_BUILD_TYPE=Debug \
 "
-export OPENSYRIA_CMD="opensyria -m" # Used in functional tests
+export OPENSY_CMD="opensy -m" # Used in functional tests

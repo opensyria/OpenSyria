@@ -1,9 +1,9 @@
-// Copyright (c) 2018-2022 The OpenSyria Core developers
+// Copyright (c) 2018-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_INTERFACES_WALLET_H
-#define OPENSYRIA_INTERFACES_WALLET_H
+#ifndef OPENSY_INTERFACES_WALLET_H
+#define OPENSY_INTERFACES_WALLET_H
 
 #include <addresstype.h>
 #include <common/signmessage.h>
@@ -438,4 +438,4 @@ std::unique_ptr<WalletLoader> MakeWalletLoader(Chain& chain, ArgsManager& args);
 
 } // namespace interfaces
 
-#endif // OPENSYRIA_INTERFACES_WALLET_H
+#endif // OPENSY_INTERFACES_WALLET_H

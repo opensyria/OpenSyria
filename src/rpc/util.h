@@ -1,9 +1,9 @@
-// Copyright (c) 2017-present The OpenSyria Core developers
+// Copyright (c) 2017-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_RPC_UTIL_H
-#define OPENSYRIA_RPC_UTIL_H
+#ifndef OPENSY_RPC_UTIL_H
+#define OPENSY_RPC_UTIL_H
 
 #include <addresstype.h>
 #include <consensus/amount.h>
@@ -530,4 +530,4 @@ std::vector<RPCResult> ScriptPubKeyDoc();
  */
 uint256 GetTarget(const CBlockIndex& blockindex, const Consensus::Params& params);
 
-#endif // OPENSYRIA_RPC_UTIL_H
+#endif // OPENSY_RPC_UTIL_H

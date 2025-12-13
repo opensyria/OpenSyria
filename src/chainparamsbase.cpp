@@ -1,5 +1,5 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -42,15 +42,15 @@ std::unique_ptr<CBaseChainParams> CreateBaseChainParams(const ChainType chain)
 {
     switch (chain) {
     case ChainType::MAIN:
-        return std::make_unique<CBaseChainParams>("", 9632); // OpenSyria mainnet RPC (963 + 2)
+        return std::make_unique<CBaseChainParams>("", 9632); // OpenSY mainnet RPC (963 + 2)
     case ChainType::TESTNET:
-        return std::make_unique<CBaseChainParams>("testnet3", 19632); // OpenSyria testnet RPC
+        return std::make_unique<CBaseChainParams>("testnet3", 19632); // OpenSY testnet RPC
     case ChainType::TESTNET4:
-        return std::make_unique<CBaseChainParams>("testnet4", 49632); // OpenSyria testnet4 RPC
+        return std::make_unique<CBaseChainParams>("testnet4", 49632); // OpenSY testnet4 RPC
     case ChainType::SIGNET:
-        return std::make_unique<CBaseChainParams>("signet", 39632); // OpenSyria signet RPC
+        return std::make_unique<CBaseChainParams>("signet", 39632); // OpenSY signet RPC
     case ChainType::REGTEST:
-        return std::make_unique<CBaseChainParams>("regtest", 19642); // OpenSyria regtest RPC
+        return std::make_unique<CBaseChainParams>("regtest", 19642); // OpenSY regtest RPC
     }
     assert(false);
 }

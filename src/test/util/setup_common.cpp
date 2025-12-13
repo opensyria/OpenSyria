@@ -1,4 +1,4 @@
-// Copyright (c) 2011-present The OpenSyria Core developers
+// Copyright (c) 2011-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -76,7 +76,7 @@ using node::VerifyLoadedChainstate;
 
 const TranslateFn G_TRANSLATION_FUN{nullptr};
 
-constexpr inline auto TEST_DIR_PATH_ELEMENT{"test_common opensyria"}; // Includes a space to catch possible path escape issues.
+constexpr inline auto TEST_DIR_PATH_ELEMENT{"test_common opensy"}; // Includes a space to catch possible path escape issues.
 /** Random context to get unique temp data dirs. Separate from m_rng, which can be seeded from a const env var */
 static FastRandomContext g_rng_temp_path;
 static const bool g_rng_temp_path_init{[] {
@@ -378,7 +378,7 @@ TestChain100Setup::TestChain100Setup(
     TestOpts opts)
     : TestingSetup{ChainType::REGTEST, opts}
 {
-    SetMockTime(1733616010); // After OpenSyria genesis timestamp (1733616003)
+    SetMockTime(1733616010); // After OpenSY genesis timestamp (1733616003)
     constexpr std::array<unsigned char, 32> vchKey = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1}};
     coinbaseKey.Set(vchKey.begin(), vchKey.end(), true);
@@ -388,9 +388,9 @@ TestChain100Setup::TestChain100Setup(
 
     {
         LOCK(::cs_main);
-        // OpenSyria: Chain hash will differ from OpenSyria due to different genesis and rewards
+        // OpenSY: Chain hash will differ from OpenSY due to different genesis and rewards
         // This assertion ensures deterministic test environment
-        // Disabled for OpenSyria - uncomment and update hash after chain stabilizes
+        // Disabled for OpenSY - uncomment and update hash after chain stabilizes
         // assert(
         //     m_node.chainman->ActiveChain().Tip()->GetBlockHash().ToString() ==
         //     "0c8c5f79505775a0f6aed6aca2350718ceb9c6f2c878667864d5c7a6d8ffa2a6");

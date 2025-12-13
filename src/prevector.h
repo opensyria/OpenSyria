@@ -1,9 +1,9 @@
-// Copyright (c) 2015-present The OpenSyria Core developers
+// Copyright (c) 2015-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_PREVECTOR_H
-#define OPENSYRIA_PREVECTOR_H
+#ifndef OPENSY_PREVECTOR_H
+#define OPENSY_PREVECTOR_H
 
 #include <algorithm>
 #include <cassert>
@@ -495,4 +495,4 @@ public:
     }
 };
 
-#endif // OPENSYRIA_PREVECTOR_H
+#endif // OPENSY_PREVECTOR_H

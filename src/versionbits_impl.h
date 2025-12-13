@@ -1,9 +1,9 @@
-// Copyright (c) 2016-2022 The OpenSyria Core developers
+// Copyright (c) 2016-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_VERSIONBITS_IMPL_H
-#define OPENSYRIA_VERSIONBITS_IMPL_H
+#ifndef OPENSY_VERSIONBITS_IMPL_H
+#define OPENSY_VERSIONBITS_IMPL_H
 
 #include <chain.h>
 #include <sync.h>
@@ -82,4 +82,4 @@ public:
     }
 };
 
-#endif // OPENSYRIA_VERSIONBITS_IMPL_H
+#endif // OPENSY_VERSIONBITS_IMPL_H

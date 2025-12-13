@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2022 The OpenSyria Core developers
+// Copyright (c) 2011-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -301,19 +301,19 @@ BOOST_AUTO_TEST_CASE(tx_invalid)
                 continue;
             }
 
-            // OpenSyria: Some BADTX tests from OpenSyria are no longer invalid due to
+            // OpenSY: Some BADTX tests from OpenSY are no longer invalid due to
             // different MAX_MONEY (21B vs 21M). Skip BADTX tests that pass CheckTransaction().
             if (test[2].get_str() == "BADTX") {
                 // Transaction passed CheckTransaction but was expected to fail (BADTX).
-                // This is expected for OpenSyria with different monetary parameters.
+                // This is expected for OpenSY with different monetary parameters.
                 continue;
             }
 
-            // OpenSyria: Some BADTX tests from OpenSyria are no longer invalid due to
+            // OpenSY: Some BADTX tests from OpenSY are no longer invalid due to
             // different MAX_MONEY (21B vs 21M). Skip BADTX tests that pass CheckTransaction().
             if (test[2].get_str() == "BADTX") {
                 // Transaction passed CheckTransaction but was expected to fail (BADTX).
-                // This is expected for OpenSyria with different monetary parameters.
+                // This is expected for OpenSY with different monetary parameters.
                 continue;
             }
 

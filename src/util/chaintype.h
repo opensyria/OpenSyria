@@ -1,9 +1,9 @@
-// Copyright (c) 2023 The OpenSyria Core developers
+// Copyright (c) 2023 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UTIL_CHAINTYPE_H
-#define OPENSYRIA_UTIL_CHAINTYPE_H
+#ifndef OPENSY_UTIL_CHAINTYPE_H
+#define OPENSY_UTIL_CHAINTYPE_H
 
 #include <optional>
 #include <string>
@@ -20,4 +20,4 @@ std::string ChainTypeToString(ChainType chain);
 
 std::optional<ChainType> ChainTypeFromString(std::string_view chain);
 
-#endif // OPENSYRIA_UTIL_CHAINTYPE_H
+#endif // OPENSY_UTIL_CHAINTYPE_H

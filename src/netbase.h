@@ -1,9 +1,9 @@
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_NETBASE_H
-#define OPENSYRIA_NETBASE_H
+#ifndef OPENSY_NETBASE_H
+#define OPENSY_NETBASE_H
 
 #include <compat/compat.h>
 #include <netaddress.h>
@@ -362,4 +362,4 @@ bool IsBadPort(uint16_t port);
  */
 CService MaybeFlipIPv6toCJDNS(const CService& service);
 
-#endif // OPENSYRIA_NETBASE_H
+#endif // OPENSY_NETBASE_H

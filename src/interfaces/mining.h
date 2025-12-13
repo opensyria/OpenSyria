@@ -1,9 +1,9 @@
-// Copyright (c) 2024-present The OpenSyria Core developers
+// Copyright (c) 2024-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_INTERFACES_MINING_H
-#define OPENSYRIA_INTERFACES_MINING_H
+#ifndef OPENSY_INTERFACES_MINING_H
+#define OPENSY_INTERFACES_MINING_H
 
 #include <consensus/amount.h>
 #include <interfaces/types.h>
@@ -157,4 +157,4 @@ std::unique_ptr<Mining> MakeMining(node::NodeContext& node);
 
 } // namespace interfaces
 
-#endif // OPENSYRIA_INTERFACES_MINING_H
+#endif // OPENSY_INTERFACES_MINING_H

@@ -1,11 +1,11 @@
-// Copyright (c) 2020-2021 The OpenSyria Core developers
+// Copyright (c) 2020-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UTIL_TRACE_H
-#define OPENSYRIA_UTIL_TRACE_H
+#ifndef OPENSY_UTIL_TRACE_H
+#define OPENSY_UTIL_TRACE_H
 
-#include <opensyria-build-config.h> // IWYU pragma: keep
+#include <opensy-build-config.h> // IWYU pragma: keep
 
 #ifdef ENABLE_TRACING
 
@@ -58,4 +58,4 @@
 #endif // ENABLE_TRACING
 
 
-#endif // OPENSYRIA_UTIL_TRACE_H
+#endif // OPENSY_UTIL_TRACE_H

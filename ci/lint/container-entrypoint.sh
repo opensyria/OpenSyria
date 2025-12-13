@@ -7,8 +7,8 @@
 export LC_ALL=C
 
 # Fixes permission issues when there is a container UID/GID mismatch with the owner
-# of the mounted opensyria src dir.
-git config --global --add safe.directory /opensyria
+# of the mounted opensy src dir.
+git config --global --add safe.directory /opensy
 
 export PATH="/python_build/bin:${PATH}"
 

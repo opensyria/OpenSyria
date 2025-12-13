@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2022 The OpenSyria Core developers
+// Copyright (c) 2011-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -305,7 +305,7 @@ void MinerTestingSetup::TestBasicMining(const CScript& scriptPubKey, const std::
     entry.nFee = 11;
     entry.nHeight = 11;
 
-    const CAmount BLOCKSUBSIDY = 10000 * COIN; // OpenSyria: 10,000 SYL
+    const CAmount BLOCKSUBSIDY = 10000 * COIN; // OpenSY: 10,000 SYL
     const CAmount LOWFEE = CENT;
     const CAmount HIGHFEE = COIN;
     const CAmount HIGHERFEE = 4 * COIN;
@@ -767,7 +767,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
             std::string debug;
             BOOST_REQUIRE(!mining->checkBlock(block, {.check_pow = true}, reason, debug));
             BOOST_REQUIRE_EQUAL(reason, "high-hash");
-            // OpenSyria uses algorithm-specific PoW error messages
+            // OpenSY uses algorithm-specific PoW error messages
             BOOST_REQUIRE(debug == "SHA256d proof of work failed" || debug == "RandomX proof of work failed");
         }
     }

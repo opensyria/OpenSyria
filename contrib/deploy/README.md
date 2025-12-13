@@ -1,6 +1,6 @@
-# OpenSyria Deployment Scripts
+# OpenSY Deployment Scripts
 
-This directory contains scripts and configurations for deploying OpenSyria infrastructure.
+This directory contains scripts and configurations for deploying OpenSY infrastructure.
 
 ## Quick Start
 
@@ -8,15 +8,15 @@ This directory contains scripts and configurations for deploying OpenSyria infra
 
 ```bash
 # On a fresh Ubuntu 22.04 server:
-curl -sSL https://raw.githubusercontent.com/opensyria/OpenSyria/main/contrib/deploy/setup-node.sh | sudo bash
+curl -sSL https://raw.githubusercontent.com/opensy/OpenSY/main/contrib/deploy/setup-node.sh | sudo bash
 ```
 
 ### Option 2: Manual Setup
 
 1. Download the scripts:
 ```bash
-git clone https://github.com/opensyria/OpenSyria.git
-cd OpenSyria/contrib/deploy
+git clone https://github.com/opensy/OpenSY.git
+cd OpenSY/contrib/deploy
 ```
 
 2. Run setup scripts:
@@ -40,9 +40,9 @@ contrib/deploy/
 ├── setup-dns-seeder.sh          # DNS seeder setup script  
 ├── setup-explorer.sh            # Block explorer setup script
 └── docker/
-    ├── Dockerfile               # OpenSyria node Docker image
+    ├── Dockerfile               # OpenSY node Docker image
     ├── docker-compose.yml       # Multi-service composition
-    └── opensyria.conf.default   # Default Docker config
+    └── opensy.conf.default   # Default Docker config
 ```
 
 ## Deployment Guide
@@ -76,17 +76,17 @@ For complete deployment instructions, see:
 
 ### Build Image
 ```bash
-cd /path/to/OpenSyria
-docker build -t opensyria/node:latest -f contrib/deploy/docker/Dockerfile .
+cd /path/to/OpenSY
+docker build -t opensy/node:latest -f contrib/deploy/docker/Dockerfile .
 ```
 
 ### Run Node
 ```bash
 docker run -d \
-  --name opensyria-node \
+  --name opensy-node \
   -p 9633:9633 \
-  -v opensyria-data:/home/opensyria/.opensyria \
-  opensyria/node:latest
+  -v opensy-data:/home/opensy/.opensy \
+  opensy/node:latest
 ```
 
 ### Docker Compose
@@ -94,7 +94,7 @@ docker run -d \
 cd contrib/deploy/docker
 
 # Start node only
-docker compose up -d opensyriad
+docker compose up -d opensyd
 
 # Start node + explorer
 docker compose --profile explorer up -d
@@ -107,10 +107,10 @@ docker compose --profile explorer --profile monitoring up -d
 
 ### Manual Update
 ```bash
-cd /opt/opensyria/source
+cd /opt/opensy/source
 git pull origin main
 cmake --build build -j$(nproc)
-sudo systemctl restart opensyriad
+sudo systemctl restart opensyd
 ```
 
 ### Docker Update
@@ -125,10 +125,10 @@ docker compose up -d
 ### Node won't start
 ```bash
 # Check logs
-journalctl -u opensyriad -f
+journalctl -u opensyd -f
 
 # Check configuration
-cat /home/opensyria/.opensyria/opensyria.conf
+cat /home/opensy/.opensy/opensy.conf
 ```
 
 ### Can't connect to peers
@@ -137,19 +137,19 @@ cat /home/opensyria/.opensyria/opensyria.conf
 sudo ufw status
 
 # Check if port is open
-nc -zv seed.opensyria.net 9633
+nc -zv seed.opensy.net 9633
 
 # Manual peer connection
-opensyria-cli addnode <IP>:9633 onetry
+opensy-cli addnode <IP>:9633 onetry
 ```
 
 ### RPC not responding
 ```bash
 # Check if running
-opensyria-cli getblockchaininfo
+opensy-cli getblockchaininfo
 
 # Check RPC config
-grep rpc /home/opensyria/.opensyria/opensyria.conf
+grep rpc /home/opensy/.opensy/opensy.conf
 ```
 
 ## Security Considerations
@@ -162,6 +162,6 @@ grep rpc /home/opensyria/.opensyria/opensyria.conf
 
 ## Support
 
-- **Documentation**: https://opensyria.net/docs
-- **GitHub Issues**: https://github.com/opensyria/OpenSyria/issues
-- **Email**: admin@opensyria.net
+- **Documentation**: https://opensy.net/docs
+- **GitHub Issues**: https://github.com/opensy/OpenSY/issues
+- **Email**: admin@opensy.net

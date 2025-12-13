@@ -1,5 +1,5 @@
 #!/bin/bash
-CLI="/Users/hamoudi/OpenSyria/build/bin/opensyria-cli"
+CLI="/Users/hamoudi/OpenSY/build/bin/opensy-cli"
 ADDR="syl1q0y76xxxdfvhfad2sju4fymnsn8zs5lndpwhufw"
 
 while true; do

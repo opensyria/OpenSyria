@@ -1,4 +1,4 @@
-# Copyright (c) 2023-present The OpenSyria Core developers
+# Copyright (c) 2023-present The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit.
 
@@ -20,7 +20,7 @@ concurrency:
 env:
   CI_FAILFAST_TEST_LEAVE_DANGLING: 1  # GHA does not care about dangling processes and setting this variable avoids killing the CI script itself on error
   CIRRUS_CACHE_HOST: http://127.0.0.1:12321/ # When using Cirrus Runners this host can be used by the docker `gha` build cache type.
-  REPO_USE_CIRRUS_RUNNERS: 'opensyria/opensyria' # Use cirrus runners and cache for this repo, instead of falling back to the slow GHA runners
+  REPO_USE_CIRRUS_RUNNERS: 'opensy/opensy' # Use cirrus runners and cache for this repo, instead of falling back to the slow GHA runners
 
 defaults:
   run:
@@ -291,14 +291,14 @@ jobs:
         working-directory: build
         shell: pwsh -Command "$PSVersionTable; $PSNativeCommandUseErrorActionPreference = $true; $ErrorActionPreference = 'Stop'; & '{0}'"
         run: |
-          mt.exe -nologo -inputresource:bin\Release\opensyriad.exe -out:opensyriad.manifest
-          Get-Content opensyriad.manifest
+          mt.exe -nologo -inputresource:bin\Release\opensyd.exe -out:opensyd.manifest
+          Get-Content opensyd.manifest
 
           Get-ChildItem -Filter "bin\Release\*.exe" | ForEach-Object {
             $exeName = $_.Name
 
             # Skip as they currently do not have manifests
-            if ($exeName -eq "fuzz.exe" -or $exeName -eq "bench_opensyria.exe" -or $exeName -eq "test_opensyria-qt.exe" -or $exeName -eq "test_kernel.exe" -or $exeName -eq "opensyria-chainstate.exe") {
+            if ($exeName -eq "fuzz.exe" -or $exeName -eq "bench_opensy.exe" -or $exeName -eq "test_opensy-qt.exe" -or $exeName -eq "test_kernel.exe" -or $exeName -eq "opensy-chainstate.exe") {
               Write-Host "Skipping $exeName (no manifest present)"
               return
             }
@@ -317,20 +317,20 @@ jobs:
         if: matrix.job-type == 'standard'
         working-directory: build
         env:
-          OPENSYRIA_BIN: '${{ github.workspace }}\build\bin\Release\opensyria.exe'
-          OPENSYRIAD: '${{ github.workspace }}\build\bin\Release\opensyriad.exe'
-          OPENSYRIACLI: '${{ github.workspace }}\build\bin\Release\opensyria-cli.exe'
-          OPENSYRIATX: '${{ github.workspace }}\build\bin\Release\opensyria-tx.exe'
-          OPENSYRIAUTIL: '${{ github.workspace }}\build\bin\Release\opensyria-util.exe'
-          OPENSYRIAWALLET: '${{ github.workspace }}\build\bin\Release\opensyria-wallet.exe'
-          OPENSYRIACHAINSTATE: '${{ github.workspace }}\build\bin\Release\opensyria-chainstate.exe'
+          OPENSY_BIN: '${{ github.workspace }}\build\bin\Release\opensy.exe'
+          OPENSYD: '${{ github.workspace }}\build\bin\Release\opensyd.exe'
+          OPENSYCLI: '${{ github.workspace }}\build\bin\Release\opensy-cli.exe'
+          OPENSYTX: '${{ github.workspace }}\build\bin\Release\opensy-tx.exe'
+          OPENSYUTIL: '${{ github.workspace }}\build\bin\Release\opensy-util.exe'
+          OPENSYWALLET: '${{ github.workspace }}\build\bin\Release\opensy-wallet.exe'
+          OPENSYCHAINSTATE: '${{ github.workspace }}\build\bin\Release\opensy-chainstate.exe'
           TEST_RUNNER_EXTRA: ${{ github.event_name != 'pull_request' && '--extended' || '' }}
         run: py -3 test/functional/test_runner.py --jobs $NUMBER_OF_PROCESSORS --ci --quiet --tmpdirprefix="${RUNNER_TEMP}" --combinedlogslen=99999999 --timeout-factor=${TEST_RUNNER_TIMEOUT_FACTOR} ${TEST_RUNNER_EXTRA}
 
       - name: Clone corpora
         if: matrix.job-type == 'fuzz'
         run: |
-          git clone --depth=1 https://github.com/opensyria/qa-assets "${RUNNER_TEMP}/qa-assets"
+          git clone --depth=1 https://github.com/opensy/qa-assets "${RUNNER_TEMP}/qa-assets"
           cd "${RUNNER_TEMP}/qa-assets"
           echo "Using qa-assets repo from commit ..."
           git log -1
@@ -339,7 +339,7 @@ jobs:
         if: matrix.job-type == 'fuzz'
         working-directory: build
         env:
-          OPENSYRIAFUZZ: '${{ github.workspace }}\build\bin\Release\fuzz.exe'
+          OPENSYFUZZ: '${{ github.workspace }}\build\bin\Release\fuzz.exe'
         run: |
           py -3 test/fuzz/test_runner.py --par $NUMBER_OF_PROCESSORS --loglevel DEBUG "${RUNNER_TEMP}/qa-assets/fuzz_corpora"
 
@@ -428,22 +428,22 @@ jobs:
         with:
           name: ${{ matrix.artifact-name }}-${{ github.run_id }}
 
-      - name: Run opensyriad.exe
-        run: ./bin/opensyriad.exe -version
+      - name: Run opensyd.exe
+        run: ./bin/opensyd.exe -version
 
       - *SET_UP_VS
 
       - name: Check executable manifests
         shell: pwsh -Command "$PSVersionTable; $PSNativeCommandUseErrorActionPreference = $true; $ErrorActionPreference = 'Stop'; & '{0}'"
         run: |
-          mt.exe -nologo -inputresource:bin\opensyriad.exe -out:opensyriad.manifest
-          Get-Content opensyriad.manifest
+          mt.exe -nologo -inputresource:bin\opensyd.exe -out:opensyd.manifest
+          Get-Content opensyd.manifest
 
           Get-ChildItem -Filter "bin\*.exe" | ForEach-Object {
             $exeName = $_.Name
 
             # Skip as they currently do not have manifests
-            if ($exeName -eq "fuzz.exe" -or $exeName -eq "bench_opensyria.exe" -or $exeName -eq "test_kernel.exe") {
+            if ($exeName -eq "fuzz.exe" -or $exeName -eq "bench_opensy.exe" -or $exeName -eq "test_kernel.exe") {
               Write-Host "Skipping $exeName (no manifest present)"
               return
             }
@@ -455,8 +455,8 @@ jobs:
       - name: Run unit tests
         # Can't use ctest here like other jobs as we don't have a CMake build tree.
         run: |
-          ./bin/test_opensyria-qt.exe
-          ./bin/test_opensyria.exe -l test_suite  # Intentionally run sequentially here, to catch test case failures caused by dirty global state from prior test cases.
+          ./bin/test_opensy-qt.exe
+          ./bin/test_opensy.exe -l test_suite  # Intentionally run sequentially here, to catch test case failures caused by dirty global state from prior test cases.
           ./src/secp256k1/bin/exhaustive_tests.exe
           ./src/secp256k1/bin/noverify_tests.exe
           ./src/secp256k1/bin/tests.exe
@@ -464,7 +464,7 @@ jobs:
           ./src/univalue/unitester.exe
 
       - name: Run benchmarks
-        run: ./bin/bench_opensyria.exe -sanity-check
+        run: ./bin/bench_opensy.exe -sanity-check
 
       - name: Adjust paths in test/config.ini
         shell: pwsh
@@ -632,7 +632,7 @@ jobs:
     if: ${{ vars.SKIP_BRANCH_PUSH != 'true' || github.event_name == 'pull_request' }}
     timeout-minutes: 20
     env:
-      CONTAINER_NAME: "opensyria-linter"
+      CONTAINER_NAME: "opensy-linter"
     steps:
       - *ANNOTATION_PR_NUMBER
 

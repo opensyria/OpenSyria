@@ -1,9 +1,9 @@
-// Copyright (c) 2015-2022 The OpenSyria Core developers
+// Copyright (c) 2015-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_SCHEDULER_H
-#define OPENSYRIA_SCHEDULER_H
+#ifndef OPENSY_SCHEDULER_H
+#define OPENSY_SCHEDULER_H
 
 #include <attributes.h>
 #include <sync.h>
@@ -157,4 +157,4 @@ public:
     size_t size() override EXCLUSIVE_LOCKS_REQUIRED(!m_callbacks_mutex);
 };
 
-#endif // OPENSYRIA_SCHEDULER_H
+#endif // OPENSY_SCHEDULER_H

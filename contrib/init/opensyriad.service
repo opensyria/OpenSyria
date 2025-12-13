@@ -1,38 +1,38 @@
 # It is not recommended to modify this file in-place, because it will
 # be overwritten during package upgrades. If you want to add further
 # options or overwrite existing ones then use
-# $ systemctl edit opensyriad.service
+# $ systemctl edit opensyd.service
 # See "man systemd.service" for details.
 
 # Note that almost all daemon options could be specified in
-# /etc/opensyria/opensyria.conf, but keep in mind those explicitly
+# /etc/opensy/opensy.conf, but keep in mind those explicitly
 # specified as arguments in ExecStart= will override those in the
 # config file.
 
 [Unit]
-Description=OpenSyria daemon
-Documentation=https://github.com/opensyria/opensyria/blob/master/doc/init.md
+Description=OpenSY daemon
+Documentation=https://github.com/opensy/opensy/blob/master/doc/init.md
 
 # https://www.freedesktop.org/wiki/Software/systemd/NetworkTarget/
 After=network-online.target
 Wants=network-online.target
 
 [Service]
-ExecStart=/usr/bin/opensyriad -pid=/run/opensyriad/opensyriad.pid \
-                            -conf=/etc/opensyria/opensyria.conf \
-                            -datadir=/var/lib/opensyriad \
+ExecStart=/usr/bin/opensyd -pid=/run/opensyd/opensyd.pid \
+                            -conf=/etc/opensy/opensy.conf \
+                            -datadir=/var/lib/opensyd \
                             -startupnotify='systemd-notify --ready' \
                             -shutdownnotify='systemd-notify --stopping'
 
 # Make sure the config directory is readable by the service user
-ExecStartPre=!/bin/chgrp opensyria /etc/opensyria
+ExecStartPre=!/bin/chgrp opensy /etc/opensy
 
 # Process management
 ####################
 
 Type=notify
 NotifyAccess=all
-PIDFile=/run/opensyriad/opensyriad.pid
+PIDFile=/run/opensyd/opensyd.pid
 
 Restart=on-failure
 TimeoutStartSec=infinity
@@ -41,19 +41,19 @@ TimeoutStopSec=600
 # Directory creation and permissions
 ####################################
 
-# Run as opensyria:opensyria
-User=opensyria
+# Run as opensy:opensy
+User=opensy
 
-# /run/opensyriad
-RuntimeDirectory=opensyriad
+# /run/opensyd
+RuntimeDirectory=opensyd
 RuntimeDirectoryMode=0710
 
-# /etc/opensyria
-ConfigurationDirectory=opensyria
+# /etc/opensy
+ConfigurationDirectory=opensy
 ConfigurationDirectoryMode=0710
 
-# /var/lib/opensyriad
-StateDirectory=opensyriad
+# /var/lib/opensyd
+StateDirectory=opensyd
 StateDirectoryMode=0710
 
 # Hardening measures

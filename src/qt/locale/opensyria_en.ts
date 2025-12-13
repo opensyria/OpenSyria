@@ -76,12 +76,12 @@
     </message>
     <message>
         <location line="+6"/>
-        <source>These are your OpenSyria addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <source>These are your OpenSY addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
         <location line="+5"/>
-        <source>These are your OpenSyria addresses for receiving payments. Use the &apos;Create new receiving address&apos; button in the receive tab to create new addresses.
+        <source>These are your OpenSY addresses for receiving payments. Use the &apos;Create new receiving address&apos; button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -338,9 +338,9 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
 </context>
 <context>
-    <name>OpenSyriaApplication</name>
+    <name>OpenSYApplication</name>
     <message>
-        <location filename="../opensyria.cpp" line="+251"/>
+        <location filename="../opensy.cpp" line="+251"/>
         <source>Settings file %1 might be corrupt or invalid.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -366,9 +366,9 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
 </context>
 <context>
-    <name>OpenSyriaGUI</name>
+    <name>OpenSYGUI</name>
     <message>
-        <location filename="../opensyriagui.cpp" line="+252"/>
+        <location filename="../opensygui.cpp" line="+252"/>
         <source>&amp;Overview</source>
         <translation>&amp;Overview</translation>
     </message>
@@ -450,8 +450,8 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="-1220"/>
-        <source>Send coins to a OpenSyria address</source>
-        <translation>Send coins to a OpenSyria address</translation>
+        <source>Send coins to a OpenSY address</source>
+        <translation>Send coins to a OpenSY address</translation>
     </message>
     <message>
         <location line="+53"/>
@@ -505,8 +505,8 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Sign messages with your OpenSyria addresses to prove you own them</source>
-        <translation>Sign messages with your OpenSyria addresses to prove you own them</translation>
+        <source>Sign messages with your OpenSY addresses to prove you own them</source>
+        <translation>Sign messages with your OpenSY addresses to prove you own them</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -515,8 +515,8 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Verify messages to ensure they were signed with specified OpenSyria addresses</source>
-        <translation>Verify messages to ensure they were signed with specified OpenSyria addresses</translation>
+        <source>Verify messages to ensure they were signed with specified OpenSY addresses</source>
+        <translation>Verify messages to ensure they were signed with specified OpenSY addresses</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -590,7 +590,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="-883"/>
-        <source>Request payments (generates QR codes and opensyria: URIs)</source>
+        <source>Request payments (generates QR codes and opensy: URIs)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -663,7 +663,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+26"/>
-        <source>Load Partially Signed OpenSyria Transaction</source>
+        <source>Load Partially Signed OpenSY Transaction</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -673,7 +673,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+1"/>
-        <source>Load Partially Signed OpenSyria Transaction from clipboard</source>
+        <source>Load Partially Signed OpenSY Transaction from clipboard</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -698,7 +698,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+4"/>
-        <source>Open a opensyria: URI</source>
+        <source>Open a opensy: URI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -745,7 +745,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+5"/>
-        <source>Show the %1 help message to get a list with possible OpenSyria command-line options</source>
+        <source>Show the %1 help message to get a list with possible OpenSY command-line options</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -825,11 +825,11 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message numerus="yes">
         <location line="+118"/>
-        <source>%n active connection(s) to OpenSyria network.</source>
+        <source>%n active connection(s) to OpenSY network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n active connection to OpenSyria network.</numerusform>
-            <numerusform>%n active connections to OpenSyria network.</numerusform>
+            <numerusform>%n active connection to OpenSY network.</numerusform>
+            <numerusform>%n active connections to OpenSY network.</numerusform>
         </translation>
     </message>
     <message>
@@ -1280,7 +1280,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+77"/>
-        <source>The entered address &quot;%1&quot; is not a valid OpenSyria address.</source>
+        <source>The entered address &quot;%1&quot; is not a valid OpenSY address.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1409,8 +1409,8 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location filename="../intro.cpp" line="+54"/>
-        <source>OpenSyria</source>
-        <translation type="unfinished">OpenSyria</translation>
+        <source>OpenSY</source>
+        <translation type="unfinished">OpenSY</translation>
     </message>
     <message numerus="yes">
         <location line="+164"/>
@@ -1462,7 +1462,7 @@ Signing is only possible with addresses of the type &apos;legacy&apos;.</source>
     </message>
     <message>
         <location line="+2"/>
-        <source>%1 will download and store a copy of the OpenSyria block chain.</source>
+        <source>%1 will download and store a copy of the OpenSY block chain.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1562,7 +1562,7 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="+119"/>
-        <source>Recent transactions may not yet be visible, and therefore your wallet&apos;s balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the opensyria network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet&apos;s balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the opensy network, as detailed below.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1638,7 +1638,7 @@ The migration process will create a backup of the wallet before migrating. This 
     <name>OpenURIDialog</name>
     <message>
         <location filename="../forms/openuridialog.ui" line="+14"/>
-        <source>Open opensyria URI</source>
+        <source>Open opensy URI</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1728,7 +1728,7 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="+32"/>
-        <source>Automatically open the OpenSyria client port on the router. This only works when your router supports PCP or NAT-PMP and it is enabled. The external port could be random.</source>
+        <source>Automatically open the OpenSY client port on the router. This only works when your router supports PCP or NAT-PMP and it is enabled. The external port could be random.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -1903,7 +1903,7 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="+7"/>
-        <source>Connect to the OpenSyria network through a SOCKS5 proxy.</source>
+        <source>Connect to the OpenSY network through a SOCKS5 proxy.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2022,7 +2022,7 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="+290"/>
-        <source>Connect to the OpenSyria network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <source>Connect to the OpenSY network through a separate SOCKS5 proxy for Tor onion services.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2142,8 +2142,8 @@ The migration process will create a backup of the wallet before migrating. This 
     <message>
         <location line="+62"/>
         <location line="+220"/>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the OpenSyria network after a connection is established, but this process has not completed yet.</source>
-        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the OpenSyria network after a connection is established, but this process has not completed yet.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the OpenSY network after a connection is established, but this process has not completed yet.</source>
+        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the OpenSY network after a connection is established, but this process has not completed yet.</translation>
     </message>
     <message>
         <location line="-88"/>
@@ -2379,7 +2379,7 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="+1"/>
-        <source>Cannot start opensyria: click-to-pay handler</source>
+        <source>Cannot start opensy: click-to-pay handler</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2392,7 +2392,7 @@ The migration process will create a backup of the wallet before migrating. This 
     </message>
     <message>
         <location line="-29"/>
-        <source>&apos;opensyria://&apos; is not a valid URI. Use &apos;opensyria:&apos; instead.</source>
+        <source>&apos;opensy://&apos; is not a valid URI. Use &apos;opensy:&apos; instead.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2405,7 +2405,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
     </message>
     <message>
         <location line="-10"/>
-        <source>URI cannot be parsed! This can be caused by an invalid OpenSyria address or malformed URI parameters.</source>
+        <source>URI cannot be parsed! This can be caused by an invalid OpenSY address or malformed URI parameters.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2492,13 +2492,13 @@ If you are receiving this error you should request the merchant provide a BIP21 
 <context>
     <name>QObject</name>
     <message>
-        <location filename="../opensyriaunits.cpp" line="+197"/>
+        <location filename="../opensyunits.cpp" line="+197"/>
         <source>Amount</source>
         <translation type="unfinished">Amount</translation>
     </message>
     <message>
         <location filename="../guiutil.cpp" line="+138"/>
-        <source>Enter a OpenSyria address (e.g. %1)</source>
+        <source>Enter a OpenSY address (e.g. %1)</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -2711,7 +2711,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished"></translation>
     </message>
     <message>
-        <location filename="../opensyria.cpp" line="-287"/>
+        <location filename="../opensy.cpp" line="-287"/>
         <source>Do you want to reset settings to default values, or to abort without making changes?</source>
         <extracomment>Explanatory text shown on startup when the settings file cannot be read. Prompts user to make a choice between resetting or aborting.</extracomment>
         <translation type="unfinished"></translation>
@@ -2901,7 +2901,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
     </message>
     <message>
         <location line="+28"/>
-        <source>Network addresses that your OpenSyria node is currently using to communicate with other nodes.</source>
+        <source>Network addresses that your OpenSY node is currently using to communicate with other nodes.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3508,7 +3508,7 @@ For more information on using this console, type %6.
     </message>
     <message>
         <location line="-3"/>
-        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the OpenSyria network.</source>
+        <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the OpenSY network.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -3929,7 +3929,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+35"/>
-        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for opensyria transactions than the network can process.</source>
+        <source>When there is less transaction volume than space in the blocks, miners as well as relaying nodes may enforce a minimum fee. Paying only this minimum fee is just fine, but be aware that this can result in a never confirming transaction once there is more demand for opensy transactions than the network can process.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4036,7 +4036,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+1"/>
-        <source>Creates a Partially Signed OpenSyria Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Creates a Partially Signed OpenSY Transaction (PSBT) for use with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4105,7 +4105,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="-31"/>
-        <source>Please, review your transaction proposal. This will produce a Partially Signed OpenSyria Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction proposal. This will produce a Partially Signed OpenSY Transaction (PSBT) which you can save or copy and then sign with e.g. an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can only create a PSBT. This string is displayed when private keys are disabled and an external signer is not available.</extracomment>
         <translation type="unfinished"></translation>
     </message>
@@ -4122,7 +4122,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+11"/>
-        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed OpenSyria Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
+        <source>Please, review your transaction. You can create and send this transaction or create a Partially Signed OpenSY Transaction (PSBT), which you can save or copy and then sign with, e.g., an offline %1 wallet, or a PSBT-compatible hardware wallet.</source>
         <extracomment>Text to inform a user attempting to create a transaction of their current options. At this stage, a user can send their transaction or create a PSBT. This string is displayed when both private keys and PSBT controls are enabled.</extracomment>
         <translation type="unfinished"></translation>
     </message>
@@ -4227,7 +4227,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+99"/>
-        <source>Warning: Invalid OpenSyria address</source>
+        <source>Warning: Invalid OpenSY address</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4275,7 +4275,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="-7"/>
-        <source>The OpenSyria address to send the payment to</source>
+        <source>The OpenSY address to send the payment to</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4331,7 +4331,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+58"/>
-        <source>A message that was attached to the opensyria: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the OpenSyria network.</source>
+        <source>A message that was attached to the opensy: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the OpenSY network.</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
@@ -4380,7 +4380,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+18"/>
-        <source>The OpenSyria address to sign the message with</source>
+        <source>The OpenSY address to sign the message with</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4423,8 +4423,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+21"/>
-        <source>Sign the message to prove you own this OpenSyria address</source>
-        <translation>Sign the message to prove you own this OpenSyria address</translation>
+        <source>Sign the message to prove you own this OpenSY address</source>
+        <translation>Sign the message to prove you own this OpenSY address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -4454,7 +4454,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+21"/>
-        <source>The OpenSyria address the message was signed with</source>
+        <source>The OpenSY address the message was signed with</source>
         <translation type="unfinished"></translation>
     </message>
     <message>
@@ -4471,8 +4471,8 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
     </message>
     <message>
         <location line="+9"/>
-        <source>Verify the message to ensure it was signed with the specified OpenSyria address</source>
-        <translation>Verify the message to ensure it was signed with the specified OpenSyria address</translation>
+        <source>Verify the message to ensure it was signed with the specified OpenSY address</source>
+        <translation>Verify the message to ensure it was signed with the specified OpenSY address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -5113,7 +5113,7 @@ Note:  Since the fee is calculated on a per-byte basis, a fee rate of &quot;100 
 <context>
     <name>UnitDisplayStatusBarControl</name>
     <message>
-        <location filename="../opensyriagui.cpp" line="+39"/>
+        <location filename="../opensygui.cpp" line="+39"/>
         <source>Unit to show amounts in. Click to select another unit.</source>
         <translation type="unfinished"></translation>
     </message>
@@ -5331,7 +5331,7 @@ Go to File &gt; Open Wallet to load a wallet.
     </message>
 </context>
 <context>
-    <name>opensyria-core</name>
+    <name>opensy-core</name>
     <message>
         <location filename="../SYLtrings.cpp" line="+206"/>
         <source>The %s developers</source>
@@ -5384,7 +5384,7 @@ Go to File &gt; Open Wallet to load a wallet.
     </message>
     <message>
         <location line="+2"/>
-        <source>Error: Dumpfile version is not supported. This version of opensyria-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
+        <source>Error: Dumpfile version is not supported. This version of opensy-wallet only supports version 1 dumpfiles. Got dumpfile with version %s</source>
         <translation type="unfinished"></translation>
     </message>
     <message>

@@ -1,12 +1,12 @@
 #!/bin/bash
 # =============================================================================
-# OpenSyria DNS Seeder Setup Script
+# OpenSY DNS Seeder Setup Script
 # =============================================================================
-# Sets up the DNS seeder service for OpenSyria network discovery.
-# Should be run on a server that already has OpenSyria node installed.
+# Sets up the DNS seeder service for OpenSY network discovery.
+# Should be run on a server that already has OpenSY node installed.
 #
 # Prerequisites:
-#   - OpenSyria node running (setup-node.sh completed)
+#   - OpenSY node running (setup-node.sh completed)
 #   - Port 53 open (UDP and TCP)
 #   - Domain configured to delegate DNS to this server
 #
@@ -24,8 +24,8 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 # Configuration
-SEEDER_DIR="/opt/opensyria/seeder"
-OPENSYRIA_USER="opensyria"
+SEEDER_DIR="/opt/opensy/seeder"
+OPENSY_USER="opensy"
 
 log_info() { echo -e "${BLUE}[INFO]${NC} $1"; }
 log_success() { echo -e "${GREEN}[SUCCESS]${NC} $1"; }
@@ -42,9 +42,9 @@ check_root() {
 check_prerequisites() {
     log_info "Checking prerequisites..."
     
-    # Check if OpenSyria is installed
-    if ! systemctl is-active --quiet opensyriad; then
-        log_error "OpenSyria node is not running. Please run setup-node.sh first."
+    # Check if OpenSY is installed
+    if ! systemctl is-active --quiet opensyd; then
+        log_error "OpenSY node is not running. Please run setup-node.sh first."
         exit 1
     fi
     
@@ -90,7 +90,7 @@ install_dependencies() {
 }
 
 clone_and_build_seeder() {
-    log_info "Building OpenSyria DNS seeder..."
+    log_info "Building OpenSY DNS seeder..."
     
     mkdir -p "$SEEDER_DIR"
     cd "$SEEDER_DIR"
@@ -104,21 +104,21 @@ clone_and_build_seeder() {
         cd bitcoin-seeder
     fi
     
-    # Create OpenSyria patch
-    log_info "Applying OpenSyria modifications..."
+    # Create OpenSY patch
+    log_info "Applying OpenSY modifications..."
     
     # Backup original file
     cp main.cpp main.cpp.orig
     
     # Apply modifications using sed
-    # Change message start bytes to OpenSyria's SYLM
+    # Change message start bytes to OpenSY's SYLM
     sed -i 's/0xf9, 0xbe, 0xb4, 0xd9/0x53, 0x59, 0x4c, 0x4d/g' main.cpp
     
     # Change default port to 9633
     sed -i 's/8333/9633/g' main.cpp
     
     # Change default DNS host
-    sed -i 's/seed\.bitcoin\.sipa\.be/seed.opensyria.net/g' main.cpp
+    sed -i 's/seed\.bitcoin\.sipa\.be/seed.opensy.net/g' main.cpp
     
     # Build
     make clean || true
@@ -131,7 +131,7 @@ clone_and_build_seeder() {
         exit 1
     fi
     
-    chown -R "$OPENSYRIA_USER:$OPENSYRIA_USER" "$SEEDER_DIR"
+    chown -R "$OPENSY_USER:$OPENSY_USER" "$SEEDER_DIR"
 }
 
 configure_seeder() {
@@ -139,14 +139,14 @@ configure_seeder() {
     
     # Prompt for configuration
     echo ""
-    read -p "Enter DNS hostname (e.g., seed.opensyria.net): " DNS_HOST
-    DNS_HOST=${DNS_HOST:-"seed.opensyria.net"}
+    read -p "Enter DNS hostname (e.g., seed.opensy.net): " DNS_HOST
+    DNS_HOST=${DNS_HOST:-"seed.opensy.net"}
     
-    read -p "Enter nameserver hostname (e.g., ns1.opensyria.net): " NS_HOST
-    NS_HOST=${NS_HOST:-"ns1.opensyria.net"}
+    read -p "Enter nameserver hostname (e.g., ns1.opensy.net): " NS_HOST
+    NS_HOST=${NS_HOST:-"ns1.opensy.net"}
     
-    read -p "Enter admin email (e.g., admin@opensyria.net): " ADMIN_EMAIL
-    ADMIN_EMAIL=${ADMIN_EMAIL:-"admin@opensyria.net"}
+    read -p "Enter admin email (e.g., admin@opensy.net): " ADMIN_EMAIL
+    ADMIN_EMAIL=${ADMIN_EMAIL:-"admin@opensy.net"}
     
     # Save configuration
     cat > "${SEEDER_DIR}/seeder.conf" << EOF
@@ -173,13 +173,13 @@ create_systemd_service() {
     # Load configuration
     source "${SEEDER_DIR}/seeder.conf"
     
-    cat > /etc/systemd/system/opensyria-seeder.service << EOF
+    cat > /etc/systemd/system/opensy-seeder.service << EOF
 [Unit]
-Description=OpenSyria DNS Seeder
-Documentation=https://opensyria.net/
-After=network-online.target opensyriad.service
+Description=OpenSY DNS Seeder
+Documentation=https://opensy.net/
+After=network-online.target opensyd.service
 Wants=network-online.target
-Requires=opensyriad.service
+Requires=opensyd.service
 
 [Service]
 Type=simple
@@ -203,7 +203,7 @@ WantedBy=multi-user.target
 EOF
     
     systemctl daemon-reload
-    systemctl enable opensyria-seeder
+    systemctl enable opensy-seeder
     
     log_success "Systemd service created"
 }
@@ -211,15 +211,15 @@ EOF
 start_seeder() {
     log_info "Starting DNS seeder..."
     
-    systemctl start opensyria-seeder
+    systemctl start opensy-seeder
     
     sleep 3
     
-    if systemctl is-active --quiet opensyria-seeder; then
+    if systemctl is-active --quiet opensy-seeder; then
         log_success "DNS seeder started successfully"
     else
         log_error "Failed to start DNS seeder"
-        journalctl -u opensyria-seeder --no-pager -n 20
+        journalctl -u opensy-seeder --no-pager -n 20
         exit 1
     fi
 }
@@ -230,7 +230,7 @@ print_dns_instructions() {
     
     echo ""
     echo "============================================================================="
-    echo -e "${GREEN}OpenSyria DNS Seeder Setup Complete!${NC}"
+    echo -e "${GREEN}OpenSY DNS Seeder Setup Complete!${NC}"
     echo "============================================================================="
     echo ""
     echo "DNS Configuration Required:"
@@ -241,18 +241,18 @@ print_dns_instructions() {
     echo "│ Type    │ Name             │ Value             │ Proxy   │"
     echo "├─────────┼──────────────────┼───────────────────┼─────────┤"
     echo "│ A       │ ns1              │ ${PUBLIC_IP}      │ OFF     │"
-    echo "│ NS      │ seed             │ ns1.opensyria.net │ -       │"
+    echo "│ NS      │ seed             │ ns1.opensy.net │ -       │"
     echo "└─────────┴──────────────────┴───────────────────┴─────────┘"
     echo ""
     echo "How it works:"
-    echo "  1. Users query seed.opensyria.net"
-    echo "  2. DNS delegates to ns1.opensyria.net (this server)"
-    echo "  3. This seeder responds with active OpenSyria node IPs"
+    echo "  1. Users query seed.opensy.net"
+    echo "  2. DNS delegates to ns1.opensy.net (this server)"
+    echo "  3. This seeder responds with active OpenSY node IPs"
     echo ""
     echo "Useful Commands:"
-    echo "  - Check status:   systemctl status opensyria-seeder"
-    echo "  - View logs:      journalctl -u opensyria-seeder -f"
-    echo "  - Test DNS:       dig seed.opensyria.net @${PUBLIC_IP}"
+    echo "  - Check status:   systemctl status opensy-seeder"
+    echo "  - View logs:      journalctl -u opensy-seeder -f"
+    echo "  - Test DNS:       dig seed.opensy.net @${PUBLIC_IP}"
     echo ""
     echo "============================================================================="
 }
@@ -264,7 +264,7 @@ print_dns_instructions() {
 main() {
     echo ""
     echo "============================================================================="
-    echo "  OpenSyria DNS Seeder Setup Script"
+    echo "  OpenSY DNS Seeder Setup Script"
     echo "============================================================================="
     echo ""
     

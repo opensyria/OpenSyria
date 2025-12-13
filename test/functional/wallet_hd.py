@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2016-2022 The OpenSyria Core developers
+# Copyright (c) 2016-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test Hierarchical Deterministic wallet function."""
@@ -7,14 +7,14 @@
 import shutil
 
 from test_framework.blocktools import COINBASE_MATURITY
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_equal,
     wallet_importprivkey,
 )
 
 
-class WalletHDTest(OpenSyriaTestFramework):
+class WalletHDTest(OpenSYTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 2

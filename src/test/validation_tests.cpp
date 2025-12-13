@@ -1,4 +1,4 @@
-// Copyright (c) 2014-2021 The OpenSyria Core developers
+// Copyright (c) 2014-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -24,7 +24,7 @@ BOOST_FIXTURE_TEST_SUITE(validation_tests, TestingSetup)
 static void TestBlockSubsidyHalvings(const Consensus::Params& consensusParams)
 {
     int maxHalvings = 64;
-    CAmount nInitialSubsidy = 10000 * COIN; // OpenSyria: 10,000 SYL per block
+    CAmount nInitialSubsidy = 10000 * COIN; // OpenSY: 10,000 SYL per block
 
     CAmount nPreviousSubsidy = nInitialSubsidy * 2; // for height == 0
     BOOST_CHECK_EQUAL(nPreviousSubsidy, nInitialSubsidy * 2);
@@ -54,8 +54,8 @@ BOOST_AUTO_TEST_CASE(block_subsidy_test)
 }
 
 /**
- * Test OpenSyria genesis block parameters across all networks.
- * Validates that genesis blocks are correctly configured with OpenSyria-specific values.
+ * Test OpenSY genesis block parameters across all networks.
+ * Validates that genesis blocks are correctly configured with OpenSY-specific values.
  */
 BOOST_AUTO_TEST_CASE(genesis_block_test)
 {
@@ -64,7 +64,7 @@ BOOST_AUTO_TEST_CASE(genesis_block_test)
         const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
         const CBlock& genesis = chainParams->GenesisBlock();
         
-        // OpenSyria mainnet genesis hash
+        // OpenSY mainnet genesis hash
         BOOST_CHECK_EQUAL(genesis.GetHash().ToString(),
             "0000000727ee231c405685355f07629b06bfcb462cfa1ed7de868a6d9590ca8d");
         
@@ -113,15 +113,15 @@ BOOST_AUTO_TEST_CASE(subsidy_limit_test)
 {
     const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
     CAmount nSum = 0;
-    // OpenSyria: 10,000 SYL initial reward, 1,050,000 block halving interval
+    // OpenSY: 10,000 SYL initial reward, 1,050,000 block halving interval
     // Total supply converges to 21 billion SYL
     for (int nHeight = 0; nHeight < 14000000; nHeight += 1000) {
         CAmount nSubsidy = GetBlockSubsidy(nHeight, chainParams->GetConsensus());
-        BOOST_CHECK(nSubsidy <= 10000 * COIN); // OpenSyria: 10,000 SYL max
+        BOOST_CHECK(nSubsidy <= 10000 * COIN); // OpenSY: 10,000 SYL max
         nSum += nSubsidy * 1000;
         BOOST_CHECK(MoneyRange(nSum));
     }
-    // OpenSyria: Different total supply calculation
+    // OpenSY: Different total supply calculation
     // With 10,000 SYL reward and 1,050,000 halving, total is ~21B SYL
     BOOST_CHECK(nSum > 0); // Just check we accumulated some coins
 }
@@ -192,7 +192,7 @@ BOOST_AUTO_TEST_CASE(test_assumeutxo)
 {
     const auto params = CreateChainParams(*m_node.args, ChainType::REGTEST);
 
-    // OpenSyria regtest has assumeutxo data configured for heights 110 and 299
+    // OpenSY regtest has assumeutxo data configured for heights 110 and 299
     // Heights without assumeutxo data should return nullopt
     std::vector<int> heights_without_data{0, 100, 111, 115, 200, 209, 211, 300};
 

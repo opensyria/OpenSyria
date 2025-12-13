@@ -54,13 +54,13 @@
         <translation type="unfinished">&amp;Escoyer</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Estes son les tuyes direcciones de OpenSyria pa mandar pagos. Siempre revisa la cantidá y la dirección de recibimientu antes de mandar los coins.</translation>
+        <source>These are your OpenSY addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Estes son les tuyes direcciones de OpenSY pa mandar pagos. Siempre revisa la cantidá y la dirección de recibimientu antes de mandar los coins.</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your OpenSY addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Estes son les tuyes direcciones de OpenSyria pa recibir pagos. Usa el botón 'Crear nueva dirección de recibimientu' na solapa de recibir pa crear nueves direcciones.
+        <translation type="unfinished">Estes son les tuyes direcciones de OpenSY pa recibir pagos. Usa el botón 'Crear nueva dirección de recibimientu' na solapa de recibir pa crear nueves direcciones.
 La firma ye possible solamentu con direcciones del tipu 'legacy'.</translation>
     </message>
     <message>
@@ -260,7 +260,7 @@ La firma ye possible solamentu con direcciones del tipu 'legacy'.</translation>
     </message>
 </context>
 <context>
-    <name>OpenSyriaApplication</name>
+    <name>OpenSYApplication</name>
     <message>
         <source>Settings file %1 might be corrupt or invalid.</source>
         <translation type="unfinished">El ficheru de configuraciones %1 podría estar corruptu o ser inválidu.</translation>
@@ -336,7 +336,7 @@ La firma ye possible solamentu con direcciones del tipu 'legacy'.</translation>
     </message>
     </context>
 <context>
-    <name>OpenSyriaGUI</name>
+    <name>OpenSYGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation type="unfinished">&amp;Visión xeneral</translation>
@@ -399,8 +399,8 @@ La firma ye possible solamentu con direcciones del tipu 'legacy'.</translation>
         <translation type="unfinished">El proxy ta &lt;b&gt;activáu&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a OpenSyria address</source>
-        <translation type="unfinished">Enviar monedas a una dirección de OpenSyria</translation>
+        <source>Send coins to a OpenSY address</source>
+        <translation type="unfinished">Enviar monedas a una dirección de OpenSY</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -443,16 +443,16 @@ La firma ye possible solamentu con direcciones del tipu 'legacy'.</translation>
         <translation type="unfinished">Firmar &amp;mensaje…</translation>
     </message>
     <message>
-        <source>Sign messages with your OpenSyria addresses to prove you own them</source>
-        <translation type="unfinished">Firmar mensajes con les tuyas direcciones de OpenSyria pa probar que les tienes</translation>
+        <source>Sign messages with your OpenSY addresses to prove you own them</source>
+        <translation type="unfinished">Firmar mensajes con les tuyas direcciones de OpenSY pa probar que les tienes</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Verificar mensaje…</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified OpenSyria addresses</source>
-        <translation type="unfinished">Verificar los mensajes pa asegurar que fueron firmados con les direcciones de OpenSyria especificaes</translation>
+        <source>Verify messages to ensure they were signed with specified OpenSY addresses</source>
+        <translation type="unfinished">Verificar los mensajes pa asegurar que fueron firmados con les direcciones de OpenSY especificaes</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -511,8 +511,8 @@ La firma ye possible solamentu con direcciones del tipu 'legacy'.</translation>
         <translation type="unfinished">Conectando con pares…</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and opensyria: URIs)</source>
-        <translation type="unfinished">Solicitar pagamientos (xenera códigos QR y opensyria: URIs)</translation>
+        <source>Request payments (generates QR codes and opensy: URIs)</source>
+        <translation type="unfinished">Solicitar pagamientos (xenera códigos QR y opensy: URIs)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -561,16 +561,16 @@ La firma ye possible solamentu con direcciones del tipu 'legacy'.</translation>
         <translation type="unfinished">Actualizáu</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction</source>
-        <translation type="unfinished">Cargar Transacción de OpenSyria Parcialmente Firmada</translation>
+        <source>Load Partially Signed OpenSY Transaction</source>
+        <translation type="unfinished">Cargar Transacción de OpenSY Parcialmente Firmada</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">Cargar PSBT dende el &amp;portapapeles…</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction from clipboard</source>
-        <translation type="unfinished">Cargar Transacción de OpenSyria Parcialmente Firmada dende el portapapeles</translation>
+        <source>Load Partially Signed OpenSY Transaction from clipboard</source>
+        <translation type="unfinished">Cargar Transacción de OpenSY Parcialmente Firmada dende el portapapeles</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -589,8 +589,8 @@ La firma ye possible solamentu con direcciones del tipu 'legacy'.</translation>
         <translation type="unfinished">&amp;Direcciones de recepción</translation>
     </message>
     <message>
-        <source>Open a opensyria: URI</source>
-        <translation type="unfinished">Abrir un opensyria: URI</translation>
+        <source>Open a opensy: URI</source>
+        <translation type="unfinished">Abrir un opensy: URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -627,8 +627,8 @@ La firma ye possible solamentu con direcciones del tipu 'legacy'.</translation>
         <translation type="unfinished">Migrar una cartera</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible OpenSyria command-line options</source>
-        <translation type="unfinished">Amosar el mensaxe d’ayuda de %1 pa ver una llista de les posibles opciones de la llinia de comandos de OpenSyria</translation>
+        <source>Show the %1 help message to get a list with possible OpenSY command-line options</source>
+        <translation type="unfinished">Amosar el mensaxe d’ayuda de %1 pa ver una llista de les posibles opciones de la llinia de comandos de OpenSY</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -687,10 +687,10 @@ La firma ye possible solamentu con direcciones del tipu 'legacy'.</translation>
         <translation type="unfinished">&amp;Amosar</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to OpenSyria network.</source>
+        <source>%n active connection(s) to OpenSY network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n conexión(es) activa(es) a la rede de OpenSyria</numerusform>
+            <numerusform>%n conexión(es) activa(es) a la rede de OpenSY</numerusform>
         </translation>
     </message>
     <message>

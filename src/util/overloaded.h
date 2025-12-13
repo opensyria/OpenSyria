@@ -1,9 +1,9 @@
-// Copyright (c) 2021-present The OpenSyria Core developers
+// Copyright (c) 2021-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UTIL_OVERLOADED_H
-#define OPENSYRIA_UTIL_OVERLOADED_H
+#ifndef OPENSY_UTIL_OVERLOADED_H
+#define OPENSY_UTIL_OVERLOADED_H
 
 namespace util {
 //! Overloaded helper for std::visit. This helper and std::visit in general are
@@ -16,4 +16,4 @@ namespace util {
 template<class... Ts> struct Overloaded : Ts... { using Ts::operator()...; };
 } // namespace util
 
-#endif // OPENSYRIA_UTIL_OVERLOADED_H
+#endif // OPENSY_UTIL_OVERLOADED_H

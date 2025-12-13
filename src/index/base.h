@@ -1,9 +1,9 @@
-// Copyright (c) 2017-present The OpenSyria Core developers
+// Copyright (c) 2017-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_INDEX_BASE_H
-#define OPENSYRIA_INDEX_BASE_H
+#ifndef OPENSY_INDEX_BASE_H
+#define OPENSY_INDEX_BASE_H
 
 #include <attributes.h>
 #include <dbwrapper.h>
@@ -180,4 +180,4 @@ public:
     IndexSummary GetSummary() const;
 };
 
-#endif // OPENSYRIA_INDEX_BASE_H
+#endif // OPENSY_INDEX_BASE_H

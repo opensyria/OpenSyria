@@ -1,9 +1,9 @@
 // Copyright (c) 2009-2012 The Bitcoin developers
-// Copyright (c) 2024-2025 The OpenSyria developers
+// Copyright (c) 2024-2025 The OpenSY developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef OPENSYRIA_NETBASE_H
-#define OPENSYRIA_NETBASE_H
+#ifndef OPENSY_NETBASE_H
+#define OPENSY_NETBASE_H
 
 #include <string>
 #include <vector>

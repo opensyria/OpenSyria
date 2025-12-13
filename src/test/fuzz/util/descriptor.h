@@ -1,9 +1,9 @@
-// Copyright (c) 2023-present The OpenSyria Core developers
+// Copyright (c) 2023-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_TEST_FUZZ_UTIL_DESCRIPTOR_H
-#define OPENSYRIA_TEST_FUZZ_UTIL_DESCRIPTOR_H
+#ifndef OPENSY_TEST_FUZZ_UTIL_DESCRIPTOR_H
+#define OPENSY_TEST_FUZZ_UTIL_DESCRIPTOR_H
 
 #include <key_io.h>
 #include <util/strencodings.h>
@@ -76,4 +76,4 @@ constexpr int MAX_WRAPPERS{100};
  */
 bool HasTooManyWrappers(const FuzzBufferType& buff, const int max_wrappers = MAX_WRAPPERS);
 
-#endif // OPENSYRIA_TEST_FUZZ_UTIL_DESCRIPTOR_H
+#endif // OPENSY_TEST_FUZZ_UTIL_DESCRIPTOR_H

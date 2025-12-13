@@ -1,9 +1,9 @@
-// Copyright (c) 2020-present The OpenSyria Core developers
+// Copyright (c) 2020-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_TEST_UTIL_NET_H
-#define OPENSYRIA_TEST_UTIL_NET_H
+#ifndef OPENSY_TEST_UTIL_NET_H
+#define OPENSY_TEST_UTIL_NET_H
 
 #include <compat/compat.h>
 #include <netmessagemaker.h>
@@ -379,4 +379,4 @@ void DynSock::Pipe::PushNetMsg(const std::string& type, Args&&... payload)
 
 std::vector<NodeEvictionCandidate> GetRandomNodeEvictionCandidates(int n_candidates, FastRandomContext& random_context);
 
-#endif // OPENSYRIA_TEST_UTIL_NET_H
+#endif // OPENSY_TEST_UTIL_NET_H

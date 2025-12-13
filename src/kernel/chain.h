@@ -1,9 +1,9 @@
-// Copyright (c) 2022 The OpenSyria Core developers
+// Copyright (c) 2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_KERNEL_CHAIN_H
-#define OPENSYRIA_KERNEL_CHAIN_H
+#ifndef OPENSY_KERNEL_CHAIN_H
+#define OPENSY_KERNEL_CHAIN_H
 
 #include<iostream>
 
@@ -36,4 +36,4 @@ enum class ChainstateRole {
 
 std::ostream& operator<<(std::ostream& os, const ChainstateRole& role);
 
-#endif // OPENSYRIA_KERNEL_CHAIN_H
+#endif // OPENSY_KERNEL_CHAIN_H

@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-present The Bitcoin Core developers
-// Copyright (c) 2025-present The OpenSyria Core developers
+// Copyright (c) 2025-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <opensyria-build-config.h> // IWYU pragma: keep
+#include <opensy-build-config.h> // IWYU pragma: keep
 
 #include <validation.h>
 
@@ -299,7 +299,7 @@ void Chainstate::MaybeUpdateMempoolForReorg(
     bool fAddToMempool)
 {
     // TODO [SECURITY - SHA256d MITIGATION]: Add alerting for deep reorgs
-    // Since OpenSyria shares SHA256d with Bitcoin, hashrate attacks could cause
+    // Since OpenSY shares SHA256d with Bitcoin, hashrate attacks could cause
     // unexpected reorgs. Consider logging/alerting when disconnectpool size > 6
     // as this could indicate an attack in progress. Exchanges should be notified
     // of any reorgs > 3 blocks deep.
@@ -2216,7 +2216,7 @@ DisconnectResult Chainstate::DisconnectBlock(const CBlock& block, const CBlockIn
 
     // Ignore blocks that contain transactions which are 'overwritten' by later transactions,
     // unless those are already completely spent.
-    // See https://github.com/OpenSyria/OpenSyria/issues/22596 for additional information.
+    // See https://github.com/OpenSY/OpenSY/issues/22596 for additional information.
     // Note: the blocks specified here are different than the ones used in ConnectBlock because DisconnectBlock
     // unwinds the blocks in reverse. As a result, the inconsistency is not discovered until the earlier
     // blocks with the duplicate coinbase transactions are disconnected.
@@ -4134,8 +4134,8 @@ bool IsBlockMutated(const CBlock& block, bool check_witness_root)
 
     if (block.vtx.empty() || !block.vtx[0]->IsCoinBase()) {
         // Consider the block mutated if any transaction is 64 bytes in size (see 3.1
-        // in "Weaknesses in OpenSyria’s Merkle Root Construction":
-        // https://lists.linuxfoundation.org/pipermail/opensyria-dev/attachments/20190225/a27d8837/attachment-0001.pdf).
+        // in "Weaknesses in OpenSY’s Merkle Root Construction":
+        // https://lists.linuxfoundation.org/pipermail/opensy-dev/attachments/20190225/a27d8837/attachment-0001.pdf).
         //
         // Note: This is not a consensus change as this only applies to blocks that
         // don't have a coinbase transaction and would therefore already be invalid.
@@ -4176,7 +4176,7 @@ arith_uint256 CalculateClaimedHeadersWork(std::span<const CBlockHeader> headers)
  *
  *  NOTE: failing to check the header's height against the last checkpoint's opened a DoS vector between
  *  v0.12 and v0.15 (when no additional protection was in place) whereby an attacker could unboundedly
- *  grow our in-memory block index. See https://opensyria.net/en/2024/07/03/disclose-header-spam.
+ *  grow our in-memory block index. See https://opensy.net/en/2024/07/03/disclose-header-spam.
  */
 static bool ContextualCheckBlockHeader(const CBlockHeader& block, BlockValidationState& state, BlockManager& blockman, const ChainstateManager& chainman, const CBlockIndex* pindexPrev, bool check_pow = true) EXCLUSIVE_LOCKS_REQUIRED(::cs_main)
 {
@@ -4207,7 +4207,7 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, BlockValidatio
         return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, "time-too-old", "block's timestamp is too early");
 
     // Testnet4 and regtest only: Check timestamp against prev for difficulty-adjustment
-    // blocks to prevent timewarp attacks (see https://github.com/OpenSyria/OpenSyria/pull/15482).
+    // blocks to prevent timewarp attacks (see https://github.com/OpenSY/OpenSY/pull/15482).
     if (consensusParams.enforce_BIP94) {
         // Check timestamp for the first block of each difficulty adjustment
         // interval, except the genesis block.
@@ -4524,7 +4524,7 @@ bool ChainstateManager::ProcessNewBlock(const std::shared_ptr<const CBlock>& blo
         // Skipping AcceptBlock() for CheckBlock() failures means that we will never mark a block as invalid if
         // CheckBlock() fails.  This is protective against consensus failure if there are any unknown forms of block
         // malleability that cause CheckBlock() to fail; see e.g. CVE-2012-2459 and
-        // https://lists.linuxfoundation.org/pipermail/opensyria-dev/2019-February/016697.html.  Because CheckBlock() is
+        // https://lists.linuxfoundation.org/pipermail/opensy-dev/2019-February/016697.html.  Because CheckBlock() is
         // not very expensive, the anti-DoS benefits of caching failure (of a definitely-invalid block) are not substantial.
         bool ret = CheckBlock(*block, state, GetConsensus());
         if (ret) {

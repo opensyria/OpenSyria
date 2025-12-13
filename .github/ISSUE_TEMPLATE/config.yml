@@ -1,8 +1,8 @@
 blank_issues_enabled: true
 contact_links:
-  - name: OpenSyria Security Policy
-    url: https://github.com/opensyria/opensyria/blob/master/SECURITY.md
+  - name: OpenSY Security Policy
+    url: https://github.com/opensy/opensy/blob/master/SECURITY.md
     about: View security policy
-  - name: OpenSyria Core Developers
-    url: https://opensyria.org
-    about: OpenSyria Core homepage
+  - name: OpenSY Developers
+    url: https://opensy.org
+    about: OpenSY homepage

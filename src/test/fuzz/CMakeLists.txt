@@ -143,9 +143,9 @@ target_link_libraries(fuzz
   core_interface
   fuzzer_interface
   test_fuzz
-  opensyria_cli
-  opensyria_common
-  opensyria_util
+  opensy_cli
+  opensy_common
+  opensy_util
   minisketch
   leveldb
   univalue

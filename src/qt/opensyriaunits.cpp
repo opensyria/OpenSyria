@@ -1,8 +1,8 @@
-// Copyright (c) 2011-2021 The OpenSyria Core developers
+// Copyright (c) 2011-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <qt/opensyriaunits.h>
+#include <qt/opensyunits.h>
 
 #include <consensus/amount.h>
 
@@ -12,15 +12,15 @@
 
 static constexpr auto MAX_DIGITS_SYL = 16;
 
-OpenSyriaUnits::OpenSyriaUnits(QObject *parent):
+OpenSYUnits::OpenSYUnits(QObject *parent):
         QAbstractListModel(parent),
         unitlist(availableUnits())
 {
 }
 
-QList<OpenSyriaUnit> OpenSyriaUnits::availableUnits()
+QList<OpenSYUnit> OpenSYUnits::availableUnits()
 {
-    QList<OpenSyriaUnit> unitlist;
+    QList<OpenSYUnit> unitlist;
     unitlist.append(Unit::SYL);
     unitlist.append(Unit::mSYL);
     unitlist.append(Unit::uSYL);
@@ -28,7 +28,7 @@ QList<OpenSyriaUnit> OpenSyriaUnits::availableUnits()
     return unitlist;
 }
 
-QString OpenSyriaUnits::longName(Unit unit)
+QString OpenSYUnits::longName(Unit unit)
 {
     switch (unit) {
     case Unit::SYL: return QString("SYL");
@@ -39,7 +39,7 @@ QString OpenSyriaUnits::longName(Unit unit)
     assert(false);
 }
 
-QString OpenSyriaUnits::shortName(Unit unit)
+QString OpenSYUnits::shortName(Unit unit)
 {
     switch (unit) {
     case Unit::SYL: return longName(unit);
@@ -50,7 +50,7 @@ QString OpenSyriaUnits::shortName(Unit unit)
     assert(false);
 }
 
-QString OpenSyriaUnits::description(Unit unit)
+QString OpenSYUnits::description(Unit unit)
 {
     switch (unit) {
     case Unit::SYL: return QString("Syrian Digital Lira");
@@ -61,7 +61,7 @@ QString OpenSyriaUnits::description(Unit unit)
     assert(false);
 }
 
-qint64 OpenSyriaUnits::factor(Unit unit)
+qint64 OpenSYUnits::factor(Unit unit)
 {
     switch (unit) {
     case Unit::SYL: return 100'000'000;
@@ -72,7 +72,7 @@ qint64 OpenSyriaUnits::factor(Unit unit)
     assert(false);
 }
 
-int OpenSyriaUnits::decimals(Unit unit)
+int OpenSYUnits::decimals(Unit unit)
 {
     switch (unit) {
     case Unit::SYL: return 8;
@@ -83,7 +83,7 @@ int OpenSyriaUnits::decimals(Unit unit)
     assert(false);
 }
 
-QString OpenSyriaUnits::format(Unit unit, const CAmount& nIn, bool fPlus, SeparatorStyle separators, bool justify)
+QString OpenSYUnits::format(Unit unit, const CAmount& nIn, bool fPlus, SeparatorStyle separators, bool justify)
 {
     // Note: not using straight sprintf here because we do NOT want
     // localized number formatting.
@@ -128,19 +128,19 @@ QString OpenSyriaUnits::format(Unit unit, const CAmount& nIn, bool fPlus, Separa
 // Please take care to use formatHtmlWithUnit instead, when
 // appropriate.
 
-QString OpenSyriaUnits::formatWithUnit(Unit unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
+QString OpenSYUnits::formatWithUnit(Unit unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
 {
     return format(unit, amount, plussign, separators) + QString(" ") + shortName(unit);
 }
 
-QString OpenSyriaUnits::formatHtmlWithUnit(Unit unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
+QString OpenSYUnits::formatHtmlWithUnit(Unit unit, const CAmount& amount, bool plussign, SeparatorStyle separators)
 {
     QString str(formatWithUnit(unit, amount, plussign, separators));
     str.replace(QChar(THIN_SP_CP), QString(THIN_SP_HTML));
     return QString("<span style='white-space: nowrap;'>%1</span>").arg(str);
 }
 
-QString OpenSyriaUnits::formatWithPrivacy(Unit unit, const CAmount& amount, SeparatorStyle separators, bool privacy)
+QString OpenSYUnits::formatWithPrivacy(Unit unit, const CAmount& amount, SeparatorStyle separators, bool privacy)
 {
     assert(amount >= 0);
     QString value;
@@ -152,7 +152,7 @@ QString OpenSyriaUnits::formatWithPrivacy(Unit unit, const CAmount& amount, Sepa
     return value + QString(" ") + shortName(unit);
 }
 
-bool OpenSyriaUnits::parse(Unit unit, const QString& value, CAmount* val_out)
+bool OpenSYUnits::parse(Unit unit, const QString& value, CAmount* val_out)
 {
     if (value.isEmpty()) {
         return false; // Refuse to parse invalid unit or empty string
@@ -192,18 +192,18 @@ bool OpenSyriaUnits::parse(Unit unit, const QString& value, CAmount* val_out)
     return ok;
 }
 
-QString OpenSyriaUnits::getAmountColumnTitle(Unit unit)
+QString OpenSYUnits::getAmountColumnTitle(Unit unit)
 {
     return QObject::tr("Amount") + " (" + shortName(unit) + ")";
 }
 
-int OpenSyriaUnits::rowCount(const QModelIndex &parent) const
+int OpenSYUnits::rowCount(const QModelIndex &parent) const
 {
     Q_UNUSED(parent);
     return unitlist.size();
 }
 
-QVariant OpenSyriaUnits::data(const QModelIndex &index, int role) const
+QVariant OpenSYUnits::data(const QModelIndex &index, int role) const
 {
     int row = index.row();
     if(row >= 0 && row < unitlist.size())
@@ -223,41 +223,41 @@ QVariant OpenSyriaUnits::data(const QModelIndex &index, int role) const
     return QVariant();
 }
 
-CAmount OpenSyriaUnits::maxMoney()
+CAmount OpenSYUnits::maxMoney()
 {
     return MAX_MONEY;
 }
 
 namespace {
-qint8 ToQint8(OpenSyriaUnit unit)
+qint8 ToQint8(OpenSYUnit unit)
 {
     switch (unit) {
-    case OpenSyriaUnit::SYL: return 0;
-    case OpenSyriaUnit::mSYL: return 1;
-    case OpenSyriaUnit::uSYL: return 2;
-    case OpenSyriaUnit::QIRSH: return 3;
+    case OpenSYUnit::SYL: return 0;
+    case OpenSYUnit::mSYL: return 1;
+    case OpenSYUnit::uSYL: return 2;
+    case OpenSYUnit::QIRSH: return 3;
     } // no default case, so the compiler can warn about missing cases
     assert(false);
 }
 
-OpenSyriaUnit FromQint8(qint8 num)
+OpenSYUnit FromQint8(qint8 num)
 {
     switch (num) {
-    case 0: return OpenSyriaUnit::SYL;
-    case 1: return OpenSyriaUnit::mSYL;
-    case 2: return OpenSyriaUnit::uSYL;
-    case 3: return OpenSyriaUnit::QIRSH;
+    case 0: return OpenSYUnit::SYL;
+    case 1: return OpenSYUnit::mSYL;
+    case 2: return OpenSYUnit::uSYL;
+    case 3: return OpenSYUnit::QIRSH;
     }
     assert(false);
 }
 } // namespace
 
-QDataStream& operator<<(QDataStream& out, const OpenSyriaUnit& unit)
+QDataStream& operator<<(QDataStream& out, const OpenSYUnit& unit)
 {
     return out << ToQint8(unit);
 }
 
-QDataStream& operator>>(QDataStream& in, OpenSyriaUnit& unit)
+QDataStream& operator>>(QDataStream& in, OpenSYUnit& unit)
 {
     qint8 input;
     in >> input;

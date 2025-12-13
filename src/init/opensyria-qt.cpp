@@ -1,4 +1,4 @@
-// Copyright (c) 2021-2022 The OpenSyria Core developers
+// Copyright (c) 2021-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -16,12 +16,12 @@
 
 namespace init {
 namespace {
-const char* EXE_NAME = "opensyria-qt";
+const char* EXE_NAME = "opensy-qt";
 
-class OpenSyriaQtInit : public interfaces::Init
+class OpenSYQtInit : public interfaces::Init
 {
 public:
-    OpenSyriaQtInit()
+    OpenSYQtInit()
     {
         InitContext(m_node);
         m_node.init = this;
@@ -43,6 +43,6 @@ public:
 namespace interfaces {
 std::unique_ptr<Init> MakeGuiInit(int argc, char* argv[])
 {
-    return std::make_unique<init::OpenSyriaQtInit>();
+    return std::make_unique<init::OpenSYQtInit>();
 }
 } // namespace interfaces

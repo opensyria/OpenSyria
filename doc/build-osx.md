@@ -2,7 +2,7 @@
 
 **Updated for MacOS [15](https://www.apple.com/macos/macos-sequoia/)**
 
-This guide describes how to build opensyriad, command-line utilities, and GUI on macOS.
+This guide describes how to build opensyd, command-line utilities, and GUI on macOS.
 
 ## Preparation
 
@@ -16,7 +16,7 @@ macOS comes with a built-in Terminal located in:
 ### 1. Xcode Command Line Tools
 
 The Xcode Command Line Tools are a collection of build tools for macOS.
-These tools must be installed in order to build OpenSyria Core from source.
+These tools must be installed in order to build OpenSY from source.
 
 To install, run the following command from your terminal:
 
@@ -64,14 +64,14 @@ install anything.
 If you do not need IPC functionality (see [multiprocess.md](multiprocess.md))
 you can omit `capnp` and use `-DENABLE_IPC=OFF` in the `cmake -B` step below.
 
-### 4. Clone OpenSyria repository
+### 4. Clone OpenSY repository
 
 `git` should already be installed by default on your system.
-Now that all the required dependencies are installed, let's clone the OpenSyria Core repository to a directory.
+Now that all the required dependencies are installed, let's clone the OpenSY repository to a directory.
 All build scripts and commands will run from this directory.
 
 ``` bash
-git clone https://github.com/opensyria/opensyria.git
+git clone https://github.com/opensy/opensy.git
 ```
 
 ### 5. Install Optional Dependencies
@@ -80,7 +80,7 @@ git clone https://github.com/opensyria/opensyria.git
 
 ###### Qt
 
-OpenSyria Core includes a GUI built with the cross-platform Qt Framework. To compile the GUI, we need to install
+OpenSY includes a GUI built with the cross-platform Qt Framework. To compile the GUI, we need to install
 Qt, libqrencode and pass `-DBUILD_GUI=ON`. Skip if you don't intend to use the GUI.
 
 ``` bash
@@ -88,7 +88,7 @@ brew install qt@6
 ```
 
 Note: Building with Qt binaries downloaded from the Qt website is not officially supported.
-See the notes in [#7714](https://github.com/opensyria/opensyria/issues/7714).
+See the notes in [#7714](https://github.com/opensy/opensy/issues/7714).
 
 ###### libqrencode
 
@@ -130,14 +130,14 @@ brew install python
 
 #### Deploy Dependencies
 
-You can [deploy](#3-deploy-optional) a `.zip` containing the OpenSyria Core application.
+You can [deploy](#3-deploy-optional) a `.zip` containing the OpenSY application.
 It is required that you have `python` and `zip` installed.
 
-## Building OpenSyria Core
+## Building OpenSY
 
 ### 1. Configuration
 
-There are many ways to configure OpenSyria Core, here are a few common examples:
+There are many ways to configure OpenSY, here are a few common examples:
 
 ##### Wallet (only SQlite) and GUI Support:
 
@@ -166,7 +166,7 @@ cmake -B build -LH
 ### 2. Compile
 
 After configuration, you are ready to compile.
-Run the following in your terminal to compile OpenSyria Core:
+Run the following in your terminal to compile OpenSY:
 
 ``` bash
 cmake --build build     # Append "-j N" here for N parallel jobs.
@@ -181,45 +181,45 @@ You can also create a  `.zip` containing the `.app` bundle by running the follow
 cmake --build build --target deploy
 ```
 
-## Running OpenSyria Core
+## Running OpenSY
 
-OpenSyria Core should now be available at `./build/bin/opensyriad`.
-If you compiled support for the GUI, it should be available at `./build/bin/opensyria-qt`.
+OpenSY should now be available at `./build/bin/opensyd`.
+If you compiled support for the GUI, it should be available at `./build/bin/opensy-qt`.
 
-There is also a multifunction command line interface at `./build/bin/opensyria`
-supporting subcommands like `opensyria node`, `opensyria gui`, `opensyria rpc`, and
-others that can be listed with `opensyria help`.
+There is also a multifunction command line interface at `./build/bin/opensy`
+supporting subcommands like `opensy node`, `opensy gui`, `opensy rpc`, and
+others that can be listed with `opensy help`.
 
-The first time you run `opensyriad` or `opensyria-qt`, it will start downloading the blockchain.
+The first time you run `opensyd` or `opensy-qt`, it will start downloading the blockchain.
 This process could take many hours, or even days on slower than average systems.
 
 By default, blockchain and wallet data files will be stored in:
 
 ``` bash
-/Users/${USER}/Library/Application Support/OpenSyria/
+/Users/${USER}/Library/Application Support/OpenSY/
 ```
 
 Before running, you may create an empty configuration file:
 
 ```shell
-mkdir -p "/Users/${USER}/Library/Application Support/OpenSyria"
+mkdir -p "/Users/${USER}/Library/Application Support/OpenSY"
 
-touch "/Users/${USER}/Library/Application Support/OpenSyria/opensyria.conf"
+touch "/Users/${USER}/Library/Application Support/OpenSY/opensy.conf"
 
-chmod 600 "/Users/${USER}/Library/Application Support/OpenSyria/opensyria.conf"
+chmod 600 "/Users/${USER}/Library/Application Support/OpenSY/opensy.conf"
 ```
 
 You can monitor the download process by looking at the debug.log file:
 
 ```shell
-tail -f $HOME/Library/Application\ Support/OpenSyria/debug.log
+tail -f $HOME/Library/Application\ Support/OpenSY/debug.log
 ```
 
 ## Other commands:
 
 ```shell
-./build/bin/opensyriad -daemon      # Starts the opensyria daemon.
-./build/bin/opensyria-cli --help    # Outputs a list of command-line options.
-./build/bin/opensyria-cli help      # Outputs a list of RPC commands when the daemon is running.
-./build/bin/opensyria-qt -server # Starts the opensyria-qt server mode, allows opensyria-cli control
+./build/bin/opensyd -daemon      # Starts the opensy daemon.
+./build/bin/opensy-cli --help    # Outputs a list of command-line options.
+./build/bin/opensy-cli help      # Outputs a list of RPC commands when the daemon is running.
+./build/bin/opensy-qt -server # Starts the opensy-qt server mode, allows opensy-cli control
 ```

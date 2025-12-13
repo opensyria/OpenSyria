@@ -2,8 +2,8 @@
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
 
-add_executable(bench_opensyria
-  bench_opensyria.cpp
+add_executable(bench_opensy
+  bench_opensy.cpp
   bench.cpp
   nanobench.cpp
 # Benchmarks:
@@ -56,25 +56,25 @@ add_executable(bench_opensyria
   util_time.cpp
   verify_script.cpp
 )
-set_target_properties(bench_opensyria PROPERTIES OUTPUT_NAME bench_opensyria)
-set_target_properties(bench_opensyria PROPERTIES OUTPUT_NAME bench_opensyria)
+set_target_properties(bench_opensy PROPERTIES OUTPUT_NAME bench_opensy)
+set_target_properties(bench_opensy PROPERTIES OUTPUT_NAME bench_opensy)
 
-add_windows_application_manifest(bench_opensyria)
+add_windows_application_manifest(bench_opensy)
 
 include(TargetDataSources)
-target_raw_data_sources(bench_opensyria NAMESPACE benchmark::data
+target_raw_data_sources(bench_opensy NAMESPACE benchmark::data
   data/block413567.raw
 )
 
-target_link_libraries(bench_opensyria
+target_link_libraries(bench_opensy
   core_interface
   test_util
-  opensyria_node
+  opensy_node
   Boost::headers
 )
 
 if(ENABLE_WALLET)
-  target_sources(bench_opensyria
+  target_sources(bench_opensy
     PRIVATE
       coin_selection.cpp
       wallet_balance.cpp
@@ -84,11 +84,11 @@ if(ENABLE_WALLET)
       wallet_ismine.cpp
       wallet_migration.cpp
   )
-  target_link_libraries(bench_opensyria opensyria_wallet)
+  target_link_libraries(bench_opensy opensy_wallet)
 endif()
 
 add_test(NAME bench_sanity_check
-  COMMAND bench_opensyria -sanity-check
+  COMMAND bench_opensy -sanity-check
 )
 
-install_binary_component(bench_opensyria INTERNAL)
+install_binary_component(bench_opensy INTERNAL)

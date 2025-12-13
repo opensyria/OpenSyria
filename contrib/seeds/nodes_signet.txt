@@ -1,12 +1,12 @@
-# OpenSyria Signet Seed Nodes
+# OpenSY Signet Seed Nodes
 #
 # This file is intentionally empty for the initial launch.
-# OpenSyria signet does not yet have established seed nodes.
+# OpenSY signet does not yet have established seed nodes.
 #
 # Format: <ip>:<port> # <optional AS number comment>
 # Example: 192.0.2.1:39633 # AS12345
 #
 # For initial signet bootstrap, use:
-#   opensyriad -signet -addnode=<known_node_ip>:39633
+#   opensyd -signet -addnode=<known_node_ip>:39633
 #
-# TODO: Populate with actual OpenSyria signet node addresses
+# TODO: Populate with actual OpenSY signet node addresses

@@ -1,9 +1,9 @@
-// Copyright (c) 2024 The OpenSyria Core developers
+// Copyright (c) 2024 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_COMMON_NETIF_H
-#define OPENSYRIA_COMMON_NETIF_H
+#ifndef OPENSY_COMMON_NETIF_H
+#define OPENSY_COMMON_NETIF_H
 
 #include <netaddress.h>
 
@@ -16,4 +16,4 @@ std::optional<CNetAddr> QueryDefaultGateway(Network network);
 //! Return all local non-loopback IPv4 and IPv6 network addresses.
 std::vector<CNetAddr> GetLocalAddresses();
 
-#endif // OPENSYRIA_COMMON_NETIF_H
+#endif // OPENSY_COMMON_NETIF_H

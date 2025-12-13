@@ -13,7 +13,7 @@
 - (NSString *)__bundleIdentifier
 {
     if (self == [NSBundle mainBundle]) {
-        return @"org.opensyriafoundation.OpenSyria-Qt";
+        return @"org.opensyfoundation.OpenSY-Qt";
     } else {
         return [self __bundleIdentifier];
     }

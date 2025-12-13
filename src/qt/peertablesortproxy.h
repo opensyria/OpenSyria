@@ -1,9 +1,9 @@
-// Copyright (c) 2020-2021 The OpenSyria Core developers
+// Copyright (c) 2020-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_PEERTABLESORTPROXY_H
-#define OPENSYRIA_QT_PEERTABLESORTPROXY_H
+#ifndef OPENSY_QT_PEERTABLESORTPROXY_H
+#define OPENSY_QT_PEERTABLESORTPROXY_H
 
 #include <QSortFilterProxyModel>
 
@@ -22,4 +22,4 @@ protected:
     bool lessThan(const QModelIndex& left_index, const QModelIndex& right_index) const override;
 };
 
-#endif // OPENSYRIA_QT_PEERTABLESORTPROXY_H
+#endif // OPENSY_QT_PEERTABLESORTPROXY_H

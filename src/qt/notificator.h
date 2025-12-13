@@ -1,11 +1,11 @@
-// Copyright (c) 2011-2022 The OpenSyria Core developers
+// Copyright (c) 2011-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_NOTIFICATOR_H
-#define OPENSYRIA_QT_NOTIFICATOR_H
+#ifndef OPENSY_QT_NOTIFICATOR_H
+#define OPENSY_QT_NOTIFICATOR_H
 
-#include <opensyria-build-config.h> // IWYU pragma: keep
+#include <opensy-build-config.h> // IWYU pragma: keep
 
 #include <QIcon>
 #include <QObject>
@@ -72,4 +72,4 @@ private:
 #endif
 };
 
-#endif // OPENSYRIA_QT_NOTIFICATOR_H
+#endif // OPENSY_QT_NOTIFICATOR_H

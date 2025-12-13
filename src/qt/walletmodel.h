@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2022 The OpenSyria Core developers
+// Copyright (c) 2011-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_WALLETMODEL_H
-#define OPENSYRIA_QT_WALLETMODEL_H
+#ifndef OPENSY_QT_WALLETMODEL_H
+#define OPENSY_QT_WALLETMODEL_H
 
 #include <key.h>
 
@@ -44,7 +44,7 @@ QT_BEGIN_NAMESPACE
 class QTimer;
 QT_END_NAMESPACE
 
-/** Interface to OpenSyria wallet from Qt view code. */
+/** Interface to OpenSY wallet from Qt view code. */
 class WalletModel : public QObject
 {
     Q_OBJECT
@@ -232,4 +232,4 @@ public Q_SLOTS:
     void pollBalanceChanged();
 };
 
-#endif // OPENSYRIA_QT_WALLETMODEL_H
+#endif // OPENSY_QT_WALLETMODEL_H

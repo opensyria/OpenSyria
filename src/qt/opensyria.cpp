@@ -1,10 +1,10 @@
-// Copyright (c) 2011-2022 The OpenSyria Core developers
+// Copyright (c) 2011-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <opensyria-build-config.h> // IWYU pragma: keep
+#include <opensy-build-config.h> // IWYU pragma: keep
 
-#include <qt/opensyria.h>
+#include <qt/opensy.h>
 
 #include <chainparams.h>
 #include <common/args.h>
@@ -18,7 +18,7 @@
 #include <node/context.h>
 #include <node/interface_ui.h>
 #include <noui.h>
-#include <qt/opensyriagui.h>
+#include <qt/opensygui.h>
 #include <qt/clientmodel.h>
 #include <qt/guiconstants.h>
 #include <qt/guiutil.h>
@@ -90,7 +90,7 @@ static void RegisterMetaTypes()
     qRegisterMetaType<std::function<void()>>("std::function<void()>");
     qRegisterMetaType<QMessageBox::Icon>("QMessageBox::Icon");
     qRegisterMetaType<interfaces::BlockAndHeaderTipInfo>("interfaces::BlockAndHeaderTipInfo");
-    qRegisterMetaType<OpenSyriaUnit>("OpenSyriaUnit");
+    qRegisterMetaType<OpenSYUnit>("OpenSYUnit");
 }
 
 static QString GetLangTerritory()
@@ -140,12 +140,12 @@ static void initTranslations(QTranslator &qtTranslatorBase, QTranslator &qtTrans
         QApplication::installTranslator(&qtTranslator);
     }
 
-    // Load e.g. opensyria_de.qm (shortcut "de" needs to be defined in opensyria.qrc)
+    // Load e.g. opensy_de.qm (shortcut "de" needs to be defined in opensy.qrc)
     if (translatorBase.load(lang, ":/translations/")) {
         QApplication::installTranslator(&translatorBase);
     }
 
-    // Load e.g. opensyria_de_DE.qm (shortcut "de_DE" needs to be defined in opensyria.qrc)
+    // Load e.g. opensy_de_DE.qm (shortcut "de_DE" needs to be defined in opensy.qrc)
     if (translator.load(lang_territory, ":/translations/")) {
         QApplication::installTranslator(&translator);
     }
@@ -195,9 +195,9 @@ void DebugMessageHandler(QtMsgType type, const QMessageLogContext& context, cons
 }
 
 static int qt_argc = 1;
-static const char* qt_argv = "opensyria-qt";
+static const char* qt_argv = "opensy-qt";
 
-OpenSyriaApplication::OpenSyriaApplication()
+OpenSYApplication::OpenSYApplication()
     : QApplication(qt_argc, const_cast<char**>(&qt_argv))
 {
     // Qt runs setlocale(LC_ALL, "") on initialization.
@@ -205,20 +205,20 @@ OpenSyriaApplication::OpenSyriaApplication()
     setQuitOnLastWindowClosed(false);
 }
 
-void OpenSyriaApplication::setupPlatformStyle()
+void OpenSYApplication::setupPlatformStyle()
 {
     // UI per-platform customization
-    // This must be done inside the OpenSyriaApplication constructor, or after it, because
+    // This must be done inside the OpenSYApplication constructor, or after it, because
     // PlatformStyle::instantiate requires a QApplication
     std::string platformName;
-    platformName = gArgs.GetArg("-uiplatform", OpenSyriaGUI::DEFAULT_UIPLATFORM);
+    platformName = gArgs.GetArg("-uiplatform", OpenSYGUI::DEFAULT_UIPLATFORM);
     platformStyle = PlatformStyle::instantiate(QString::fromStdString(platformName));
     if (!platformStyle) // Fall back to "other" if specified name not found
         platformStyle = PlatformStyle::instantiate("other");
     assert(platformStyle);
 }
 
-OpenSyriaApplication::~OpenSyriaApplication()
+OpenSYApplication::~OpenSYApplication()
 {
     m_executor.reset();
 
@@ -229,13 +229,13 @@ OpenSyriaApplication::~OpenSyriaApplication()
 }
 
 #ifdef ENABLE_WALLET
-void OpenSyriaApplication::createPaymentServer()
+void OpenSYApplication::createPaymentServer()
 {
     paymentServer = new PaymentServer(this);
 }
 #endif
 
-bool OpenSyriaApplication::createOptionsModel(bool resetSettings)
+bool OpenSYApplication::createOptionsModel(bool resetSettings)
 {
     optionsModel = new OptionsModel(node(), this);
     if (resetSettings) {
@@ -257,10 +257,10 @@ bool OpenSyriaApplication::createOptionsModel(bool resetSettings)
     return true;
 }
 
-void OpenSyriaApplication::createWindow(const NetworkStyle *networkStyle)
+void OpenSYApplication::createWindow(const NetworkStyle *networkStyle)
 {
-    window = new OpenSyriaGUI(node(), platformStyle, networkStyle, nullptr);
-    connect(window, &OpenSyriaGUI::quitRequested, this, &OpenSyriaApplication::requestShutdown);
+    window = new OpenSYGUI(node(), platformStyle, networkStyle, nullptr);
+    connect(window, &OpenSYGUI::quitRequested, this, &OpenSYApplication::requestShutdown);
 
     pollShutdownTimer = new QTimer(window);
     connect(pollShutdownTimer, &QTimer::timeout, [this]{
@@ -270,41 +270,41 @@ void OpenSyriaApplication::createWindow(const NetworkStyle *networkStyle)
     });
 }
 
-void OpenSyriaApplication::createSplashScreen(const NetworkStyle *networkStyle)
+void OpenSYApplication::createSplashScreen(const NetworkStyle *networkStyle)
 {
     assert(!m_splash);
     m_splash = new SplashScreen(networkStyle);
     m_splash->show();
 }
 
-void OpenSyriaApplication::createNode(interfaces::Init& init)
+void OpenSYApplication::createNode(interfaces::Init& init)
 {
     assert(!m_node);
     m_node = init.makeNode();
     if (m_splash) m_splash->setNode(*m_node);
 }
 
-bool OpenSyriaApplication::baseInitialize()
+bool OpenSYApplication::baseInitialize()
 {
     return node().baseInitialize();
 }
 
-void OpenSyriaApplication::startThread()
+void OpenSYApplication::startThread()
 {
     assert(!m_executor);
     m_executor.emplace(node());
 
     /*  communication to and from thread */
-    connect(&m_executor.value(), &InitExecutor::initializeResult, this, &OpenSyriaApplication::initializeResult);
+    connect(&m_executor.value(), &InitExecutor::initializeResult, this, &OpenSYApplication::initializeResult);
     connect(&m_executor.value(), &InitExecutor::shutdownResult, this, [] {
         QCoreApplication::exit(0);
     });
-    connect(&m_executor.value(), &InitExecutor::runawayException, this, &OpenSyriaApplication::handleRunawayException);
-    connect(this, &OpenSyriaApplication::requestedInitialize, &m_executor.value(), &InitExecutor::initialize);
-    connect(this, &OpenSyriaApplication::requestedShutdown, &m_executor.value(), &InitExecutor::shutdown);
+    connect(&m_executor.value(), &InitExecutor::runawayException, this, &OpenSYApplication::handleRunawayException);
+    connect(this, &OpenSYApplication::requestedInitialize, &m_executor.value(), &InitExecutor::initialize);
+    connect(this, &OpenSYApplication::requestedShutdown, &m_executor.value(), &InitExecutor::shutdown);
 }
 
-void OpenSyriaApplication::parameterSetup()
+void OpenSYApplication::parameterSetup()
 {
     // Default printtoconsole to false for the GUI. GUI programs should not
     // print to the console unnecessarily.
@@ -314,19 +314,19 @@ void OpenSyriaApplication::parameterSetup()
     InitParameterInteraction(gArgs);
 }
 
-void OpenSyriaApplication::InitPruneSetting(int64_t prune_MiB)
+void OpenSYApplication::InitPruneSetting(int64_t prune_MiB)
 {
     optionsModel->SetPruneTargetGB(PruneMiBtoGB(prune_MiB));
 }
 
-void OpenSyriaApplication::requestInitialize()
+void OpenSYApplication::requestInitialize()
 {
     qDebug() << __func__ << ": Requesting initialize";
     startThread();
     Q_EMIT requestedInitialize();
 }
 
-void OpenSyriaApplication::requestShutdown()
+void OpenSYApplication::requestShutdown()
 {
     for (const auto w : QGuiApplication::topLevelWindows()) {
         w->hide();
@@ -376,7 +376,7 @@ void OpenSyriaApplication::requestShutdown()
     Q_EMIT requestedShutdown();
 }
 
-void OpenSyriaApplication::initializeResult(bool success, interfaces::BlockAndHeaderTipInfo tip_info)
+void OpenSYApplication::initializeResult(bool success, interfaces::BlockAndHeaderTipInfo tip_info)
 {
     qDebug() << __func__ << ": Initialization result: " << success;
 
@@ -413,10 +413,10 @@ void OpenSyriaApplication::initializeResult(bool success, interfaces::BlockAndHe
 
 #ifdef ENABLE_WALLET
         // Now that initialization/startup is done, process any command-line
-        // opensyria: URIs or payment requests:
+        // opensy: URIs or payment requests:
         if (paymentServer) {
-            connect(paymentServer, &PaymentServer::receivedPaymentRequest, window, &OpenSyriaGUI::handlePaymentRequest);
-            connect(window, &OpenSyriaGUI::receivedURI, paymentServer, &PaymentServer::handleURIOrFile);
+            connect(paymentServer, &PaymentServer::receivedPaymentRequest, window, &OpenSYGUI::handlePaymentRequest);
+            connect(window, &OpenSYGUI::receivedURI, paymentServer, &PaymentServer::handleURIOrFile);
             connect(paymentServer, &PaymentServer::message, [this](const QString& title, const QString& message, unsigned int style) {
                 window->message(title, message, style);
             });
@@ -429,7 +429,7 @@ void OpenSyriaApplication::initializeResult(bool success, interfaces::BlockAndHe
     }
 }
 
-void OpenSyriaApplication::handleRunawayException(const QString &message)
+void OpenSYApplication::handleRunawayException(const QString &message)
 {
     QMessageBox::critical(
         nullptr, tr("Runaway exception"),
@@ -438,7 +438,7 @@ void OpenSyriaApplication::handleRunawayException(const QString &message)
     ::exit(EXIT_FAILURE);
 }
 
-void OpenSyriaApplication::handleNonFatalException(const QString& message)
+void OpenSYApplication::handleNonFatalException(const QString& message)
 {
     assert(QThread::currentThread() == thread());
     QMessageBox::warning(
@@ -448,7 +448,7 @@ void OpenSyriaApplication::handleNonFatalException(const QString& message)
         QLatin1String("<br><br>") + GUIUtil::MakeHtmlLink(message, CLIENT_BUGREPORT));
 }
 
-WId OpenSyriaApplication::getMainWinId() const
+WId OpenSYApplication::getMainWinId() const
 {
     if (!window)
         return 0;
@@ -456,7 +456,7 @@ WId OpenSyriaApplication::getMainWinId() const
     return window->winId();
 }
 
-bool OpenSyriaApplication::event(QEvent* e)
+bool OpenSYApplication::event(QEvent* e)
 {
     if (e->type() == QEvent::Quit) {
         requestShutdown();
@@ -473,7 +473,7 @@ static void SetupUIArgs(ArgsManager& argsman)
     argsman.AddArg("-min", "Start minimized", ArgsManager::ALLOW_ANY, OptionsCategory::GUI);
     argsman.AddArg("-resetguisettings", "Reset all settings changed in the GUI", ArgsManager::ALLOW_ANY, OptionsCategory::GUI);
     argsman.AddArg("-splash", strprintf("Show splash screen on startup (default: %u)", DEFAULT_SPLASHSCREEN), ArgsManager::ALLOW_ANY, OptionsCategory::GUI);
-    argsman.AddArg("-uiplatform", strprintf("Select platform to customize UI for (one of windows, macosx, other; default: %s)", OpenSyriaGUI::DEFAULT_UIPLATFORM), ArgsManager::ALLOW_ANY | ArgsManager::DEBUG_ONLY, OptionsCategory::GUI);
+    argsman.AddArg("-uiplatform", strprintf("Select platform to customize UI for (one of windows, macosx, other; default: %s)", OpenSYGUI::DEFAULT_UIPLATFORM), ArgsManager::ALLOW_ANY | ArgsManager::DEBUG_ONLY, OptionsCategory::GUI);
 }
 
 int GuiMain(int argc, char* argv[])
@@ -491,8 +491,8 @@ int GuiMain(int argc, char* argv[])
     // Do not refer to data directory yet, this can be overridden by Intro::pickDataDirectory
 
     /// 1. Basic Qt initialization (not dependent on parameters or configuration)
-    Q_INIT_RESOURCE(opensyria);
-    Q_INIT_RESOURCE(opensyria_locale);
+    Q_INIT_RESOURCE(opensy);
+    Q_INIT_RESOURCE(opensy_locale);
 
 #if defined(QT_QPA_PLATFORM_ANDROID)
     QApplication::setAttribute(Qt::AA_DontUseNativeMenuBar);
@@ -500,7 +500,7 @@ int GuiMain(int argc, char* argv[])
     QApplication::setAttribute(Qt::AA_DontUseNativeDialogs);
 #endif
 
-    OpenSyriaApplication app;
+    OpenSYApplication app;
     GUIUtil::LoadFont(QStringLiteral(":/fonts/monospace"));
 
     /// 2. Parse command-line options. We do this after qt in order to show an error if there are problems parsing these
@@ -524,7 +524,7 @@ int GuiMain(int argc, char* argv[])
         QString arg(argv[i]);
         bool invalid_token = !arg.startsWith("-");
 #ifdef ENABLE_WALLET
-        if (arg.startsWith(OPENSYRIA_IPC_PREFIX, Qt::CaseInsensitive)) {
+        if (arg.startsWith(OPENSY_IPC_PREFIX, Qt::CaseInsensitive)) {
             invalid_token &= false;
             payment_server_token_seen = true;
         }
@@ -537,10 +537,10 @@ int GuiMain(int argc, char* argv[])
             return EXIT_FAILURE;
         }
         if (invalid_token) {
-            InitError(Untranslated(strprintf("Command line contains unexpected token '%s', see opensyria-qt -h for a list of options.", argv[i])));
+            InitError(Untranslated(strprintf("Command line contains unexpected token '%s', see opensy-qt -h for a list of options.", argv[i])));
             QMessageBox::critical(nullptr, CLIENT_NAME,
                                   // message cannot be translated because translations have not been initialized
-                                  QString::fromStdString("Command line contains unexpected token '%1', see opensyria-qt -h for a list of options.").arg(QString::fromStdString(argv[i])));
+                                  QString::fromStdString("Command line contains unexpected token '%1', see opensy-qt -h for a list of options.").arg(QString::fromStdString(argv[i])));
             return EXIT_FAILURE;
         }
     }
@@ -578,7 +578,7 @@ int GuiMain(int argc, char* argv[])
     // Gracefully exit if the user cancels
     if (!Intro::showIfNeeded(did_show_intro, prune_MiB)) return EXIT_SUCCESS;
 
-    /// 6-7. Parse opensyria.conf, determine network, switch to network specific
+    /// 6-7. Parse opensy.conf, determine network, switch to network specific
     /// options, and create datadir and settings.json.
     // - Do not call gArgs.GetDataDirNet() before this step finishes
     // - Do not call Params() before this step
@@ -620,7 +620,7 @@ int GuiMain(int argc, char* argv[])
         exit(EXIT_SUCCESS);
 
     // Start up the payment server early, too, so impatient users that click on
-    // opensyria: links repeatedly have their payment requests routed to this process:
+    // opensy: links repeatedly have their payment requests routed to this process:
     if (WalletModel::isWalletEnabled()) {
         app.createPaymentServer();
     }

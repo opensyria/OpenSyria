@@ -11,7 +11,7 @@
   </array>
 
   <key>CFBundleIconFile</key>
-  <string>opensyria.icns</string>
+  <string>opensy.icns</string>
 
   <key>CFBundlePackageType</key>
   <string>APPL</string>
@@ -34,16 +34,16 @@
   <string>????</string>
 
   <key>CFBundleExecutable</key>
-  <string>OpenSyria-Qt</string>
+  <string>OpenSY-Qt</string>
 
   <key>CFBundleName</key>
-  <string>OpenSyria-Qt</string>
+  <string>OpenSY-Qt</string>
 
   <key>LSHasLocalizedDisplayName</key>
   <true/>
 
   <key>CFBundleIdentifier</key>
-  <string>org.opensyriafoundation.OpenSyria-Qt</string>
+  <string>org.opensyfoundation.OpenSY-Qt</string>
 
   <key>CFBundleURLTypes</key>
   <array>
@@ -51,10 +51,10 @@
       <key>CFBundleTypeRole</key>
       <string>Editor</string>
       <key>CFBundleURLName</key>
-      <string>org.opensyria.OpenSyriaPayment</string>
+      <string>org.opensy.OpenSYPayment</string>
       <key>CFBundleURLSchemes</key>
       <array>
-        <string>opensyria</string>
+        <string>opensy</string>
       </array>
     </dict>
   </array>

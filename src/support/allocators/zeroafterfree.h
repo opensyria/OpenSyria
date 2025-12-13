@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The OpenSyria Core developers
+// Copyright (c) 2009-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_SUPPORT_ALLOCATORS_ZEROAFTERFREE_H
-#define OPENSYRIA_SUPPORT_ALLOCATORS_ZEROAFTERFREE_H
+#ifndef OPENSY_SUPPORT_ALLOCATORS_ZEROAFTERFREE_H
+#define OPENSY_SUPPORT_ALLOCATORS_ZEROAFTERFREE_H
 
 #include <support/cleanse.h>
 
@@ -48,4 +48,4 @@ struct zero_after_free_allocator {
 /** Byte-vector that clears its contents before deletion. */
 using SerializeData = std::vector<std::byte, zero_after_free_allocator<std::byte>>;
 
-#endif // OPENSYRIA_SUPPORT_ALLOCATORS_ZEROAFTERFREE_H
+#endif // OPENSY_SUPPORT_ALLOCATORS_ZEROAFTERFREE_H

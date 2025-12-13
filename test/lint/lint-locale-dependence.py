@@ -1,27 +1,27 @@
 #!/usr/bin/env python3
-# Copyright (c) 2018-present The OpenSyria Core developers
+# Copyright (c) 2018-present The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 #
-# Be aware that opensyriad and opensyria-qt differ in terms of localization: Qt
+# Be aware that opensyd and opensy-qt differ in terms of localization: Qt
 # opts in to POSIX localization by running setlocale(LC_ALL, "") on startup,
-# whereas no such call is made in opensyriad.
+# whereas no such call is made in opensyd.
 #
 # Qt runs setlocale(LC_ALL, "") on initialization. This installs the locale
 # specified by the user's LC_ALL (or LC_*) environment variable as the new
 # C locale.
 #
-# In contrast, opensyriad does not opt in to localization -- no call to
+# In contrast, opensyd does not opt in to localization -- no call to
 # setlocale(LC_ALL, "") is made and the environment variables LC_* are
 # thus ignored.
 #
-# This results in situations where opensyriad is guaranteed to be running
-# with the classic locale ("C") whereas the locale of opensyria-qt will vary
+# This results in situations where opensyd is guaranteed to be running
+# with the classic locale ("C") whereas the locale of opensy-qt will vary
 # depending on the user's environment variables.
 #
 # An example: Assuming the environment variable LC_ALL=de_DE then the
-# call std::to_string(1.23) will return "1.230000" in opensyriad but
-# "1,230000" in opensyria-qt.
+# call std::to_string(1.23) will return "1.230000" in opensyd but
+# "1,230000" in opensy-qt.
 #
 # From the Qt documentation:
 # "On Unix/Linux Qt is configured to use the system locale settings by default.

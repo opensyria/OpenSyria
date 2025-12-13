@@ -1,9 +1,9 @@
-// Copyright (c) 2017-present The OpenSyria Core developers
+// Copyright (c) 2017-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_RPC_BLOCKCHAIN_H
-#define OPENSYRIA_RPC_BLOCKCHAIN_H
+#ifndef OPENSY_RPC_BLOCKCHAIN_H
+#define OPENSY_RPC_BLOCKCHAIN_H
 
 #include <consensus/amount.h>
 #include <core_io.h>
@@ -59,4 +59,4 @@ UniValue CreateUTXOSnapshot(
 std::optional<int> GetPruneHeight(const node::BlockManager& blockman, const CChain& chain) EXCLUSIVE_LOCKS_REQUIRED(::cs_main);
 void CheckBlockDataAvailability(node::BlockManager& blockman, const CBlockIndex& blockindex, bool check_for_undo) EXCLUSIVE_LOCKS_REQUIRED(::cs_main);
 
-#endif // OPENSYRIA_RPC_BLOCKCHAIN_H
+#endif // OPENSY_RPC_BLOCKCHAIN_H

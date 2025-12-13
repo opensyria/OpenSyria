@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2020 The OpenSyria Core developers
+// Copyright (c) 2009-2020 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_FLATFILE_H
-#define OPENSYRIA_FLATFILE_H
+#ifndef OPENSY_FLATFILE_H
+#define OPENSY_FLATFILE_H
 
 #include <string>
 
@@ -86,4 +86,4 @@ public:
     bool Flush(const FlatFilePos& pos, bool finalize = false) const;
 };
 
-#endif // OPENSYRIA_FLATFILE_H
+#endif // OPENSY_FLATFILE_H

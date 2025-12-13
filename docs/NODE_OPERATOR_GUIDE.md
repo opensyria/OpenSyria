@@ -1,6 +1,6 @@
-# 🖥️ OpenSyria Node Operator Guide
+# 🖥️ OpenSY Node Operator Guide
 
-A complete guide to running an OpenSyria full node.
+A complete guide to running an OpenSY full node.
 
 ---
 
@@ -8,16 +8,16 @@ A complete guide to running an OpenSyria full node.
 
 ```bash
 # Clone and build
-git clone https://github.com/opensyria/OpenSyria.git
-cd OpenSyria
+git clone https://github.com/opensy/OpenSY.git
+cd OpenSY
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
 
 # Start node
-./build/bin/opensyriad -daemon -addnode=node1.opensyria.net
+./build/bin/opensyd -daemon -addnode=node1.opensy.net
 
 # Check status
-./build/bin/opensyria-cli getblockchaininfo
+./build/bin/opensy-cli getblockchaininfo
 ```
 
 ---
@@ -54,8 +54,8 @@ sudo apt install -y build-essential cmake pkg-config \
   libboost-dev libevent-dev libsqlite3-dev libssl-dev
 
 # Clone and build
-git clone https://github.com/opensyria/OpenSyria.git
-cd OpenSyria
+git clone https://github.com/opensy/OpenSY.git
+cd OpenSY
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
 
@@ -70,8 +70,8 @@ sudo cmake --install build
 brew install cmake boost libevent sqlite openssl
 
 # Clone and build
-git clone https://github.com/opensyria/OpenSyria.git
-cd OpenSyria
+git clone https://github.com/opensy/OpenSY.git
+cd OpenSY
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(sysctl -n hw.ncpu)
 ```
@@ -83,14 +83,14 @@ cmake --build build -j$(sysctl -n hw.ncpu)
 ### Config File Location
 | OS | Path |
 |----|------|
-| Linux | `~/.opensyria/opensyria.conf` |
-| macOS | `~/Library/Application Support/OpenSyria/opensyria.conf` |
-| Windows | `%APPDATA%\OpenSyria\opensyria.conf` |
+| Linux | `~/.opensy/opensy.conf` |
+| macOS | `~/Library/Application Support/OpenSY/opensy.conf` |
+| Windows | `%APPDATA%\OpenSY\opensy.conf` |
 
 ### Basic Configuration
 
 ```ini
-# ~/.opensyria/opensyria.conf
+# ~/.opensy/opensy.conf
 
 # Network
 server=1
@@ -99,10 +99,10 @@ port=9633
 
 # Connections
 maxconnections=125
-addnode=node1.opensyria.net
+addnode=node1.opensy.net
 
 # RPC (for local access only)
-rpcuser=opensyria
+rpcuser=opensy
 rpcpassword=YOUR_SECURE_PASSWORD
 rpcbind=127.0.0.1
 rpcport=9632
@@ -139,18 +139,18 @@ maxconnections=256
 ### Create systemd service
 
 ```bash
-sudo tee /etc/systemd/system/opensyriad.service << 'EOF'
+sudo tee /etc/systemd/system/opensyd.service << 'EOF'
 [Unit]
-Description=OpenSyria Core Daemon
-Documentation=https://opensyria.net
+Description=OpenSY Daemon
+Documentation=https://opensy.net
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=simple
 User=YOUR_USERNAME
-ExecStart=/usr/local/bin/opensyriad -printtoconsole
-ExecStop=/usr/local/bin/opensyria-cli stop
+ExecStart=/usr/local/bin/opensyd -printtoconsole
+ExecStop=/usr/local/bin/opensy-cli stop
 Restart=on-failure
 RestartSec=30
 TimeoutStopSec=60
@@ -164,14 +164,14 @@ EOF
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable opensyriad
-sudo systemctl start opensyriad
+sudo systemctl enable opensyd
+sudo systemctl start opensyd
 
 # Check status
-sudo systemctl status opensyriad
+sudo systemctl status opensyd
 
 # View logs
-sudo journalctl -u opensyriad -f
+sudo journalctl -u opensyd -f
 ```
 
 ---
@@ -189,7 +189,7 @@ sudo journalctl -u opensyriad -f
 ### UFW (Ubuntu)
 
 ```bash
-sudo ufw allow 9633/tcp comment "OpenSyria P2P"
+sudo ufw allow 9633/tcp comment "OpenSY P2P"
 sudo ufw enable
 sudo ufw status
 ```
@@ -210,58 +210,58 @@ sudo netfilter-persistent save
 
 ```bash
 # Blockchain info
-opensyria-cli getblockchaininfo
+opensy-cli getblockchaininfo
 
 # Network info
-opensyria-cli getnetworkinfo
+opensy-cli getnetworkinfo
 
 # Connection count
-opensyria-cli getconnectioncount
+opensy-cli getconnectioncount
 
 # Peer list
-opensyria-cli getpeerinfo
+opensy-cli getpeerinfo
 
 # Memory pool
-opensyria-cli getmempoolinfo
+opensy-cli getmempoolinfo
 ```
 
 ### Wallet Operations
 
 ```bash
 # List wallets
-opensyria-cli listwallets
+opensy-cli listwallets
 
 # Create wallet
-opensyria-cli createwallet "my-wallet"
+opensy-cli createwallet "my-wallet"
 
 # Get balance
-opensyria-cli -rpcwallet=my-wallet getbalance
+opensy-cli -rpcwallet=my-wallet getbalance
 
 # Get new address
-opensyria-cli -rpcwallet=my-wallet getnewaddress
+opensy-cli -rpcwallet=my-wallet getnewaddress
 ```
 
 ### Mining
 
 ```bash
 # Get mining info
-opensyria-cli getmininginfo
+opensy-cli getmininginfo
 
 # Mine blocks
-opensyria-cli generatetoaddress 10 YOUR_ADDRESS 500000000
+opensy-cli generatetoaddress 10 YOUR_ADDRESS 500000000
 ```
 
 ### Maintenance
 
 ```bash
 # Stop node gracefully
-opensyria-cli stop
+opensy-cli stop
 
 # Get blockchain size
-du -sh ~/.opensyria/blocks/
+du -sh ~/.opensy/blocks/
 
 # Verify blockchain
-opensyria-cli verifychain
+opensy-cli verifychain
 ```
 
 ---
@@ -271,19 +271,19 @@ opensyria-cli verifychain
 ### Check sync progress
 
 ```bash
-opensyria-cli getblockchaininfo | grep -E "blocks|headers|verificationprogress"
+opensy-cli getblockchaininfo | grep -E "blocks|headers|verificationprogress"
 ```
 
 ### Monitor connections
 
 ```bash
-watch -n 5 'opensyria-cli getconnectioncount'
+watch -n 5 'opensy-cli getconnectioncount'
 ```
 
 ### Log monitoring
 
 ```bash
-tail -f ~/.opensyria/debug.log
+tail -f ~/.opensy/debug.log
 ```
 
 ---
@@ -294,33 +294,33 @@ tail -f ~/.opensyria/debug.log
 
 ```bash
 # Check if already running
-pgrep opensyriad
+pgrep opensyd
 
 # Check logs
-tail -100 ~/.opensyria/debug.log
+tail -100 ~/.opensy/debug.log
 
 # Try starting in foreground
-opensyriad -printtoconsole
+opensyd -printtoconsole
 ```
 
 ### No connections
 
 ```bash
 # Manually add a peer
-opensyria-cli addnode "node1.opensyria.net" "add"
+opensy-cli addnode "node1.opensy.net" "add"
 
 # Check if port is open
-nc -zv node1.opensyria.net 9633
+nc -zv node1.opensy.net 9633
 ```
 
 ### Sync stuck
 
 ```bash
 # Check peer info
-opensyria-cli getpeerinfo | grep synced
+opensy-cli getpeerinfo | grep synced
 
 # Restart node
-opensyria-cli stop && sleep 5 && opensyriad -daemon
+opensy-cli stop && sleep 5 && opensyd -daemon
 ```
 
 ### Out of memory
@@ -341,18 +341,18 @@ Run a testnet node for development and testing without risking real SYL.
 
 ```bash
 # Start testnet daemon
-opensyriad -testnet -daemon
+opensyd -testnet -daemon
 
 # Check testnet status
-opensyria-cli -testnet getblockchaininfo
+opensy-cli -testnet getblockchaininfo
 
 # Get testnet wallet address
-opensyria-cli -testnet getnewaddress
+opensy-cli -testnet getnewaddress
 ```
 
 ### Testnet Configuration
 
-Add to your `opensyria.conf`:
+Add to your `opensy.conf`:
 
 ```ini
 # Testnet section
@@ -361,11 +361,11 @@ server=1
 listen=1
 port=19633
 rpcport=19632
-rpcuser=opensyria
+rpcuser=opensy
 rpcpassword=YOUR_TESTNET_PASSWORD
 rpcbind=127.0.0.1
 rpcallowip=127.0.0.1
-addnode=node1.opensyria.net:9633
+addnode=node1.opensy.net:9633
 ```
 
 ### Testnet Ports
@@ -378,15 +378,15 @@ addnode=node1.opensyria.net:9633
 ### Running Testnet as Service
 
 ```bash
-sudo tee /etc/systemd/system/opensyriad-testnet.service << 'EOF'
+sudo tee /etc/systemd/system/opensyd-testnet.service << 'EOF'
 [Unit]
-Description=OpenSyria Testnet Daemon
+Description=OpenSY Testnet Daemon
 After=network.target
 
 [Service]
 Type=simple
 User=YOUR_USERNAME
-ExecStart=/usr/local/bin/opensyriad -testnet -printtoconsole
+ExecStart=/usr/local/bin/opensyd -testnet -printtoconsole
 Restart=on-failure
 RestartSec=10
 
@@ -394,8 +394,8 @@ RestartSec=10
 WantedBy=multi-user.target
 EOF
 
-sudo systemctl enable opensyriad-testnet
-sudo systemctl start opensyriad-testnet
+sudo systemctl enable opensyd-testnet
+sudo systemctl start opensyd-testnet
 ```
 
 ---
@@ -404,24 +404,24 @@ sudo systemctl start opensyriad-testnet
 
 ### Automated Backup Script
 
-Create `/opt/opensyria/backup.sh`:
+Create `/opt/opensy/backup.sh`:
 
 ```bash
 #!/bin/bash
-BACKUP_DIR=/opt/opensyria/backups
+BACKUP_DIR=/opt/opensy/backups
 DATE=$(date +%Y%m%d_%H%M%S)
 RETAIN_DAYS=7
 
 mkdir -p $BACKUP_DIR
 
 # Backup wallet
-[ -f ~/.opensyria/wallet.dat ] && cp ~/.opensyria/wallet.dat $BACKUP_DIR/wallet_$DATE.dat
+[ -f ~/.opensy/wallet.dat ] && cp ~/.opensy/wallet.dat $BACKUP_DIR/wallet_$DATE.dat
 
 # Backup config
-cp ~/.opensyria/opensyria.conf $BACKUP_DIR/opensyria.conf_$DATE
+cp ~/.opensy/opensy.conf $BACKUP_DIR/opensy.conf_$DATE
 
 # Backup peers database
-[ -f ~/.opensyria/peers.dat ] && cp ~/.opensyria/peers.dat $BACKUP_DIR/peers_$DATE.dat
+[ -f ~/.opensy/peers.dat ] && cp ~/.opensy/peers.dat $BACKUP_DIR/peers_$DATE.dat
 
 # Clean old backups
 find $BACKUP_DIR -type f -mtime +$RETAIN_DAYS -delete
@@ -431,16 +431,16 @@ echo "[$(date)] Backup completed"
 
 Schedule daily backup:
 ```bash
-chmod +x /opt/opensyria/backup.sh
-(crontab -l; echo "0 2 * * * /opt/opensyria/backup.sh >> /opt/opensyria/backups/backup.log 2>&1") | crontab -
+chmod +x /opt/opensy/backup.sh
+(crontab -l; echo "0 2 * * * /opt/opensy/backup.sh >> /opt/opensy/backups/backup.log 2>&1") | crontab -
 ```
 
 ### Log Rotation
 
-Create `/etc/logrotate.d/opensyria`:
+Create `/etc/logrotate.d/opensy`:
 
 ```
-/home/ubuntu/.opensyria/debug.log {
+/home/ubuntu/.opensy/debug.log {
     daily
     rotate 7
     compress
@@ -493,14 +493,14 @@ sudo sysctl vm.swappiness=10
 | **Magic Bytes** | 0x53594c4d (SYLM) |
 | **Address Prefix** | F (35) |
 | **Bech32 Prefix** | syl |
-| **DNS Seed** | seed.opensyria.net |
+| **DNS Seed** | seed.opensy.net |
 
 ---
 
 ## Getting Help
 
-- **GitHub Issues:** https://github.com/opensyria/OpenSyria/issues
-- **Documentation:** https://github.com/opensyria/OpenSyria/tree/main/docs
+- **GitHub Issues:** https://github.com/opensy/OpenSY/issues
+- **Documentation:** https://github.com/opensy/OpenSY/tree/main/docs
 
 ---
 

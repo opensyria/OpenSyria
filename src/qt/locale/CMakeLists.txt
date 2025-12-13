@@ -5,9 +5,9 @@
 include(ts_files.cmake)
 
 if(Qt6_VERSION VERSION_GREATER_EQUAL 6.7)
-  qt6_add_lrelease(TS_FILES ${ts_files} LRELEASE_TARGET opensyriaqt_lrelease OPTIONS -silent)
+  qt6_add_lrelease(TS_FILES ${ts_files} LRELEASE_TARGET opensyqt_lrelease OPTIONS -silent)
 else()
-  qt6_add_lrelease(opensyriaqt TS_FILES ${ts_files} OPTIONS -silent)
+  qt6_add_lrelease(opensyqt TS_FILES ${ts_files} OPTIONS -silent)
 endif()
 
-add_dependencies(opensyriaqt opensyriaqt_lrelease)
+add_dependencies(opensyqt opensyqt_lrelease)

@@ -38,11 +38,11 @@
         <translation type="unfinished">เลือก</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">นี่คือลิงก์ที่อยู่ OpenSyria ของคุณสำหรับการส่งการชำระเงิน ควรตรวจสอบจำนวนเงินและที่อยู่ผู้รับก่อนการส่งเหรียญ</translation>
+        <source>These are your OpenSY addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">นี่คือลิงก์ที่อยู่ OpenSY ของคุณสำหรับการส่งการชำระเงิน ควรตรวจสอบจำนวนเงินและที่อยู่ผู้รับก่อนการส่งเหรียญ</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your OpenSY addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">นี่คือที่อยู่บิตคอยน์ของคุณสำหรับรับการชำระเงิน ใช้ปุ่ม 'สร้างที่อยู่รับใหม่' ในแท็บรับเพื่อสร้างที่อยู่ใหม่ การลงนามทำได้เฉพาะกับที่อยู่ประเภท 'legacy'</translation>
     </message>
@@ -243,7 +243,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>OpenSyriaApplication</name>
+    <name>OpenSYApplication</name>
     <message>
         <source>Settings file %1 might be corrupt or invalid.</source>
         <translation type="unfinished">ไฟล์การตั้งค่า %1 อาจเสียหายหรือไม่ถูกต้อง</translation>
@@ -306,8 +306,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">จำนวน:</translation>
     </message>
     <message>
-        <source>Enter a OpenSyria address (e.g. %1)</source>
-        <translation type="unfinished">กรอกที่อยู่ OpenSyria (เช่น %1)</translation>
+        <source>Enter a OpenSY address (e.g. %1)</source>
+        <translation type="unfinished">กรอกที่อยู่ OpenSY (เช่น %1)</translation>
     </message>
     <message>
         <source>Unroutable</source>
@@ -446,7 +446,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>OpenSyriaGUI</name>
+    <name>OpenSYGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation type="unfinished"> ภาพรวม</translation>
@@ -513,7 +513,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">เปิดใช้พร็อกซี: %1</translation>
     </message>
     <message>
-        <source>Send coins to a OpenSyria address</source>
+        <source>Send coins to a OpenSY address</source>
         <translation type="unfinished">ส่งเหรียญไปยังที่อยู่บิตคอยน์</translation>
     </message>
     <message>
@@ -557,16 +557,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ป้าย &amp; ข้อความ…</translation>
     </message>
     <message>
-        <source>Sign messages with your OpenSyria addresses to prove you own them</source>
-        <translation type="unfinished">ลงนามข้อความด้วยที่อยู่ OpenSyria ของคุณเพื่อพิสูจน์ว่าคุณเป็นเจ้าของ</translation>
+        <source>Sign messages with your OpenSY addresses to prove you own them</source>
+        <translation type="unfinished">ลงนามข้อความด้วยที่อยู่ OpenSY ของคุณเพื่อพิสูจน์ว่าคุณเป็นเจ้าของ</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">ตรวจสอบข้อความ...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified OpenSyria addresses</source>
-        <translation type="unfinished">ตรวจสอบข้อความเพื่อให้แน่ใจว่าข้อความเหล่านั้นได้รับการลงชื่อด้วยที่อยู่ OpenSyria ที่ระบุไว้</translation>
+        <source>Verify messages to ensure they were signed with specified OpenSY addresses</source>
+        <translation type="unfinished">ตรวจสอบข้อความเพื่อให้แน่ใจว่าข้อความเหล่านั้นได้รับการลงชื่อด้วยที่อยู่ OpenSY ที่ระบุไว้</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -625,7 +625,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">กำลังเชื่อมต่อกับเพื่อนร่วมงาน...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and opensyria: URIs)</source>
+        <source>Request payments (generates QR codes and opensy: URIs)</source>
         <translation type="unfinished">ขอการชำระเงิน (สร้างรหัส QR และ URI ของบิตคอยน์)</translation>
     </message>
     <message>
@@ -679,16 +679,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ทันสมัย</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction</source>
-        <translation type="unfinished">โหลดธุรกรรม OpenSyria ที่ลงนามบางส่วน</translation>
+        <source>Load Partially Signed OpenSY Transaction</source>
+        <translation type="unfinished">โหลดธุรกรรม OpenSY ที่ลงนามบางส่วน</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">โหลด PSBT จาก &amp;คลิปบอร์ด…</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction from clipboard</source>
-        <translation type="unfinished">โหลดธุรกรรม OpenSyria ที่ลงนามบางส่วนจากคลิปบอร์ด</translation>
+        <source>Load Partially Signed OpenSY Transaction from clipboard</source>
+        <translation type="unfinished">โหลดธุรกรรม OpenSY ที่ลงนามบางส่วนจากคลิปบอร์ด</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -707,7 +707,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;ตัวเลือกคำสั่งในบรรทัดคำสั่ง</translation>
     </message>
     <message>
-        <source>Open a opensyria: URI</source>
+        <source>Open a opensy: URI</source>
         <translation type="unfinished">เปิดบิตคอยน์: URI</translation>
     </message>
     <message>
@@ -745,7 +745,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ย้ายกระเป๋าเงิน</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible OpenSyria command-line options</source>
+        <source>Show the %1 help message to get a list with possible OpenSY command-line options</source>
         <translation type="unfinished">แสดงข้อความช่วยเหลือ %1 เพื่อดูรายการตัวเลือกคำสั่งบิตคอยน์ที่เป็นไปได้</translation>
     </message>
     <message>
@@ -809,7 +809,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">แสดง</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to OpenSyria network.</source>
+        <source>%n active connection(s) to OpenSY network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform>การเชื่อมต่อที่ใช้งานอยู่ %n รายการไปยังเครือข่ายบิตคอยน์</numerusform>
@@ -1264,8 +1264,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">แก้ไขที่อยู่การส่ง</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid OpenSyria address.</source>
-        <translation type="unfinished">อยู่ที่ป้อน "%1" ไม่ใช่ที่อยู่ OpenSyria ที่ถูกต้อง</translation>
+        <source>The entered address "%1" is not a valid OpenSY address.</source>
+        <translation type="unfinished">อยู่ที่ป้อน "%1" ไม่ใช่ที่อยู่ OpenSY ที่ถูกต้อง</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -1380,7 +1380,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ใช้ไดเรกทอรีข้อมูลที่กำหนดเอง:</translation>
     </message>
     <message>
-        <source>OpenSyria</source>
+        <source>OpenSY</source>
         <translation type="unfinished">บิตคอยน์</translation>
     </message>
     <message numerus="yes">
@@ -1421,7 +1421,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the OpenSyria block chain.</source>
+        <source>%1 will download and store a copy of the OpenSY block chain.</source>
         <translation type="unfinished">%1 จะดาวน์โหลดและเก็บสำเนาของบล็อกเชนของบิตคอยน์</translation>
     </message>
     <message>
@@ -1444,7 +1444,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">จาก</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the opensyria network, as detailed below.</source>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the opensy network, as detailed below.</source>
         <translation type="unfinished">ธุรกรรมล่าสุดอาจยังไม่ปรากฏ และดังนั้นยอดคงเหลือในกระเป๋าของคุณอาจไม่ถูกต้อง ข้อมูลนี้จะถูกต้องเมื่อกระเป๋าของคุณเสร็จสิ้นการซิงค์กับเครือข่ายบิตคอยน์ ตามที่อธิบายไว้ด้านล่าง</translation>
     </message>
     <message>
@@ -1503,7 +1503,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open opensyria URI</source>
+        <source>Open opensy URI</source>
         <translation type="unfinished">เปิด URI ของบิตคอยน์</translation>
     </message>
     <message>
@@ -1682,8 +1682,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">อนุญาตการเชื่อมต่อที่เข้ามา (Anuyat kan cheuamto thi khaoma)</translation>
     </message>
     <message>
-        <source>Connect to the OpenSyria network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">เชื่อมต่อกับเครือข่าย OpenSyria ผ่านพร็อกซี SOCKS5.</translation>
+        <source>Connect to the OpenSY network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">เชื่อมต่อกับเครือข่าย OpenSY ผ่านพร็อกซี SOCKS5.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1776,8 +1776,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">จะแสดงคุณสมบัติการควบคุมเหรียญหรือไม่</translation>
     </message>
     <message>
-        <source>Connect to the OpenSyria network through a separate SOCKS5 proxy for Tor onion services.</source>
-        <translation type="unfinished">เชื่อมต่อกับเครือข่าย OpenSyria ผ่านพร็อกซี SOCKS5 แยกต่างหากสำหรับบริการ Tor onion</translation>
+        <source>Connect to the OpenSY network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <translation type="unfinished">เชื่อมต่อกับเครือข่าย OpenSY ผ่านพร็อกซี SOCKS5 แยกต่างหากสำหรับบริการ Tor onion</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
@@ -1873,8 +1873,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">จาก</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the OpenSyria network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">ข้อมูลที่แสดงอาจจะล้าสมัย กระเป๋าของคุณจะทำการซิงค์อัตโนมัติกับเครือข่าย OpenSyria หลังจากที่เชื่อมต่อเสร็จสิ้นแล้ว แต่กระบวนการนี้ยังไม่เสร็จสมบูรณ์</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the OpenSY network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">ข้อมูลที่แสดงอาจจะล้าสมัย กระเป๋าของคุณจะทำการซิงค์อัตโนมัติกับเครือข่าย OpenSY หลังจากที่เชื่อมต่อเสร็จสิ้นแล้ว แต่กระบวนการนี้ยังไม่เสร็จสมบูรณ์</translation>
     </message>
     <message>
         <source>Available:</source>
@@ -1999,7 +1999,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">ข้อผิดพลาดในการขอชำระเงิน</translation>
     </message>
     <message>
-        <source>Cannot start opensyria: click-to-pay handler</source>
+        <source>Cannot start opensy: click-to-pay handler</source>
         <translation type="unfinished">ไม่สามารถเริ่มต้นบิตคอยน์: ตัวจัดการคลิกเพื่อจ่าย</translation>
     </message>
     <message>
@@ -2007,8 +2007,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">การจัดการ URI</translation>
     </message>
     <message>
-        <source>'opensyria://' is not a valid URI. Use 'opensyria:' instead.</source>
-        <translation type="unfinished">'opensyria://' ไม่ใช่ URI ที่ถูกต้อง ใช้ 'opensyria:' แทน</translation>
+        <source>'opensy://' is not a valid URI. Use 'opensy:' instead.</source>
+        <translation type="unfinished">'opensy://' ไม่ใช่ URI ที่ถูกต้อง ใช้ 'opensy:' แทน</translation>
     </message>
     <message>
         <source>Cannot process payment request because BIP70 is not supported.
@@ -2019,8 +2019,8 @@ If you are receiving this error you should request the merchant provide a BIP21 
 หากคุณได้รับข้อผิดพลาดนี้คุณควรขอให้พ่อค้าจัดเตรียม URI ที่รองรับ BIP21</translation>
     </message>
     <message>
-        <source>URI cannot be parsed! This can be caused by an invalid OpenSyria address or malformed URI parameters.</source>
-        <translation type="unfinished">ไม่สามารถแยก URI ได้! สิ่งนี้อาจเกิดจากที่อยู่ OpenSyria ที่ไม่ถูกต้องหรือพารามิเตอร์ URI ที่ผิดรูปแบบ</translation>
+        <source>URI cannot be parsed! This can be caused by an invalid OpenSY address or malformed URI parameters.</source>
+        <translation type="unfinished">ไม่สามารถแยก URI ได้! สิ่งนี้อาจเกิดจากที่อยู่ OpenSY ที่ไม่ถูกต้องหรือพารามิเตอร์ URI ที่ผิดรูปแบบ</translation>
     </message>
     <message>
         <source>Payment request file handling</source>
@@ -2093,8 +2093,8 @@ If you are receiving this error you should request the merchant provide a BIP21 
         <translation type="unfinished">ที่อยู่ท้องถิ่น</translation>
     </message>
     <message>
-        <source>Network addresses that your OpenSyria node is currently using to communicate with other nodes.</source>
-        <translation type="unfinished">ที่อยู่เครือข่ายที่โหนด OpenSyria ของคุณกำลังใช้ในการสื่อสารกับโหนดอื่นๆ</translation>
+        <source>Network addresses that your OpenSY node is currently using to communicate with other nodes.</source>
+        <translation type="unfinished">ที่อยู่เครือข่ายที่โหนด OpenSY ของคุณกำลังใช้ในการสื่อสารกับโหนดอื่นๆ</translation>
     </message>
     <message>
         <source>Block chain</source>
@@ -2645,7 +2645,7 @@ If you are receiving this error you should request the merchant provide a BIP21 
     </message>
 </context>
 <context>
-    <name>opensyria-core</name>
+    <name>opensy-core</name>
     <message>
         <source>default wallet</source>
         <translation type="unfinished">กระเป๋าเงินเริ่มต้น</translation>

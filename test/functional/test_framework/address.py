@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-# Copyright (c) 2016-2022 The OpenSyria Core developers
+# Copyright (c) 2016-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Encode and decode OpenSyria addresses.
+"""Encode and decode OpenSY addresses.
 
 - base58 P2PKH and P2SH addresses.
 - bech32 segwit v0 P2WPKH and P2WSH addresses.
@@ -189,9 +189,9 @@ def address_to_scriptpubkey(address):
     if version is not None:
         return program_to_witness_script(version, payload) # testnet segwit scriptpubkey
     payload, version = base58_to_byte(address)
-    if version in (111, 125, 95):  # testnet/regtest pubkey hash (111=Bitcoin legacy, 125=old, 95=OpenSyria)
+    if version in (111, 125, 95):  # testnet/regtest pubkey hash (111=Bitcoin legacy, 125=old, 95=OpenSY)
         return keyhash_to_p2pkh_script(payload)
-    elif version in (196, 96):  # testnet script hash (196=Bitcoin, 96=OpenSyria)
+    elif version in (196, 96):  # testnet script hash (196=Bitcoin, 96=OpenSY)
         return scripthash_to_p2sh_script(payload)
     # TODO: also support other address formats
     else:

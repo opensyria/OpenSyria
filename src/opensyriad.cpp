@@ -1,9 +1,9 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2022 The OpenSyria Core developers
+// Copyright (c) 2009-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <opensyria-build-config.h> // IWYU pragma: keep
+#include <opensy-build-config.h> // IWYU pragma: keep
 
 #include <chainparams.h>
 #include <clientversion.h>
@@ -112,7 +112,7 @@ int fork_daemon(bool nochdir, bool noclose, TokenPipeEnd& endpoint)
 static bool ParseArgs(NodeContext& node, int argc, char* argv[])
 {
     ArgsManager& args{*Assert(node.args)};
-    // If Qt is used, parameters/opensyria.conf are parsed in qt/opensyria.cpp's main()
+    // If Qt is used, parameters/opensy.conf are parsed in qt/opensy.cpp's main()
     SetupServerArgs(args, node.init->canListenIpc());
     std::string error;
     if (!args.ParseParameters(argc, argv, error)) {
@@ -126,7 +126,7 @@ static bool ParseArgs(NodeContext& node, int argc, char* argv[])
     // Error out when loose non-argument tokens are encountered on command line
     for (int i = 1; i < argc; i++) {
         if (!IsSwitchChar(argv[i][0])) {
-            return InitError(Untranslated(strprintf("Command line contains unexpected token '%s', see opensyriad -h for a list of options.", argv[i])));
+            return InitError(Untranslated(strprintf("Command line contains unexpected token '%s', see opensyd -h for a list of options.", argv[i])));
         }
     }
     return true;
@@ -147,12 +147,12 @@ static bool ProcessInitCommands(interfaces::Init& init, ArgsManager& args)
             strUsage += FormatParagraph(LicenseInfo());
         } else {
             strUsage += "\n"
-                "The " CLIENT_NAME " daemon (opensyriad) is a headless program that connects to the OpenSyria network to validate and relay transactions and blocks, as well as relaying addresses.\n\n"
-                "It provides the backbone of the OpenSyria network and its RPC, REST and ZMQ services can provide various transaction, block and address-related services.\n\n"
+                "The " CLIENT_NAME " daemon (opensyd) is a headless program that connects to the OpenSY network to validate and relay transactions and blocks, as well as relaying addresses.\n\n"
+                "It provides the backbone of the OpenSY network and its RPC, REST and ZMQ services can provide various transaction, block and address-related services.\n\n"
                 "There is an optional wallet component which provides transaction services.\n\n"
                 "It can be used in a headless environment or as part of a server setup.\n"
                 "\n"
-                "Usage: opensyriad [options]\n"
+                "Usage: opensyd [options]\n"
                 "\n";
             strUsage += args.GetHelpMessage();
         }
@@ -180,7 +180,7 @@ static bool AppInit(NodeContext& node)
     std::any context{&node};
     try
     {
-        // -server defaults to true for opensyriad but not for the GUI so do this here
+        // -server defaults to true for opensyd but not for the GUI so do this here
         args.SoftSetBoolArg("-server", true);
         // Set this early so that parameter interactions go to console
         InitLogging(args);
@@ -268,7 +268,7 @@ MAIN_FUNCTION
 
     SetupEnvironment();
 
-    // Connect opensyriad signal handlers
+    // Connect opensyd signal handlers
     noui_connect();
 
     util::ThreadSetInternalName("init");

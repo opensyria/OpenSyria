@@ -1,9 +1,9 @@
-// Copyright (c) 2014-2021 The OpenSyria Core developers
+// Copyright (c) 2014-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_INITEXECUTOR_H
-#define OPENSYRIA_QT_INITEXECUTOR_H
+#ifndef OPENSY_QT_INITEXECUTOR_H
+#define OPENSY_QT_INITEXECUTOR_H
 
 #include <interfaces/node.h>
 
@@ -16,7 +16,7 @@ QT_BEGIN_NAMESPACE
 class QString;
 QT_END_NAMESPACE
 
-/** Class encapsulating OpenSyria Core startup and shutdown.
+/** Class encapsulating OpenSY startup and shutdown.
  * Allows running startup and shutdown in a different thread from the UI thread.
  */
 class InitExecutor : public QObject
@@ -44,4 +44,4 @@ private:
     QThread m_thread;
 };
 
-#endif // OPENSYRIA_QT_INITEXECUTOR_H
+#endif // OPENSY_QT_INITEXECUTOR_H

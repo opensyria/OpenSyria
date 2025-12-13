@@ -48,7 +48,7 @@
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item"><a class="nav-link" href="/?lang=<%= lang %>"><%= t.nav.home %></a></li>
                     <li class="nav-item"><a class="nav-link active" href="/download?lang=<%= lang %>"><%= t.nav.download %></a></li>
-                    <li class="nav-item"><a class="nav-link" href="https://explorer.opensyria.net?lang=<%= lang %>" target="_blank"><%= t.nav.explorer %></a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://explorer.opensy.net?lang=<%= lang %>" target="_blank"><%= t.nav.explorer %></a></li>
                     <li class="nav-item"><a class="nav-link" href="/community?lang=<%= lang %>"><%= t.nav.community %></a></li>
                     <li class="nav-item"><a class="nav-link" href="/docs?lang=<%= lang %>"><%= t.nav.docs %></a></li>
                 </ul>
@@ -95,7 +95,7 @@
                     <div class="download-card">
                         <div class="download-icon">💻</div>
                         <h3 class="download-title"><%= t.download.platforms.source %></h3>
-                        <a href="https://github.com/opensyria/OpenSyria" class="btn btn-download" target="_blank">GitHub</a>
+                        <a href="https://github.com/opensy/OpenSY" class="btn btn-download" target="_blank">GitHub</a>
                     </div>
                 </div>
             </div>
@@ -107,16 +107,16 @@
                     <div class="code-block">
 <pre style="margin:0;color:#fff;">
 # Clone repository
-git clone https://github.com/opensyria/OpenSyria.git
-cd OpenSyria
+git clone https://github.com/opensy/OpenSY.git
+cd OpenSY
 
 # Build (Linux/macOS)
 cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
 
 # Run
-./build/bin/opensyriad -daemon -addnode=node1.opensyria.net
-./build/bin/opensyria-cli getblockchaininfo
+./build/bin/opensyd -daemon -addnode=node1.opensy.net
+./build/bin/opensy-cli getblockchaininfo
 </pre>
                     </div>
                 </div>

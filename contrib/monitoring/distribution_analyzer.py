@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-OpenSyria Distribution Analyzer
+OpenSY Distribution Analyzer
 
 Analyzes the UTXO set distribution to track wealth concentration
 and mining pool diversity. Part of security monitoring for M-05.
@@ -27,7 +27,7 @@ except ImportError:
 
 def rpc_call(method: str, params: list = None, host: str = "127.0.0.1", 
              port: int = 8332, user: str = "", password: str = "") -> dict:
-    """Make an RPC call to opensyriad."""
+    """Make an RPC call to opensyd."""
     url = f"http://{host}:{port}/"
     headers = {"content-type": "application/json"}
     payload = {
@@ -191,7 +191,7 @@ def analyze_block_rewards(host: str, port: int, user: str, password: str,
 def print_report(utxo_analysis: Dict, mining_analysis: Dict):
     """Print formatted analysis report."""
     print("\n" + "=" * 60)
-    print("OPENSYRIA DISTRIBUTION ANALYSIS REPORT")
+    print("OPENSY DISTRIBUTION ANALYSIS REPORT")
     print("=" * 60)
     
     if "error" in utxo_analysis:
@@ -247,7 +247,7 @@ def print_report(utxo_analysis: Dict, mining_analysis: Dict):
 
 
 def main():
-    parser = argparse.ArgumentParser(description="OpenSyria Distribution Analyzer")
+    parser = argparse.ArgumentParser(description="OpenSY Distribution Analyzer")
     parser.add_argument("--rpc-host", default="127.0.0.1", help="RPC host")
     parser.add_argument("--rpc-port", type=int, default=8332, help="RPC port")
     parser.add_argument("--rpc-user", default="", help="RPC username")
@@ -255,7 +255,7 @@ def main():
     parser.add_argument("--blocks", type=int, default=1000, help="Number of blocks to analyze")
     args = parser.parse_args()
     
-    print("OpenSyria Distribution Analyzer v1.0")
+    print("OpenSY Distribution Analyzer v1.0")
     print("Part of Security Remediation M-05\n")
     
     utxo_analysis = analyze_utxo_distribution(

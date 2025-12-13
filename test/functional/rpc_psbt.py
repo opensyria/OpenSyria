@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2018-2022 The OpenSyria Core developers
+# Copyright (c) 2018-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the Partially Signed Transaction RPCs.
@@ -40,7 +40,7 @@ from test_framework.psbt import (
 )
 from test_framework.script import CScript, OP_TRUE, SIGHASH_ALL, SIGHASH_ANYONECANPAY
 from test_framework.script_util import MIN_STANDARD_TX_NONWITNESS_SIZE
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_not_equal,
     assert_approx,
@@ -61,7 +61,7 @@ import json
 import os
 
 
-class PSBTTest(OpenSyriaTestFramework):
+class PSBTTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 3
         self.extra_args = [
@@ -954,14 +954,14 @@ class PSBTTest(OpenSyriaTestFramework):
 
         self.log.info("PSBT spending unspendable outputs should have error message and Creator as next")
         analysis = self.nodes[0].analyzepsbt('cHNidP8BAJoCAAAAAljoeiG1ba8MI76OcHBFbDNvfLqlyHV5JPVFiHuyq911AAAAAAD/////g40EJ9DsZQpoqka7CwmK6kQiwHGyyng1Kgd5WdB86h0BAAAAAP////8CcKrwCAAAAAAWAEHYXCtx0AYLCcmIauuBXlCZHdoSTQDh9QUAAAAAFv8/wADXYP/7//////8JxOh0LR2HAI8AAAAAAAEBIADC6wsAAAAAF2oUt/X69ELjeX2nTof+fZ10l+OyAokDAQcJAwEHEAABAACAAAEBIADC6wsAAAAAF2oUt/X69ELjeX2nTof+fZ10l+OyAokDAQcJAwEHENkMak8AAAAA')
-        # Note: OpenSyria may report different error states for invalid PSBTs
+        # Note: OpenSY may report different error states for invalid PSBTs
         assert 'next' in analysis  # Just verify it returns something
         if 'error' in analysis:
             assert 'PSBT is not valid' in analysis['error'] or 'unspendable' in analysis['error']
 
         self.log.info("PSBT with invalid values should have error message and Creator as next")
         analysis = self.nodes[0].analyzepsbt('cHNidP8BAHECAAAAAfA00BFgAm6tp86RowwH6BMImQNL5zXUcTT97XoLGz0BAAAAAAD/////AgD5ApUAAAAAFgAUKNw0x8HRctAgmvoevm4u1SbN7XL87QKVAAAAABYAFPck4gF7iL4NL4wtfRAKgQbghiTUAAAAAAABAR8AgIFq49AHABYAFJUDtxf2PHo641HEOBOAIvFMNTr2AAAA')
-        # Note: OpenSyria may report different error states for invalid PSBTs
+        # Note: OpenSY may report different error states for invalid PSBTs
         assert 'next' in analysis  # Just verify it returns something
         if 'error' in analysis:
             assert 'PSBT is not valid' in analysis['error'] or 'invalid value' in analysis['error']
@@ -971,7 +971,7 @@ class PSBTTest(OpenSyriaTestFramework):
         assert_equal(analysis['next'], 'finalizer')
 
         analysis = self.nodes[0].analyzepsbt('cHNidP8BAHECAAAAAfA00BFgAm6tp86RowwH6BMImQNL5zXUcTT97XoLGz0BAAAAAAD/////AgCAgWrj0AcAFgAUKNw0x8HRctAgmvoevm4u1SbN7XL87QKVAAAAABYAFPck4gF7iL4NL4wtfRAKgQbghiTUAAAAAAABAR8A8gUqAQAAABYAFJUDtxf2PHo641HEOBOAIvFMNTr2AAAA')
-        # Note: OpenSyria may report different error states for invalid PSBTs
+        # Note: OpenSY may report different error states for invalid PSBTs
         assert 'next' in analysis  # Just verify it returns something
         if 'error' in analysis:
             assert 'PSBT is not valid' in analysis['error'] or 'invalid' in analysis['error']

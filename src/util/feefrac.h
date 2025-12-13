@@ -1,9 +1,9 @@
-// Copyright (c) The OpenSyria Core developers
+// Copyright (c) The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UTIL_FEEFRAC_H
-#define OPENSYRIA_UTIL_FEEFRAC_H
+#ifndef OPENSY_UTIL_FEEFRAC_H
+#define OPENSY_UTIL_FEEFRAC_H
 
 #include <span.h>
 #include <util/check.h>
@@ -255,4 +255,4 @@ using FeePerVSize = FeePerUnit<VSizeTag>;
 struct WeightTag {};
 using FeePerWeight = FeePerUnit<WeightTag>;
 
-#endif // OPENSYRIA_UTIL_FEEFRAC_H
+#endif // OPENSY_UTIL_FEEFRAC_H

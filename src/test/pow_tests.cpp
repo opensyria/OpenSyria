@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2022 The OpenSyria Core developers
+// Copyright (c) 2015-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -14,7 +14,7 @@
 BOOST_FIXTURE_TEST_SUITE(pow_tests, BasicTestingSetup)
 
 // Helper to create a chain of CBlockIndex for tests that need GetAncestor()
-// OpenSyria mainnet uses enforce_BIP94 which requires traversable ancestor chain
+// OpenSY mainnet uses enforce_BIP94 which requires traversable ancestor chain
 static std::vector<CBlockIndex> CreateBlockChain(int height, uint32_t nBits, uint32_t startTime, int64_t totalTimespan)
 {
     std::vector<CBlockIndex> blocks(height + 1);
@@ -32,14 +32,14 @@ static std::vector<CBlockIndex> CreateBlockChain(int height, uint32_t nBits, uin
 /* Test calculation of next difficulty target with no constraints applying */
 BOOST_AUTO_TEST_CASE(get_next_work)
 {
-    // OpenSyria: Test with perfect 2-week timing - difficulty should stay the same
+    // OpenSY: Test with perfect 2-week timing - difficulty should stay the same
     const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
     const auto& consensus = chainParams->GetConsensus();
     
     // Create a proper chain with ancestors (required for BIP94 enforcement)
     int targetHeight = consensus.DifficultyAdjustmentInterval() - 1; // 10079
-    uint32_t startTime = 1733616000; // OpenSyria Genesis (Dec 8, 2024)
-    uint32_t nBits = 0x1e00ffff;  // OpenSyria genesis difficulty
+    uint32_t startTime = 1733616000; // OpenSY Genesis (Dec 8, 2024)
+    uint32_t nBits = 0x1e00ffff;  // OpenSY genesis difficulty
     
     // Perfect timing: exactly nPowTargetTimespan total
     int64_t totalTimespan = consensus.nPowTargetTimespan; // Exactly 2 weeks
@@ -58,7 +58,7 @@ BOOST_AUTO_TEST_CASE(get_next_work)
 /* Test the constraint on the upper bound for next work */
 BOOST_AUTO_TEST_CASE(get_next_work_pow_limit)
 {
-    // OpenSyria: Test that difficulty doesn't go easier than powLimit when blocks are slow.
+    // OpenSY: Test that difficulty doesn't go easier than powLimit when blocks are slow.
     // Use a custom test setup to avoid RandomX/BIP94 complications:
     // - TESTNET has enforce_BIP94=false (simpler difficulty calculation)
     // - TESTNET has fPowAllowMinDifficultyBlocks=true (but doesn't affect CalculateNextWorkRequired)
@@ -104,7 +104,7 @@ BOOST_AUTO_TEST_CASE(get_next_work_pow_limit)
 /* Test the constraint on the lower bound for actual time taken */
 BOOST_AUTO_TEST_CASE(get_next_work_lower_limit_actual)
 {
-    // OpenSyria: Test difficulty increase when blocks are too fast (capped at 4x)
+    // OpenSY: Test difficulty increase when blocks are too fast (capped at 4x)
     const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
     const auto& consensus = chainParams->GetConsensus();
     
@@ -135,7 +135,7 @@ BOOST_AUTO_TEST_CASE(get_next_work_lower_limit_actual)
 /* Test the constraint on the upper bound for actual time taken */
 BOOST_AUTO_TEST_CASE(get_next_work_upper_limit_actual)
 {
-    // OpenSyria: Test difficulty decrease when blocks are too slow (capped at 4x)
+    // OpenSY: Test difficulty decrease when blocks are too slow (capped at 4x)
     const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
     const auto& consensus = chainParams->GetConsensus();
     

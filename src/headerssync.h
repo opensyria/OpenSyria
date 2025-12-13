@@ -1,9 +1,9 @@
-// Copyright (c) 2022-present The OpenSyria Core developers
+// Copyright (c) 2022-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_HEADERSSYNC_H
-#define OPENSYRIA_HEADERSSYNC_H
+#ifndef OPENSY_HEADERSSYNC_H
+#define OPENSY_HEADERSSYNC_H
 
 #include <arith_uint256.h>
 #include <chain.h>
@@ -56,7 +56,7 @@ struct CompressedHeader {
  *
  * We wish to download a peer's headers chain in a DoS-resistant way.
  *
- * The OpenSyria protocol does not offer an easy way to determine the work on a
+ * The OpenSY protocol does not offer an easy way to determine the work on a
  * peer's chain. Currently, we can query a peer's headers by using a GETHEADERS
  * message, and our peer can return a set of up to 2000 headers that connect to
  * something we know. If a peer's chain has more than 2000 blocks, then we need
@@ -279,4 +279,4 @@ private:
     State m_download_state{State::PRESYNC};
 };
 
-#endif // OPENSYRIA_HEADERSSYNC_H
+#endif // OPENSY_HEADERSSYNC_H

@@ -1,9 +1,9 @@
-// Copyright (c) 2014-2019 The OpenSyria Core developers
+// Copyright (c) 2014-2019 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_NETWORKSTYLE_H
-#define OPENSYRIA_QT_NETWORKSTYLE_H
+#ifndef OPENSY_QT_NETWORKSTYLE_H
+#define OPENSY_QT_NETWORKSTYLE_H
 
 #include <util/chaintype.h>
 
@@ -32,4 +32,4 @@ private:
     QString titleAddText;
 };
 
-#endif // OPENSYRIA_QT_NETWORKSTYLE_H
+#endif // OPENSY_QT_NETWORKSTYLE_H

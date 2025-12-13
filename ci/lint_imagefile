@@ -20,5 +20,5 @@ RUN /install.sh && \
   rm -rf /var/lib/apt/lists/*
 
 
-WORKDIR /opensyria
+WORKDIR /opensy
 ENTRYPOINT ["/entrypoint.sh"]

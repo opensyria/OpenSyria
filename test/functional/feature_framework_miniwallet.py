@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2024 The OpenSyria Core developers
+# Copyright (c) 2024 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test MiniWallet."""
@@ -7,7 +7,7 @@ import random
 import string
 
 from test_framework.blocktools import COINBASE_MATURITY
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_equal,
 )
@@ -17,7 +17,7 @@ from test_framework.wallet import (
 )
 
 
-class FeatureFrameworkMiniWalletTest(OpenSyriaTestFramework):
+class FeatureFrameworkMiniWalletTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
 

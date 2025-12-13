@@ -1,13 +1,13 @@
-OpenSyria Core version 0.10.2 is now available from:
+OpenSY version 0.10.2 is now available from:
 
-  <https://opensyria.net/bin/opensyria-core-0.10.2/>
+  <https://opensy.net/bin/opensy-core-0.10.2/>
 
 This is a new minor version release, bringing minor bug fixes and translation 
 updates. It is recommended to upgrade to this version.
 
 Please report bugs using the issue tracker at github:
 
-  <https://github.com/opensyria/opensyria/issues>
+  <https://github.com/opensy/opensy/issues>
 
 Upgrading and downgrading
 =========================
@@ -17,15 +17,15 @@ How to Upgrade
 
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes for older versions), then run the
-installer (on Windows) or just copy over /Applications/OpenSyria-Qt (on Mac) or
-opensyriad/opensyria-qt (on Linux).
+installer (on Windows) or just copy over /Applications/OpenSY-Qt (on Mac) or
+opensyd/opensy-qt (on Linux).
 
 Downgrade warning
 ------------------
 
 Because release 0.10.0 and later makes use of headers-first synchronization and
 parallel block download (see further), the block files and databases are not
-backwards-compatible with pre-0.10 versions of OpenSyria Core or other software:
+backwards-compatible with pre-0.10 versions of OpenSY or other software:
 
 * Blocks will be stored on disk out of order (in the order they are
 received, really), which makes it incompatible with some tools or
@@ -47,12 +47,12 @@ Notable changes
 ===============
 
 This fixes a serious problem on Windows with data directories that have non-ASCII
-characters (https://github.com/opensyria/opensyria/issues/6078).
+characters (https://github.com/opensy/opensy/issues/6078).
 
 For other platforms there are no notable changes.
 
 For the notable changes in 0.10, refer to the release notes
-at https://github.com/opensyria/opensyria/blob/v0.10.0/doc/release-notes.md
+at https://github.com/opensy/opensy/blob/v0.10.0/doc/release-notes.md
 
 0.10.2 Change log
 =================
@@ -83,4 +83,4 @@ And all those who contributed additional code review and/or security research:
 - Pieter Wuille
 - vayvanne
 
-As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/opensyria/).
+As well as everyone that helped translating on [Transifex](https://www.transifex.com/projects/p/opensy/).

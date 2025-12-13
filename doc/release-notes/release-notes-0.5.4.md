@@ -1,14 +1,14 @@
-OpenSyria version 0.5.4 is now available for download at:
-http://sourceforge.net/projects/opensyria/files/OpenSyria/opensyria-0.5.4/
+OpenSY version 0.5.4 is now available for download at:
+http://sourceforge.net/projects/opensy/files/OpenSY/opensy-0.5.4/
 NOTE: 0.5.4rc3 is being renamed to 0.5.4 final with no changes.
 
 This is a bugfix-only release in the 0.5.x series, plus a few protocol updates.
 
 Please report bugs using the issue tracker at github:
-https://github.com/opensyria/opensyria/issues
+https://github.com/opensy/opensy/issues
 
 Stable source code is hosted at Gitorious:
-http://gitorious.org/opensyria/opensyriad-stable/archive-tarball/v0.5.4#.tar.gz
+http://gitorious.org/opensy/opensyd-stable/archive-tarball/v0.5.4#.tar.gz
 
 PROTOCOL UPDATES
 
@@ -22,8 +22,8 @@ Fix broken testnet mining.
 Stop excess inventory relay during initial block download.
 When disconnecting a node, clear the received buffer so that we do not process any already received messages.
 Yet another attempt at implementing "minimize to tray" that works on all operating systems.
-Fix OpenSyria-Qt notifications under Growl 1.3.
-Increase required age of OpenSyria-Qt's "not up to date" status from 30 to 90 minutes.
+Fix OpenSY-Qt notifications under Growl 1.3.
+Increase required age of OpenSY-Qt's "not up to date" status from 30 to 90 minutes.
 Implemented missing verifications that led to crash on entering some wrong passphrases for encrypted wallets.
 Fix default filename suffixes in GNOME save dialog.
 Make the "Send coins" tab use the configured unit type, even on the first attempt.
@@ -31,7 +31,7 @@ Print detailed wallet loading errors to debug.log when it is corrupt.
 Allocate exactly the amount of space needed for signing transactions, instead of a fixed 10k buffer.
 Workaround for improbable memory access violation.
 Check wallet's minimum version before trying to load it.
-Remove wxOpenSyria properly when installing OpenSyria-Qt over it. (Windows)
+Remove wxOpenSY properly when installing OpenSY-Qt over it. (Windows)
 Detail reorganization information better in debug log.
 Use a messagebox to display the error when -server is provided without configuring a RPC password.
 Testing suite build now honours provided CXXFLAGS.

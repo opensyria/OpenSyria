@@ -1,9 +1,9 @@
-// Copyright (c) 2015-present The OpenSyria Core developers
+// Copyright (c) 2015-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_ZMQ_ZMQNOTIFICATIONINTERFACE_H
-#define OPENSYRIA_ZMQ_ZMQNOTIFICATIONINTERFACE_H
+#ifndef OPENSY_ZMQ_ZMQNOTIFICATIONINTERFACE_H
+#define OPENSY_ZMQ_ZMQNOTIFICATIONINTERFACE_H
 
 #include <primitives/transaction.h>
 #include <validationinterface.h>
@@ -48,4 +48,4 @@ private:
 
 extern std::unique_ptr<CZMQNotificationInterface> g_zmq_notification_interface;
 
-#endif // OPENSYRIA_ZMQ_ZMQNOTIFICATIONINTERFACE_H
+#endif // OPENSY_ZMQ_ZMQNOTIFICATIONINTERFACE_H

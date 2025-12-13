@@ -1,9 +1,9 @@
-// Copyright (c) 2019-present The OpenSyria Core developers
+// Copyright (c) 2019-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UTIL_STRING_H
-#define OPENSYRIA_UTIL_STRING_H
+#ifndef OPENSY_UTIL_STRING_H
+#define OPENSY_UTIL_STRING_H
 
 #include <span.h>
 
@@ -262,4 +262,4 @@ template <typename T1, size_t PREFIX_LEN>
 }
 } // namespace util
 
-#endif // OPENSYRIA_UTIL_STRING_H
+#endif // OPENSY_UTIL_STRING_H

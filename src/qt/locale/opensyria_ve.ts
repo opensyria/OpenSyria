@@ -54,13 +54,13 @@
         <translation type="unfinished">Nanga</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">Hedzi ndi ḓiresi dzaṋu dza OpenSyria dza u rumela mbadelo. Tshifhinga tshoṱhe ṱolani tshelede na ḓiresi ine na ḓo i ṱanganedza musi ni sa athu rumela tshelede ya tsimbi.</translation>
+        <source>These are your OpenSY addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">Hedzi ndi ḓiresi dzaṋu dza OpenSY dza u rumela mbadelo. Tshifhinga tshoṱhe ṱolani tshelede na ḓiresi ine na ḓo i ṱanganedza musi ni sa athu rumela tshelede ya tsimbi.</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your OpenSY addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">Hedzi ndi ḓiresi dzaṋu dza OpenSyria dza u ṱanganedza mbadelo. Shumisani butoni ya 'Sika ḓiresi ntswa ya u ṱanganedza' kha thebu ya u ṱanganedza u sika ḓiresi ntswa.U saina zwi konadzea fhedzi nga ḓiresi dza lushaka lwa 'legacy'.</translation>
+        <translation type="unfinished">Hedzi ndi ḓiresi dzaṋu dza OpenSY dza u ṱanganedza mbadelo. Shumisani butoni ya 'Sika ḓiresi ntswa ya u ṱanganedza' kha thebu ya u ṱanganedza u sika ḓiresi ntswa.U saina zwi konadzea fhedzi nga ḓiresi dza lushaka lwa 'legacy'.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -160,7 +160,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR SYL&lt;/b&gt;!</source>
-        <translation type="unfinished">Tsevho: Arali na ṅwalulula tshipatshi tshaṋu nahone na xelelwa nga passphrase yaṋu, ni ḓo XELELA OPENSYRIA DZANU DZOṰHE!</translation>
+        <translation type="unfinished">Tsevho: Arali na ṅwalulula tshipatshi tshaṋu nahone na xelelwa nga passphrase yaṋu, ni ḓo XELELA OPENSY DZANU DZOṰHE!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -255,7 +255,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>OpenSyriaApplication</name>
+    <name>OpenSYApplication</name>
     <message>
         <source>Settings file %1 might be corrupt or invalid.</source>
         <translation type="unfinished">
@@ -336,7 +336,7 @@ Faela ya zwishumiswa %1 i nga vha yo tshinyala kana i sa shumi.</translation>
     </message>
     </context>
 <context>
-    <name>OpenSyriaGUI</name>
+    <name>OpenSYGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation type="unfinished">&amp;Tshiṱolisiso</translation>
@@ -403,8 +403,8 @@ Faela ya zwishumiswa %1 i nga vha yo tshinyala kana i sa shumi.</translation>
         <translation type="unfinished">Proxy yo tendelwa: %1.</translation>
     </message>
     <message>
-        <source>Send coins to a OpenSyria address</source>
-        <translation type="unfinished">Rumelani tshelede ya tsimbi kha ḓiresi ya OpenSyria .</translation>
+        <source>Send coins to a OpenSY address</source>
+        <translation type="unfinished">Rumelani tshelede ya tsimbi kha ḓiresi ya OpenSY .</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -447,16 +447,16 @@ Faela ya zwishumiswa %1 i nga vha yo tshinyala kana i sa shumi.</translation>
         <translation type="unfinished">Saina &amp;mulaedza...</translation>
     </message>
     <message>
-        <source>Sign messages with your OpenSyria addresses to prove you own them</source>
-        <translation type="unfinished">Saini milaedza nga ḓiresi dzaṋu dza OpenSyria u sumbedza uri ndi vhaṋe vhayo .</translation>
+        <source>Sign messages with your OpenSY addresses to prove you own them</source>
+        <translation type="unfinished">Saini milaedza nga ḓiresi dzaṋu dza OpenSY u sumbedza uri ndi vhaṋe vhayo .</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Kha vha khwaṱhisedze mulaedza...</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified OpenSyria addresses</source>
-        <translation type="unfinished">Kha vha khwaṱhisedze milaedza u vhona uri yo sainiwa nga ḓiresi dzo bulwaho dza OpenSyria </translation>
+        <source>Verify messages to ensure they were signed with specified OpenSY addresses</source>
+        <translation type="unfinished">Kha vha khwaṱhisedze milaedza u vhona uri yo sainiwa nga ḓiresi dzo bulwaho dza OpenSY </translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -516,8 +516,8 @@ U ṱanganya ṱhoho (%1%)...</translation>
         <translation type="unfinished">U ṱumana na thangana dza murole...</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and opensyria: URIs)</source>
-        <translation type="unfinished">Humbelani mbadelo (u bveledza khoudu dza QR na opensyria: URI)</translation>
+        <source>Request payments (generates QR codes and opensy: URIs)</source>
+        <translation type="unfinished">Humbelani mbadelo (u bveledza khoudu dza QR na opensy: URI)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -538,7 +538,7 @@ U ṱanganya ṱhoho (%1%)...</translation>
         </translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to OpenSyria network.</source>
+        <source>%n active connection(s) to OpenSY network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
             <numerusform />

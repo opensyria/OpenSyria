@@ -1,15 +1,15 @@
 #!/usr/bin/env python3
-# Copyright (c) 2022-present The OpenSyria Core developers
+# Copyright (c) 2022-present The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 import subprocess
 
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 
-class OpenSyriaChainstateTest(OpenSyriaTestFramework):
+class OpenSYChainstateTest(OpenSYTestFramework):
     def skip_test_if_missing_module(self):
-        self.skip_if_no_opensyria_chainstate()
+        self.skip_if_no_opensy_chainstate()
 
     def set_test_params(self):
         self.setup_clean_chain = True
@@ -42,7 +42,7 @@ class OpenSyriaChainstateTest(OpenSyriaTestFramework):
         datadir = node.cli.datadir
         node.stop_node()
 
-        self.log.info(f"Testing opensyria-chainstate {self.get_binaries().chainstate_argv()} with datadir: {datadir}")
+        self.log.info(f"Testing opensy-chainstate {self.get_binaries().chainstate_argv()} with datadir: {datadir}")
         
         # Test with a valid block (should be accepted but already known)
         self.add_block(datadir, block_one, "duplicate")
@@ -52,4 +52,4 @@ class OpenSyriaChainstateTest(OpenSyriaTestFramework):
         self.add_block(datadir, "", "Empty line found")
 
 if __name__ == "__main__":
-    OpenSyriaChainstateTest(__file__).main()
+    OpenSYChainstateTest(__file__).main()

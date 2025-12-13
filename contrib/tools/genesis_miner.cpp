@@ -1,5 +1,5 @@
 /**
- * OpenSyria Genesis Block Miner
+ * OpenSY Genesis Block Miner
  * =============================
  * 
  * PURPOSE:
@@ -15,15 +15,15 @@
  *   For actual genesis block mining with proof-of-work, you would need to:
  *   1. Include the full SHA256 implementation
  *   2. Iterate nonce values until hash meets difficulty target
- *   3. The OpenSyria genesis block was pre-mined during the fork process
+ *   3. The OpenSY genesis block was pre-mined during the fork process
  * 
- * OPENSYRIA PARAMETERS:
+ * OPENSY PARAMETERS:
  *   - Block Reward: 10,000 SYL
  *   - Max Supply: 21 billion SYL
  *   - Block Time: 2 minutes
  *   - Halving Interval: 1,050,000 blocks (~4 years with 2-min blocks)
  * 
- * Copyright (c) 2025 The OpenSyria Core developers
+ * Copyright (c) 2025 The OpenSY developers
  * Distributed under the MIT software license.
  */
 
@@ -34,7 +34,7 @@
 
 int main() {
     std::cout << "╔═══════════════════════════════════════════════════════════════╗" << std::endl;
-    std::cout << "║           OpenSyria Genesis Block Parameters                  ║" << std::endl;
+    std::cout << "║           OpenSY Genesis Block Parameters                  ║" << std::endl;
     std::cout << "╚═══════════════════════════════════════════════════════════════╝" << std::endl;
     std::cout << std::endl;
     
@@ -43,8 +43,8 @@ int main() {
     std::cout << "Current Unix Timestamp: " << nTime << std::endl;
     std::cout << std::endl;
     
-    // OpenSyria genesis message
-    const char* pszTimestamp = "OpenSyria - First Syrian Blockchain - For Syria's Future and Reconstruction";
+    // OpenSY genesis message
+    const char* pszTimestamp = "OpenSY - First Syrian Blockchain - For Syria's Future and Reconstruction";
     std::cout << "Genesis Coinbase Message:" << std::endl;
     std::cout << "  \"" << pszTimestamp << "\"" << std::endl;
     std::cout << std::endl;

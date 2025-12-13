@@ -1,9 +1,9 @@
-// Copyright (c) 2023 The OpenSyria Core developers
+// Copyright (c) 2023 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_TEST_IPC_TEST_H
-#define OPENSYRIA_TEST_IPC_TEST_H
+#ifndef OPENSY_TEST_IPC_TEST_H
+#define OPENSY_TEST_IPC_TEST_H
 
 #include <primitives/transaction.h>
 #include <script/script.h>
@@ -27,4 +27,4 @@ void IpcPipeTest();
 void IpcSocketPairTest();
 void IpcSocketTest(const fs::path& datadir);
 
-#endif // OPENSYRIA_TEST_IPC_TEST_H
+#endif // OPENSY_TEST_IPC_TEST_H

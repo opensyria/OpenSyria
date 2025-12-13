@@ -5,13 +5,13 @@ set -Eeuo pipefail
 
 # Declare paths to libraries
 declare -A LIBS
-LIBS[cli]="libopensyria_cli.a"
-LIBS[common]="libopensyria_common.a"
-LIBS[consensus]="libopensyria_consensus.a"
-LIBS[crypto]="libopensyria_crypto.a"
-LIBS[node]="libopensyria_node.a"
-LIBS[util]="libopensyria_util.a"
-LIBS[wallet]="libopensyria_wallet.a"
+LIBS[cli]="libopensy_cli.a"
+LIBS[common]="libopensy_common.a"
+LIBS[consensus]="libopensy_consensus.a"
+LIBS[crypto]="libopensy_crypto.a"
+LIBS[node]="libopensy_node.a"
+LIBS[util]="libopensy_util.a"
+LIBS[wallet]="libopensy_wallet.a"
 
 # Declare allowed dependencies "X Y" where X is allowed to depend on Y. This
 # list is taken from doc/design/libraries.md.

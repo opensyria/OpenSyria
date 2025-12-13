@@ -1,11 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2009-2022 The Bitcoin Core developers
-// Copyright (c) 2025-present The OpenSyria Core developers
+// Copyright (c) 2025-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_CONSENSUS_PARAMS_H
-#define OPENSYRIA_CONSENSUS_PARAMS_H
+#ifndef OPENSY_CONSENSUS_PARAMS_H
+#define OPENSY_CONSENSUS_PARAMS_H
 
 #include <script/verify_flags.h>
 #include <uint256.h>
@@ -131,7 +131,7 @@ struct Params {
     uint256 defaultAssumeValid;
 
     /**
-     * If true, witness commitments contain a payload equal to an OpenSyria Script solution
+     * If true, witness commitments contain a payload equal to an OpenSY Script solution
      * to the signet challenge. See BIP325.
      */
     bool signet_blocks{false};
@@ -140,7 +140,7 @@ struct Params {
     /**
      * RandomX Hard Fork Parameters
      *
-     * OpenSyria switches from SHA256d to RandomX proof-of-work at nRandomXForkHeight
+     * OpenSY switches from SHA256d to RandomX proof-of-work at nRandomXForkHeight
      * to democratize mining and prevent ASIC/GPU domination.
      */
     int nRandomXForkHeight{57500};        //!< Block height at which RandomX activates
@@ -209,4 +209,4 @@ struct Params {
 
 } // namespace Consensus
 
-#endif // OPENSYRIA_CONSENSUS_PARAMS_H
+#endif // OPENSY_CONSENSUS_PARAMS_H

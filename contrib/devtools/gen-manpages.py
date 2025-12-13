@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2022 The OpenSyria Core developers
+# Copyright (c) 2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 import os
@@ -9,13 +9,13 @@ import tempfile
 import argparse
 
 BINARIES = [
-'bin/opensyria',
-'bin/opensyriad',
-'bin/opensyria-cli',
-'bin/opensyria-tx',
-'bin/opensyria-wallet',
-'bin/opensyria-util',
-'bin/opensyria-qt',
+'bin/opensy',
+'bin/opensyd',
+'bin/opensy-cli',
+'bin/opensy-tx',
+'bin/opensy-wallet',
+'bin/opensy-util',
+'bin/opensy-qt',
 ]
 
 parser = argparse.ArgumentParser(

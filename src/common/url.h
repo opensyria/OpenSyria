@@ -1,9 +1,9 @@
-// Copyright (c) 2015-2022 The OpenSyria Core developers
+// Copyright (c) 2015-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_COMMON_URL_H
-#define OPENSYRIA_COMMON_URL_H
+#ifndef OPENSY_COMMON_URL_H
+#define OPENSY_COMMON_URL_H
 
 #include <string>
 #include <string_view>
@@ -14,4 +14,4 @@
  */
 std::string UrlDecode(std::string_view url_encoded);
 
-#endif // OPENSYRIA_COMMON_URL_H
+#endif // OPENSY_COMMON_URL_H

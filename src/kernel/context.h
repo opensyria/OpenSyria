@@ -1,13 +1,13 @@
-// Copyright (c) 2022 The OpenSyria Core developers
+// Copyright (c) 2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_KERNEL_CONTEXT_H
-#define OPENSYRIA_KERNEL_CONTEXT_H
+#ifndef OPENSY_KERNEL_CONTEXT_H
+#define OPENSY_KERNEL_CONTEXT_H
 
 namespace kernel {
 //! Context struct holding the kernel library's logically global state, and
-//! passed to external libopensyria_kernel functions which need access to this
+//! passed to external libopensy_kernel functions which need access to this
 //! state. The kernel library API is a work in progress, so state organization
 //! and member list will evolve over time.
 //!
@@ -18,4 +18,4 @@ struct Context {
 };
 } // namespace kernel
 
-#endif // OPENSYRIA_KERNEL_CONTEXT_H
+#endif // OPENSY_KERNEL_CONTEXT_H

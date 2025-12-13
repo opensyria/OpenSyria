@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2021 The OpenSyria Core developers
+// Copyright (c) 2009-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_CHAINPARAMS_H
-#define OPENSYRIA_CHAINPARAMS_H
+#ifndef OPENSY_CHAINPARAMS_H
+#define OPENSY_CHAINPARAMS_H
 
 #include <kernel/chainparams.h> // IWYU pragma: export
 
@@ -28,4 +28,4 @@ const CChainParams &Params();
  */
 void SelectParams(const ChainType chain);
 
-#endif // OPENSYRIA_CHAINPARAMS_H
+#endif // OPENSY_CHAINPARAMS_H

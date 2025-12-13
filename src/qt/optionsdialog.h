@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2022 The OpenSyria Core developers
+// Copyright (c) 2011-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_OPTIONSDIALOG_H
-#define OPENSYRIA_QT_OPTIONSDIALOG_H
+#ifndef OPENSY_QT_OPTIONSDIALOG_H
+#define OPENSY_QT_OPTIONSDIALOG_H
 
 #include <QDialog>
 #include <QValidator>
@@ -55,7 +55,7 @@ private Q_SLOTS:
     /* set OK button state (enabled / disabled) */
     void setOkButtonState(bool fState);
     void on_resetButton_clicked();
-    void on_openOpenSyriaConfButton_clicked();
+    void on_openOpenSYConfButton_clicked();
     void on_okButton_clicked();
     void on_cancelButton_clicked();
 
@@ -79,4 +79,4 @@ private:
     QDataWidgetMapper* mapper{nullptr};
 };
 
-#endif // OPENSYRIA_QT_OPTIONSDIALOG_H
+#endif // OPENSY_QT_OPTIONSDIALOG_H

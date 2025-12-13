@@ -1,9 +1,9 @@
-// Copyright (c) 2025 The OpenSyria Core developers
+// Copyright (c) 2025 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_CRYPTO_RANDOMX_CONTEXT_H
-#define OPENSYRIA_CRYPTO_RANDOMX_CONTEXT_H
+#ifndef OPENSY_CRYPTO_RANDOMX_CONTEXT_H
+#define OPENSY_CRYPTO_RANDOMX_CONTEXT_H
 
 #include <sync.h>
 #include <uint256.h>
@@ -193,4 +193,4 @@ void InitRandomXContext();
  */
 void ShutdownRandomXContext();
 
-#endif // OPENSYRIA_CRYPTO_RANDOMX_CONTEXT_H
+#endif // OPENSY_CRYPTO_RANDOMX_CONTEXT_H

@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2021 The OpenSyria Core developers
+// Copyright (c) 2009-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_KERNEL_CHAINPARAMS_H
-#define OPENSYRIA_KERNEL_CHAINPARAMS_H
+#ifndef OPENSY_KERNEL_CHAINPARAMS_H
+#define OPENSY_KERNEL_CHAINPARAMS_H
 
 #include <consensus/params.h>
 #include <kernel/messagestartchars.h>
@@ -72,7 +72,7 @@ struct HeadersSyncParams {
 
 /**
  * CChainParams defines various tweakable parameters of a given instance of the
- * OpenSyria system.
+ * OpenSY system.
  */
 class CChainParams
 {
@@ -186,4 +186,4 @@ protected:
 
 std::optional<ChainType> GetNetworkForMagic(const MessageStartChars& pchMessageStart);
 
-#endif // OPENSYRIA_KERNEL_CHAINPARAMS_H
+#endif // OPENSY_KERNEL_CHAINPARAMS_H

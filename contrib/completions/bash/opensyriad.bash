@@ -1,15 +1,15 @@
-# bash programmable completion for opensyriad(1) and opensyria-qt(1)
+# bash programmable completion for opensyd(1) and opensy-qt(1)
 # Copyright (c) 2012-2022 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-_opensyriad() {
+_opensyd() {
     local cur prev words=() cword
-    local opensyriad
+    local opensyd
 
-    # save and use original argument to invoke opensyriad for -help
+    # save and use original argument to invoke opensyd for -help
     # it might not be in $PATH
-    opensyriad="$1"
+    opensyd="$1"
 
     COMPREPLY=()
     _get_comp_words_by_ref -n = cur prev words cword
@@ -33,7 +33,7 @@ _opensyriad() {
             # only parse -help if sensible
             if [[ -z "$cur" || "$cur" =~ ^- ]]; then
                 local helpopts
-                helpopts=$($opensyriad -help 2>&1 | awk '$1 ~ /^-/ { sub(/=.*/, "="); print $1 }' )
+                helpopts=$($opensyd -help 2>&1 | awk '$1 ~ /^-/ { sub(/=.*/, "="); print $1 }' )
                 COMPREPLY=( $( compgen -W "$helpopts" -- "$cur" ) )
             fi
 
@@ -45,7 +45,7 @@ _opensyriad() {
             ;;
     esac
 } &&
-complete -F _opensyriad opensyriad opensyria-qt
+complete -F _opensyd opensyd opensy-qt
 
 # Local variables:
 # mode: shell-script

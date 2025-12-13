@@ -1,4 +1,4 @@
-// Copyright (c) 2018-present The OpenSyria Core developers
+// Copyright (c) 2018-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -575,7 +575,7 @@ BOOST_FIXTURE_TEST_SUITE(descriptor_tests, BasicTestingSetup)
 
 BOOST_AUTO_TEST_CASE(descriptor_test)
 {
-    // WIF keys use version 128 which is same for Bitcoin and OpenSyria mainnet
+    // WIF keys use version 128 which is same for Bitcoin and OpenSY mainnet
     SelectParams(ChainType::MAIN);
     
     // Basic single-key compressed
@@ -1134,7 +1134,7 @@ BOOST_AUTO_TEST_CASE(descriptor_test)
     CheckInferDescriptor("a9141a31ad23bf49c247dd531a623c2ef57da3c400c587", "sh(pkh([deadbeef/0h/0h/0]03a34b99f22c790c4e36b2b3c2c35a36db06226e41c692fc82b8b56ac1c540c5bd))", {"76a9149a1c78a507689f6f54b847ad1cef1e614ee23f1e88ac"}, {{"03a34b99f22c790c4e36b2b3c2c35a36db06226e41c692fc82b8b56ac1c540c5bd", "deadbeef/0h/0h/0"}});
     // p2pk script with hybrid key must infer as raw()
     CheckInferDescriptor("41069228de6902abb4f541791f6d7f925b10e2078ccb1298856e5ea5cc5fd667f930eac37a00cc07f9a91ef3c2d17bf7a17db04552ff90ac312a5b8b4caca6c97aa4ac", "raw(41069228de6902abb4f541791f6d7f925b10e2078ccb1298856e5ea5cc5fd667f930eac37a00cc07f9a91ef3c2d17bf7a17db04552ff90ac312a5b8b4caca6c97aa4ac)", {}, {{"069228de6902abb4f541791f6d7f925b10e2078ccb1298856e5ea5cc5fd667f930eac37a00cc07f9a91ef3c2d17bf7a17db04552ff90ac312a5b8b4caca6c97aa4", ""}});
-    // p2pkh script with hybrid key must infer as addr() - OpenSyria mainnet address
+    // p2pkh script with hybrid key must infer as addr() - OpenSY mainnet address
     CheckInferDescriptor("76a91445ff7c2327866472639d507334a9a00119dfd32688ac", "addr(FCDE9SWB6LdHFTqzGsEBMNXJgPGhXjK86t)", {}, {{"069228de6902abb4f541791f6d7f925b10e2078ccb1298856e5ea5cc5fd667f930eac37a00cc07f9a91ef3c2d17bf7a17db04552ff90ac312a5b8b4caca6c97aa4", ""}});
     // p2wpkh script with uncompressed key must infer as addr()
     CheckInferDescriptor("001422e363a523947a110d9a9eb114820de183aca313", "addr(syl1qyt3k8ffrj3apzrv6n6c3fqsduxp6egcnqxhnlh)", {}, {{"049228de6902abb4f541791f6d7f925b10e2078ccb1298856e5ea5cc5fd667f930eac37a00cc07f9a91ef3c2d17bf7a17db04552ff90ac312a5b8b4caca6c97aa4", ""}});

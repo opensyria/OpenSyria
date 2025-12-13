@@ -54,13 +54,13 @@
         <translation type="unfinished">fi&amp;lifili</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation type="unfinished">O nei o au tuatusi OpenSyria mo le auina atu o totogi. Ia e siaki pea le aofa'i ma le tuatusi e talia ai tupe a'o le'i lafoina atu tupe.</translation>
+        <source>These are your OpenSY addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
+        <translation type="unfinished">O nei o au tuatusi OpenSY mo le auina atu o totogi. Ia e siaki pea le aofa'i ma le tuatusi e talia ai tupe a'o le'i lafoina atu tupe.</translation>
     </message>
     <message>
-        <source>These are your OpenSyria addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
+        <source>These are your OpenSY addresses for receiving payments. Use the 'Create new receiving address' button in the receive tab to create new addresses.
 Signing is only possible with addresses of the type 'legacy'.</source>
-        <translation type="unfinished">O nei o au tuatusi OpenSyria mo le talia o totogi. Fa'aaoga le fa'amau 'Fausia se tuatusi fou mo le talia' i le fa'amau talia e fa'atupu ai ni tuatusi fou. E mafai ona sainia na'o tuatusi o le ituaiga 'legacy'.</translation>
+        <translation type="unfinished">O nei o au tuatusi OpenSY mo le talia o totogi. Fa'aaoga le fa'amau 'Fausia se tuatusi fou mo le talia' i le fa'amau talia e fa'atupu ai ni tuatusi fou. E mafai ona sainia na'o tuatusi o le ituaiga 'legacy'.</translation>
     </message>
     <message>
         <source>&amp;Copy Address</source>
@@ -160,7 +160,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR SYL&lt;/b&gt;!</source>
-        <translation type="unfinished">Fa'amaoniga: Afai e te fa'amaonia lau 'aofa'i ma le leiloa o lau fa'amaoniga, o le a &lt;b&gt;Losi uma au OpenSyriasi&lt;/b&gt;!</translation>
+        <translation type="unfinished">Fa'amaoniga: Afai e te fa'amaonia lau 'aofa'i ma le leiloa o lau fa'amaoniga, o le a &lt;b&gt;Losi uma au OpenSYsi&lt;/b&gt;!</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -255,7 +255,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
 </context>
 <context>
-    <name>OpenSyriaApplication</name>
+    <name>OpenSYApplication</name>
     <message>
         <source>Settings file %1 might be corrupt or invalid.</source>
         <translation type="unfinished">Atigi fa'amaoniga %1 atonu e fa'aletonu po'o le le sa'o.</translation>
@@ -367,7 +367,7 @@ Signing is only possible with addresses of the type 'legacy'.</source>
     </message>
     </context>
 <context>
-    <name>OpenSyriaGUI</name>
+    <name>OpenSYGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation type="unfinished">&amp;Laupapa o le Fa'amaoniga</translation>
@@ -434,8 +434,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">O le tagata fa'amaonia o &lt;b&gt;fa'atufugaga&lt;/b&gt;: %1</translation>
     </message>
     <message>
-        <source>Send coins to a OpenSyria address</source>
-        <translation type="unfinished">Fa'amaimau fa'amaoniga i se tuatusi OpenSyria</translation>
+        <source>Send coins to a OpenSY address</source>
+        <translation type="unfinished">Fa'amaimau fa'amaoniga i se tuatusi OpenSY</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -478,16 +478,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Saini &amp; feʻau...</translation>
     </message>
     <message>
-        <source>Sign messages with your OpenSyria addresses to prove you own them</source>
-        <translation type="unfinished">Saini feʻau i au tuatusi OpenSyria e fa'amaonia ai o oe e ona</translation>
+        <source>Sign messages with your OpenSY addresses to prove you own them</source>
+        <translation type="unfinished">Saini feʻau i au tuatusi OpenSY e fa'amaonia ai o oe e ona</translation>
     </message>
     <message>
         <source>&amp;Verify message…</source>
         <translation type="unfinished">&amp;Fa'amaonia le mesēga…</translation>
     </message>
     <message>
-        <source>Verify messages to ensure they were signed with specified OpenSyria addresses</source>
-        <translation type="unfinished">Fa'amaonia manatu e fa'amaonia ai na'o le 'alelesi fa'amaonia i tuatusi OpenSyria fa'amaonia</translation>
+        <source>Verify messages to ensure they were signed with specified OpenSY addresses</source>
+        <translation type="unfinished">Fa'amaonia manatu e fa'amaonia ai na'o le 'alelesi fa'amaonia i tuatusi OpenSY fa'amaonia</translation>
     </message>
     <message>
         <source>&amp;Load PSBT from file…</source>
@@ -546,8 +546,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Faʻatasi ma uō…</translation>
     </message>
     <message>
-        <source>Request payments (generates QR codes and opensyria: URIs)</source>
-        <translation type="unfinished">Talosaga mo totogi (faʻatupuina ni QR code ma opensyria: URIs)</translation>
+        <source>Request payments (generates QR codes and opensy: URIs)</source>
+        <translation type="unfinished">Talosaga mo totogi (faʻatupuina ni QR code ma opensy: URIs)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -602,16 +602,16 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">I le taimi nei</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction</source>
-        <translation type="unfinished">Laʻu le Galuega Fa'amaonia OpenSyria i le vaega</translation>
+        <source>Load Partially Signed OpenSY Transaction</source>
+        <translation type="unfinished">Laʻu le Galuega Fa'amaonia OpenSY i le vaega</translation>
     </message>
     <message>
         <source>Load PSBT from &amp;clipboard…</source>
         <translation type="unfinished">Loli PSBT mai le &amp;clipboard…</translation>
     </message>
     <message>
-        <source>Load Partially Signed OpenSyria Transaction from clipboard</source>
-        <translation type="unfinished">La'uina le Galuega OpenSyria na'o le vaega o lo'o sainia mai le pepa kopi</translation>
+        <source>Load Partially Signed OpenSY Transaction from clipboard</source>
+        <translation type="unfinished">La'uina le Galuega OpenSY na'o le vaega o lo'o sainia mai le pepa kopi</translation>
     </message>
     <message>
         <source>Node window</source>
@@ -630,8 +630,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">&amp;Tuuina atu i le tuatusi</translation>
     </message>
     <message>
-        <source>Open a opensyria: URI</source>
-        <translation type="unfinished">Tuuina se opensyria: URI</translation>
+        <source>Open a opensy: URI</source>
+        <translation type="unfinished">Tuuina se opensy: URI</translation>
     </message>
     <message>
         <source>Open Wallet</source>
@@ -668,8 +668,8 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Maua se 'u'iga o se taga tupe</translation>
     </message>
     <message>
-        <source>Show the %1 help message to get a list with possible OpenSyria command-line options</source>
-        <translation type="unfinished">Fa'aalia le %1 fe'au fesoasoani e maua ai se lisi ma avanoa o pologa laina fa'atonu OpenSyria</translation>
+        <source>Show the %1 help message to get a list with possible OpenSY command-line options</source>
+        <translation type="unfinished">Fa'aalia le %1 fe'au fesoasoani e maua ai se lisi ma avanoa o pologa laina fa'atonu OpenSY</translation>
     </message>
     <message>
         <source>&amp;Mask values</source>
@@ -728,10 +728,10 @@ Signing is only possible with addresses of the type 'legacy'.</source>
         <translation type="unfinished">Fa'&amp;aali</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to OpenSyria network.</source>
+        <source>%n active connection(s) to OpenSY network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n fesoʻotaʻiga fa'amaonia i le upega tafa'ilagi o OpenSyria.</numerusform>
+            <numerusform>%n fesoʻotaʻiga fa'amaonia i le upega tafa'ilagi o OpenSY.</numerusform>
             <numerusform />
             <numerusform />
         </translation>
@@ -1241,8 +1241,8 @@ O le fa'amaoniga o le malaga o le a fai se kopi o le 'aofa'i a'o le'i fa'aauau l
         <translation type="unfinished">Fa'amaonia le tu'uina o le tuatusi</translation>
     </message>
     <message>
-        <source>The entered address "%1" is not a valid OpenSyria address.</source>
-        <translation type="unfinished">O le "adresi" na tuʻufaʻatasia "%1" e le o se adresi OpenSyria talafeagai.</translation>
+        <source>The entered address "%1" is not a valid OpenSY address.</source>
+        <translation type="unfinished">O le "adresi" na tuʻufaʻatasia "%1" e le o se adresi OpenSY talafeagai.</translation>
     </message>
     <message>
         <source>Address "%1" already exists as a receiving address with label "%2" and so cannot be added as a sending address.</source>
@@ -1398,8 +1398,8 @@ O le fa'amaoniga o le malaga o le a fai se kopi o le 'aofa'i a'o le'i fa'aauau l
         </translation>
     </message>
     <message>
-        <source>%1 will download and store a copy of the OpenSyria block chain.</source>
-        <translation type="unfinished">O le %1 o le a tusia ma teuina se kopi o le OpenSyria block chain.</translation>
+        <source>%1 will download and store a copy of the OpenSY block chain.</source>
+        <translation type="unfinished">O le %1 o le a tusia ma teuina se kopi o le OpenSY block chain.</translation>
     </message>
     <message>
         <source>The wallet will also be stored in this directory.</source>
@@ -1421,8 +1421,8 @@ O le fa'amaoniga o le malaga o le a fai se kopi o le 'aofa'i a'o le'i fa'aauau l
         <translation type="unfinished">Fomu</translation>
     </message>
     <message>
-        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the opensyria network, as detailed below.</source>
-        <translation type="unfinished">E mafai e fefaʻatauaiga lata mai ona le mafai ona vaʻaia, ma o le mea lea, atonu e le tusa ai le tamaʻi palani o lau 'wallet'. O lenei fa'amaoniga o le a sa'o pe a mae'a ona fa'atufugaga lau 'wallet' ma le upega tafaʻilagi o le opensyria, e pei o fa'amaoniga i lalo.</translation>
+        <source>Recent transactions may not yet be visible, and therefore your wallet's balance might be incorrect. This information will be correct once your wallet has finished synchronizing with the opensy network, as detailed below.</source>
+        <translation type="unfinished">E mafai e fefaʻatauaiga lata mai ona le mafai ona vaʻaia, ma o le mea lea, atonu e le tusa ai le tamaʻi palani o lau 'wallet'. O lenei fa'amaoniga o le a sa'o pe a mae'a ona fa'atufugaga lau 'wallet' ma le upega tafaʻilagi o le opensy, e pei o fa'amaoniga i lalo.</translation>
     </message>
     <message>
         <source>Attempting to spend SYL that are affected by not-yet-displayed transactions will not be accepted by the network.</source>
@@ -1476,8 +1476,8 @@ O le fa'amaoniga o le malaga o le a fai se kopi o le 'aofa'i a'o le'i fa'aauau l
 <context>
     <name>OpenURIDialog</name>
     <message>
-        <source>Open opensyria URI</source>
-        <translation type="unfinished">Tatala le URI o le OpenSyria</translation>
+        <source>Open opensy URI</source>
+        <translation type="unfinished">Tatala le URI o le OpenSY</translation>
     </message>
     <message>
         <source>URI:</source>
@@ -1647,8 +1647,8 @@ O le fa'amaoniga o le malaga o le a fai se kopi o le 'aofa'i a'o le'i fa'aauau l
         <translation type="unfinished">Fa'amaonia feso'ota'i&amp;ga o lo'o sau</translation>
     </message>
     <message>
-        <source>Connect to the OpenSyria network through a SOCKS5 proxy.</source>
-        <translation type="unfinished">Sii i luga i le upega tafaʻilagi o OpenSyria i le ala o le SOCKS5 proxy.</translation>
+        <source>Connect to the OpenSY network through a SOCKS5 proxy.</source>
+        <translation type="unfinished">Sii i luga i le upega tafaʻilagi o OpenSY i le ala o le SOCKS5 proxy.</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS5 proxy (default proxy):</source>
@@ -1727,8 +1727,8 @@ O le fa'amaoniga o le malaga o le a fai se kopi o le 'aofa'i a'o le'i fa'aauau l
         <translation type="unfinished">Faʻavae i luga pe faʻaalia pe le faʻaalia le faʻagaioiga o le pulea o koina.</translation>
     </message>
     <message>
-        <source>Connect to the OpenSyria network through a separate SOCKS5 proxy for Tor onion services.</source>
-        <translation type="unfinished">Sopọ i le netiweke OpenSyria i se faʻaogaina SOCKS5 ese mo auaunaga Tor onion.</translation>
+        <source>Connect to the OpenSY network through a separate SOCKS5 proxy for Tor onion services.</source>
+        <translation type="unfinished">Sopọ i le netiweke OpenSY i se faʻaogaina SOCKS5 ese mo auaunaga Tor onion.</translation>
     </message>
     <message>
         <source>Use separate SOCKS&amp;5 proxy to reach peers via Tor onion services:</source>
@@ -1820,8 +1820,8 @@ O le fa'amaoniga o le malaga o le a fai se kopi o le 'aofa'i a'o le'i fa'aauau l
         <translation type="unfinished">Fomu</translation>
     </message>
     <message>
-        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the OpenSyria network after a connection is established, but this process has not completed yet.</source>
-        <translation type="unfinished">O faʻamatalaga o loʻo faʻaalia atonu e le o toe faʻafouina. E otometi lava ona faʻatulagaina lau ʻato tupe i le upega OpenSyria pe a maeʻa ona fesoʻotaʻi, ae e leʻi maeʻa lenei faiga.</translation>
+        <source>The displayed information may be out of date. Your wallet automatically synchronizes with the OpenSY network after a connection is established, but this process has not completed yet.</source>
+        <translation type="unfinished">O faʻamatalaga o loʻo faʻaalia atonu e le o toe faʻafouina. E otometi lava ona faʻatulagaina lau ʻato tupe i le upega OpenSY pe a maeʻa ona fesoʻotaʻi, ae e leʻi maeʻa lenei faiga.</translation>
     </message>
     <message>
         <source>Available:</source>

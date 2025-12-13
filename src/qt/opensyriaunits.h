@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2021 The OpenSyria Core developers
+// Copyright (c) 2011-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_OPENSYRIAUNITS_H
-#define OPENSYRIA_QT_OPENSYRIAUNITS_H
+#ifndef OPENSY_QT_OPENSYUNITS_H
+#define OPENSY_QT_OPENSYUNITS_H
 
 #include <consensus/amount.h>
 
@@ -26,18 +26,18 @@
 #define THIN_SP_UTF8 REAL_THIN_SP_UTF8
 #define THIN_SP_HTML HTML_HACK_SP
 
-/** OpenSyria unit definitions. Encapsulates parsing and formatting
+/** OpenSY unit definitions. Encapsulates parsing and formatting
    and serves as list model for drop-down selection boxes.
 */
-class OpenSyriaUnits: public QAbstractListModel
+class OpenSYUnits: public QAbstractListModel
 {
     Q_OBJECT
 
 public:
-    explicit OpenSyriaUnits(QObject *parent);
+    explicit OpenSYUnits(QObject *parent);
 
-    /** OpenSyria units.
-      @note Source: https://en.opensyria.it/wiki/Units . Please add only sensible ones
+    /** OpenSY units.
+      @note Source: https://en.opensy.it/wiki/Units . Please add only sensible ones
      */
     enum class Unit {
         SYL,
@@ -108,9 +108,9 @@ public:
 private:
     QList<Unit> unitlist;
 };
-typedef OpenSyriaUnits::Unit OpenSyriaUnit;
+typedef OpenSYUnits::Unit OpenSYUnit;
 
-QDataStream& operator<<(QDataStream& out, const OpenSyriaUnit& unit);
-QDataStream& operator>>(QDataStream& in, OpenSyriaUnit& unit);
+QDataStream& operator<<(QDataStream& out, const OpenSYUnit& unit);
+QDataStream& operator>>(QDataStream& in, OpenSYUnit& unit);
 
-#endif // OPENSYRIA_QT_OPENSYRIAUNITS_H
+#endif // OPENSY_QT_OPENSYUNITS_H

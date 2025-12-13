@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2025 The OpenSyria Core developers
+# Copyright (c) 2025 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test mining on an alternate mainnet
@@ -9,7 +9,7 @@ regtest doesn't have.
 
 It uses an alternate mainnet chain. See data/README.md for how it was generated.
 
-TODO: Enable this test for OpenSyria
+TODO: Enable this test for OpenSY
 ======================================
 This test is currently skipped because it requires 2016+ mainnet blocks with real PoW.
 
@@ -19,12 +19,12 @@ To fix this test:
    
    for i in {1..2016}; do
      t=$(( GENESIS_TIME + $i * 120 ))  # 2 min intervals
-     faketime "@$t" opensyriad -connect=0 -nocheckpoints -stopatheight=$i
+     faketime "@$t" opensyd -connect=0 -nocheckpoints -stopatheight=$i
    done
    
 3. Run a CPU miner (e.g., cpuminer) with:
    ./minerd -u ... -p ... -o http://127.0.0.1:39332 --no-stratum \
-           --coinbase-addr=<opensyria-address> --algo sha256d
+           --coinbase-addr=<opensy-address> --algo sha256d
    
 4. Extract timestamps and nonces, update data/mainnet_alt.json
 5. Remove the SkipTest in skip_test_if_missing_module()
@@ -33,7 +33,7 @@ This is LOW PRIORITY as it tests difficulty adjustment edge cases.
 
 """
 
-from test_framework.test_framework import OpenSyriaTestFramework, SkipTest
+from test_framework.test_framework import OpenSYTestFramework, SkipTest
 from test_framework.util import (
     assert_equal,
 )
@@ -58,7 +58,7 @@ import os
 # See data/README.md
 COINBASE_SCRIPT_PUBKEY="76a914eadbac7f36c37e39361168b7aaee3cb24a25312d88ac"
 
-class MiningMainnetTest(OpenSyriaTestFramework):
+class MiningMainnetTest(OpenSYTestFramework):
 
     def set_test_params(self):
         self.num_nodes = 1
@@ -66,9 +66,9 @@ class MiningMainnetTest(OpenSyriaTestFramework):
         self.chain = "" # main
 
     def skip_test_if_missing_module(self):
-        # Skip this test until mainnet block data is regenerated for OpenSyria
+        # Skip this test until mainnet block data is regenerated for OpenSY
         # The Bitcoin mainnet blocks are not valid due to different genesis block
-        raise SkipTest("Requires OpenSyria mainnet block data (mainnet_alt.json contains Bitcoin blocks)")
+        raise SkipTest("Requires OpenSY mainnet block data (mainnet_alt.json contains Bitcoin blocks)")
 
     def add_options(self, parser):
         parser.add_argument(

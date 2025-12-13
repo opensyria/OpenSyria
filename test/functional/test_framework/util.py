@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2022 The OpenSyria Core developers
+# Copyright (c) 2014-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Helpful routines for regression testing."""
@@ -238,7 +238,7 @@ def check_json_precision():
 
 
 class Binaries:
-    """Helper class to provide information about opensyria binaries
+    """Helper class to provide information about opensy binaries
 
     Attributes:
         paths: Object returned from get_binary_paths() containing information
@@ -253,43 +253,43 @@ class Binaries:
         self.bin_dir = bin_dir
 
     def node_argv(self, **kwargs):
-        "Return argv array that should be used to invoke opensyriad"
-        return self._argv("node", self.paths.opensyriad, **kwargs)
+        "Return argv array that should be used to invoke opensyd"
+        return self._argv("node", self.paths.opensyd, **kwargs)
 
     def rpc_argv(self):
-        "Return argv array that should be used to invoke opensyria-cli"
-        # Add -nonamed because "opensyria rpc" enables -named by default, but opensyria-cli doesn't
-        return self._argv("rpc", self.paths.opensyriacli) + ["-nonamed"]
+        "Return argv array that should be used to invoke opensy-cli"
+        # Add -nonamed because "opensy rpc" enables -named by default, but opensy-cli doesn't
+        return self._argv("rpc", self.paths.opensycli) + ["-nonamed"]
 
     def tx_argv(self):
-        "Return argv array that should be used to invoke opensyria-tx"
-        return self._argv("tx", self.paths.opensyriatx)
+        "Return argv array that should be used to invoke opensy-tx"
+        return self._argv("tx", self.paths.opensytx)
 
     def util_argv(self):
-        "Return argv array that should be used to invoke opensyria-util"
-        return self._argv("util", self.paths.opensyriautil)
+        "Return argv array that should be used to invoke opensy-util"
+        return self._argv("util", self.paths.opensyutil)
 
     def wallet_argv(self):
-        "Return argv array that should be used to invoke opensyria-wallet"
-        return self._argv("wallet", self.paths.opensyriawallet)
+        "Return argv array that should be used to invoke opensy-wallet"
+        return self._argv("wallet", self.paths.opensywallet)
 
     def chainstate_argv(self):
-        "Return argv array that should be used to invoke opensyria-chainstate"
-        return self._argv("chainstate", self.paths.opensyriachainstate)
+        "Return argv array that should be used to invoke opensy-chainstate"
+        return self._argv("chainstate", self.paths.opensychainstate)
 
     def _argv(self, command, bin_path, need_ipc=False):
         """Return argv array that should be used to invoke the command. It
-        either uses the opensyria wrapper executable (if OPENSYRIA_CMD is set or
-        need_ipc is True), or the direct binary path (opensyriad, etc). When
+        either uses the opensy wrapper executable (if OPENSY_CMD is set or
+        need_ipc is True), or the direct binary path (opensyd, etc). When
         bin_dir is set (by tests calling binaries from previous releases) it
         always uses the direct path."""
         if self.bin_dir is not None:
             return [os.path.join(self.bin_dir, os.path.basename(bin_path))]
-        elif self.paths.opensyria_cmd is not None or need_ipc:
-            # If the current test needs IPC functionality, use the opensyria
+        elif self.paths.opensy_cmd is not None or need_ipc:
+            # If the current test needs IPC functionality, use the opensy
             # wrapper binary and append -m so it calls multiprocess binaries.
-            opensyria_cmd = self.paths.opensyria_cmd or [self.paths.opensyria_bin]
-            return opensyria_cmd + (["-m"] if need_ipc else []) + [command]
+            opensy_cmd = self.paths.opensy_cmd or [self.paths.opensy_bin]
+            return opensy_cmd + (["-m"] if need_ipc else []) + [command]
         else:
             return [bin_path]
 
@@ -299,15 +299,15 @@ def get_binary_paths(config):
 
     paths = types.SimpleNamespace()
     binaries = {
-        "opensyria": "OPENSYRIA_BIN",
-        "opensyriad": "OPENSYRIAD",
-        "opensyria-cli": "OPENSYRIACLI",
-        "opensyria-util": "OPENSYRIAUTIL",
-        "opensyria-tx": "OPENSYRIATX",
-        "opensyria-chainstate": "OPENSYRIACHAINSTATE",
-        "opensyria-wallet": "OPENSYRIAWALLET",
+        "opensy": "OPENSY_BIN",
+        "opensyd": "OPENSYD",
+        "opensy-cli": "OPENSYCLI",
+        "opensy-util": "OPENSYUTIL",
+        "opensy-tx": "OPENSYTX",
+        "opensy-chainstate": "OPENSYCHAINSTATE",
+        "opensy-wallet": "OPENSYWALLET",
     }
-    # Set paths to opensyria core binaries allowing overrides with environment
+    # Set paths to opensy core binaries allowing overrides with environment
     # variables.
     for binary, env_variable_name in binaries.items():
         default_filename = os.path.join(
@@ -316,9 +316,9 @@ def get_binary_paths(config):
             binary + config["environment"]["EXEEXT"],
         )
         setattr(paths, env_variable_name.lower(), os.getenv(env_variable_name, default=default_filename))
-    # OPENSYRIA_CMD environment variable can be specified to invoke opensyria
+    # OPENSY_CMD environment variable can be specified to invoke opensy
     # wrapper binary instead of other executables.
-    paths.opensyria_cmd = shlex.split(os.getenv("OPENSYRIA_CMD", "")) or None
+    paths.opensy_cmd = shlex.split(os.getenv("OPENSY_CMD", "")) or None
     return paths
 
 
@@ -392,7 +392,7 @@ def wait_until_helper_internal(predicate, *, timeout=60, lock=None, timeout_fact
 
     Warning: Note that this method is not recommended to be used in tests as it is
     not aware of the context of the test framework. Using the `wait_until()` members
-    from `OpenSyriaTestFramework` or `P2PInterface` class ensures the timeout is
+    from `OpenSYTestFramework` or `P2PInterface` class ensures the timeout is
     properly scaled. Furthermore, `wait_until()` from `P2PInterface` class in
     `p2p.py` has a preset lock.
     """
@@ -514,7 +514,7 @@ def initialize_datadir(dirname, n, chain, disable_autoconnect=True):
     datadir = get_datadir_path(dirname, n)
     if not os.path.isdir(datadir):
         os.makedirs(datadir)
-    write_config(os.path.join(datadir, "opensyria.conf"), n=n, chain=chain, disable_autoconnect=disable_autoconnect)
+    write_config(os.path.join(datadir, "opensy.conf"), n=n, chain=chain, disable_autoconnect=disable_autoconnect)
     os.makedirs(os.path.join(datadir, 'stderr'), exist_ok=True)
     os.makedirs(os.path.join(datadir, 'stdout'), exist_ok=True)
     return datadir
@@ -583,18 +583,18 @@ def get_temp_default_datadir(temp_dir: pathlib.Path) -> tuple[dict, pathlib.Path
     temp_dir, as well as the complete path it would return."""
     if platform.system() == "Windows":
         env = dict(APPDATA=str(temp_dir))
-        datadir = temp_dir / "OpenSyria"
+        datadir = temp_dir / "OpenSY"
     else:
         env = dict(HOME=str(temp_dir))
         if platform.system() == "Darwin":
-            datadir = temp_dir / "Library/Application Support/OpenSyria"
+            datadir = temp_dir / "Library/Application Support/OpenSY"
         else:
-            datadir = temp_dir / ".opensyria"
+            datadir = temp_dir / ".opensy"
     return env, datadir
 
 
 def append_config(datadir, options):
-    with open(os.path.join(datadir, "opensyria.conf"), 'a', encoding='utf8') as f:
+    with open(os.path.join(datadir, "opensy.conf"), 'a', encoding='utf8') as f:
         for option in options:
             f.write(option + "\n")
 
@@ -602,8 +602,8 @@ def append_config(datadir, options):
 def get_auth_cookie(datadir, chain):
     user = None
     password = None
-    if os.path.isfile(os.path.join(datadir, "opensyria.conf")):
-        with open(os.path.join(datadir, "opensyria.conf"), 'r', encoding='utf8') as f:
+    if os.path.isfile(os.path.join(datadir, "opensy.conf")):
+        with open(os.path.join(datadir, "opensy.conf"), 'r', encoding='utf8') as f:
             for line in f:
                 if line.startswith("rpcuser="):
                     assert user is None  # Ensure that there is only one rpcuser line

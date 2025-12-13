@@ -1,4 +1,4 @@
-// Copyright (c) 2011-present The OpenSyria Core developers
+// Copyright (c) 2011-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -796,7 +796,7 @@ BOOST_AUTO_TEST_CASE(test_LocaleIndependentAtoi)
         BOOST_CHECK_EQUAL(LocaleIndependentAtoi<int64_t>(pair.first), pair.second);
     }
 
-    // Ensure legacy compatibility with previous versions of OpenSyria Core's atoi64
+    // Ensure legacy compatibility with previous versions of OpenSY's atoi64
     for (const auto& pair : atoi64_test_pairs) {
         BOOST_CHECK_EQUAL(LocaleIndependentAtoi<int64_t>(pair.first), atoi64_legacy(pair.first));
     }
@@ -1116,7 +1116,7 @@ BOOST_AUTO_TEST_CASE(test_ToUpper)
 BOOST_AUTO_TEST_CASE(test_Capitalize)
 {
     BOOST_CHECK_EQUAL(Capitalize(""), "");
-    BOOST_CHECK_EQUAL(Capitalize("opensyria"), "Opensyria");
+    BOOST_CHECK_EQUAL(Capitalize("opensy"), "Opensy");
     BOOST_CHECK_EQUAL(Capitalize("\x00\xfe\xff"), "\x00\xfe\xff");
 }
 
@@ -1449,7 +1449,7 @@ BOOST_AUTO_TEST_CASE(test_tracked_vector)
 BOOST_AUTO_TEST_CASE(message_sign)
 {
     // Test basic message signing/verification functionality
-    // Note: Detailed signature tests require regenerated test vectors with OpenSyria message magic
+    // Note: Detailed signature tests require regenerated test vectors with OpenSY message magic
 }
 
 BOOST_AUTO_TEST_CASE(message_verify)
@@ -1465,7 +1465,7 @@ BOOST_AUTO_TEST_CASE(message_verify)
         MessageVerificationResult::ERR_INVALID_ADDRESS);
 
     // P2SH address - cannot verify signatures (no direct key)
-    // OpenSyria P2SH address (version 36, 'F' for Freedom)
+    // OpenSY P2SH address (version 36, 'F' for Freedom)
     BOOST_CHECK_EQUAL(
         MessageVerify(
             "FVAiSujNZVgYSc27t6zUTWoKfAGxpLQPQd",
@@ -1474,7 +1474,7 @@ BOOST_AUTO_TEST_CASE(message_verify)
         MessageVerificationResult::ERR_ADDRESS_NO_KEY);
 
     // P2PKH address with invalid base64 signature
-    // OpenSyria P2PKH address (version 35, 'F' for Freedom)
+    // OpenSY P2PKH address (version 35, 'F' for Freedom)
     BOOST_CHECK_EQUAL(
         MessageVerify(
             "FJP3rGFekexCf13rczHSYphSY5wF1oJQbf",
@@ -1491,7 +1491,7 @@ BOOST_AUTO_TEST_CASE(message_verify)
         MessageVerificationResult::ERR_PUBKEY_NOT_RECOVERED);
 
     // Note: Full signature verification tests require regenerating test vectors 
-    // with OpenSyria message magic ("OpenSyria Signed Message:\n")
+    // with OpenSY message magic ("OpenSY Signed Message:\n")
 }
 
 BOOST_AUTO_TEST_CASE(message_hash)
@@ -1609,7 +1609,7 @@ BOOST_AUTO_TEST_CASE(util_WriteBinaryFile)
 {
     fs::path tmpfolder = m_args.GetDataDirBase();
     fs::path tmpfile = tmpfolder / "write_binary.dat";
-    std::string expected_text = "opensyria";
+    std::string expected_text = "opensy";
     auto valid = WriteBinaryFile(tmpfile, expected_text);
     std::string actual_text;
     std::ifstream file{tmpfile.std_path()};

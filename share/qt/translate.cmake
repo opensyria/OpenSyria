@@ -23,7 +23,7 @@ endforeach()
 function(extract_strings output)
   execute_process(
     COMMAND ${XGETTEXT_EXECUTABLE}
-      --output=opensyriastrings.po
+      --output=opensystrings.po
       --no-location
       --from-code=utf-8
       --keyword=_
@@ -31,7 +31,7 @@ function(extract_strings output)
     COMMAND_ERROR_IS_FATAL ANY
   )
 
-  file(STRINGS "opensyriastrings.po" text ENCODING "UTF-8")
+  file(STRINGS "opensystrings.po" text ENCODING "UTF-8")
 
   set(messages "${COPYRIGHT_HOLDERS}")
   foreach(line IN LISTS text)
@@ -57,10 +57,10 @@ function(extract_strings output)
 #define UNUSED
 #endif
 
-static const char UNUSED *opensyria_strings[] = {
+static const char UNUSED *opensy_strings[] = {
 ]])
 
-  set(prefix "QT_TRANSLATE_NOOP(\"opensyria-core\", \"")
+  set(prefix "QT_TRANSLATE_NOOP(\"opensy-core\", \"")
   set(suffix "\"),\n")
 
   list(SORT messages)
@@ -96,7 +96,7 @@ foreach(directory IN LISTS subtrees exclude_dirs)
   )
 endforeach()
 
-extract_strings("${PROJECT_SOURCE_DIR}/src/qt/opensyriastrings.cpp"
+extract_strings("${PROJECT_SOURCE_DIR}/src/qt/opensystrings.cpp"
   ${translatable_sources}
 )
 
@@ -107,24 +107,24 @@ execute_process(
     -locations relative
     ${ui_files}
     ${qt_translatable_sources}
-    ${PROJECT_SOURCE_DIR}/src/qt/opensyriastrings.cpp
-    -ts ${PROJECT_SOURCE_DIR}/src/qt/locale/opensyria_en.ts
+    ${PROJECT_SOURCE_DIR}/src/qt/opensystrings.cpp
+    -ts ${PROJECT_SOURCE_DIR}/src/qt/locale/opensy_en.ts
   COMMAND_ERROR_IS_FATAL ANY
 )
 
 execute_process(
   COMMAND ${LCONVERT_EXECUTABLE}
     -drop-translations
-    -o ${PROJECT_SOURCE_DIR}/src/qt/locale/opensyria_en.xlf
-    -i ${PROJECT_SOURCE_DIR}/src/qt/locale/opensyria_en.ts
+    -o ${PROJECT_SOURCE_DIR}/src/qt/locale/opensy_en.xlf
+    -i ${PROJECT_SOURCE_DIR}/src/qt/locale/opensy_en.ts
   COMMAND_ERROR_IS_FATAL ANY
 )
 
-file(READ "${PROJECT_SOURCE_DIR}/src/qt/locale/opensyria_en.xlf" opensyria_en)
+file(READ "${PROJECT_SOURCE_DIR}/src/qt/locale/opensy_en.xlf" opensy_en)
 string(REPLACE "source-language=\"en\" target-language=\"en\""
-  "source-language=\"en\"" opensyria_en "${opensyria_en}"
+  "source-language=\"en\"" opensy_en "${opensy_en}"
 )
 string(REGEX REPLACE " *<target xml:space=\"preserve\"></target>\n"
-  "" opensyria_en "${opensyria_en}"
+  "" opensy_en "${opensy_en}"
 )
-file(WRITE "${PROJECT_SOURCE_DIR}/src/qt/locale/opensyria_en.xlf" "${opensyria_en}")
+file(WRITE "${PROJECT_SOURCE_DIR}/src/qt/locale/opensy_en.xlf" "${opensy_en}")

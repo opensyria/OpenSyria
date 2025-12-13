@@ -1,13 +1,13 @@
 Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Upstream-Name: OpenSyria
-Upstream-Contact: OpenSyria Core Developers
- irc://#opensyria-dev@libera.chat
-Source: https://github.com/opensyria/opensyria
+Upstream-Name: OpenSY
+Upstream-Contact: OpenSY Developers
+ irc://#opensy-dev@libera.chat
+Source: https://github.com/opensy/opensy
 
 Files: *
-Copyright: 2009-2025, OpenSyria Core Developers
+Copyright: 2009-2025, OpenSY Developers
 License: Expat
-Comment: The OpenSyria Core Developers encompasses all contributors to the
+Comment: The OpenSY Developers encompasses all contributors to the
          project, listed in the release notes or the git log.
 
 Files: debian/*
@@ -67,12 +67,12 @@ Copyright: Stephen Hutchings, Jonas Schnelli
 License: Expat
 Comment: Modifications of Stephen Hutchings' Typicons
 
-Files: src/qt/res/icons/opensyria.*
-       share/pixmaps/opensyria*
-       src/qt/res/src/opensyria.svg
+Files: src/qt/res/icons/opensy.*
+       share/pixmaps/opensy*
+       src/qt/res/src/opensy.svg
 Copyright: Bitboy, Jonas Schnelli
 License: public-domain
-Comment: Site: https://opensyriatalk.org/?topic=1756.0
+Comment: Site: https://opensytalk.org/?topic=1756.0
 
 Files: src/qt/res/icons/proxy.png
        src/qt/res/src/proxy.svg

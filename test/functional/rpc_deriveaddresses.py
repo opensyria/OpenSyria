@@ -1,13 +1,13 @@
 #!/usr/bin/env python3
-# Copyright (c) 2018-2022 The OpenSyria Core developers
+# Copyright (c) 2018-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the deriveaddresses rpc call."""
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.descriptors import descsum_create
 from test_framework.util import assert_equal, assert_raises_rpc_error
 
-class DeriveaddressesTest(OpenSyriaTestFramework):
+class DeriveaddressesTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
 
@@ -45,16 +45,16 @@ class DeriveaddressesTest(OpenSyriaTestFramework):
         assert_raises_rpc_error(-8, "Range should be greater or equal than 0", self.nodes[0].deriveaddresses, descsum_create("wpkh(tprv8ZgxMBicQKsPd7Uf69XL1XwhmjHopUGep8GuEiJDZmbQz6o58LninorQAfcKZWARbtRtfnLcJ5MQ2AtHcQJCCRUcMRvmDUjyEmNUWwx8UbK/1/1/*)"), [-1, 0])
 
         combo_descriptor = descsum_create("combo(tprv8ZgxMBicQKsPd7Uf69XL1XwhmjHopUGep8GuEiJDZmbQz6o58LninorQAfcKZWARbtRtfnLcJ5MQ2AtHcQJCCRUcMRvmDUjyEmNUWwx8UbK/1/1/0)")
-        # OpenSyria uses 'fz...' for P2SH addresses instead of Bitcoin testnet '2N...'
+        # OpenSY uses 'fz...' for P2SH addresses instead of Bitcoin testnet '2N...'
         assert_equal(self.nodes[0].deriveaddresses(combo_descriptor), ["fTFq3jpLnSesuaw3SDghhGbvujgbTG1e7F", address, "fz7vUQs1EnxttdfLNN5QkVJc7JBUEptXiM"])
 
         # P2PK does not have a valid address
         assert_raises_rpc_error(-5, "Descriptor does not have a corresponding address", self.nodes[0].deriveaddresses, descsum_create("pk(tprv8ZgxMBicQKsPd7Uf69XL1XwhmjHopUGep8GuEiJDZmbQz6o58LninorQAfcKZWARbtRtfnLcJ5MQ2AtHcQJCCRUcMRvmDUjyEmNUWwx8UbK)"))
 
-        # Before #26275, opensyriad would crash when deriveaddresses was
+        # Before #26275, opensyd would crash when deriveaddresses was
         # called with derivation index 2147483647, which is the maximum
         # positive value of a signed int32, and - currently - the
-        # maximum value that the deriveaddresses opensyria RPC call
+        # maximum value that the deriveaddresses opensy RPC call
         # accepts as derivation index.
         assert_equal(self.nodes[0].deriveaddresses(descsum_create("wpkh(tprv8ZgxMBicQKsPd7Uf69XL1XwhmjHopUGep8GuEiJDZmbQz6o58LninorQAfcKZWARbtRtfnLcJ5MQ2AtHcQJCCRUcMRvmDUjyEmNUWwx8UbK/1/1/*)"), [2147483647, 2147483647]), ["rsyl1qtzs23vgzpreks5gtygwxf8tv5rldxvvsg54fur"])
 

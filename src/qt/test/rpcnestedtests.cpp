@@ -1,4 +1,4 @@
-// Copyright (c) 2016-present The OpenSyria Core developers
+// Copyright (c) 2016-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -82,7 +82,7 @@ void RPCNestedTests::rpcNestedTests()
     QVERIFY(result == result2);
 
     RPCConsole::RPCExecuteCommandLine(m_node, result, "getblock(getbestblockhash())[tx][0]", &filtered);
-    // OpenSyria regtest genesis coinbase transaction hash (= merkle root for single-tx block)
+    // OpenSY regtest genesis coinbase transaction hash (= merkle root for single-tx block)
     QVERIFY(result == "56f65e913353861d32d297c6bc87bbe81242b764d18b8634d75c5a0159c8859e");
     QVERIFY(filtered == "getblock(getbestblockhash())[tx][0]");
 

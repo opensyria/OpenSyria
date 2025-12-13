@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2025 The OpenSyria Core developers
+# Copyright (c) 2025 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test RandomX proof-of-work integration.
@@ -12,14 +12,14 @@ This test verifies:
 5. Invalid RandomX blocks are rejected
 """
 
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_equal,
     assert_greater_than,
 )
 
 
-class RandomXPowTest(OpenSyriaTestFramework):
+class RandomXPowTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.setup_clean_chain = True

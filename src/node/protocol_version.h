@@ -1,9 +1,9 @@
-// Copyright (c) 2012-present The OpenSyria Core developers
+// Copyright (c) 2012-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_NODE_PROTOCOL_VERSION_H
-#define OPENSYRIA_NODE_PROTOCOL_VERSION_H
+#ifndef OPENSY_NODE_PROTOCOL_VERSION_H
+#define OPENSY_NODE_PROTOCOL_VERSION_H
 
 /**
  * network protocol versioning
@@ -35,4 +35,4 @@ static const int INVALID_CB_NO_BAN_VERSION = 70015;
 //! "wtxidrelay" command for wtxid-based relay starts with this version
 static const int WTXID_RELAY_VERSION = 70016;
 
-#endif // OPENSYRIA_NODE_PROTOCOL_VERSION_H
+#endif // OPENSY_NODE_PROTOCOL_VERSION_H

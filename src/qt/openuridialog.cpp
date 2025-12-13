@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2021 The OpenSyria Core developers
+// Copyright (c) 2011-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -37,7 +37,7 @@ QString OpenURIDialog::getURI()
 void OpenURIDialog::accept()
 {
     SendCoinsRecipient rcp;
-    if (GUIUtil::parseOpenSyriaURI(getURI(), &rcp)) {
+    if (GUIUtil::parseOpenSYURI(getURI(), &rcp)) {
         /* Only accept value URIs */
         QDialog::accept();
     } else {

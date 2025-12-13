@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2020 The OpenSyria Core developers
+// Copyright (c) 2011-2020 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_QVALUECOMBOBOX_H
-#define OPENSYRIA_QT_QVALUECOMBOBOX_H
+#ifndef OPENSY_QT_QVALUECOMBOBOX_H
+#define OPENSY_QT_QVALUECOMBOBOX_H
 
 #include <QComboBox>
 #include <QVariant>
@@ -34,4 +34,4 @@ private Q_SLOTS:
     void handleSelectionChanged(int idx);
 };
 
-#endif // OPENSYRIA_QT_QVALUECOMBOBOX_H
+#endif // OPENSY_QT_QVALUECOMBOBOX_H

@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-# Copyright (c) 2024 The OpenSyria Core developers
+# Copyright (c) 2024 The OpenSY developers
 # Generate the corrupted snapshot hashes for feature_assumeutxo.py
 
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.wallet import MiniWallet
 from test_framework.util import assert_equal
 from test_framework.compressor import compress_amount
@@ -13,7 +13,7 @@ START_HEIGHT = 199
 SNAPSHOT_BASE_HEIGHT = 299
 
 
-class GenCorruptedHashes(OpenSyriaTestFramework):
+class GenCorruptedHashes(OpenSYTestFramework):
 
     def set_test_params(self):
         self.num_nodes = 1

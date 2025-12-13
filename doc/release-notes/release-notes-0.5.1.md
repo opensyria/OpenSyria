@@ -1,27 +1,27 @@
-OpenSyria version 0.5.1 is now available for download at:
-http://sourceforge.net/projects/opensyria/files/OpenSyria/opensyria-0.5.1/
+OpenSY version 0.5.1 is now available for download at:
+http://sourceforge.net/projects/opensy/files/OpenSY/opensy-0.5.1/
 
 This is a bugfix-only release.
 
 This release includes 13 translations, including 5 new translations:
 Italian, Hungarian, Ukranian, Portuguese (Brazilian) and Simplified Chinese.
 More translations are welcome; join the project at Transifex if you can help:
-https://www.transifex.net/projects/p/opensyria/
+https://www.transifex.net/projects/p/opensy/
 
 Please report bugs using the issue tracker at github:
-https://github.com/opensyria/opensyria/issues
+https://github.com/opensy/opensy/issues
 
 Project source code is hosted at github; we are no longer
 distributing .tar.gz files here, you can get them
 directly from github:
-https://github.com/opensyria/opensyria/tarball/v0.5.1  # .tar.gz
-https://github.com/opensyria/opensyria/zipball/v0.5.1  # .zip
+https://github.com/opensy/opensy/tarball/v0.5.1  # .tar.gz
+https://github.com/opensy/opensy/zipball/v0.5.1  # .zip
 
 For Ubuntu users, there is a new ppa maintained by Matt Corallo which
 you can add to your system so that it will automatically keep
-opensyria up-to-date.  Just type
-sudo apt-add-repository ppa:opensyria/opensyria
-in your terminal, then install the opensyria-qt package.
+opensy up-to-date.  Just type
+sudo apt-add-repository ppa:opensy/opensy
+in your terminal, then install the opensy-qt package.
 
 
 BUG FIXES
@@ -29,15 +29,15 @@ BUG FIXES
 Re-enable SSL support for the JSON-RPC interface (it was unintentionally
 disabled for the 0.5.0 release binaries).
 
-The code that finds peers via "dns seeds" no longer stops opensyria startup
+The code that finds peers via "dns seeds" no longer stops opensy startup
 if one of the dns seed machines is down.
 
 Tooltips on the transaction list view were rendering incorrectly (as black boxes
 or with a transparent background).
 
-Prevent a denial-of-service attack involving flooding a opensyria node with
+Prevent a denial-of-service attack involving flooding a opensy node with
 orphan blocks.
 
 The wallet passphrase dialog now warns you if the caps lock key was pressed.
 
-Improved searching in addresses and labels in opensyria-qt.
+Improved searching in addresses and labels in opensy-qt.

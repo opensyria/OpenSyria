@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-# Copyright (c) The OpenSyria Core developers
+# Copyright (c) The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Test the opensyria wrapper tool."""
+"""Test the opensy wrapper tool."""
 from test_framework.test_framework import (
-    OpenSyriaTestFramework,
+    OpenSYTestFramework,
     SkipTest,
 )
 from test_framework.util import (
@@ -16,15 +16,15 @@ import platform
 import re
 
 
-class ToolOpenSyriaTest(OpenSyriaTestFramework):
+class ToolOpenSYTest(OpenSYTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 1
 
     def skip_test_if_missing_module(self):
-        # Skip test on windows because currently when `opensyria node -version` is
+        # Skip test on windows because currently when `opensy node -version` is
         # run on windows, python doesn't capture output from the child
-        # `opensyriad` and `opensyria-node` process started with _wexecvp, and
+        # `opensyd` and `opensy-node` process started with _wexecvp, and
         # stdout/stderr are always empty. See
         # https://github.com/bitcoin/bitcoin/pull/33229#issuecomment-3265524908
         if platform.system() == "Windows":
@@ -38,8 +38,8 @@ class ToolOpenSyriaTest(OpenSyriaTestFramework):
         assert all(node.args[:len(node_argv)] == node_argv for node in self.nodes)
 
     def set_cmd_args(self, node, args):
-        """Set up node so it will be started through opensyria wrapper command with specified arguments."""
-        node.args = [self.binary_paths.opensyria_bin] + args + ["node"] + self.node_options[node.index]
+        """Set up node so it will be started through opensy wrapper command with specified arguments."""
+        node.args = [self.binary_paths.opensy_bin] + args + ["node"] + self.node_options[node.index]
 
     def test_args(self, cmd_args, node_args, expect_exe=None, expect_error=None):
         node = self.nodes[0]
@@ -60,28 +60,28 @@ class ToolOpenSyriaTest(OpenSyriaTestFramework):
     def run_test(self):
         node = self.nodes[0]
 
-        self.log.info("Ensure opensyria node command invokes opensyriad by default")
-        self.test_args([], [], expect_exe="opensyriad")
+        self.log.info("Ensure opensy node command invokes opensyd by default")
+        self.test_args([], [], expect_exe="opensyd")
 
-        self.log.info("Ensure opensyria -M invokes opensyriad")
-        self.test_args(["-M"], [], expect_exe="opensyriad")
+        self.log.info("Ensure opensy -M invokes opensyd")
+        self.test_args(["-M"], [], expect_exe="opensyd")
 
-        self.log.info("Ensure opensyria -M does not accept -ipcbind")
+        self.log.info("Ensure opensy -M does not accept -ipcbind")
         self.test_args(["-M"], ["-ipcbind=unix"], expect_error='Error: Error parsing command line arguments: Invalid parameter -ipcbind=unix')
 
         if self.is_ipc_compiled():
-            self.log.info("Ensure opensyria -m invokes opensyria-node")
-            self.test_args(["-m"], [], expect_exe="opensyria-node")
+            self.log.info("Ensure opensy -m invokes opensy-node")
+            self.test_args(["-m"], [], expect_exe="opensy-node")
 
-            self.log.info("Ensure opensyria -m does accept -ipcbind")
-            self.test_args(["-m"], ["-ipcbind=unix"], expect_exe="opensyria-node")
+            self.log.info("Ensure opensy -m does accept -ipcbind")
+            self.test_args(["-m"], ["-ipcbind=unix"], expect_exe="opensy-node")
 
-            self.log.info("Ensure opensyria accepts -ipcbind by default")
-            self.test_args([], ["-ipcbind=unix"], expect_exe="opensyria-node")
+            self.log.info("Ensure opensy accepts -ipcbind by default")
+            self.test_args([], ["-ipcbind=unix"], expect_exe="opensy-node")
 
-            self.log.info("Ensure opensyria recognizes -ipcbind in config file")
+            self.log.info("Ensure opensy recognizes -ipcbind in config file")
             append_config(node.datadir_path, ["ipcbind=unix"])
-            self.test_args([], [], expect_exe="opensyria-node")
+            self.test_args([], [], expect_exe="opensy-node")
 
 
 def get_node_output(node):
@@ -108,4 +108,4 @@ def get_exe_name(version_str):
 
 
 if __name__ == '__main__':
-    ToolOpenSyriaTest(__file__).main()
+    ToolOpenSYTest(__file__).main()

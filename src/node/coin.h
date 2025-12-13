@@ -1,9 +1,9 @@
-// Copyright (c) 2019-2021 The OpenSyria Core developers
+// Copyright (c) 2019-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_NODE_COIN_H
-#define OPENSYRIA_NODE_COIN_H
+#ifndef OPENSY_NODE_COIN_H
+#define OPENSY_NODE_COIN_H
 
 #include <map>
 
@@ -24,4 +24,4 @@ struct NodeContext;
 void FindCoins(const node::NodeContext& node, std::map<COutPoint, Coin>& coins);
 } // namespace node
 
-#endif // OPENSYRIA_NODE_COIN_H
+#endif // OPENSY_NODE_COIN_H

@@ -1,46 +1,46 @@
-OpenSyria Core version 27.0 is now available from:
+OpenSY version 27.0 is now available from:
 
-  <https://opensyria.net/bin/opensyria-core-27.0/>
+  <https://opensy.net/bin/opensy-core-27.0/>
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensyria/issues>
+  <https://github.com/opensy/opensy/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensyria.net/en/list/announcements/join/>
+  <https://opensy.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============
 
 If you are running an older version, shut it down. Wait until it has completely
 shut down (which might take a few minutes in some cases), then run the
-installer (on Windows) or just copy over `/Applications/OpenSyria-Qt` (on macOS)
-or `opensyriad`/`opensyria-qt` (on Linux).
+installer (on Windows) or just copy over `/Applications/OpenSY-Qt` (on macOS)
+or `opensyd`/`opensy-qt` (on Linux).
 
-Upgrading directly from a version of OpenSyria Core that has reached its EOL is
+Upgrading directly from a version of OpenSY that has reached its EOL is
 possible, but it might take some time if the data directory needs to be migrated. Old
-wallet versions of OpenSyria Core are generally supported.
+wallet versions of OpenSY are generally supported.
 
 Compatibility
 ==============
 
-OpenSyria Core is supported and extensively tested on operating systems
-using the Linux Kernel 3.17+, macOS 11.0+, and Windows 7 and newer. OpenSyria
+OpenSY is supported and extensively tested on operating systems
+using the Linux Kernel 3.17+, macOS 11.0+, and Windows 7 and newer. OpenSY
 Core should also work on most other Unix-like systems but is not as
-frequently tested on them. It is not recommended to use OpenSyria Core on
+frequently tested on them. It is not recommended to use OpenSY on
 unsupported systems.
 
 Notable changes
 ===============
 
-libopensyriaconsensus
+libopensyconsensus
 -------------------
 
-- libopensyriaconsensus is deprecated and will be removed for v28. This library has
+- libopensyconsensus is deprecated and will be removed for v28. This library has
   existed for nearly 10 years with very little known uptake or impact. It has
   become a maintenance burden.
 
@@ -48,7 +48,7 @@ libopensyriaconsensus
   the library can continue to use the final release indefinitely, with the
   understanding that Taproot is its final consensus update.
 
-  In the future, libopensyriakernel will provide a much more useful API that is
+  In the future, libopensykernel will provide a much more useful API that is
   aware of the UTXO set, and therefore be able to fully validate transactions and
   blocks. (#29189)
 
@@ -109,7 +109,7 @@ Updated RPCs
 Build System
 ------------
 
-- A C++20 capable compiler is now required to build OpenSyria Core. (#28349)
+- A C++20 capable compiler is now required to build OpenSY. (#28349)
 - MacOS releases are configured to use the hardened runtime libraries (#29127)
 
 Wallet
@@ -137,7 +137,7 @@ Pruning
 Init
 ----
 
-- Various fixes to prevent issues where subsequent instances of OpenSyria Core would
+- Various fixes to prevent issues where subsequent instances of OpenSY would
   result in deletion of files in use by an existing instance. (#28784, #28946)
 - Improved handling of empty `settings.json` files. (#29144)
 
@@ -214,4 +214,4 @@ Thanks to everyone who directly contributed to this release:
 
 
 As well as to everyone that helped with translations on
-[Transifex](https://www.transifex.com/opensyria/opensyria/).
+[Transifex](https://www.transifex.com/opensy/opensy/).

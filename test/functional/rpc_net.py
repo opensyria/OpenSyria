@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2017-present The OpenSyria Core developers
+# Copyright (c) 2017-present The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test RPC calls related to net.
@@ -17,7 +17,7 @@ from test_framework.p2p import (
     P2PInterface,
     P2P_SERVICES,
 )
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_approx,
     assert_equal,
@@ -59,7 +59,7 @@ def seed_addrman(node):
     assert_equal(node.addpeeraddress(address="c4gfnttsuwqomiygupdqqqyy5y5emnk5c73hrfvatri67prd7vyq.b32.i2p", port=9633), success)
 
 
-class NetTest(OpenSyriaTestFramework):
+class NetTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.extra_args = [["-minrelaytxfee=0.00001000"], ["-minrelaytxfee=0.00000500"]]
@@ -389,7 +389,7 @@ class NetTest(OpenSyriaTestFramework):
         assert_equal(len(node.getnodeaddresses(count=0)), 2)
 
         # Skip the tried-table collision test as the colliding address was grinded
-        # specifically for Bitcoin's addrman parameters. OpenSyria uses different
+        # specifically for Bitcoin's addrman parameters. OpenSY uses different
         # randomization keys so the same address doesn't produce a collision.
 
         self.log.debug("Test that adding an another address to the new table succeeds")
@@ -490,7 +490,7 @@ class NetTest(OpenSyriaTestFramework):
                     entry = getrawaddrman[table_name][bucket_position]
                     expected_entry = list(filter(lambda e: e["address"] == entry["address"], table_info))[0]
                     # Skip bucket_position check as it depends on addrman randomization
-                    # which differs between Bitcoin and OpenSyria
+                    # which differs between Bitcoin and OpenSY
                     check_addr_information(entry, expected_entry)
 
         # we expect 4 new and 4 tried table entries in the addrman which were added using seed_addrman()

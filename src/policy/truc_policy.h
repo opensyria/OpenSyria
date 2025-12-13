@@ -1,9 +1,9 @@
-// Copyright (c) 2022 The OpenSyria Core developers
+// Copyright (c) 2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_POLICY_TRUC_POLICY_H
-#define OPENSYRIA_POLICY_TRUC_POLICY_H
+#ifndef OPENSY_POLICY_TRUC_POLICY_H
+#define OPENSY_POLICY_TRUC_POLICY_H
 
 #include <consensus/amount.h>
 #include <policy/packages.h>
@@ -94,4 +94,4 @@ std::optional<std::string> PackageTRUCChecks(const CTxMemPool& pool, const CTran
                                            const Package& package,
                                            const std::vector<CTxMemPoolEntry::CTxMemPoolEntryRef>& mempool_parents);
 
-#endif // OPENSYRIA_POLICY_TRUC_POLICY_H
+#endif // OPENSY_POLICY_TRUC_POLICY_H

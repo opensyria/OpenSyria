@@ -1,9 +1,9 @@
-// Copyright (c) 2022 The OpenSyria Core developers
+// Copyright (c) 2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UTIL_RESULT_H
-#define OPENSYRIA_UTIL_RESULT_H
+#ifndef OPENSY_UTIL_RESULT_H
+#define OPENSY_UTIL_RESULT_H
 
 #include <attributes.h>
 #include <util/translation.h>
@@ -96,4 +96,4 @@ bilingual_str ErrorString(const Result<T>& result)
 }
 } // namespace util
 
-#endif // OPENSYRIA_UTIL_RESULT_H
+#endif // OPENSY_UTIL_RESULT_H

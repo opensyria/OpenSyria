@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_WALLET_DB_H
-#define OPENSYRIA_WALLET_DB_H
+#ifndef OPENSY_WALLET_DB_H
+#define OPENSY_WALLET_DB_H
 
 #include <clientversion.h>
 #include <streams.h>
@@ -210,4 +210,4 @@ bool IsBDBFile(const fs::path& path);
 bool IsSQLiteFile(const fs::path& path);
 } // namespace wallet
 
-#endif // OPENSYRIA_WALLET_DB_H
+#endif // OPENSY_WALLET_DB_H

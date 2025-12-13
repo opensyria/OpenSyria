@@ -1,8 +1,8 @@
-// Copyright (c) 2022 The OpenSyria Core developers
+// Copyright (c) 2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef OPENSYRIA_KERNEL_MEMPOOL_LIMITS_H
-#define OPENSYRIA_KERNEL_MEMPOOL_LIMITS_H
+#ifndef OPENSY_KERNEL_MEMPOOL_LIMITS_H
+#define OPENSY_KERNEL_MEMPOOL_LIMITS_H
 
 #include <policy/policy.h>
 
@@ -40,4 +40,4 @@ struct MemPoolLimits {
 };
 } // namespace kernel
 
-#endif // OPENSYRIA_KERNEL_MEMPOOL_LIMITS_H
+#endif // OPENSY_KERNEL_MEMPOOL_LIMITS_H

@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2022 The OpenSyria Core developers
+// Copyright (c) 2011-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_QVALIDATEDLINEEDIT_H
-#define OPENSYRIA_QT_QVALIDATEDLINEEDIT_H
+#ifndef OPENSY_QT_QVALIDATEDLINEEDIT_H
+#define OPENSY_QT_QVALIDATEDLINEEDIT_H
 
 #include <QLineEdit>
 
@@ -41,4 +41,4 @@ private Q_SLOTS:
     void checkValidity();
 };
 
-#endif // OPENSYRIA_QT_QVALIDATEDLINEEDIT_H
+#endif // OPENSY_QT_QVALIDATEDLINEEDIT_H

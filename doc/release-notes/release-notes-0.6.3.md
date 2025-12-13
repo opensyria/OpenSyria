@@ -1,29 +1,29 @@
-OpenSyria version 0.6.3 is now available for download at:
-  http://sourceforge.net/projects/opensyria/files/OpenSyria/opensyria-0.6.3/
+OpenSY version 0.6.3 is now available for download at:
+  http://sourceforge.net/projects/opensy/files/OpenSY/opensy-0.6.3/
 
 This is a bug-fix release, with no new features.
 
 Please report bugs using the issue tracker at github:
-  https://github.com/opensyria/opensyria/issues
+  https://github.com/opensy/opensy/issues
 
 CHANGE SUMMARY
 
 Fixed a serious denial-of-service attack that could cause the
-opensyria process to become unresponsive. Thanks to Sergio Lerner
+opensy process to become unresponsive. Thanks to Sergio Lerner
 for finding and responsibly reporting the problem. (CVE-2012-3789)
 
 Optimized the process of checking transaction signatures, to
 speed up processing of new block messages and make propagating
 blocks across the network faster.
 
-Fixed an obscure bug that could cause the opensyria process to get
+Fixed an obscure bug that could cause the opensy process to get
 stuck on an invalid block-chain, if the invalid chain was
 hundreds of blocks long.
 
-OpenSyria-Qt no longer automatically selects the first address
+OpenSY-Qt no longer automatically selects the first address
 in the address book (Issue #1384).
 
-Fixed minimize-to-dock behavior of OpenSyria-Qt on the Mac.
+Fixed minimize-to-dock behavior of OpenSY-Qt on the Mac.
 
 Added a block checkpoint at block 185,333 to speed up initial
 blockchain download.

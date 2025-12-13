@@ -1,18 +1,18 @@
 /**
- * OpenSyria Genesis Block Hash Printer
+ * OpenSY Genesis Block Hash Printer
  * =====================================
  * 
  * PURPOSE:
- *   This utility prints the genesis block hashes for all OpenSyria networks.
+ *   This utility prints the genesis block hashes for all OpenSY networks.
  *   Useful for verifying genesis block configuration after chain parameter changes.
  * 
  * USAGE:
- *   This file requires linking against the OpenSyria libraries.
+ *   This file requires linking against the OpenSY libraries.
  *   It's meant to be compiled as part of the build system or manually with:
  *   
  *   From the build directory:
  *   $ g++ -std=c++20 -I../src -I../src/config print_genesis.cpp \
- *         -L./lib -lopensyria_common -lopensyria_util -lopensyria_crypto \
+ *         -L./lib -lopensy_common -lopensy_util -lopensy_crypto \
  *         -o print_genesis
  *   $ ./print_genesis
  * 
@@ -29,7 +29,7 @@
  *   - To verify genesis hashes match expected values
  *   - When setting up a new network
  * 
- * Copyright (c) 2025 The OpenSyria Core developers
+ * Copyright (c) 2025 The OpenSY developers
  * Distributed under the MIT software license.
  */
 
@@ -39,7 +39,7 @@
 
 int main() {
     std::cout << "╔═══════════════════════════════════════════════════════════════╗" << std::endl;
-    std::cout << "║           OpenSyria Genesis Block Hashes                      ║" << std::endl;
+    std::cout << "║           OpenSY Genesis Block Hashes                      ║" << std::endl;
     std::cout << "╚═══════════════════════════════════════════════════════════════╝" << std::endl;
     std::cout << std::endl;
 

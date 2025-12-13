@@ -1,9 +1,9 @@
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_KERNEL_MEMPOOL_ENTRY_H
-#define OPENSYRIA_KERNEL_MEMPOOL_ENTRY_H
+#ifndef OPENSY_KERNEL_MEMPOOL_ENTRY_H
+#define OPENSY_KERNEL_MEMPOOL_ENTRY_H
 
 #include <consensus/amount.h>
 #include <consensus/validation.h>
@@ -202,4 +202,4 @@ struct NewMempoolTransactionInfo {
           m_has_no_mempool_parents{has_no_mempool_parents} {}
 };
 
-#endif // OPENSYRIA_KERNEL_MEMPOOL_ENTRY_H
+#endif // OPENSY_KERNEL_MEMPOOL_ENTRY_H

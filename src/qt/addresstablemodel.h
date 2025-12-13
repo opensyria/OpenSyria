@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2020 The OpenSyria Core developers
+// Copyright (c) 2011-2020 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_ADDRESSTABLEMODEL_H
-#define OPENSYRIA_QT_ADDRESSTABLEMODEL_H
+#ifndef OPENSY_QT_ADDRESSTABLEMODEL_H
+#define OPENSY_QT_ADDRESSTABLEMODEL_H
 
 #include <optional>
 
@@ -35,7 +35,7 @@ public:
 
     enum ColumnIndex {
         Label = 0,   /**< User specified label */
-        Address = 1  /**< OpenSyria address */
+        Address = 1  /**< OpenSY address */
     };
 
     enum RoleIndex {
@@ -109,4 +109,4 @@ public Q_SLOTS:
     friend class AddressTablePriv;
 };
 
-#endif // OPENSYRIA_QT_ADDRESSTABLEMODEL_H
+#endif // OPENSY_QT_ADDRESSTABLEMODEL_H

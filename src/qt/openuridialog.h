@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2021 The OpenSyria Core developers
+// Copyright (c) 2011-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_OPENURIDIALOG_H
-#define OPENSYRIA_QT_OPENURIDIALOG_H
+#ifndef OPENSY_QT_OPENURIDIALOG_H
+#define OPENSY_QT_OPENURIDIALOG_H
 
 #include <QDialog>
 
@@ -33,4 +33,4 @@ private:
     const PlatformStyle* m_platform_style;
 };
 
-#endif // OPENSYRIA_QT_OPENURIDIALOG_H
+#endif // OPENSY_QT_OPENURIDIALOG_H

@@ -1,9 +1,9 @@
 #!/bin/bash
 # =============================================================================
-# OpenSyria Block Explorer Setup Script
+# OpenSY Block Explorer Setup Script
 # =============================================================================
-# Deploys btc-rpc-explorer for OpenSyria blockchain.
-# Requires Docker and an OpenSyria node with txindex=1.
+# Deploys btc-rpc-explorer for OpenSY blockchain.
+# Requires Docker and an OpenSY node with txindex=1.
 #
 # Usage:
 #   sudo ./setup-explorer.sh
@@ -19,7 +19,7 @@ BLUE='\033[0;34m'
 NC='\033[0m'
 
 # Configuration
-EXPLORER_DIR="/opt/opensyria/explorer"
+EXPLORER_DIR="/opt/opensy/explorer"
 DOCKER_COMPOSE_VERSION="2.24.0"
 
 log_info() { echo -e "${BLUE}[INFO]${NC} $1"; }
@@ -76,7 +76,7 @@ install_nginx() {
 get_rpc_credentials() {
     log_info "Getting RPC credentials..."
     
-    CRED_FILE="/home/opensyria/.opensyria/.rpc_credentials"
+    CRED_FILE="/home/opensy/.opensy/.rpc_credentials"
     
     if [[ -f "$CRED_FILE" ]]; then
         source "$CRED_FILE"
@@ -89,7 +89,7 @@ get_rpc_credentials() {
     fi
     
     # Verify RPC connection
-    read -p "Enter OpenSyria node IP [127.0.0.1]: " NODE_IP
+    read -p "Enter OpenSY node IP [127.0.0.1]: " NODE_IP
     NODE_IP=${NODE_IP:-"127.0.0.1"}
     
     read -p "Enter RPC port [9632]: " RPC_PORT
@@ -103,8 +103,8 @@ setup_explorer() {
     cd "$EXPLORER_DIR"
     
     # Prompt for domain
-    read -p "Enter explorer domain (e.g., explore.opensyria.net): " EXPLORER_DOMAIN
-    EXPLORER_DOMAIN=${EXPLORER_DOMAIN:-"explore.opensyria.net"}
+    read -p "Enter explorer domain (e.g., explore.opensy.net): " EXPLORER_DOMAIN
+    EXPLORER_DOMAIN=${EXPLORER_DOMAIN:-"explore.opensy.net"}
     
     # Create docker-compose.yml
     cat > docker-compose.yml << EOF
@@ -113,7 +113,7 @@ version: '3.8'
 services:
   explorer:
     image: btcpayserver/btc-rpc-explorer:latest
-    container_name: opensyria-explorer
+    container_name: opensy-explorer
     restart: unless-stopped
     ports:
       - "127.0.0.1:3002:3002"
@@ -122,15 +122,15 @@ services:
       BTCEXP_HOST: "0.0.0.0"
       BTCEXP_PORT: "3002"
       
-      # Bitcoin RPC Connection (OpenSyria)
+      # Bitcoin RPC Connection (OpenSY)
       BTCEXP_BITCOIND_HOST: "${NODE_IP}"
       BTCEXP_BITCOIND_PORT: "${RPC_PORT}"
       BTCEXP_BITCOIND_USER: "${RPC_USER}"
       BTCEXP_BITCOIND_PASS: "${RPC_PASS}"
       
       # Branding
-      BTCEXP_SITE_TITLE: "OpenSyria Explorer"
-      BTCEXP_SITE_DESC: "OpenSyria Blockchain Explorer - Syria's First Blockchain"
+      BTCEXP_SITE_TITLE: "OpenSY Explorer"
+      BTCEXP_SITE_DESC: "OpenSY Blockchain Explorer - Syria's First Blockchain"
       BTCEXP_SITE_SUBTITLE: "SYL"
       
       # Display Options
@@ -149,7 +149,7 @@ services:
       - "host.docker.internal:host-gateway"
     
     networks:
-      - opensyria-net
+      - opensy-net
     
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:3002/"]
@@ -159,7 +159,7 @@ services:
       start_period: 30s
 
 networks:
-  opensyria-net:
+  opensy-net:
     driver: bridge
 EOF
     
@@ -181,7 +181,7 @@ configure_nginx() {
     
     source "${EXPLORER_DIR}/.env"
     
-    cat > /etc/nginx/sites-available/opensyria-explorer << EOF
+    cat > /etc/nginx/sites-available/opensy-explorer << EOF
 server {
     listen 80;
     listen [::]:80;
@@ -219,7 +219,7 @@ server {
 EOF
     
     # Enable site
-    ln -sf /etc/nginx/sites-available/opensyria-explorer /etc/nginx/sites-enabled/
+    ln -sf /etc/nginx/sites-available/opensy-explorer /etc/nginx/sites-enabled/
     
     # Test and reload
     nginx -t
@@ -240,7 +240,7 @@ setup_ssl() {
     
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         read -p "Enter email for SSL certificate: " SSL_EMAIL
-        SSL_EMAIL=${SSL_EMAIL:-"admin@opensyria.net"}
+        SSL_EMAIL=${SSL_EMAIL:-"admin@opensy.net"}
         
         certbot --nginx -d "${EXPLORER_DOMAIN}" --email "${SSL_EMAIL}" --agree-tos --non-interactive
         
@@ -284,7 +284,7 @@ print_summary() {
     
     echo ""
     echo "============================================================================="
-    echo -e "${GREEN}OpenSyria Block Explorer Setup Complete!${NC}"
+    echo -e "${GREEN}OpenSY Block Explorer Setup Complete!${NC}"
     echo "============================================================================="
     echo ""
     echo "Explorer URL: http://${EXPLORER_DOMAIN}"
@@ -315,7 +315,7 @@ print_summary() {
 main() {
     echo ""
     echo "============================================================================="
-    echo "  OpenSyria Block Explorer Setup Script"
+    echo "  OpenSY Block Explorer Setup Script"
     echo "============================================================================="
     echo ""
     

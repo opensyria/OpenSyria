@@ -1,4 +1,4 @@
-// Copyright (c) 2012-present The OpenSyria Core developers
+// Copyright (c) 2012-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -23,7 +23,7 @@
 using namespace util::hex_literals;
 using util::ToString;
 
-// OpenSyria regtest test vectors (prefix 239 for SECRET_KEY, 95 for PUBKEY_ADDRESS 'f')
+// OpenSY regtest test vectors (prefix 239 for SECRET_KEY, 95 for PUBKEY_ADDRESS 'f')
 static const std::string strSecret1 = "91avARGdfge8E4tZfYLoxeJ5sGBdNJQH4kvjJoQFacbgwmaKkrx";
 static const std::string strSecret2 = "91avARGdfge8E4tZfYLoxeJ5sGBdNJQH4kvjJoQFacbgww7vXtT";
 static const std::string strSecret1C = "cMahea7zqjxrtgAbB7LSGbcQUr1uX1ojuat9jZodMN87JcbXMTcA";

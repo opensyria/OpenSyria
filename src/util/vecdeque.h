@@ -1,9 +1,9 @@
-// Copyright (c) The OpenSyria Core developers
+// Copyright (c) The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UTIL_VECDEQUE_H
-#define OPENSYRIA_UTIL_VECDEQUE_H
+#ifndef OPENSY_UTIL_VECDEQUE_H
+#define OPENSY_UTIL_VECDEQUE_H
 
 #include <util/check.h>
 
@@ -314,4 +314,4 @@ public:
     size_t capacity() const noexcept { return m_capacity; }
 };
 
-#endif // OPENSYRIA_UTIL_VECDEQUE_H
+#endif // OPENSY_UTIL_VECDEQUE_H

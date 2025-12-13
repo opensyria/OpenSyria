@@ -1,9 +1,9 @@
-// Copyright (c) 2019-2021 The OpenSyria Core developers
+// Copyright (c) 2019-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_NET_TYPES_H
-#define OPENSYRIA_NET_TYPES_H
+#ifndef OPENSY_NET_TYPES_H
+#define OPENSY_NET_TYPES_H
 
 #include <cstdint>
 #include <map>
@@ -57,4 +57,4 @@ UniValue BanMapToJson(const banmap_t& bans);
  */
 void BanMapFromJson(const UniValue& bans_json, banmap_t& bans);
 
-#endif // OPENSYRIA_NET_TYPES_H
+#endif // OPENSY_NET_TYPES_H

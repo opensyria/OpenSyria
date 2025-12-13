@@ -7,7 +7,7 @@
 
 ## Overview
 
-This guide provides best practices for securing your OpenSyria wallet and choosing strong encryption passphrases. Following these guidelines helps protect your funds from theft and loss.
+This guide provides best practices for securing your OpenSY wallet and choosing strong encryption passphrases. Following these guidelines helps protect your funds from theft and loss.
 
 ---
 
@@ -15,7 +15,7 @@ This guide provides best practices for securing your OpenSyria wallet and choosi
 
 ### How It Works
 
-When you encrypt your wallet with `encryptwallet`, OpenSyria:
+When you encrypt your wallet with `encryptwallet`, OpenSY:
 
 1. Derives an encryption key from your passphrase using a Key Derivation Function (KDF)
 2. Encrypts all private keys using AES-256
@@ -25,7 +25,7 @@ Without your passphrase, the private keys cannot be recovered—even by the deve
 
 ### Key Derivation Methods
 
-OpenSyria supports two key derivation methods:
+OpenSY supports two key derivation methods:
 
 | Method | Algorithm | Security Level | Notes |
 |--------|-----------|----------------|-------|
@@ -84,7 +84,7 @@ Create a memorable sentence and use first letters:
 - Social media usernames
 
 ❌ **Common Patterns:**
-- Dictionary words alone (`password`, `opensyria`)
+- Dictionary words alone (`password`, `opensy`)
 - Keyboard patterns (`qwerty`, `123456`)
 - Repeated characters (`aaaa`, `1111`)
 - Simple substitutions (`p@ssw0rd`)
@@ -125,7 +125,7 @@ Create a memorable sentence and use first letters:
 After encrypting your wallet, immediately backup:
 
 ```bash
-opensyria-cli backupwallet "/path/to/backup/wallet-backup.dat"
+opensy-cli backupwallet "/path/to/backup/wallet-backup.dat"
 ```
 
 Store backups in multiple secure locations:
@@ -143,7 +143,7 @@ For significant holdings, consider:
 
 ### Environment Security
 
-- Keep your operating system and OpenSyria software updated
+- Keep your operating system and OpenSY software updated
 - Use full-disk encryption on your computer
 - Run antivirus/antimalware software
 - Be cautious with browser extensions and downloads
@@ -170,8 +170,8 @@ If your wallet file becomes corrupted:
 
 1. Try restoring from your backup:
    ```bash
-   # Stop opensyriad first
-   cp /path/to/backup/wallet-backup.dat ~/.opensyria/wallets/default/wallet.dat
+   # Stop opensyd first
+   cp /path/to/backup/wallet-backup.dat ~/.opensy/wallets/default/wallet.dat
    ```
 
 2. If backup is also corrupted, you may need the wallet descriptor backup
@@ -181,7 +181,7 @@ If your wallet file becomes corrupted:
 To verify your wallet is encrypted:
 
 ```bash
-opensyria-cli getwalletinfo | grep unlocked_until
+opensy-cli getwalletinfo | grep unlocked_until
 ```
 
 - If this field exists, your wallet is encrypted
@@ -229,14 +229,14 @@ If you suspect your wallet has been compromised:
 
 1. **Do not send transactions** - the attacker may be monitoring
 2. **Transfer funds** to a new, secure wallet immediately
-3. **Report** to security@opensyria.org if you believe it's a software issue
+3. **Report** to security@opensy.org if you believe it's a software issue
 4. **Document** everything for potential investigation
 
 ---
 
 ## Frequently Asked Questions
 
-**Q: Can OpenSyria developers recover my passphrase?**
+**Q: Can OpenSY developers recover my passphrase?**
 A: No. Encryption is done locally. We never have access to your passphrase.
 
 **Q: How often should I change my wallet passphrase?**

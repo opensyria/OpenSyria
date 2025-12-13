@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2022 The OpenSyria Core developers
+# Copyright (c) 2014-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the listreceivedbyaddress, listreceivedbylabel, getreceivedybaddress, and getreceivedbylabel RPCs."""
 from decimal import Decimal
 
 from test_framework.blocktools import COINBASE_MATURITY
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_array_result,
     assert_equal,
@@ -15,7 +15,7 @@ from test_framework.util import (
 from test_framework.wallet_util import test_address
 
 
-class ReceivedByTest(OpenSyriaTestFramework):
+class ReceivedByTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         # whitelist peers to speed up tx relay / mempool sync
@@ -176,7 +176,7 @@ class ReceivedByTest(OpenSyriaTestFramework):
         label = "label"
         address = self.nodes[0].getnewaddress(label)
 
-        reward = Decimal("5000")  # Block reward for OpenSyria
+        reward = Decimal("5000")  # Block reward for OpenSY
         self.generatetoaddress(self.nodes[0], 1, address)
         hash = self.nodes[0].getbestblockhash()
 

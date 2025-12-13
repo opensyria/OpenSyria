@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2019-present The OpenSyria Core developers
+# Copyright (c) 2019-present The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Run fuzz test targets.
@@ -105,7 +105,7 @@ def main():
         logging.error("Must have fuzz executable built")
         sys.exit(1)
 
-    fuzz_bin=os.getenv("OPENSYRIAFUZZ", default=os.path.join(config["environment"]["BUILDDIR"], 'bin', 'fuzz'))
+    fuzz_bin=os.getenv("OPENSYFUZZ", default=os.path.join(config["environment"]["BUILDDIR"], 'bin', 'fuzz'))
 
     # Build list of tests
     test_list_all = parse_test_list(
@@ -149,7 +149,7 @@ def main():
                     " ".join(test_list_missing_corpus)
                 )
             )
-            logging.info("Please consider adding a fuzz corpus at https://github.com/opensyria/qa-assets")
+            logging.info("Please consider adding a fuzz corpus at https://github.com/opensy/qa-assets")
 
     print("Check if using libFuzzer ... ", end='')
     help_output = subprocess.run(

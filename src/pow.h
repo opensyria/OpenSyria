@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_POW_H
-#define OPENSYRIA_POW_H
+#ifndef OPENSY_POW_H
+#define OPENSY_POW_H
 
 #include <consensus/params.h>
 
@@ -98,4 +98,4 @@ uint256 GetRandomXKeyBlockHash(int height, const CBlockIndex* pindex, const Cons
  */
 bool PermittedDifficultyTransition(const Consensus::Params& params, int64_t height, uint32_t old_nbits, uint32_t new_nbits);
 
-#endif // OPENSYRIA_POW_H
+#endif // OPENSY_POW_H

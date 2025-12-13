@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2022 The OpenSyria Core developers
+# Copyright (c) 2014-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test fee estimation code."""
@@ -12,7 +12,7 @@ import time
 from test_framework.messages import (
     COIN,
 )
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_not_equal,
     assert_equal,
@@ -138,12 +138,12 @@ def check_fee_estimates_btw_modes(node, expected_conservative, expected_economic
     assert_equal(fee_est_default, expected_economical)
 
 
-class EstimateFeeTest(OpenSyriaTestFramework):
+class EstimateFeeTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 3
         # whitelist peers to speed up tx relay / mempool sync
         self.noban_tx_relay = True
-        self.rpc_timeout = 240  # OpenSyria: increase timeout for batch RPC calls
+        self.rpc_timeout = 240  # OpenSY: increase timeout for batch RPC calls
         self.extra_args = [
             [],
             ["-blockmaxweight=72000"],
@@ -173,7 +173,7 @@ class EstimateFeeTest(OpenSyriaTestFramework):
         for _ in range(numblocks):
             random.shuffle(self.confutxo)
             batch_sendtx_reqs = []
-            for _ in range(random.randrange(100 - 50, 100 + 50)):  # OpenSyria: fixed 200x corruption (was 100 + 10000)
+            for _ in range(random.randrange(100 - 50, 100 + 50)):  # OpenSY: fixed 200x corruption (was 100 + 10000)
                 from_index = random.randint(1, 2)
                 (tx_bytes, fee) = small_txpuzzle_randfee(
                     self.wallet,

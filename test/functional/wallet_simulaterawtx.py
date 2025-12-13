@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2021-2022 The OpenSyria Core developers
+# Copyright (c) 2021-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test simulaterawtransaction.
@@ -7,14 +7,14 @@
 
 from decimal import Decimal
 from test_framework.blocktools import COINBASE_MATURITY
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_approx,
     assert_equal,
     assert_raises_rpc_error,
 )
 
-class SimulateTxTest(OpenSyriaTestFramework):
+class SimulateTxTest(OpenSYTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 1
@@ -69,10 +69,10 @@ class SimulateTxTest(OpenSyriaTestFramework):
         funding = w0.fundrawtransaction(tx1)
         tx1 = funding["hex"]
         tx1changepos = funding["changepos"]
-        opensyria_fee = Decimal(funding["fee"])
+        opensy_fee = Decimal(funding["fee"])
 
         # w0 sees fee + 5 syl decrease, w2 sees + 5 syl
-        assert_approx(w0.simulaterawtransaction([tx1])["balance_change"], -(Decimal("5") + opensyria_fee))
+        assert_approx(w0.simulaterawtransaction([tx1])["balance_change"], -(Decimal("5") + opensy_fee))
         assert_approx(w2.simulaterawtransaction([tx1])["balance_change"], Decimal("5"))
 
         # w1 sees same as before
@@ -97,11 +97,11 @@ class SimulateTxTest(OpenSyriaTestFramework):
 
         # they should succeed when including tx1:
         #       wallet                  tx3                             tx4
-        #       w0                      -5 - opensyria_fee + 4.9999       -5 - opensyria_fee
+        #       w0                      -5 - opensy_fee + 4.9999       -5 - opensy_fee
         #       w1                      0                               +4.9999
-        assert_approx(w0.simulaterawtransaction([tx1, tx3])["balance_change"], -Decimal("5") - opensyria_fee + Decimal("4.9999"))
+        assert_approx(w0.simulaterawtransaction([tx1, tx3])["balance_change"], -Decimal("5") - opensy_fee + Decimal("4.9999"))
         assert_approx(w1.simulaterawtransaction([tx1, tx3])["balance_change"], 0)
-        assert_approx(w0.simulaterawtransaction([tx1, tx4])["balance_change"], -Decimal("5") - opensyria_fee)
+        assert_approx(w0.simulaterawtransaction([tx1, tx4])["balance_change"], -Decimal("5") - opensy_fee)
         assert_approx(w1.simulaterawtransaction([tx1, tx4])["balance_change"], Decimal("4.9999"))
 
         # they should fail if attempting to include both tx3 and tx4
@@ -116,8 +116,8 @@ class SimulateTxTest(OpenSyriaTestFramework):
         # w0 funds transaction 2; it should now see a decrease in (tx fee and payment), and w1 should see the same as above
         funding = w0.fundrawtransaction(tx2)
         tx2 = funding["hex"]
-        opensyria_fee2 = Decimal(funding["fee"])
-        assert_approx(w0.simulaterawtransaction([tx2])["balance_change"], -(Decimal("10") + opensyria_fee2))
+        opensy_fee2 = Decimal(funding["fee"])
+        assert_approx(w0.simulaterawtransaction([tx2])["balance_change"], -(Decimal("10") + opensy_fee2))
         assert_approx(w1.simulaterawtransaction([tx2])["balance_change"], +(Decimal("10")))
         assert_approx(w2.simulaterawtransaction([tx2])["balance_change"], 0)
 

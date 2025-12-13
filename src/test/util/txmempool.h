@@ -1,9 +1,9 @@
-// Copyright (c) 2022 The OpenSyria Core developers
+// Copyright (c) 2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_TEST_UTIL_TXMEMPOOL_H
-#define OPENSYRIA_TEST_UTIL_TXMEMPOOL_H
+#ifndef OPENSY_TEST_UTIL_TXMEMPOOL_H
+#define OPENSY_TEST_UTIL_TXMEMPOOL_H
 
 #include <policy/packages.h>
 #include <txmempool.h>
@@ -80,4 +80,4 @@ void AddToMempool(CTxMemPool& tx_pool, const CTxMemPoolEntry& entry);
  */
 void MockMempoolMinFee(const CFeeRate& target_feerate, CTxMemPool& mempool);
 
-#endif // OPENSYRIA_TEST_UTIL_TXMEMPOOL_H
+#endif // OPENSY_TEST_UTIL_TXMEMPOOL_H

@@ -1,9 +1,9 @@
-// Copyright (c) 2020-present The OpenSyria Core developers
+// Copyright (c) 2020-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_CRYPTO_SHA3_H
-#define OPENSYRIA_CRYPTO_SHA3_H
+#ifndef OPENSY_CRYPTO_SHA3_H
+#define OPENSY_CRYPTO_SHA3_H
 
 #include <cstdint>
 #include <cstdlib>
@@ -37,4 +37,4 @@ public:
     SHA3_256& Reset();
 };
 
-#endif // OPENSYRIA_CRYPTO_SHA3_H
+#endif // OPENSY_CRYPTO_SHA3_H

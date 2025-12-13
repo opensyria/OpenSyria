@@ -1,9 +1,9 @@
-// Copyright (c) 2025 The OpenSyria Core developers
+// Copyright (c) 2025 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UTIL_EXEC_H
-#define OPENSYRIA_UTIL_EXEC_H
+#ifndef OPENSY_UTIL_EXEC_H
+#define OPENSY_UTIL_EXEC_H
 
 #include <util/fs.h>
 
@@ -20,4 +20,4 @@ int ExecVp(const char* file, char* const argv[]);
 fs::path GetExePath(std::string_view argv0);
 } // namespace util
 
-#endif // OPENSYRIA_UTIL_EXEC_H
+#endif // OPENSY_UTIL_EXEC_H

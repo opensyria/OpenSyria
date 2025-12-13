@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2016-2022 The OpenSyria Core developers
+# Copyright (c) 2016-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test label RPCs.
@@ -13,12 +13,12 @@ from collections import defaultdict
 
 from test_framework.blocktools import COINBASE_MATURITY
 from test_framework.descriptors import descsum_create
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import assert_equal, assert_raises_rpc_error
 from test_framework.wallet_util import test_address
 
 
-class WalletLabelsTest(OpenSyriaTestFramework):
+class WalletLabelsTest(OpenSYTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 2
@@ -62,7 +62,7 @@ class WalletLabelsTest(OpenSyriaTestFramework):
         addr_info = node.getaddressinfo(address)
         assert_equal(addr_info.get('labels', []), [label_with_equals])
 
-        self.log.info("Test opensyria-cli -named passes parameter containing '=' by position if it does not specify a known parameter name and is in a string position")
+        self.log.info("Test opensy-cli -named passes parameter containing '=' by position if it does not specify a known parameter name and is in a string position")
         equals_label = "my=label"
         result = node.cli("-named", "getnewaddress", equals_label).send_cli()
         address = result.strip()

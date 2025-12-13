@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-OpenSyria Peer Monitor
+OpenSY Peer Monitor
 
 Real-time monitoring of peer connections and misbehavior scores.
 Useful for detecting attacks and monitoring network health.
@@ -34,7 +34,7 @@ class PeerMonitor:
         self.peer_history: Dict[str, List[Dict]] = {}
         
     def rpc_call(self, method: str, params: list = None) -> dict:
-        """Make an RPC call to opensyriad."""
+        """Make an RPC call to opensyd."""
         url = f"http://{self.host}:{self.port}/"
         headers = {"content-type": "application/json"}
         payload = {
@@ -142,7 +142,7 @@ class PeerMonitor:
         print("\033[H\033[J", end="")
         
         print("=" * 70)
-        print(f"OPENSYRIA PEER MONITOR - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        print(f"OPENSY PEER MONITOR - {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
         print("=" * 70)
         
         # Network summary
@@ -232,7 +232,7 @@ class PeerMonitor:
 
 
 def main():
-    parser = argparse.ArgumentParser(description="OpenSyria Peer Monitor")
+    parser = argparse.ArgumentParser(description="OpenSY Peer Monitor")
     parser.add_argument("--rpc-host", default="127.0.0.1", help="RPC host")
     parser.add_argument("--rpc-port", type=int, default=8332, help="RPC port")
     parser.add_argument("--rpc-user", default="", help="RPC username")

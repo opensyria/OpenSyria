@@ -7,16 +7,16 @@
 #include <clang-tidy/ClangTidyModule.h>
 #include <clang-tidy/ClangTidyModuleRegistry.h>
 
-class OpenSyriaModule final : public clang::tidy::ClangTidyModule
+class OpenSYModule final : public clang::tidy::ClangTidyModule
 {
 public:
     void addCheckFactories(clang::tidy::ClangTidyCheckFactories& CheckFactories) override
     {
-        CheckFactories.registerCheck<opensyria::NonTrivialThreadLocal>("opensyria-nontrivial-threadlocal");
+        CheckFactories.registerCheck<opensy::NonTrivialThreadLocal>("opensy-nontrivial-threadlocal");
     }
 };
 
-static clang::tidy::ClangTidyModuleRegistry::Add<OpenSyriaModule>
-    X("opensyria-module", "Adds opensyria checks.");
+static clang::tidy::ClangTidyModuleRegistry::Add<OpenSYModule>
+    X("opensy-module", "Adds opensy checks.");
 
-volatile int OpenSyriaModuleAnchorSource = 0;
+volatile int OpenSYModuleAnchorSource = 0;

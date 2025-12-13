@@ -1,9 +1,9 @@
-// Copyright (c) 2018-2019 The OpenSyria Core developers
+// Copyright (c) 2018-2019 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UTIL_THREADNAMES_H
-#define OPENSYRIA_UTIL_THREADNAMES_H
+#ifndef OPENSY_UTIL_THREADNAMES_H
+#define OPENSY_UTIL_THREADNAMES_H
 
 #include <string>
 
@@ -23,4 +23,4 @@ std::string ThreadGetInternalName();
 
 } // namespace util
 
-#endif // OPENSYRIA_UTIL_THREADNAMES_H
+#endif // OPENSY_UTIL_THREADNAMES_H

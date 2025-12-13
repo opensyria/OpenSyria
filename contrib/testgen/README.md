@@ -1,6 +1,6 @@
 ### TestGen ###
 
-Utilities to generate test vectors for the data-driven OpenSyria tests.
+Utilities to generate test vectors for the data-driven OpenSY tests.
 
 To use inside a scripted-diff (or just execute directly):
 

@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_NET_PROCESSING_H
-#define OPENSYRIA_NET_PROCESSING_H
+#ifndef OPENSY_NET_PROCESSING_H
+#define OPENSY_NET_PROCESSING_H
 
 #include <consensus/amount.h>
 #include <net.h>
@@ -165,4 +165,4 @@ public:
     virtual ServiceFlags GetDesirableServiceFlags(ServiceFlags services) const = 0;
 };
 
-#endif // OPENSYRIA_NET_PROCESSING_H
+#endif // OPENSY_NET_PROCESSING_H

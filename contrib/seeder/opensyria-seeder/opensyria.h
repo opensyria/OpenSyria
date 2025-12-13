@@ -1,5 +1,5 @@
-#ifndef _OPENSYRIA_H_
-#define _OPENSYRIA_H_ 1
+#ifndef _OPENSY_H_
+#define _OPENSY_H_ 1
 
 #include "protocol.h"
 

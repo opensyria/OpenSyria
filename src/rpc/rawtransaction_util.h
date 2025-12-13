@@ -1,9 +1,9 @@
-// Copyright (c) 2017-2022 The OpenSyria Core developers
+// Copyright (c) 2017-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_RPC_RAWTRANSACTION_UTIL_H
-#define OPENSYRIA_RPC_RAWTRANSACTION_UTIL_H
+#ifndef OPENSY_RPC_RAWTRANSACTION_UTIL_H
+#define OPENSY_RPC_RAWTRANSACTION_UTIL_H
 
 #include <addresstype.h>
 #include <consensus/amount.h>
@@ -59,4 +59,4 @@ CMutableTransaction ConstructTransaction(const UniValue& inputs_in, const UniVal
 /** Explain the UniValue "decoded" transaction object, may include extra fields if processed by wallet **/
 std::vector<RPCResult> DecodeTxDoc(const std::string& txid_field_doc, bool wallet);
 
-#endif // OPENSYRIA_RPC_RAWTRANSACTION_UTIL_H
+#endif // OPENSY_RPC_RAWTRANSACTION_UTIL_H

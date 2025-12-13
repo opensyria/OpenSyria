@@ -20,7 +20,7 @@ RUN apt-get update && apt-get install -y \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Clone and build OpenSyria
+# Clone and build OpenSY
 WORKDIR /build
 COPY . /build/
 
@@ -35,8 +35,8 @@ RUN cmake -B build \
 # =============================================================================
 FROM ubuntu:22.04
 
-LABEL maintainer="OpenSyria Developers <admin@opensyria.net>"
-LABEL description="OpenSyria Core Node"
+LABEL maintainer="OpenSY Developers <admin@opensy.net>"
+LABEL description="OpenSY Node"
 LABEL version="1.0"
 
 # Install runtime dependencies
@@ -52,28 +52,28 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/* \
     && apt-get clean
 
-# Create opensyria user
-RUN useradd -m -s /bin/bash -u 1000 opensyria
+# Create opensy user
+RUN useradd -m -s /bin/bash -u 1000 opensy
 
 # Copy binaries from builder
-COPY --from=builder /build/build/bin/opensyriad /usr/local/bin/
-COPY --from=builder /build/build/bin/opensyria-cli /usr/local/bin/
-COPY --from=builder /build/build/bin/opensyria-tx /usr/local/bin/
+COPY --from=builder /build/build/bin/opensyd /usr/local/bin/
+COPY --from=builder /build/build/bin/opensy-cli /usr/local/bin/
+COPY --from=builder /build/build/bin/opensy-tx /usr/local/bin/
 
 # Create data directory
-RUN mkdir -p /home/opensyria/.opensyria && \
-    chown -R opensyria:opensyria /home/opensyria/.opensyria
+RUN mkdir -p /home/opensy/.opensy && \
+    chown -R opensy:opensy /home/opensy/.opensy
 
 # Default configuration
-COPY contrib/deploy/docker/opensyria.conf.default /home/opensyria/.opensyria/opensyria.conf
-RUN chown opensyria:opensyria /home/opensyria/.opensyria/opensyria.conf
+COPY contrib/deploy/docker/opensy.conf.default /home/opensy/.opensy/opensy.conf
+RUN chown opensy:opensy /home/opensy/.opensy/opensy.conf
 
-# Switch to opensyria user
-USER opensyria
-WORKDIR /home/opensyria
+# Switch to opensy user
+USER opensy
+WORKDIR /home/opensy
 
 # Data volume
-VOLUME ["/home/opensyria/.opensyria"]
+VOLUME ["/home/opensy/.opensy"]
 
 # P2P port
 EXPOSE 9633
@@ -83,8 +83,8 @@ EXPOSE 9632
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=60s --retries=3 \
-    CMD opensyria-cli -datadir=/home/opensyria/.opensyria getblockchaininfo || exit 1
+    CMD opensy-cli -datadir=/home/opensy/.opensy getblockchaininfo || exit 1
 
 # Entry point
-ENTRYPOINT ["opensyriad"]
-CMD ["-datadir=/home/opensyria/.opensyria", "-printtoconsole"]
+ENTRYPOINT ["opensyd"]
+CMD ["-datadir=/home/opensy/.opensy", "-printtoconsole"]

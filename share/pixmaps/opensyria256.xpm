@@ -1,5 +1,5 @@
 /* XPM */
-static char *opensyria256[] = {
+static char *opensy256[] = {
 /* columns rows colors chars-per-pixel */
 "256 256 256 2 ",
 "   c #040503",

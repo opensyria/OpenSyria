@@ -1,6 +1,6 @@
-# OpenSyria Monitoring Tools
+# OpenSY Monitoring Tools
 
-Security and operational monitoring scripts for OpenSyria node operators.
+Security and operational monitoring scripts for OpenSY node operators.
 
 ## Tools
 
@@ -29,12 +29,12 @@ python3 distribution_analyzer.py \
 **Requirements:**
 - Python 3.8+
 - requests library (`pip3 install requests`)
-- Running opensyriad with RPC enabled
+- Running opensyd with RPC enabled
 
 **Sample Output:**
 ```
 ============================================================
-OPENSYRIA DISTRIBUTION ANALYSIS REPORT
+OPENSY DISTRIBUTION ANALYSIS REPORT
 ============================================================
 
 📊 UTXO SET STATISTICS
@@ -125,8 +125,8 @@ Relevant findings:
 
 ## Configuration
 
-Both tools require RPC access to a running opensyriad instance. Ensure your
-`opensyria.conf` has RPC enabled:
+Both tools require RPC access to a running opensyd instance. Ensure your
+`opensy.conf` has RPC enabled:
 
 ```conf
 server=1

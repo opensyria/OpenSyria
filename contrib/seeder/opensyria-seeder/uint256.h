@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
 // Copyright (c) 2011 The Bitcoin developers
-// Copyright (c) 2024-2025 The OpenSyria developers
+// Copyright (c) 2024-2025 The OpenSY developers
 // Distributed under the MIT/X11 software license, see the accompanying
 // file license.txt or http://www.opensource.org/licenses/mit-license.php.
-#ifndef OPENSYRIA_UINT256_H
-#define OPENSYRIA_UINT256_H
+#ifndef OPENSY_UINT256_H
+#define OPENSY_UINT256_H
 
 #include "serialize.h"
 

@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2021 The OpenSyria Core developers
+// Copyright (c) 2011-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_RECENTREQUESTSTABLEMODEL_H
-#define OPENSYRIA_QT_RECENTREQUESTSTABLEMODEL_H
+#ifndef OPENSY_QT_RECENTREQUESTSTABLEMODEL_H
+#define OPENSY_QT_RECENTREQUESTSTABLEMODEL_H
 
 #include <qt/sendcoinsrecipient.h>
 
@@ -46,7 +46,7 @@ private:
     Qt::SortOrder order;
 };
 
-/** Model for list of recently generated payment requests / opensyria: URIs.
+/** Model for list of recently generated payment requests / opensy: URIs.
  * Part of wallet model.
  */
 class RecentRequestsTableModel: public QAbstractTableModel
@@ -98,4 +98,4 @@ private:
     QString getAmountTitle();
 };
 
-#endif // OPENSYRIA_QT_RECENTREQUESTSTABLEMODEL_H
+#endif // OPENSY_QT_RECENTREQUESTSTABLEMODEL_H

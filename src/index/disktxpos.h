@@ -1,9 +1,9 @@
-// Copyright (c) 2019-2020 The OpenSyria Core developers
+// Copyright (c) 2019-2020 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_INDEX_DISKTXPOS_H
-#define OPENSYRIA_INDEX_DISKTXPOS_H
+#ifndef OPENSY_INDEX_DISKTXPOS_H
+#define OPENSY_INDEX_DISKTXPOS_H
 
 #include <flatfile.h>
 #include <serialize.h>
@@ -23,4 +23,4 @@ struct CDiskTxPos : public FlatFilePos
     CDiskTxPos() = default;
 };
 
-#endif // OPENSYRIA_INDEX_DISKTXPOS_H
+#endif // OPENSY_INDEX_DISKTXPOS_H

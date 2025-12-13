@@ -13,8 +13,8 @@
  * ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
-#ifndef OPENSYRIA_STRLCPY_H
-#define OPENSYRIA_STRLCPY_H
+#ifndef OPENSY_STRLCPY_H
+#define OPENSY_STRLCPY_H
 
 #include <stdlib.h>
 #include <string.h>
@@ -92,4 +92,4 @@ inline size_t strlcat(char *dst, const char *src, size_t siz)
 }
 
 #endif // glibc version check
-#endif // OPENSYRIA_STRLCPY_H
+#endif // OPENSY_STRLCPY_H

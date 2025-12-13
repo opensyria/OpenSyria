@@ -13,10 +13,10 @@ export CMAKE_GENERATOR="Ninja"
 export CI_OS_NAME="macos"
 export NO_DEPENDS=1
 export OSX_SDK=""
-export OPENSYRIA_CONFIG="\
+export OPENSY_CONFIG="\
   --preset=dev-mode \
   -DWITH_USDT=OFF \
   -DREDUCE_EXPORTS=ON \
   -DCMAKE_EXE_LINKER_FLAGS='-Wl,-stack_size -Wl,0x80000' \
 "
-export OPENSYRIA_CMD="opensyria -m" # Used in functional tests
+export OPENSY_CMD="opensy -m" # Used in functional tests

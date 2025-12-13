@@ -51,7 +51,7 @@ app.get('/', async (req, res) => {
             peers,
             mempool,
             latestBlocks,
-            coinName: process.env.COIN_NAME || 'OpenSyria',
+            coinName: process.env.COIN_NAME || 'OpenSY',
             coinSymbol: process.env.COIN_SYMBOL || 'SYL'
         });
     } catch (err) {
@@ -66,7 +66,7 @@ app.get('/block/:hash', async (req, res) => {
         const block = await rpc.call('getblock', [req.params.hash, 2]);
         res.render('block', { 
             block,
-            coinName: process.env.COIN_NAME || 'OpenSyria',
+            coinName: process.env.COIN_NAME || 'OpenSY',
             coinSymbol: process.env.COIN_SYMBOL || 'SYL'
         });
     } catch (err) {
@@ -90,7 +90,7 @@ app.get('/tx/:txid', async (req, res) => {
         const tx = await rpc.call('getrawtransaction', [req.params.txid, true]);
         res.render('transaction', { 
             tx,
-            coinName: process.env.COIN_NAME || 'OpenSyria',
+            coinName: process.env.COIN_NAME || 'OpenSY',
             coinSymbol: process.env.COIN_SYMBOL || 'SYL'
         });
     } catch (err) {
@@ -102,7 +102,7 @@ app.get('/tx/:txid', async (req, res) => {
 app.get('/address/:address', async (req, res) => {
     res.render('address', { 
         address: req.params.address,
-        coinName: process.env.COIN_NAME || 'OpenSyria',
+        coinName: process.env.COIN_NAME || 'OpenSY',
         coinSymbol: process.env.COIN_SYMBOL || 'SYL'
     });
 });
@@ -179,7 +179,7 @@ app.get('/api/tx/:txid', async (req, res) => {
 
 // Start server
 app.listen(PORT, HOST, () => {
-    console.log(`\n🔍 OpenSyria Explorer | مستكشف سوريا المفتوحة`);
+    console.log(`\n🔍 OpenSY Explorer | مستكشف سوريا المفتوحة`);
     console.log(`   Running at http://${HOST}:${PORT}`);
     console.log(`   Connected to RPC at ${process.env.RPC_HOST}:${process.env.RPC_PORT}\n`);
 });

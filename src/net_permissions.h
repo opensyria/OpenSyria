@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2022 The OpenSyria Core developers
+// Copyright (c) 2009-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,8 +9,8 @@
 #include <type_traits>
 #include <vector>
 
-#ifndef OPENSYRIA_NET_PERMISSIONS_H
-#define OPENSYRIA_NET_PERMISSIONS_H
+#ifndef OPENSY_NET_PERMISSIONS_H
+#define OPENSY_NET_PERMISSIONS_H
 
 struct bilingual_str;
 
@@ -93,4 +93,4 @@ public:
     CSubNet m_subnet;
 };
 
-#endif // OPENSYRIA_NET_PERMISSIONS_H
+#endif // OPENSY_NET_PERMISSIONS_H

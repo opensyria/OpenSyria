@@ -1,20 +1,20 @@
-# OpenSyria Development Tools
+# OpenSY Development Tools
 
-This directory contains standalone utilities created during the OpenSyria fork process.
+This directory contains standalone utilities created during the OpenSY fork process.
 
 ## Files
 
 ### `genesis_miner.cpp`
-Displays OpenSyria chain parameters and genesis block information.
+Displays OpenSY chain parameters and genesis block information.
 - **Usage**: Standalone utility, compile with `g++ -o genesis_miner genesis_miner.cpp`
 - **Purpose**: Reference for chain parameters when setting up new networks
 
 ### `print_genesis.cpp`  
-Prints genesis block hashes for all OpenSyria networks (mainnet, testnet, regtest, etc.)
-- **Usage**: Requires OpenSyria libraries, compile from build directory
+Prints genesis block hashes for all OpenSY networks (mainnet, testnet, regtest, etc.)
+- **Usage**: Requires OpenSY libraries, compile from build directory
 - **Purpose**: Verify genesis block configuration after changes to chainparams.cpp
 
-## OpenSyria Chain Parameters
+## OpenSY Chain Parameters
 
 | Parameter | Value |
 |-----------|-------|

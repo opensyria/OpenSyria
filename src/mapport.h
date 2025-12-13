@@ -1,9 +1,9 @@
-// Copyright (c) 2011-2020 The OpenSyria Core developers
+// Copyright (c) 2011-2020 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_MAPPORT_H
-#define OPENSYRIA_MAPPORT_H
+#ifndef OPENSY_MAPPORT_H
+#define OPENSY_MAPPORT_H
 
 static constexpr bool DEFAULT_NATPMP = true;
 
@@ -11,4 +11,4 @@ void StartMapPort(bool enable);
 void InterruptMapPort();
 void StopMapPort();
 
-#endif // OPENSYRIA_MAPPORT_H
+#endif // OPENSY_MAPPORT_H

@@ -1,4 +1,4 @@
-# Copyright (c) 2023-present The OpenSyria Core developers
+# Copyright (c) 2023-present The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit/.
 
@@ -19,7 +19,7 @@ function(setup_split_debug_script)
 endfunction()
 
 function(add_windows_deploy_target)
-  if(MINGW AND TARGET opensyria AND TARGET opensyria-qt AND TARGET opensyriad AND TARGET opensyria-cli AND TARGET opensyria-tx AND TARGET opensyria-wallet AND TARGET opensyria-util AND TARGET test_opensyria)
+  if(MINGW AND TARGET opensy AND TARGET opensy-qt AND TARGET opensyd AND TARGET opensy-cli AND TARGET opensy-tx AND TARGET opensy-wallet AND TARGET opensy-util AND TARGET test_opensy)
     find_program(MAKENSIS_EXECUTABLE makensis)
     if(NOT MAKENSIS_EXECUTABLE)
       add_custom_target(deploy
@@ -33,51 +33,51 @@ function(add_windows_deploy_target)
     include(GenerateSetupNsi)
     generate_setup_nsi()
     add_custom_command(
-      OUTPUT ${PROJECT_BINARY_DIR}/opensyria-win64-setup.exe
+      OUTPUT ${PROJECT_BINARY_DIR}/opensy-win64-setup.exe
       COMMAND ${CMAKE_COMMAND} -E make_directory ${PROJECT_BINARY_DIR}/release
-      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:opensyria> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:opensyria>
-      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:opensyria-qt> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:opensyria-qt>
-      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:opensyriad> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:opensyriad>
-      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:opensyria-cli> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:opensyria-cli>
-      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:opensyria-tx> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:opensyria-tx>
-      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:opensyria-wallet> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:opensyria-wallet>
-      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:opensyria-util> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:opensyria-util>
-      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:test_opensyria> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:test_opensyria>
-      COMMAND ${MAKENSIS_EXECUTABLE} -V2 ${PROJECT_BINARY_DIR}/opensyria-win64-setup.nsi
+      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:opensy> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:opensy>
+      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:opensy-qt> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:opensy-qt>
+      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:opensyd> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:opensyd>
+      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:opensy-cli> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:opensy-cli>
+      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:opensy-tx> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:opensy-tx>
+      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:opensy-wallet> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:opensy-wallet>
+      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:opensy-util> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:opensy-util>
+      COMMAND ${CMAKE_STRIP} $<TARGET_FILE:test_opensy> -o ${PROJECT_BINARY_DIR}/release/$<TARGET_FILE_NAME:test_opensy>
+      COMMAND ${MAKENSIS_EXECUTABLE} -V2 ${PROJECT_BINARY_DIR}/opensy-win64-setup.nsi
       VERBATIM
     )
-    add_custom_target(deploy DEPENDS ${PROJECT_BINARY_DIR}/opensyria-win64-setup.exe)
+    add_custom_target(deploy DEPENDS ${PROJECT_BINARY_DIR}/opensy-win64-setup.exe)
   endif()
 endfunction()
 
 function(add_macos_deploy_target)
-  if(CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND TARGET opensyria-qt)
-    set(macos_app "OpenSyria-Qt.app")
+  if(CMAKE_SYSTEM_NAME STREQUAL "Darwin" AND TARGET opensy-qt)
+    set(macos_app "OpenSY-Qt.app")
     # Populate Contents subdirectory.
     configure_file(${PROJECT_SOURCE_DIR}/share/qt/Info.plist.in ${macos_app}/Contents/Info.plist NO_SOURCE_PERMISSIONS)
     file(CONFIGURE OUTPUT ${macos_app}/Contents/PkgInfo CONTENT "APPL????")
     # Populate Contents/Resources subdirectory.
     file(CONFIGURE OUTPUT ${macos_app}/Contents/Resources/empty.lproj CONTENT "")
-    configure_file(${PROJECT_SOURCE_DIR}/src/qt/res/icons/opensyria.icns ${macos_app}/Contents/Resources/opensyria.icns NO_SOURCE_PERMISSIONS COPYONLY)
+    configure_file(${PROJECT_SOURCE_DIR}/src/qt/res/icons/opensy.icns ${macos_app}/Contents/Resources/opensy.icns NO_SOURCE_PERMISSIONS COPYONLY)
     file(CONFIGURE OUTPUT ${macos_app}/Contents/Resources/Base.lproj/InfoPlist.strings
       CONTENT "{ CFBundleDisplayName = \"@CLIENT_NAME@\"; CFBundleName = \"@CLIENT_NAME@\"; }"
     )
 
     add_custom_command(
-      OUTPUT ${PROJECT_BINARY_DIR}/${macos_app}/Contents/MacOS/OpenSyria-Qt
-      COMMAND ${CMAKE_COMMAND} --install ${PROJECT_BINARY_DIR} --config $<CONFIG> --component opensyria-qt --prefix ${macos_app}/Contents/MacOS --strip
-      COMMAND ${CMAKE_COMMAND} -E rename ${macos_app}/Contents/MacOS/bin/$<TARGET_FILE_NAME:opensyria-qt> ${macos_app}/Contents/MacOS/OpenSyria-Qt
+      OUTPUT ${PROJECT_BINARY_DIR}/${macos_app}/Contents/MacOS/OpenSY-Qt
+      COMMAND ${CMAKE_COMMAND} --install ${PROJECT_BINARY_DIR} --config $<CONFIG> --component opensy-qt --prefix ${macos_app}/Contents/MacOS --strip
+      COMMAND ${CMAKE_COMMAND} -E rename ${macos_app}/Contents/MacOS/bin/$<TARGET_FILE_NAME:opensy-qt> ${macos_app}/Contents/MacOS/OpenSY-Qt
       COMMAND ${CMAKE_COMMAND} -E rm -rf ${macos_app}/Contents/MacOS/bin
       COMMAND ${CMAKE_COMMAND} -E rm -rf ${macos_app}/Contents/MacOS/share
       VERBATIM
     )
 
-    set(macos_zip "opensyria-macos-app")
+    set(macos_zip "opensy-macos-app")
     if(CMAKE_HOST_APPLE)
       add_custom_command(
         OUTPUT ${PROJECT_BINARY_DIR}/${macos_zip}.zip
         COMMAND Python3::Interpreter ${PROJECT_SOURCE_DIR}/contrib/macdeploy/macdeployqtplus ${macos_app} -translations-dir=${QT_TRANSLATIONS_DIR} -zip=${macos_zip}
-        DEPENDS ${PROJECT_BINARY_DIR}/${macos_app}/Contents/MacOS/OpenSyria-Qt
+        DEPENDS ${PROJECT_BINARY_DIR}/${macos_app}/Contents/MacOS/OpenSY-Qt
         VERBATIM
       )
       add_custom_target(deploydir
@@ -88,13 +88,13 @@ function(add_macos_deploy_target)
       )
     else()
       add_custom_command(
-        OUTPUT ${PROJECT_BINARY_DIR}/dist/${macos_app}/Contents/MacOS/OpenSyria-Qt
+        OUTPUT ${PROJECT_BINARY_DIR}/dist/${macos_app}/Contents/MacOS/OpenSY-Qt
         COMMAND ${CMAKE_COMMAND} -E env OBJDUMP=${CMAKE_OBJDUMP} $<TARGET_FILE:Python3::Interpreter> ${PROJECT_SOURCE_DIR}/contrib/macdeploy/macdeployqtplus ${macos_app} -translations-dir=${QT_TRANSLATIONS_DIR}
-        DEPENDS ${PROJECT_BINARY_DIR}/${macos_app}/Contents/MacOS/OpenSyria-Qt
+        DEPENDS ${PROJECT_BINARY_DIR}/${macos_app}/Contents/MacOS/OpenSY-Qt
         VERBATIM
       )
       add_custom_target(deploydir
-        DEPENDS ${PROJECT_BINARY_DIR}/dist/${macos_app}/Contents/MacOS/OpenSyria-Qt
+        DEPENDS ${PROJECT_BINARY_DIR}/dist/${macos_app}/Contents/MacOS/OpenSY-Qt
       )
 
       find_program(ZIP_EXECUTABLE zip)
@@ -114,7 +114,7 @@ function(add_macos_deploy_target)
         )
       endif()
     endif()
-    add_dependencies(deploydir opensyria-qt)
+    add_dependencies(deploydir opensy-qt)
     add_dependencies(deploy deploydir)
   endif()
 endfunction()

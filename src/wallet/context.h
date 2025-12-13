@@ -1,9 +1,9 @@
-// Copyright (c) 2020-2021 The OpenSyria Core developers
+// Copyright (c) 2020-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_WALLET_CONTEXT_H
-#define OPENSYRIA_WALLET_CONTEXT_H
+#ifndef OPENSY_WALLET_CONTEXT_H
+#define OPENSY_WALLET_CONTEXT_H
 
 #include <sync.h>
 
@@ -51,4 +51,4 @@ struct WalletContext {
 };
 } // namespace wallet
 
-#endif // OPENSYRIA_WALLET_CONTEXT_H
+#endif // OPENSY_WALLET_CONTEXT_H

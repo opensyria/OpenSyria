@@ -1,9 +1,9 @@
 # Disable files from being included in completions by default
-complete --command opensyria-tx --no-files
+complete --command opensy-tx --no-files
 
 # Modified version of __fish_seen_subcommand_from
 # Uses regex to detect cmd= syntax
-function __fish_opensyria_seen_cmd
+function __fish_opensy_seen_cmd
     set -l cmd (commandline -oc)
     set -e cmd[1]
     for i in $cmd
@@ -17,7 +17,7 @@ function __fish_opensyria_seen_cmd
 end
 
 # Extract options
-function __fish_opensyria_tx_get_options
+function __fish_opensy_tx_get_options
     set --local cmd (commandline -oc)[1]
     if string match --quiet --regex -- '^-help$|-\?$' $cmd
         return
@@ -29,7 +29,7 @@ function __fish_opensyria_tx_get_options
 end
 
 # Extract commands
-function __fish_opensyria_tx_get_commands
+function __fish_opensy_tx_get_commands
     argparse 'commandsonly' -- $argv
     set --local cmd (commandline -oc)[1]
     set --local commands
@@ -47,19 +47,19 @@ end
 
 # Add options
 complete \
-    --command opensyria-tx \
-    --condition "not __fish_opensyria_seen_cmd (__fish_opensyria_tx_get_commands --commandsonly)" \
-    --arguments "(__fish_opensyria_tx_get_options)" \
+    --command opensy-tx \
+    --condition "not __fish_opensy_seen_cmd (__fish_opensy_tx_get_commands --commandsonly)" \
+    --arguments "(__fish_opensy_tx_get_options)" \
     --no-files
 
 # Add commands
 complete \
-    --command opensyria-tx \
-    --arguments "(__fish_opensyria_tx_get_commands)" \
+    --command opensy-tx \
+    --arguments "(__fish_opensy_tx_get_commands)" \
     --no-files
 
 # Add file completions for load and set commands
 complete \
-    --command opensyria-tx \
+    --command opensy-tx \
     --condition 'string match --regex -- "(load|set)=" (commandline -pt)' \
     --force-files

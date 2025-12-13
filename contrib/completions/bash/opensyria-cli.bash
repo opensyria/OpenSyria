@@ -1,10 +1,10 @@
-# bash programmable completion for opensyria-cli(1)
+# bash programmable completion for opensy-cli(1)
 # Copyright (c) 2012-2022 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-# call $opensyria-cli for RPC
-_opensyria_rpc() {
+# call $opensy-cli for RPC
+_opensy_rpc() {
     # determine already specified args necessary for RPC
     local rpcargs=()
     for i in ${COMP_LINE}; do
@@ -14,16 +14,16 @@ _opensyria_rpc() {
                 ;;
         esac
     done
-    $opensyria_cli "${rpcargs[@]}" "$@"
+    $opensy_cli "${rpcargs[@]}" "$@"
 }
 
-_opensyria_cli() {
+_opensy_cli() {
     local cur prev words=() cword
-    local opensyria_cli
+    local opensy_cli
 
-    # save and use original argument to invoke opensyria-cli for -help, help and RPC
-    # as opensyria-cli might not be in $PATH
-    opensyria_cli="$1"
+    # save and use original argument to invoke opensy-cli for -help, help and RPC
+    # as opensy-cli might not be in $PATH
+    opensy_cli="$1"
 
     COMPREPLY=()
     _get_comp_words_by_ref -n = cur prev words cword
@@ -109,12 +109,12 @@ _opensyria_cli() {
 
             # only parse -help if senseful
             if [[ -z "$cur" || "$cur" =~ ^- ]]; then
-                helpopts=$($opensyria_cli -help 2>&1 | awk '$1 ~ /^-/ { sub(/=.*/, "="); print $1 }' )
+                helpopts=$($opensy_cli -help 2>&1 | awk '$1 ~ /^-/ { sub(/=.*/, "="); print $1 }' )
             fi
 
             # only parse help if senseful
             if [[ -z "$cur" || "$cur" =~ ^[a-z] ]]; then
-                commands=$(_opensyria_rpc help 2>/dev/null | awk '$1 ~ /^[a-z]/ { print $1; }')
+                commands=$(_opensy_rpc help 2>/dev/null | awk '$1 ~ /^[a-z]/ { print $1; }')
             fi
 
             COMPREPLY=( $( compgen -W "$helpopts $commands" -- "$cur" ) )
@@ -127,7 +127,7 @@ _opensyria_cli() {
             ;;
     esac
 } &&
-complete -F _opensyria_cli opensyria-cli
+complete -F _opensy_cli opensy-cli
 
 # Local variables:
 # mode: shell-script

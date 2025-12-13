@@ -51,7 +51,7 @@
     </message>
 </context>
 <context>
-    <name>OpenSyriaApplication</name>
+    <name>OpenSYApplication</name>
     <message>
         <source>Settings file %1 might be corrupt or invalid.</source>
         <translation type="unfinished">Uppsetanarfílan %1 kann vera avskeplað ella ógildig.</translation>
@@ -77,8 +77,8 @@
         <translation type="unfinished">Upphædd</translation>
     </message>
     <message>
-        <source>Enter a OpenSyria address (e.g. %1)</source>
-        <translation type="unfinished">Inntøppa eina OpenSyria adressu (t.d. %1)</translation>
+        <source>Enter a OpenSY address (e.g. %1)</source>
+        <translation type="unfinished">Inntøppa eina OpenSY adressu (t.d. %1)</translation>
     </message>
     <message>
         <source>Ctrl+W</source>
@@ -146,7 +146,7 @@
     </message>
     </context>
 <context>
-    <name>OpenSyriaGUI</name>
+    <name>OpenSYGUI</name>
     <message>
         <source>&amp;Overview</source>
         <translation type="unfinished">&amp;Yvirlit</translation>
@@ -189,8 +189,8 @@
         <translation type="unfinished">&amp;Undirrita  boð</translation>
     </message>
     <message>
-        <source>Sign messages with your OpenSyria addresses to prove you own them</source>
-        <translation type="unfinished">Undirrita boðini við tíni OpenSyria-adressu fyri at prógva at tey eru tíni</translation>
+        <source>Sign messages with your OpenSY addresses to prove you own them</source>
+        <translation type="unfinished">Undirrita boðini við tíni OpenSY-adressu fyri at prógva at tey eru tíni</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -240,11 +240,11 @@
         <translation type="unfinished">%1 viðskiftari</translation>
     </message>
     <message numerus="yes">
-        <source>%n active connection(s) to OpenSyria network.</source>
+        <source>%n active connection(s) to OpenSY network.</source>
         <extracomment>A substring of the tooltip.</extracomment>
         <translation type="unfinished">
-            <numerusform>%n virkið samband til OpenSyria netið.</numerusform>
-            <numerusform>%n virkin sambond til OpenSyria netið.</numerusform>
+            <numerusform>%n virkið samband til OpenSY netið.</numerusform>
+            <numerusform>%n virkin sambond til OpenSY netið.</numerusform>
         </translation>
     </message>
     <message>
@@ -951,8 +951,8 @@
         </translation>
     </message>
     <message>
-        <source>Warning: Invalid OpenSyria address</source>
-        <translation type="unfinished">Ávaring: Ógildig OpenSyria adressa</translation>
+        <source>Warning: Invalid OpenSY address</source>
+        <translation type="unfinished">Ávaring: Ógildig OpenSY adressa</translation>
     </message>
     <message>
         <source>Warning: Unknown change address</source>
@@ -1001,8 +1001,8 @@
         <translation type="unfinished">&amp;Undirrita Boð</translation>
     </message>
     <message>
-        <source>The OpenSyria address to sign the message with</source>
-        <translation type="unfinished">OpenSyria adressan at undirskriva boðini við</translation>
+        <source>The OpenSY address to sign the message with</source>
+        <translation type="unfinished">OpenSY adressan at undirskriva boðini við</translation>
     </message>
     <message>
         <source>Choose previously used address</source>
@@ -1025,8 +1025,8 @@
         <translation type="unfinished">Undirskrift</translation>
     </message>
     <message>
-        <source>Sign the message to prove you own this OpenSyria address</source>
-        <translation type="unfinished">Undirskriva boðini fyri at prógva at OpenSyria-adressan er tín</translation>
+        <source>Sign the message to prove you own this OpenSY address</source>
+        <translation type="unfinished">Undirskriva boðini fyri at prógva at OpenSY-adressan er tín</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -1037,8 +1037,8 @@
         <translation type="unfinished">Tómstilla &amp;alt</translation>
     </message>
     <message>
-        <source>The OpenSyria address the message was signed with</source>
-        <translation type="unfinished">OpenSyria-adressan ið undirskrivaði boðini</translation>
+        <source>The OpenSY address the message was signed with</source>
+        <translation type="unfinished">OpenSY-adressan ið undirskrivaði boðini</translation>
     </message>
     <message>
         <source>The signed message to verify</source>
@@ -1251,7 +1251,7 @@
     </message>
 </context>
 <context>
-    <name>opensyria-core</name>
+    <name>opensy-core</name>
     <message>
         <source>The %s developers</source>
         <translation type="unfinished">%smennararnir</translation>

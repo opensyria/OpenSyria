@@ -1,8 +1,8 @@
 // Copyright 2016 Wladimir J. van der Laan
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or https://opensource.org/licenses/mit-license.php.
-#ifndef OPENSYRIA_UNIVALUE_INCLUDE_UNIVALUE_UTFFILTER_H
-#define OPENSYRIA_UNIVALUE_INCLUDE_UNIVALUE_UTFFILTER_H
+#ifndef OPENSY_UNIVALUE_INCLUDE_UNIVALUE_UTFFILTER_H
+#define OPENSY_UNIVALUE_INCLUDE_UNIVALUE_UTFFILTER_H
 
 #include <string>
 
@@ -116,4 +116,4 @@ private:
     }
 };
 
-#endif // OPENSYRIA_UNIVALUE_INCLUDE_UNIVALUE_UTFFILTER_H
+#endif // OPENSY_UNIVALUE_INCLUDE_UNIVALUE_UTFFILTER_H

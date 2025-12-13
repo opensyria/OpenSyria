@@ -1,4 +1,4 @@
-# OpenSyria Deployment Progress
+# OpenSY Deployment Progress
 
 **Last Updated:** December 7, 2025  
 **Status:** 🚀 AWS Ready - Deploying First Node  
@@ -16,10 +16,10 @@
 
 ### 2. DNS Seeder (100%)
 - [x] Cloned and rebranded from bitcoin-seeder
-- [x] Location: `/contrib/seeder/opensyria-seeder/`
+- [x] Location: `/contrib/seeder/opensy-seeder/`
 - [x] Magic bytes: `0x53594c4d` (SYLM)
 - [x] Port: 9633 (mainnet), 19633 (testnet)
-- [x] Default seed: `seed.opensyria.net`
+- [x] Default seed: `seed.opensy.net`
 - [x] Binary compiled: `dnsseed` (186KB arm64)
 
 ### 3. Deployment Infrastructure (100%)
@@ -31,7 +31,7 @@
 - [x] Comprehensive guide: `/docs/deployment/INFRASTRUCTURE_GUIDE.md`
 
 ### 4. Domain & DNS (100%)
-- [x] Domain acquired: **opensyria.net**
+- [x] Domain acquired: **opensy.net**
 - [x] Registrar: Namecheap
 - [x] DNS: Cloudflare (Active)
 - [x] Nameservers configured
@@ -50,14 +50,14 @@
 **Status:** Ready to launch first instance
 
 **Instance Configuration:**
-- **Name:** `opensyria-seed-1`
+- **Name:** `opensy-seed-1`
 - **AMI:** Ubuntu Server 24.04 LTS
 - **Type:** `t2.micro` (Free tier) or `t3.small` ($15/mo)
 - **Storage:** 30 GB gp3
 - **Security Group Ports:**
   - SSH (22) - Your IP only
-  - OpenSyria P2P (9633) - Anywhere
-  - OpenSyria RPC (9632) - Your IP only
+  - OpenSY P2P (9633) - Anywhere
+  - OpenSY RPC (9632) - Your IP only
 
 ---
 
@@ -66,7 +66,7 @@
 ### Step 1: Launch AWS EC2 Instance ⬅️ YOU ARE HERE
 1. Go to **AWS Console** → EC2 → **Launch Instance**
 2. Configure:
-   - **Name:** `opensyria-seed-1`
+   - **Name:** `opensy-seed-1`
    - **AMI:** Ubuntu Server 24.04 LTS (Free tier eligible)
    - **Instance type:** `t2.micro` (Free tier) or `t3.small` (~$15/mo)
    - **Key pair:** Create new, download `.pem` file (SAVE IT!)
@@ -77,35 +77,35 @@
 ### Step 2: SSH & Setup Node
 ```bash
 # Make key usable
-chmod 400 ~/Downloads/opensyria-seed-1.pem
+chmod 400 ~/Downloads/opensy-seed-1.pem
 
 # SSH into server
-ssh -i ~/Downloads/opensyria-seed-1.pem ubuntu@<PUBLIC-IP>
+ssh -i ~/Downloads/opensy-seed-1.pem ubuntu@<PUBLIC-IP>
 
 # Run setup (on server)
 sudo apt update && sudo apt install -y git build-essential cmake pkg-config \
   libboost-all-dev libevent-dev libsqlite3-dev
 
-git clone https://github.com/opensyria/OpenSyria.git
-cd OpenSyria
+git clone https://github.com/opensy/OpenSY.git
+cd OpenSY
 cmake -B build -DBUILD_DAEMON=ON -DBUILD_CLI=ON
 cmake --build build -j$(nproc)
 sudo cmake --install build
 
 # Create config
-mkdir -p ~/.opensyria
-cat > ~/.opensyria/opensyria.conf << 'EOF'
+mkdir -p ~/.opensy
+cat > ~/.opensy/opensy.conf << 'EOF'
 server=1
 daemon=1
 listen=1
-rpcuser=opensyriarpc
+rpcuser=opensyrpc
 rpcpassword=CHANGE_THIS_TO_RANDOM_STRING
 rpcallowip=127.0.0.1
 EOF
 
 # Start daemon
-opensyriad -daemon
-opensyria-cli getblockchaininfo
+opensyd -daemon
+opensy-cli getblockchaininfo
 ```
 
 ### Step 3: Configure Cloudflare DNS
@@ -119,22 +119,22 @@ After node is running, add these records in Cloudflare:
 ### Step 4: Mine First Blocks
 ```bash
 # Generate wallet and mine
-opensyria-cli createwallet "miner"
-opensyria-cli getnewaddress
-opensyria-cli generatetoaddress 100 <YOUR-ADDRESS>
+opensy-cli createwallet "miner"
+opensy-cli getnewaddress
+opensy-cli generatetoaddress 100 <YOUR-ADDRESS>
 ```
 
 ### Step 5: Deploy DNS Seeder (Later)
 ```bash
 # On seeder server:
-cd /contrib/seeder/opensyria-seeder
-./dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net -p 5353
+cd /contrib/seeder/opensy-seeder
+./dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net -p 5353
 ```
 
 ### Step 6: Update chainparams.cpp (After deployment)
 ```cpp
 // In CMainParams constructor:
-vSeeds.emplace_back("seed.opensyria.net");
+vSeeds.emplace_back("seed.opensy.net");
 ```
 
 ---
@@ -168,15 +168,15 @@ vSeeds.emplace_back("seed.opensyria.net");
 
 | File | Purpose |
 |------|---------|
-| `/contrib/seeder/opensyria-seeder/` | DNS seeder (compiled) |
+| `/contrib/seeder/opensy-seeder/` | DNS seeder (compiled) |
 | `/contrib/deploy/setup-node.sh` | Node setup automation |
 | `/contrib/deploy/setup-dns-seeder.sh` | Seeder setup automation |
 | `/contrib/deploy/docker/` | Docker deployment |
 | `/docs/deployment/INFRASTRUCTURE_GUIDE.md` | Full deployment guide |
 | `/src/kernel/chainparams.cpp` | Network parameters |
-| `/build/bin/opensyriad` | Compiled daemon |
-| `/build/bin/opensyria-cli` | Compiled CLI |
-| `/build/bin/opensyria-qt` | Compiled Qt wallet |
+| `/build/bin/opensyd` | Compiled daemon |
+| `/build/bin/opensy-cli` | Compiled CLI |
+| `/build/bin/opensy-qt` | Compiled Qt wallet |
 
 ---
 
@@ -196,15 +196,15 @@ vSeeds.emplace_back("seed.opensyria.net");
 
 ```bash
 # Check everything is ready
-cd /Users/hamoudi/OpenSyria
+cd /Users/hamoudi/OpenSY
 git status
-ls -la contrib/seeder/opensyria-seeder/dnsseed
-./build/bin/opensyriad --version
+ls -la contrib/seeder/opensy-seeder/dnsseed
+./build/bin/opensyd --version
 
 # Test daemon locally
-./build/bin/opensyriad -regtest -daemon
-./build/bin/opensyria-cli -regtest getblockchaininfo
-./build/bin/opensyria-cli -regtest stop
+./build/bin/opensyd -regtest -daemon
+./build/bin/opensy-cli -regtest getblockchaininfo
+./build/bin/opensy-cli -regtest stop
 ```
 
 ---

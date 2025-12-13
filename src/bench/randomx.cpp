@@ -1,4 +1,4 @@
-// Copyright (c) 2025 The OpenSyria Core developers
+// Copyright (c) 2025 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -21,7 +21,7 @@
  * RandomX Proof-of-Work Benchmarks
  *
  * These benchmarks measure the performance of RandomX hashing used for
- * OpenSyria's ASIC-resistant proof-of-work. Two modes are benchmarked:
+ * OpenSY's ASIC-resistant proof-of-work. Two modes are benchmarked:
  *
  * 1. Light mode (~256KB cache): Used for block validation
  *    - Slower per-hash but low memory footprint

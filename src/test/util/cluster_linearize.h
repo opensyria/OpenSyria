@@ -1,9 +1,9 @@
-// Copyright (c) The OpenSyria Core developers
+// Copyright (c) The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_TEST_UTIL_CLUSTER_LINEARIZE_H
-#define OPENSYRIA_TEST_UTIL_CLUSTER_LINEARIZE_H
+#ifndef OPENSY_TEST_UTIL_CLUSTER_LINEARIZE_H
+#define OPENSY_TEST_UTIL_CLUSTER_LINEARIZE_H
 
 #include <cluster_linearize.h>
 #include <serialize.h>
@@ -419,4 +419,4 @@ inline uint64_t MaxOptimalLinearizationIters(DepGraphIndex cluster_count)
 
 } // namespace
 
-#endif // OPENSYRIA_TEST_UTIL_CLUSTER_LINEARIZE_H
+#endif // OPENSY_TEST_UTIL_CLUSTER_LINEARIZE_H

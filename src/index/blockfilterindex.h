@@ -1,9 +1,9 @@
-// Copyright (c) 2018-2022 The OpenSyria Core developers
+// Copyright (c) 2018-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_INDEX_BLOCKFILTERINDEX_H
-#define OPENSYRIA_INDEX_BLOCKFILTERINDEX_H
+#ifndef OPENSY_INDEX_BLOCKFILTERINDEX_H
+#define OPENSY_INDEX_BLOCKFILTERINDEX_H
 
 #include <attributes.h>
 #include <flatfile.h>
@@ -123,4 +123,4 @@ bool DestroyBlockFilterIndex(BlockFilterType filter_type);
 /** Destroy all open block filter indexes. */
 void DestroyAllBlockFilterIndexes();
 
-#endif // OPENSYRIA_INDEX_BLOCKFILTERINDEX_H
+#endif // OPENSY_INDEX_BLOCKFILTERINDEX_H

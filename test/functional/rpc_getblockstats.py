@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2017-2021 The OpenSyria Core developers
+# Copyright (c) 2017-2021 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,7 +8,7 @@
 #
 
 from test_framework.blocktools import COINBASE_MATURITY
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_equal,
     assert_raises_rpc_error,
@@ -19,7 +19,7 @@ import os
 
 TESTSDIR = os.path.dirname(os.path.realpath(__file__))
 
-class GetblockstatsTest(OpenSyriaTestFramework):
+class GetblockstatsTest(OpenSYTestFramework):
 
     start_height = 101
     max_stat_pos = 2
@@ -179,7 +179,7 @@ class GetblockstatsTest(OpenSyriaTestFramework):
         self.log.info('Test tip including OP_RETURN')
         tip_stats = self.nodes[0].getblockstats(tip)
         assert_equal(tip_stats["utxo_increase"], 6)
-        # OpenSyria uses larger amounts (10000 SYL) which require more bytes to encode
+        # OpenSY uses larger amounts (10000 SYL) which require more bytes to encode
         assert_equal(tip_stats["utxo_size_inc"], 450)
         assert_equal(tip_stats["utxo_increase_actual"], 4)
         assert_equal(tip_stats["utxo_size_inc_actual"], 309)

@@ -1,9 +1,9 @@
-// Copyright (c) 2022 The OpenSyria Core developers
+// Copyright (c) 2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_KERNEL_COINSTATS_H
-#define OPENSYRIA_KERNEL_COINSTATS_H
+#ifndef OPENSY_KERNEL_COINSTATS_H
+#define OPENSY_KERNEL_COINSTATS_H
 
 #include <arith_uint256.h>
 #include <consensus/amount.h>
@@ -81,4 +81,4 @@ void RemoveCoinHash(MuHash3072& muhash, const COutPoint& outpoint, const Coin& c
 std::optional<CCoinsStats> ComputeUTXOStats(CoinStatsHashType hash_type, CCoinsView* view, node::BlockManager& blockman, const std::function<void()>& interruption_point = {});
 } // namespace kernel
 
-#endif // OPENSYRIA_KERNEL_COINSTATS_H
+#endif // OPENSY_KERNEL_COINSTATS_H

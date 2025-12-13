@@ -1,16 +1,16 @@
-# OpenSyria RandomX - Technical Design Document
+# OpenSY RandomX - Technical Design Document
 
 **Version:** 1.1  
 **Date:** December 11, 2025  
 **Status:** Implemented (Active from Block 1)  
-**Author:** OpenSyria Core Team
+**Author:** OpenSY Team
 
 ---
 
 ## Executive Summary
 
-This document describes the technical implementation of OpenSyria's RandomX
-Proof-of-Work algorithm. OpenSyria launched with RandomX active from block 1,
+This document describes the technical implementation of OpenSY's RandomX
+Proof-of-Work algorithm. OpenSY launched with RandomX active from block 1,
 making it CPU-mineable and ASIC-resistant from day one. This democratizes 
 mining access for Syrian users.
 
@@ -32,7 +32,7 @@ mining access for Syrian users.
 ## Motivation
 
 ### Current Problem
-- OpenSyria uses SHA256d (same as Bitcoin)
+- OpenSY uses SHA256d (same as Bitcoin)
 - GPU/ASIC miners can easily dominate the network
 - One miner currently controls ~100% of hashrate with GPU mining
 - Average Syrians cannot compete without expensive hardware
@@ -184,8 +184,8 @@ struct Params {
 #### 2.1 RandomX Context Manager
 ```cpp
 // src/crypto/randomx_context.h
-#ifndef OPENSYRIA_RANDOMX_CONTEXT_H
-#define OPENSYRIA_RANDOMX_CONTEXT_H
+#ifndef OPENSY_RANDOMX_CONTEXT_H
+#define OPENSY_RANDOMX_CONTEXT_H
 
 #include <uint256.h>
 #include <randomx.h>
@@ -248,7 +248,7 @@ void InitRandomXContext();
 /** Shutdown global RandomX context */
 void ShutdownRandomXContext();
 
-#endif // OPENSYRIA_RANDOMX_CONTEXT_H
+#endif // OPENSY_RANDOMX_CONTEXT_H
 ```
 
 #### 2.2 Modify pow.cpp
@@ -472,10 +472,10 @@ BOOST_AUTO_TEST_CASE(randomx_pow_validation)
 #!/usr/bin/env python3
 """Test RandomX hard fork activation."""
 
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import assert_equal
 
-class RandomXForkTest(OpenSyriaTestFramework):
+class RandomXForkTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 2
         self.setup_clean_chain = True
@@ -524,16 +524,16 @@ if __name__ == '__main__':
 ### Announcement Template
 
 ```markdown
-# OpenSyria: RandomX CPU Mining from Day One
+# OpenSY: RandomX CPU Mining from Day One
 
 ## What's Different?
-OpenSyria launched with RandomX proof-of-work active from block 1.
+OpenSY launched with RandomX proof-of-work active from block 1.
 Only the genesis block (block 0) uses SHA256d for bootstrap purposes.
 
 ## Why RandomX?
 - Makes mining accessible to everyone with a CPU
 - No expensive GPU/ASIC hardware needed
-- Aligns with OpenSyria's mission of accessibility
+- Aligns with OpenSY's mission of accessibility
 
 ## For Miners
 - CPU mining works with any modern processor
@@ -541,7 +541,7 @@ Only the genesis block (block 0) uses SHA256d for bootstrap purposes.
 - No special hardware required
 
 ## Download
-- GitHub: https://github.com/opensyria/OpenSyria/releases
+- GitHub: https://github.com/opensy/OpenSY/releases
 ```
 
 ---
@@ -580,7 +580,7 @@ If critical issues are discovered:
 
 - [RandomX Specification](https://github.com/tevador/RandomX/blob/master/doc/specs.md)
 - [Monero RandomX Implementation](https://github.com/monero-project/monero)
-- [OpenSyria Source Code](https://github.com/opensyria/OpenSyria)
+- [OpenSY Source Code](https://github.com/opensy/OpenSY)
 
 ---
 

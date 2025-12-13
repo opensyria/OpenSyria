@@ -1,10 +1,10 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_WALLET_WALLETDB_H
-#define OPENSYRIA_WALLET_WALLETDB_H
+#ifndef OPENSY_WALLET_WALLETDB_H
+#define OPENSY_WALLET_WALLETDB_H
 
 #include <key.h>
 #include <primitives/transaction_identifier.h>
@@ -312,4 +312,4 @@ bool HasLegacyRecords(CWallet& wallet);
 bool HasLegacyRecords(CWallet& wallet, DatabaseBatch& batch);
 } // namespace wallet
 
-#endif // OPENSYRIA_WALLET_WALLETDB_H
+#endif // OPENSY_WALLET_WALLETDB_H

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) The OpenSyria Core developers
+# Copyright (c) The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or https://opensource.org/license/mit.
 
@@ -38,7 +38,7 @@ def main():
     extra_env = []
     if os.environ["GITHUB_EVENT_NAME"] == "pull_request":
         extra_env = ["--env", "LINT_CI_IS_PR=1"]
-    if os.environ["GITHUB_EVENT_NAME"] != "pull_request" and os.environ["GITHUB_REPOSITORY"] == "opensyria/opensyria":
+    if os.environ["GITHUB_EVENT_NAME"] != "pull_request" and os.environ["GITHUB_REPOSITORY"] == "opensy/opensy":
         extra_env = ["--env", "LINT_CI_SANITY_CHECK_COMMIT_SIG=1"]
 
     run([
@@ -46,7 +46,7 @@ def main():
         "run",
         "--rm",
         *extra_env,
-        f"--volume={os.getcwd()}:/opensyria",
+        f"--volume={os.getcwd()}:/opensy",
         CONTAINER_NAME,
     ])
 

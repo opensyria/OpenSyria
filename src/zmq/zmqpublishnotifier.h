@@ -1,9 +1,9 @@
-// Copyright (c) 2015-2022 The OpenSyria Core developers
+// Copyright (c) 2015-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_ZMQ_ZMQPUBLISHNOTIFIER_H
-#define OPENSYRIA_ZMQ_ZMQPUBLISHNOTIFIER_H
+#ifndef OPENSY_ZMQ_ZMQPUBLISHNOTIFIER_H
+#define OPENSY_ZMQ_ZMQPUBLISHNOTIFIER_H
 
 #include <zmq/zmqabstractnotifier.h>
 
@@ -72,4 +72,4 @@ public:
     bool NotifyTransactionRemoval(const CTransaction &transaction, uint64_t mempool_sequence) override;
 };
 
-#endif // OPENSYRIA_ZMQ_ZMQPUBLISHNOTIFIER_H
+#endif // OPENSY_ZMQ_ZMQPUBLISHNOTIFIER_H

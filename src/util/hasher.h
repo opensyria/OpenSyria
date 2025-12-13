@@ -1,9 +1,9 @@
-// Copyright (c) 2019-present The OpenSyria Core developers
+// Copyright (c) 2019-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UTIL_HASHER_H
-#define OPENSYRIA_UTIL_HASHER_H
+#ifndef OPENSY_UTIL_HASHER_H
+#define OPENSY_UTIL_HASHER_H
 
 #include <crypto/common.h>
 #include <crypto/siphash.h>
@@ -127,4 +127,4 @@ public:
     size_t operator()(const std::span<const unsigned char>& script) const;
 };
 
-#endif // OPENSYRIA_UTIL_HASHER_H
+#endif // OPENSY_UTIL_HASHER_H

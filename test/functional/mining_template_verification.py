@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2024-Present The OpenSyria Core developers
+# Copyright (c) 2024-Present The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test getblocktemplate RPC in proposal mode
@@ -17,7 +17,7 @@ from test_framework.blocktools import (
     add_witness_commitment,
 )
 
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_equal,
     assert_raises_rpc_error,
@@ -52,7 +52,7 @@ def assert_template(node, block, expect, *, rehash=True, submit=True, solve=True
             block.solve()
         assert_equal(node.submitblock(block.serialize().hex()), expect_submit)
 
-class MiningTemplateVerificationTest(OpenSyriaTestFramework):
+class MiningTemplateVerificationTest(OpenSYTestFramework):
 
     def set_test_params(self):
         self.num_nodes = 1
@@ -207,7 +207,7 @@ class MiningTemplateVerificationTest(OpenSyriaTestFramework):
         block_2_hash = node.getblockhash(block_0_height + 2)
 
         bad_tx = copy.deepcopy(tx)
-        bad_tx["tx"].vout[0].nValue = 2000000000000000  # 200x Bitcoin value to exceed OpenSyria's 10,000 SYL block reward
+        bad_tx["tx"].vout[0].nValue = 2000000000000000  # 200x Bitcoin value to exceed OpenSY's 10,000 SYL block reward
         bad_tx_hex = bad_tx["tx"].serialize().hex()
         # The rejection reason can be "bad-txns-in-belowout" or "max-fee-exceeded"
         # depending on which check fails first (output exceeds input vs fee exceeds max)

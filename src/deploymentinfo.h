@@ -1,9 +1,9 @@
-// Copyright (c) 2016-2021 The OpenSyria Core developers
+// Copyright (c) 2016-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_DEPLOYMENTINFO_H
-#define OPENSYRIA_DEPLOYMENTINFO_H
+#ifndef OPENSY_DEPLOYMENTINFO_H
+#define OPENSY_DEPLOYMENTINFO_H
 
 #include <consensus/params.h>
 
@@ -32,4 +32,4 @@ inline std::string DeploymentName(Consensus::DeploymentPos pos)
 
 std::optional<Consensus::BuriedDeployment> GetBuriedDeployment(const std::string_view deployment_name);
 
-#endif // OPENSYRIA_DEPLOYMENTINFO_H
+#endif // OPENSY_DEPLOYMENTINFO_H

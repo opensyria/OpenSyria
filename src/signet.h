@@ -1,9 +1,9 @@
-// Copyright (c) 2019-2021 The OpenSyria Core developers
+// Copyright (c) 2019-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_SIGNET_H
-#define OPENSYRIA_SIGNET_H
+#ifndef OPENSY_SIGNET_H
+#define OPENSY_SIGNET_H
 
 #include <consensus/params.h>
 #include <primitives/block.h>
@@ -34,4 +34,4 @@ public:
     const CTransaction m_to_sign;
 };
 
-#endif // OPENSYRIA_SIGNET_H
+#endif // OPENSY_SIGNET_H

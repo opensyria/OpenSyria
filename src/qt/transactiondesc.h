@@ -1,11 +1,11 @@
-// Copyright (c) 2011-2022 The OpenSyria Core developers
+// Copyright (c) 2011-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_TRANSACTIONDESC_H
-#define OPENSYRIA_QT_TRANSACTIONDESC_H
+#ifndef OPENSY_QT_TRANSACTIONDESC_H
+#define OPENSY_QT_TRANSACTIONDESC_H
 
-#include <qt/opensyriaunits.h>
+#include <qt/opensyunits.h>
 
 #include <QObject>
 #include <QString>
@@ -26,7 +26,7 @@ class TransactionDesc: public QObject
     Q_OBJECT
 
 public:
-    static QString toHTML(interfaces::Node& node, interfaces::Wallet& wallet, TransactionRecord* rec, OpenSyriaUnit unit);
+    static QString toHTML(interfaces::Node& node, interfaces::Wallet& wallet, TransactionRecord* rec, OpenSYUnit unit);
 
 private:
     TransactionDesc() = default;
@@ -34,4 +34,4 @@ private:
     static QString FormatTxStatus(const interfaces::WalletTxStatus& status, bool inMempool);
 };
 
-#endif // OPENSYRIA_QT_TRANSACTIONDESC_H
+#endif // OPENSY_QT_TRANSACTIONDESC_H

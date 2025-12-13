@@ -1,9 +1,9 @@
-// Copyright (c) 2019-2021 The OpenSyria Core developers
+// Copyright (c) 2019-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_UTIL_ASMAP_H
-#define OPENSYRIA_UTIL_ASMAP_H
+#ifndef OPENSY_UTIL_ASMAP_H
+#define OPENSY_UTIL_ASMAP_H
 
 #include <util/fs.h>
 
@@ -17,4 +17,4 @@ bool SanityCheckASMap(const std::vector<bool>& asmap, int bits);
 /** Read asmap from provided binary file */
 std::vector<bool> DecodeAsmap(fs::path path);
 
-#endif // OPENSYRIA_UTIL_ASMAP_H
+#endif // OPENSY_UTIL_ASMAP_H

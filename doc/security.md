@@ -1,4 +1,4 @@
-# OpenSyria Security Considerations
+# OpenSY Security Considerations
 
 **Version:** 1.0  
 **Date:** December 2025
@@ -7,7 +7,7 @@
 
 ## Overview
 
-This document describes security considerations and known trade-offs in the OpenSyria implementation. It is intended for operators, auditors, and developers who need to understand the security properties of the system.
+This document describes security considerations and known trade-offs in the OpenSY implementation. It is intended for operators, auditors, and developers who need to understand the security properties of the system.
 
 ---
 
@@ -15,7 +15,7 @@ This document describes security considerations and known trade-offs in the Open
 
 ### Algorithm Selection
 
-OpenSyria uses RandomX proof-of-work starting from block 1. RandomX is an ASIC-resistant, CPU-optimized mining algorithm that:
+OpenSY uses RandomX proof-of-work starting from block 1. RandomX is an ASIC-resistant, CPU-optimized mining algorithm that:
 
 - Democratizes mining by making it accessible to commodity hardware
 - Prevents hash power concentration in specialized ASICs
@@ -145,7 +145,7 @@ Operators should monitor block times during fork transitions.
 
 Please report security vulnerabilities responsibly via:
 
-- Email: security@opensyria.org
+- Email: security@opensy.org
 - PGP Key: [Published on website]
 
 Do not disclose vulnerabilities publicly until a fix is released.

@@ -1,9 +1,9 @@
-// Copyright (c) 2016-present The OpenSyria Core developers
+// Copyright (c) 2016-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_CRYPTO_SIPHASH_H
-#define OPENSYRIA_CRYPTO_SIPHASH_H
+#ifndef OPENSY_CRYPTO_SIPHASH_H
+#define OPENSY_CRYPTO_SIPHASH_H
 
 #include <cstdint>
 #include <span>
@@ -45,4 +45,4 @@ public:
 uint64_t SipHashUint256(uint64_t k0, uint64_t k1, const uint256& val);
 uint64_t SipHashUint256Extra(uint64_t k0, uint64_t k1, const uint256& val, uint32_t extra);
 
-#endif // OPENSYRIA_CRYPTO_SIPHASH_H
+#endif // OPENSY_CRYPTO_SIPHASH_H

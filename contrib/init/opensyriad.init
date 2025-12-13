@@ -1,36 +1,36 @@
 #!/usr/bin/env bash
 #
-#  opensyriad The opensyria core server.
+#  opensyd The opensy core server.
 #
 #
 # chkconfig: 345 80 20
-# description: opensyriad
-# processname: opensyriad
+# description: opensyd
+# processname: opensyd
 #
 
 # Source function library.
 . /etc/init.d/functions
 
-# you can override defaults in /etc/sysconfig/opensyriad, see below
-if [ -f /etc/sysconfig/opensyriad ]; then
-        . /etc/sysconfig/opensyriad
+# you can override defaults in /etc/sysconfig/opensyd, see below
+if [ -f /etc/sysconfig/opensyd ]; then
+        . /etc/sysconfig/opensyd
 fi
 
 RETVAL=0
 
-prog=opensyriad
-# you can override the lockfile via OPENSYRIAD_LOCKFILE in /etc/sysconfig/opensyriad
-lockfile=${OPENSYRIAD_LOCKFILE-/var/lock/subsys/opensyriad}}
+prog=opensyd
+# you can override the lockfile via OPENSYD_LOCKFILE in /etc/sysconfig/opensyd
+lockfile=${OPENSYD_LOCKFILE-/var/lock/subsys/opensyd}}
 
-# opensyriad defaults to /usr/bin/opensyriad, override with OPENSYRIAD_BIN
-opensyriad=${OPENSYRIAD_BIN-/usr/bin/opensyriad}
+# opensyd defaults to /usr/bin/opensyd, override with OPENSYD_BIN
+opensyd=${OPENSYD_BIN-/usr/bin/opensyd}
 
-# opensyriad opts default to -disablewallet, override with OPENSYRIAD_OPTS
-opensyriad_opts=${OPENSYRIAD_OPTS--disablewallet}
+# opensyd opts default to -disablewallet, override with OPENSYD_OPTS
+opensyd_opts=${OPENSYD_OPTS--disablewallet}
 
 start() {
     echo -n $"Starting $prog: "
-    daemon $DAEMONOPTS $opensyriad $opensyriad_opts
+    daemon $DAEMONOPTS $opensyd $opensyd_opts
     RETVAL=$?
     echo
     [ $RETVAL -eq 0 ] && touch $lockfile

@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.22)
 
-project(opensyria-tidy
+project(opensy-tidy
     VERSION
     1.0.0
-    DESCRIPTION "clang-tidy checks for OpenSyria Core"
+    DESCRIPTION "clang-tidy checks for OpenSY"
     LANGUAGES CXX)
 
 include(GNUInstallDirs)
@@ -25,43 +25,43 @@ find_program(CLANG_TIDY_EXE NAMES "clang-tidy-${LLVM_VERSION_MAJOR}" "clang-tidy
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
 message(STATUS "Found clang-tidy: ${CLANG_TIDY_EXE}")
 
-add_library(opensyria-tidy MODULE opensyria-tidy.cpp nontrivial-threadlocal.cpp)
-target_include_directories(opensyria-tidy SYSTEM PRIVATE ${LLVM_INCLUDE_DIRS})
+add_library(opensy-tidy MODULE opensy-tidy.cpp nontrivial-threadlocal.cpp)
+target_include_directories(opensy-tidy SYSTEM PRIVATE ${LLVM_INCLUDE_DIRS})
 
 # Disable RTTI and exceptions as necessary
 if (MSVC)
-    target_compile_options(opensyria-tidy PRIVATE /GR-)
+    target_compile_options(opensy-tidy PRIVATE /GR-)
 else()
-    target_compile_options(opensyria-tidy PRIVATE -fno-rtti)
-    target_compile_options(opensyria-tidy PRIVATE -fno-exceptions)
+    target_compile_options(opensy-tidy PRIVATE -fno-rtti)
+    target_compile_options(opensy-tidy PRIVATE -fno-exceptions)
 endif()
 
 if(CMAKE_HOST_APPLE)
     # ld64 expects no undefined symbols by default
-    target_link_options(opensyria-tidy PRIVATE -Wl,-flat_namespace)
-    target_link_options(opensyria-tidy PRIVATE -Wl,-undefined -Wl,suppress)
+    target_link_options(opensy-tidy PRIVATE -Wl,-flat_namespace)
+    target_link_options(opensy-tidy PRIVATE -Wl,-undefined -Wl,suppress)
 endif()
 
 # Add warnings
 if (MSVC)
-    target_compile_options(opensyria-tidy PRIVATE /W4)
+    target_compile_options(opensy-tidy PRIVATE /W4)
 else()
-    target_compile_options(opensyria-tidy PRIVATE -Wall)
-    target_compile_options(opensyria-tidy PRIVATE -Wextra)
+    target_compile_options(opensy-tidy PRIVATE -Wall)
+    target_compile_options(opensy-tidy PRIVATE -Wextra)
 endif()
 
 if(CMAKE_VERSION VERSION_LESS 3.27)
-    set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}" "--load=${CMAKE_BINARY_DIR}/${CMAKE_SHARED_MODULE_PREFIX}opensyria-tidy${CMAKE_SHARED_MODULE_SUFFIX}" "-checks=-*,opensyria-*")
+    set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}" "--load=${CMAKE_BINARY_DIR}/${CMAKE_SHARED_MODULE_PREFIX}opensy-tidy${CMAKE_SHARED_MODULE_SUFFIX}" "-checks=-*,opensy-*")
 else()
     # CLANG_TIDY_COMMAND supports generator expressions as of 3.27
-    set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}" "--load=$<TARGET_FILE:opensyria-tidy>" "-checks=-*,opensyria-*")
+    set(CLANG_TIDY_COMMAND "${CLANG_TIDY_EXE}" "--load=$<TARGET_FILE:opensy-tidy>" "-checks=-*,opensy-*")
 endif()
 
 # Create a dummy library that runs clang-tidy tests as a side-effect of building
-add_library(opensyria-tidy-tests OBJECT EXCLUDE_FROM_ALL example_nontrivial-threadlocal.cpp)
-add_dependencies(opensyria-tidy-tests opensyria-tidy)
+add_library(opensy-tidy-tests OBJECT EXCLUDE_FROM_ALL example_nontrivial-threadlocal.cpp)
+add_dependencies(opensy-tidy-tests opensy-tidy)
 
-set_target_properties(opensyria-tidy-tests PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
+set_target_properties(opensy-tidy-tests PROPERTIES CXX_CLANG_TIDY "${CLANG_TIDY_COMMAND}")
 
 
-install(TARGETS opensyria-tidy LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})
+install(TARGETS opensy-tidy LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR})

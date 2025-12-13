@@ -1,19 +1,19 @@
-# TOR SUPPORT IN OPENSYRIA
+# TOR SUPPORT IN OPENSY
 
-It is possible to run OpenSyria Core as a Tor onion service, and connect to such services.
+It is possible to run OpenSY as a Tor onion service, and connect to such services.
 
 The following directions assume you have a Tor proxy running on port 9050. Many distributions default to having a SOCKS proxy listening on port 9050, but others may not. In particular, the Tor Browser Bundle defaults to listening on port 9150.
 ## Compatibility
 
-- Starting with version 22.0, OpenSyria Core only supports Tor version 3 hidden
-  services (Tor v3). Tor v2 addresses are ignored by OpenSyria Core and neither
+- Starting with version 22.0, OpenSY only supports Tor version 3 hidden
+  services (Tor v3). Tor v2 addresses are ignored by OpenSY and neither
   relayed nor stored.
 
 - Tor removed v2 support beginning with version 0.4.6.
 
-## How to see information about your Tor configuration via OpenSyria Core
+## How to see information about your Tor configuration via OpenSY
 
-There are several ways to see your local onion address in OpenSyria Core:
+There are several ways to see your local onion address in OpenSY:
 - in the "Local addresses" output of CLI `-netinfo`
 - in the "localaddresses" output of RPC `getnetworkinfo`
 - in the debug log (grep for "AddLocal"; the Tor address ends in `.onion`)
@@ -25,13 +25,13 @@ CLI `-addrinfo` returns the number of addresses known to your node per
 network. This can be useful to see how many onion peers your node knows,
 e.g. for `-onlynet=onion`.
 
-You can use the `getnodeaddresses` RPC to fetch a number of onion peers known to your node; run `opensyria-cli help getnodeaddresses` for details.
+You can use the `getnodeaddresses` RPC to fetch a number of onion peers known to your node; run `opensy-cli help getnodeaddresses` for details.
 
-`opensyria rpc` can also be substituted for `opensyria-cli`.
+`opensy rpc` can also be substituted for `opensy-cli`.
 
-## 1. Run OpenSyria Core behind a Tor proxy
+## 1. Run OpenSY behind a Tor proxy
 
-The first step is running OpenSyria Core behind a Tor proxy. This will already anonymize all
+The first step is running OpenSY behind a Tor proxy. This will already anonymize all
 outgoing connections, but more is possible.
 
     -proxy=ip[:port]
@@ -84,24 +84,24 @@ with the prefix `unix:` (e.g. `-onion=unix:/home/me/torsocket`).
 
 In a typical situation, this suffices to run behind a Tor proxy:
 
-    opensyriad -proxy=127.0.0.1:9050
+    opensyd -proxy=127.0.0.1:9050
 
-`opensyria node` or `opensyria gui` can also be substituted for `opensyriad`.
+`opensy node` or `opensy gui` can also be substituted for `opensyd`.
 
-## 2. Automatically create a OpenSyria Core onion service
+## 2. Automatically create a OpenSY onion service
 
-OpenSyria Core makes use of Tor's control socket API to create and destroy
+OpenSY makes use of Tor's control socket API to create and destroy
 ephemeral onion services programmatically. This means that if Tor is running and
-proper authentication has been configured, OpenSyria Core automatically creates an
+proper authentication has been configured, OpenSY automatically creates an
 onion service to listen on. The goal is to increase the number of available
 onion nodes.
 
-This feature is enabled by default if OpenSyria Core is listening (`-listen`) and
+This feature is enabled by default if OpenSY is listening (`-listen`) and
 it requires a Tor connection to work. It can be explicitly disabled with
 `-listenonion=0`. If it is not disabled, it can be configured using the
 `-torcontrol` and `-torpassword` settings.
 
-To see verbose Tor information in the opensyriad debug log, pass `-debug=tor`.
+To see verbose Tor information in the opensyd debug log, pass `-debug=tor`.
 
 ### Control Port
 
@@ -123,20 +123,20 @@ Debian and Ubuntu, or just restart the computer).
 ### Authentication
 
 Connecting to Tor's control socket API requires one of two authentication
-methods to be configured: cookie authentication or opensyriad's `-torpassword`
+methods to be configured: cookie authentication or opensyd's `-torpassword`
 configuration option.
 
 #### Cookie authentication
 
-For cookie authentication, the user running opensyriad must have read access to
+For cookie authentication, the user running opensyd must have read access to
 the `CookieAuthFile` specified in the Tor configuration. In some cases this is
 preconfigured and the creation of an onion service is automatic. Don't forget to
-use the `-debug=tor` opensyriad configuration option to enable Tor debug logging.
+use the `-debug=tor` opensyd configuration option to enable Tor debug logging.
 
 If a permissions problem is seen in the debug log, e.g. `tor: Authentication
 cookie /run/tor/control.authcookie could not be opened (check permissions)`, it
 can be resolved by adding both the user running Tor and the user running
-opensyriad to the same Tor group and setting permissions appropriately.
+opensyd to the same Tor group and setting permissions appropriately.
 
 On Debian-derived systems, the Tor group will likely be `debian-tor` and one way
 to verify could be to list the groups and grep for a "tor" group name:
@@ -153,14 +153,14 @@ TORGROUP=$(stat -c '%G' /run/tor/control.authcookie)
 ```
 
 Once you have determined the `${TORGROUP}` and selected the `${USER}` that will
-run opensyriad, run this as root:
+run opensyd, run this as root:
 
 ```
 usermod -a -G ${TORGROUP} ${USER}
 ```
 
 Then restart the computer (or log out) and log in as the `${USER}` that will run
-opensyriad.
+opensyd.
 
 #### `torpassword` authentication
 
@@ -174,22 +174,22 @@ Manual](https://2019.www.torproject.org/docs/tor-manual.html.en) for more
 details).
 
 
-## 3. Manually create a OpenSyria Core onion service
+## 3. Manually create a OpenSY onion service
 
 You can also manually configure your node to be reachable from the Tor network.
 Add these lines to your `/etc/tor/torrc` (or equivalent config file):
 
-    HiddenServiceDir /var/lib/tor/opensyria-service/
+    HiddenServiceDir /var/lib/tor/opensy-service/
     HiddenServicePort 8333 127.0.0.1:8334
 
 The directory can be different of course, but virtual port numbers should be equal to
-your opensyriad's P2P listen port (8333 by default), and target addresses and ports
+your opensyd's P2P listen port (8333 by default), and target addresses and ports
 should be equal to binding address and port for inbound Tor connections (127.0.0.1:8334 by default).
 
-    -externalip=X   You can tell opensyria about its publicly reachable addresses using
+    -externalip=X   You can tell opensy about its publicly reachable addresses using
                     this option, and this can be an onion address. Given the above
                     configuration, you can find your onion address in
-                    /var/lib/tor/opensyria-service/hostname. For connections
+                    /var/lib/tor/opensy-service/hostname. For connections
                     coming from unroutable addresses (such as 127.0.0.1, where the
                     Tor proxy typically runs), onion addresses are given
                     preference for your node to advertise itself with.
@@ -211,35 +211,35 @@ should be equal to binding address and port for inbound Tor connections (127.0.0
 
 In a typical situation, where you're only reachable via Tor, this should suffice:
 
-    opensyriad -proxy=127.0.0.1:9050 -externalip=7zvj7a2imdgkdbg4f2dryd5rgtrn7upivr5eeij4cicjh65pooxeshid.onion -listen
+    opensyd -proxy=127.0.0.1:9050 -externalip=7zvj7a2imdgkdbg4f2dryd5rgtrn7upivr5eeij4cicjh65pooxeshid.onion -listen
 
 (obviously, replace the .onion address with your own). It should be noted that you still
 listen on all devices and another node could establish a clearnet connection, when knowing
 your address. To mitigate this, additionally bind the address of your Tor proxy:
 
-    opensyriad ... -bind=127.0.0.1:8334=onion
+    opensyd ... -bind=127.0.0.1:8334=onion
 
 If you don't care too much about hiding your node, and want to be reachable on IPv4
 as well, use `discover` instead:
 
-    opensyriad ... -discover
+    opensyd ... -discover
 
 and open port 8333 on your firewall (or use port mapping, i.e., `-natpmp`).
 
 If you only want to use Tor to reach .onion addresses, but not use it as a proxy
 for normal IPv4/IPv6 communication, use:
 
-    opensyriad -onion=127.0.0.1:9050 -externalip=7zvj7a2imdgkdbg4f2dryd5rgtrn7upivr5eeij4cicjh65pooxeshid.onion -discover
+    opensyd -onion=127.0.0.1:9050 -externalip=7zvj7a2imdgkdbg4f2dryd5rgtrn7upivr5eeij4cicjh65pooxeshid.onion -discover
 
 ## 4. Privacy recommendations
 
-- Do not add anything but OpenSyria Core ports to the onion service created in section 3.
+- Do not add anything but OpenSY ports to the onion service created in section 3.
   If you run a web service too, create a new onion service for that.
   Otherwise it is trivial to link them, which may reduce privacy. Onion
   services created automatically (as in section 2) always have only one port
   open.
 - Operating a node that listens on multiple networks (e.g. IPv4 and Tor) can help
-  strengthen the OpenSyria network, as nodes in this configuration (i.e. bridge nodes) increase
+  strengthen the OpenSY network, as nodes in this configuration (i.e. bridge nodes) increase
   the cost and complexity of launching eclipse and partition attacks. However, under certain
   conditions, an adversary that can connect to your node on multiple networks may be
   able to correlate those identities by observing shared runtime characteristics. It

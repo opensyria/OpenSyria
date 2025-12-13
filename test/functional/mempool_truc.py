@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-# Copyright (c) 2024 The OpenSyria Core developers
+# Copyright (c) 2024 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 from decimal import Decimal
 
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_not_equal,
     assert_equal,
@@ -41,7 +41,7 @@ def cleanup(extra_args=None):
         return wrapper
     return decorator
 
-class MempoolTRUC(OpenSyriaTestFramework):
+class MempoolTRUC(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 1
         self.extra_args = [[]]
@@ -663,7 +663,7 @@ class MempoolTRUC(OpenSyriaTestFramework):
         self.log.info("Generate blocks to create UTXOs")
         node = self.nodes[0]
         self.wallet = MiniWallet(node)
-        self.generate(self.wallet, 200)  # OpenSyria: fewer blocks for faster test
+        self.generate(self.wallet, 200)  # OpenSY: fewer blocks for faster test
         self.test_truc_max_vsize()
         self.test_truc_acceptance()
         self.test_truc_replacement()

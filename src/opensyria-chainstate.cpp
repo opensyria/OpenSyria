@@ -1,4 +1,4 @@
-#include <kernel/opensyriakernel_wrapper.h>
+#include <kernel/opensykernel_wrapper.h>
 
 #include <cassert>
 #include <charconv>

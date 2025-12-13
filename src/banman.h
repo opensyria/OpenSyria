@@ -1,9 +1,9 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
-#ifndef OPENSYRIA_BANMAN_H
-#define OPENSYRIA_BANMAN_H
+#ifndef OPENSY_BANMAN_H
+#define OPENSY_BANMAN_H
 
 #include <addrdb.h>
 #include <common/bloom.h>
@@ -58,7 +58,7 @@ class CSubNet;
 // NOTE: previously a misbehaving peer would get banned instead of discouraged.
 // This meant a peer could unboundedly grow our in-memory map of banned ips. When
 // receiving an ADDR message we would also compare every address received to every
-// item in the map. See https://opensyria.net/en/2024/07/03/disclose-unbounded-banlist.
+// item in the map. See https://opensy.net/en/2024/07/03/disclose-unbounded-banlist.
 
 class BanMan
 {
@@ -98,4 +98,4 @@ private:
     CRollingBloomFilter m_discouraged GUARDED_BY(m_banned_mutex) {50000, 0.000001};
 };
 
-#endif // OPENSYRIA_BANMAN_H
+#endif // OPENSY_BANMAN_H

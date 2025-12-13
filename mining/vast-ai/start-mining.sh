@@ -1,5 +1,5 @@
 #!/bin/bash
-# OpenSyria Mining Script for Vast.ai
+# OpenSY Mining Script for Vast.ai
 # This script runs on the rented GPU instance
 
 set -e
@@ -11,13 +11,13 @@ MINING_ADDRESS="syl1q0y76xxxdfvhfad2sju4fymnsn8zs5lndpwhufw"
 SEED_NODE="157.175.40.131:9633"
 
 # Paths
-OPENSYRIA_DIR="/home/opensyria/OpenSyria"
-DATA_DIR="/home/opensyria/.opensyria"
-CLI="${OPENSYRIA_DIR}/build/bin/opensyria-cli"
-DAEMON="${OPENSYRIA_DIR}/build/bin/opensyriad"
+OPENSY_DIR="/home/opensy/OpenSY"
+DATA_DIR="/home/opensy/.opensy"
+CLI="${OPENSY_DIR}/build/bin/opensy-cli"
+DAEMON="${OPENSY_DIR}/build/bin/opensyd"
 
 echo "=========================================="
-echo "  OpenSyria GPU Miner - Vast.ai Edition"
+echo "  OpenSY GPU Miner - Vast.ai Edition"
 echo "=========================================="
 echo "Mining Address: ${MINING_ADDRESS}"
 echo "Seed Node: ${SEED_NODE}"
@@ -25,8 +25,8 @@ echo ""
 
 # Create config
 mkdir -p ${DATA_DIR}
-cat > ${DATA_DIR}/opensyria.conf << EOF
-# OpenSyria Miner Config
+cat > ${DATA_DIR}/opensy.conf << EOF
+# OpenSY Miner Config
 server=1
 daemon=0
 listen=1
@@ -46,7 +46,7 @@ dbcache=512
 maxconnections=8
 EOF
 
-echo "[1/4] Starting OpenSyria daemon..."
+echo "[1/4] Starting OpenSY daemon..."
 ${DAEMON} -datadir=${DATA_DIR} -printtoconsole &
 DAEMON_PID=$!
 

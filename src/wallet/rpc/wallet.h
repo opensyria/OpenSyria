@@ -1,9 +1,9 @@
-// Copyright (c) 2016-present The OpenSyria Core developers
+// Copyright (c) 2016-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_WALLET_RPC_WALLET_H
-#define OPENSYRIA_WALLET_RPC_WALLET_H
+#ifndef OPENSY_WALLET_RPC_WALLET_H
+#define OPENSY_WALLET_RPC_WALLET_H
 
 #include <span.h>
 
@@ -13,4 +13,4 @@ namespace wallet {
 std::span<const CRPCCommand> GetWalletRPCCommands();
 } // namespace wallet
 
-#endif // OPENSYRIA_WALLET_RPC_WALLET_H
+#endif // OPENSY_WALLET_RPC_WALLET_H

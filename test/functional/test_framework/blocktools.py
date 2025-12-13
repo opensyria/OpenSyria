@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2015-present The OpenSyria Core developers
+# Copyright (c) 2015-present The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Utilities for manipulating blocks and transactions."""
@@ -53,17 +53,17 @@ MAX_STANDARD_TX_SIGOPS = 4000
 MAX_STANDARD_TX_WEIGHT = 400000
 
 # Genesis block time (regtest)
-TIME_GENESIS_BLOCK = 1733616003  # OpenSyria regtest genesis: Sat Dec  7 16:00:03 2024 UTC
+TIME_GENESIS_BLOCK = 1733616003  # OpenSY regtest genesis: Sat Dec  7 16:00:03 2024 UTC
 
 MAX_FUTURE_BLOCK_TIME = 2 * 60 * 60
 
 # Coinbase transaction outputs can only be spent after this number of new blocks (network rule)
 COINBASE_MATURITY = 100
 
-# OpenSyria block subsidy (10,000 SYL per block)
+# OpenSY block subsidy (10,000 SYL per block)
 BLOCK_REWARD = 10000
 
-# OpenSyria address prefixes (bech32 HRP)
+# OpenSY address prefixes (bech32 HRP)
 ADDRESS_BCRT_HRP = "rsyl"  # regtest bech32 human-readable part
 ADDRESS_TB_HRP = "tsyl"    # testnet bech32 human-readable part  
 ADDRESS_BC_HRP = "syl"     # mainnet bech32 human-readable part

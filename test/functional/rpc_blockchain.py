@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-present The OpenSyria Core developers
+# Copyright (c) 2014-present The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test RPCs related to blockchainstate.
@@ -48,7 +48,7 @@ from test_framework.messages import (
 )
 from test_framework.p2p import P2PInterface
 from test_framework.script import hash256, OP_TRUE
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_not_equal,
     assert_equal,
@@ -63,14 +63,14 @@ from test_framework.wallet import MiniWallet
 
 
 HEIGHT = 200  # blocks mined
-TIME_RANGE_STEP = 120  # OpenSyria: two-minute blocks
+TIME_RANGE_STEP = 120  # OpenSY: two-minute blocks
 TIME_RANGE_MTP = TIME_GENESIS_BLOCK + (HEIGHT - 6) * TIME_RANGE_STEP
 TIME_RANGE_TIP = TIME_GENESIS_BLOCK + (HEIGHT - 1) * TIME_RANGE_STEP
 TIME_RANGE_END = TIME_GENESIS_BLOCK + HEIGHT * TIME_RANGE_STEP
-DIFFICULTY_ADJUSTMENT_INTERVAL = 720  # OpenSyria: 86400 / 120 = 720
+DIFFICULTY_ADJUSTMENT_INTERVAL = 720  # OpenSY: 86400 / 120 = 720
 
 
-class BlockchainTest(OpenSyriaTestFramework):
+class BlockchainTest(OpenSYTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 1
@@ -363,7 +363,7 @@ class BlockchainTest(OpenSyriaTestFramework):
         node = self.nodes[0]
         res = node.gettxoutsetinfo()
 
-        assert_equal(res['total_amount'], Decimal('1745000.00000000'))  # OpenSyria: 174.5 mature coinbases × 10000 SYL
+        assert_equal(res['total_amount'], Decimal('1745000.00000000'))  # OpenSY: 174.5 mature coinbases × 10000 SYL
         assert_equal(res['transactions'], HEIGHT)
         assert_equal(res['height'], HEIGHT)
         assert_equal(res['txouts'], HEIGHT)
@@ -438,7 +438,7 @@ class BlockchainTest(OpenSyriaTestFramework):
         # Validate the gettxout response
         assert_equal(txout['bestblock'], best_block_hash)
         assert_equal(txout['confirmations'], 1)
-        assert_equal(txout['value'], 5000)  # OpenSyria: half of 10000 SYL coinbase
+        assert_equal(txout['value'], 5000)  # OpenSY: half of 10000 SYL coinbase
         assert_equal(txout['scriptPubKey']['address'], self.wallet.get_address())
         assert_equal(txout['scriptPubKey']['hex'], self.wallet.get_output_script().hex())
         decoded_script = node.decodescript(self.wallet.get_output_script().hex())
@@ -532,7 +532,7 @@ class BlockchainTest(OpenSyriaTestFramework):
         hashes_per_second = self.nodes[0].getnetworkhashps(100, 0)
         assert_equal(hashes_per_second, 0)
 
-        # OpenSyria: This should be 2 hashes every 2 minutes or 1/60
+        # OpenSY: This should be 2 hashes every 2 minutes or 1/60
         hashes_per_second = self.nodes[0].getnetworkhashps()
         assert abs(hashes_per_second * 60 - 1) < 0.0001
 

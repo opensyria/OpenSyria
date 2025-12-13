@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2022 The OpenSyria Core developers
+# Copyright (c) 2014-2022 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test mining RPCs
@@ -36,7 +36,7 @@ from test_framework.messages import (
     WITNESS_SCALE_FACTOR,
 )
 from test_framework.p2p import P2PDataStore
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 from test_framework.util import (
     assert_equal,
     assert_greater_than,
@@ -57,7 +57,7 @@ VERSIONBITS_TOP_BITS = 0x20000000
 VERSIONBITS_DEPLOYMENT_TESTDUMMY_BIT = 28
 DEFAULT_BLOCK_MIN_TX_FEE = 1 # default `-blockmintxfee` setting [qirsh/kvB]
 
-class MiningTest(OpenSyriaTestFramework):
+class MiningTest(OpenSYTestFramework):
     def set_test_params(self):
         self.num_nodes = 3
         self.extra_args = [
@@ -201,7 +201,7 @@ class MiningTest(OpenSyriaTestFramework):
         t = blockchain_info['time']
 
         for _ in range(n):
-            t += 120  # OpenSyria: 2-minute blocks
+            t += 120  # OpenSY: 2-minute blocks
             self.nodes[0].setmocktime(t)
             self.generate(self.wallet, 1, sync_fun=self.no_op)
 
@@ -252,7 +252,7 @@ class MiningTest(OpenSyriaTestFramework):
         prune_node = self.nodes[2]
         self.generate(prune_node, 400, sync_fun=self.no_op)
         pruned_block = prune_node.getblock(prune_node.getblockhash(2), verbosity=0)
-        pruned_height = prune_node.pruneblockchain(300)  # OpenSyria: use height less than 400 blocks mined
+        pruned_height = prune_node.pruneblockchain(300)  # OpenSY: use height less than 400 blocks mined
         assert_greater_than_or_equal(pruned_height, 2)
         pruned_blockhash = prune_node.getblockhash(2)
 
@@ -440,7 +440,7 @@ class MiningTest(OpenSyriaTestFramework):
         assert_raises_rpc_error(-22, "Block decode failed", node.submitblock, block.serialize()[:-15].hex())
 
         self.log.info("submitblock: Test empty block")
-        # OpenSyria returns "bad-blk-length" for empty blocks since RandomX PoW blocks require extra nonce data
+        # OpenSY returns "bad-blk-length" for empty blocks since RandomX PoW blocks require extra nonce data
         assert node.submitblock(hexdata=CBlock().serialize().hex()) in ['high-hash', 'bad-blk-length']
 
         self.log.info('submitheader tests')

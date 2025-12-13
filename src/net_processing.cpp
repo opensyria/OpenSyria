@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-present The OpenSyria Core developers
+// Copyright (c) 2009-present The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -102,7 +102,7 @@ static constexpr auto HEADERS_RESPONSE_TIME{2min};
  */
 static constexpr int32_t MAX_OUTBOUND_PEERS_TO_PROTECT_FROM_DISCONNECT = 4;
 /** Timeout for (unprotected) outbound peers to sync to our chainwork */
-// OpenSyria: Scaled for 2-minute blocks (vs Bitcoin's 10-minute blocks)
+// OpenSY: Scaled for 2-minute blocks (vs Bitcoin's 10-minute blocks)
 static constexpr auto CHAIN_SYNC_TIMEOUT{4min};  // Bitcoin: 20min (2 blocks)
 /** How frequently to check for stale tips */
 static constexpr auto STALE_CHECK_INTERVAL{2min};  // Bitcoin: 10min (1 block)
@@ -2536,7 +2536,7 @@ void PeerManagerImpl::ProcessGetData(CNode& pfrom, Peer& peer, const std::atomic
         // and continue processing the queue on the next call.
         // NOTE: previously we wouldn't do so and the peer sending us a malformed GETDATA could
         // result in never making progress and this thread using 100% allocated CPU. See
-        // https://opensyria.net/en/2024/07/03/disclose-getdata-cpu.
+        // https://opensy.net/en/2024/07/03/disclose-getdata-cpu.
     }
 
     peer.m_getdata_requests.erase(peer.m_getdata_requests.begin(), it);
@@ -3198,7 +3198,7 @@ void PeerManagerImpl::ProcessPackageResult(const node::PackageToValidate& packag
 }
 
 // NOTE: the orphan processing used to be uninterruptible and quadratic, which could allow a peer to stall the node for
-// hours with specially crafted transactions. See https://opensyria.net/en/2024/07/03/disclose-orphan-dos.
+// hours with specially crafted transactions. See https://opensy.net/en/2024/07/03/disclose-orphan-dos.
 bool PeerManagerImpl::ProcessOrphanTx(Peer& peer)
 {
     AssertLockHeld(g_msgproc_mutex);

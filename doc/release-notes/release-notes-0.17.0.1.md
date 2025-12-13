@@ -1,16 +1,16 @@
-OpenSyria Core version 0.17.0.1 is now available from:
+OpenSY version 0.17.0.1 is now available from:
 
-  <https://opensyria.net/bin/opensyria-core-0.17.0.1/>
+  <https://opensy.net/bin/opensy-core-0.17.0.1/>
 
 This release provides a minor bug fix for 0.17.0.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensyria/issues>
+  <https://github.com/opensy/opensy/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensyria.net/en/list/announcements/join/>
+  <https://opensy.net/en/list/announcements/join/>
 
 Notable changes
 ===============

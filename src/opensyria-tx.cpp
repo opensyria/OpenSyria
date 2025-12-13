@@ -1,8 +1,8 @@
-// Copyright (c) 2009-2022 The OpenSyria Core developers
+// Copyright (c) 2009-2022 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <opensyria-build-config.h> // IWYU pragma: keep
+#include <opensy-build-config.h> // IWYU pragma: keep
 
 #include <chainparamsbase.h>
 #include <clientversion.h>
@@ -43,7 +43,7 @@ static const int CONTINUE_EXECUTION=-1;
 
 const TranslateFn G_TRANSLATION_FUN{nullptr};
 
-static void SetupOpenSyriaTxArgs(ArgsManager &argsman)
+static void SetupOpenSYTxArgs(ArgsManager &argsman)
 {
     SetupHelpOptions(argsman);
 
@@ -88,7 +88,7 @@ static void SetupOpenSyriaTxArgs(ArgsManager &argsman)
 //
 static int AppInitRawTx(int argc, char* argv[])
 {
-    SetupOpenSyriaTxArgs(gArgs);
+    SetupOpenSYTxArgs(gArgs);
     std::string error;
     if (!gArgs.ParseParameters(argc, argv, error)) {
         tfm::format(std::cerr, "Error parsing command line arguments: %s\n", error);
@@ -107,17 +107,17 @@ static int AppInitRawTx(int argc, char* argv[])
 
     if (argc < 2 || HelpRequested(gArgs) || gArgs.GetBoolArg("-version", false)) {
         // First part of help message is specific to this utility
-        std::string strUsage = CLIENT_NAME " opensyria-tx utility version " + FormatFullVersion() + "\n";
+        std::string strUsage = CLIENT_NAME " opensy-tx utility version " + FormatFullVersion() + "\n";
 
         if (gArgs.GetBoolArg("-version", false)) {
             strUsage += FormatParagraph(LicenseInfo());
         } else {
             strUsage += "\n"
-                "The opensyria-tx tool is used for creating and modifying opensyria transactions.\n\n"
-                "opensyria-tx can be used with \"<hex-tx> [commands]\" to update a hex-encoded opensyria transaction, or with \"-create [commands]\" to create a hex-encoded opensyria transaction.\n"
+                "The opensy-tx tool is used for creating and modifying opensy transactions.\n\n"
+                "opensy-tx can be used with \"<hex-tx> [commands]\" to update a hex-encoded opensy transaction, or with \"-create [commands]\" to create a hex-encoded opensy transaction.\n"
                 "\n"
-                "Usage: opensyria-tx [options] <hex-tx> [commands]\n"
-                "or:    opensyria-tx [options] -create [commands]\n"
+                "Usage: opensy-tx [options] <hex-tx> [commands]\n"
+                "or:    opensy-tx [options] -create [commands]\n"
                 "\n";
             strUsage += gArgs.GetHelpMessage();
         }
@@ -812,7 +812,7 @@ static int CommandLineRawTx(int argc, char* argv[])
             if (argc < 2)
                 throw std::runtime_error("too few parameters");
 
-            // param: hex-encoded opensyria transaction
+            // param: hex-encoded opensy transaction
             std::string strHexTx(argv[1]);
             if (strHexTx == "-")                 // "-" implies standard input
                 strHexTx = readStdin();

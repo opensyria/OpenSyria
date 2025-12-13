@@ -1,12 +1,12 @@
-// Copyright (c) 2011-2021 The OpenSyria Core developers
+// Copyright (c) 2011-2021 The OpenSY developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef OPENSYRIA_QT_OPENSYRIAAMOUNTFIELD_H
-#define OPENSYRIA_QT_OPENSYRIAAMOUNTFIELD_H
+#ifndef OPENSY_QT_OPENSYAMOUNTFIELD_H
+#define OPENSY_QT_OPENSYAMOUNTFIELD_H
 
 #include <consensus/amount.h>
-#include <qt/opensyriaunits.h>
+#include <qt/opensyunits.h>
 
 #include <QWidget>
 
@@ -16,18 +16,18 @@ QT_BEGIN_NAMESPACE
 class QValueComboBox;
 QT_END_NAMESPACE
 
-/** Widget for entering opensyria amounts.
+/** Widget for entering opensy amounts.
   */
-class OpenSyriaAmountField: public QWidget
+class OpenSYAmountField: public QWidget
 {
     Q_OBJECT
 
     // ugly hack: for some unknown reason CAmount (instead of qint64) does not work here as expected
-    // discussion: https://github.com/OpenSyria/OpenSyria/pull/5117
+    // discussion: https://github.com/OpenSY/OpenSY/pull/5117
     Q_PROPERTY(qint64 value READ value WRITE setValue NOTIFY valueChanged USER true)
 
 public:
-    explicit OpenSyriaAmountField(QWidget *parent = nullptr);
+    explicit OpenSYAmountField(QWidget *parent = nullptr);
 
     CAmount value(bool *value=nullptr) const;
     void setValue(const CAmount& value);
@@ -53,7 +53,7 @@ public:
     bool validate();
 
     /** Change unit used to display amount. */
-    void setDisplayUnit(OpenSyriaUnit new_unit);
+    void setDisplayUnit(OpenSYUnit new_unit);
 
     /** Make field empty and ready for new input. */
     void clear();
@@ -82,4 +82,4 @@ private Q_SLOTS:
 
 };
 
-#endif // OPENSYRIA_QT_OPENSYRIAAMOUNTFIELD_H
+#endif // OPENSY_QT_OPENSYAMOUNTFIELD_H

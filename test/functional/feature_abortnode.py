@@ -1,18 +1,18 @@
 #!/usr/bin/env python3
-# Copyright (c) 2019-2021 The OpenSyria Core developers
+# Copyright (c) 2019-2021 The OpenSY developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
-"""Test opensyriad aborts if can't disconnect a block.
+"""Test opensyd aborts if can't disconnect a block.
 
 - Start a single node and generate 3 blocks.
 - Delete the undo data.
 - Mine a fork that requires disconnecting the tip.
-- Verify that opensyriad AbortNode's.
+- Verify that opensyd AbortNode's.
 """
-from test_framework.test_framework import OpenSyriaTestFramework
+from test_framework.test_framework import OpenSYTestFramework
 
 
-class AbortNodeTest(OpenSyriaTestFramework):
+class AbortNodeTest(OpenSYTestFramework):
     def set_test_params(self):
         self.setup_clean_chain = True
         self.num_nodes = 2
