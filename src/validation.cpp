@@ -4113,11 +4113,13 @@ bool HasValidProofOfWork(const std::vector<CBlockHeader>& headers, const Consens
                 if (!bnTarget.has_value()) {
                     return false;
                 }
-                // Require minimum claimed work: target must be <= powLimit/256
+                // SECURITY FIX [H-02]: Header Spam Attack Vector
+                // Require minimum claimed work: target must be <= powLimit/4096
                 // This forces attackers to claim hard-enough work, rate-limiting spam
                 // while still allowing legitimate low-difficulty testnet/regtest blocks
-                // Security: Tightened from >>4 to >>8 to reduce header spam attack surface
-                arith_uint256 maxAllowedTarget = UintToArith256(consensusParams.powLimitRandomX) >> 8;
+                // Tightened from >>8 (1/256) to >>12 (1/4096) to reduce attack surface
+                // by 16x, making header spam attacks significantly more expensive
+                arith_uint256 maxAllowedTarget = UintToArith256(consensusParams.powLimitRandomX) >> 12;
                 return *bnTarget <= maxAllowedTarget;
             });
 }

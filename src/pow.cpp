@@ -32,6 +32,7 @@
 #include <arith_uint256.h>
 #include <chain.h>
 #include <crypto/randomx_context.h>
+#include <crypto/randomx_pool.h>
 #include <primitives/block.h>
 #include <streams.h>
 #include <sync.h>
@@ -254,37 +255,33 @@ uint256 GetRandomXKeyBlockHash(int height, const CBlockIndex* pindex, const Cons
 }
 
 // =============================================================================
-// THREAD-LOCAL RANDOMX CONTEXT
+// RANDOMX CONTEXT POOL
 // =============================================================================
 //
-// Each thread maintains its own RandomX context to avoid contention and race
-// conditions during concurrent block validation. This is critical because:
+// SECURITY FIX [H-01]: Thread-Local RandomX Context Memory Accumulation
 //
-// 1. Multiple threads may validate blocks simultaneously (net_processing, RPC)
-// 2. Key rotation means different blocks may need different RandomX keys
-// 3. A global context with check-then-initialize has TOCTOU race conditions
+// Previously, each thread had its own thread_local RandomX context (~256KB each),
+// leading to unbounded memory growth under high concurrency (many RPC requests,
+// parallel block validation).
 //
-// Thread-local storage ensures each validation thread has isolated state.
-// Memory overhead is ~256KB per thread (light mode cache).
+// The new pooled approach:
+// 1. Limits total contexts to MAX_CONTEXTS (default 8) = 2MB max memory
+// 2. Uses RAII guards for automatic checkout/checkin
+// 3. Implements key-aware context reuse (avoids re-initialization)
+// 4. Blocks threads when pool is exhausted (bounded memory)
+//
+// This prevents memory exhaustion attacks where an adversary could cause
+// unbounded thread creation to consume all available memory.
 // =============================================================================
-thread_local std::unique_ptr<RandomXContext> tl_randomx_context;
-thread_local uint256 tl_randomx_key;
 
 uint256 CalculateRandomXHash(const CBlockHeader& header, const uint256& keyBlockHash)
 {
-    // Lazy initialization of thread-local context
-    if (!tl_randomx_context) {
-        tl_randomx_context = std::make_unique<RandomXContext>();
-    }
-
-    // Only reinitialize if key changed for THIS thread's context
-    // No race condition: tl_randomx_key is thread-local
-    if (tl_randomx_key != keyBlockHash) {
-        if (!tl_randomx_context->Initialize(keyBlockHash)) {
-            // Initialization failed - return max hash (will always fail PoW check)
-            return uint256{"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
-        }
-        tl_randomx_key = keyBlockHash;
+    // Acquire a context from the global pool
+    auto guard = g_randomx_pool.Acquire(keyBlockHash);
+    if (!guard.has_value()) {
+        // Pool acquisition failed (timeout) - return max hash (will always fail PoW check)
+        LogPrintf("RandomX: Failed to acquire context from pool, returning max hash\n");
+        return uint256{"ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
     }
 
     // Serialize block header
@@ -292,8 +289,8 @@ uint256 CalculateRandomXHash(const CBlockHeader& header, const uint256& keyBlock
     ss << header;
 
     // Calculate and return RandomX hash
-    // Thread-local context means no locking needed here
-    return tl_randomx_context->CalculateHash(
+    // Context is automatically returned to pool when guard destructs
+    return guard->CalculateHash(
         reinterpret_cast<const unsigned char*>(ss.data()), ss.size());
 }
 

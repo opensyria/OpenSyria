@@ -6,6 +6,7 @@
 #include <opensyria-build-config.h> // IWYU pragma: keep
 
 #include <chainparams.h>
+#include <crypto/randomx_pool.h>
 #include <httpserver.h>
 #include <index/blockfilterindex.h>
 #include <index/coinstatsindex.h>
@@ -166,6 +167,16 @@ static RPCHelpMan getmemoryinfo()
                                 {RPCResult::Type::NUM, "chunks_used", "Number allocated chunks"},
                                 {RPCResult::Type::NUM, "chunks_free", "Number unused chunks"},
                             }},
+                            {RPCResult::Type::OBJ, "randomx", "RandomX context information (SECURITY FIX H-01)",
+                            {
+                                {RPCResult::Type::NUM, "total_contexts", "Total contexts in the bounded pool"},
+                                {RPCResult::Type::NUM, "active_contexts", "Contexts currently in use"},
+                                {RPCResult::Type::NUM, "available_contexts", "Contexts ready for immediate use"},
+                                {RPCResult::Type::NUM, "total_acquisitions", "Total successful context acquisitions"},
+                                {RPCResult::Type::NUM, "total_waits", "Times a thread had to wait for a context"},
+                                {RPCResult::Type::NUM, "total_timeouts", "Times context acquisition timed out"},
+                                {RPCResult::Type::NUM, "key_reinitializations", "Times a context was reinitialized for a new key"},
+                            }},
                         }
                     },
                     RPCResult{"mode \"mallocinfo\"",
@@ -182,6 +193,19 @@ static RPCHelpMan getmemoryinfo()
     if (mode == "stats") {
         UniValue obj(UniValue::VOBJ);
         obj.pushKV("locked", RPCLockedMemoryInfo());
+
+        // SECURITY FIX [H-01]: Add RandomX context pool stats
+        UniValue randomx_obj(UniValue::VOBJ);
+        auto stats = g_randomx_pool.GetStats();
+        randomx_obj.pushKV("total_contexts", (int64_t)stats.total_contexts);
+        randomx_obj.pushKV("active_contexts", (int64_t)stats.active_contexts);
+        randomx_obj.pushKV("available_contexts", (int64_t)stats.available_contexts);
+        randomx_obj.pushKV("total_acquisitions", (int64_t)stats.total_acquisitions);
+        randomx_obj.pushKV("total_waits", (int64_t)stats.total_waits);
+        randomx_obj.pushKV("total_timeouts", (int64_t)stats.total_timeouts);
+        randomx_obj.pushKV("key_reinitializations", (int64_t)stats.key_reinitializations);
+        obj.pushKV("randomx", randomx_obj);
+
         return obj;
     } else if (mode == "mallocinfo") {
 #ifdef HAVE_MALLOC_INFO

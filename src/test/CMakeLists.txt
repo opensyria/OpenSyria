@@ -80,6 +80,7 @@ add_executable(test_opensyria
   random_tests.cpp
   randomx_tests.cpp
   randomx_fork_transition_tests.cpp
+  randomx_pool_tests.cpp
   rbf_tests.cpp
   rest_tests.cpp
   result_tests.cpp

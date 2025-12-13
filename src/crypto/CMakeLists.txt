@@ -13,6 +13,7 @@ add_library(opensyria_crypto STATIC EXCLUDE_FROM_ALL
   muhash.cpp
   poly1305.cpp
   randomx_context.cpp
+  randomx_pool.cpp
   ripemd160.cpp
   sha1.cpp
   sha256.cpp
