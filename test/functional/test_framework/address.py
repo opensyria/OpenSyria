@@ -189,9 +189,9 @@ def address_to_scriptpubkey(address):
     if version is not None:
         return program_to_witness_script(version, payload) # testnet segwit scriptpubkey
     payload, version = base58_to_byte(address)
-    if version in (111, 125):  # testnet/regtest pubkey hash (111=Bitcoin, 125=OpenSyria)
+    if version in (111, 125, 95):  # testnet/regtest pubkey hash (111=Bitcoin legacy, 125=old, 95=OpenSyria)
         return keyhash_to_p2pkh_script(payload)
-    elif version == 196:  # testnet script hash
+    elif version in (196, 96):  # testnet script hash (196=Bitcoin, 96=OpenSyria)
         return scripthash_to_p2sh_script(payload)
     # TODO: also support other address formats
     else:

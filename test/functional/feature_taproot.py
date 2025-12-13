@@ -1410,11 +1410,11 @@ class TaprootTest(OpenSyriaTestFramework):
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
+        # Test runs below RandomX fork height (10000 on regtest), so SHA256d PoW works
 
     def set_test_params(self):
         self.num_nodes = 1
         self.setup_clean_chain = True
-
     def block_submit(self, node, txs, msg, err_msg, cb_pubkey=None, fees=0, sigops_weight=0, witness=False, accept=False):
 
         # Deplete block of any non-tapscript sigops using a single additional 0-value coinbase output.

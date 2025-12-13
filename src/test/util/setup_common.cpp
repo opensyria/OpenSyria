@@ -146,6 +146,9 @@ BasicTestingSetup::BasicTestingSetup(const ChainType chainType, TestOpts opts)
     util::ThreadRename("test");
     gArgs.ClearPathCache();
     {
+        // Clear previously registered args to allow test fixture reuse
+        // This fixes assertion failures when tests run sequentially
+        m_node.args->ClearArgs();
         SetupServerArgs(*m_node.args);
         SetupCommonTestArgs(*m_node.args);
         std::string error;

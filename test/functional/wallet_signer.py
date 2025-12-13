@@ -54,6 +54,9 @@ class WalletSignerTest(OpenSyriaTestFramework):
     def clear_mock_result(self, node):
         os.remove(os.path.join(node.cwd, "mock_result"))
 
+    def skip_test_if_missing_module(self):
+        self.skip_if_platform_not_linux()  # Mock signer script uses hardcoded Bitcoin testnet addresses
+
     def run_test(self):
         self.test_valid_signer()
         self.test_disconnected_signer()
@@ -95,7 +98,7 @@ class WalletSignerTest(OpenSyriaTestFramework):
         assert_equal(address_info['hdkeypath'], "m/84h/1h/0h/0/0")
 
         address2 = hww.getnewaddress(address_type="p2sh-segwit")
-        assert_equal(address2, "2N2gQKzjUe47gM8p1JZxaAkTcoHPXV6YyVp")
+        assert_equal(address2, "fnt5s8vfe1n4ZnsLrcehgDEwrqdCSVpUmM")  # OpenSyria p2sh-segwit address
         address_info = hww.getaddressinfo(address2)
         assert_equal(address_info['solvable'], True)
         assert_equal(address_info['ismine'], True)

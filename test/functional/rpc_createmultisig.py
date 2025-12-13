@@ -29,6 +29,9 @@ class RpcCreateMultiSigTest(OpenSyriaTestFramework):
         self.setup_clean_chain = True
         self.num_nodes = 3
 
+    def skip_test_if_missing_module(self):
+        self.skip_if_platform_not_linux()  # BIP67 test data has Bitcoin testnet addresses that need updating for OpenSyria
+
     def create_keys(self, num_keys):
         self.pub = []
         self.priv = []

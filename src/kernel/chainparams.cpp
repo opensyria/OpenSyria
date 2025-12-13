@@ -560,8 +560,9 @@ public:
         consensus.enforce_BIP94 = opts.enforce_bip94;
         consensus.fPowNoRetargeting = true;
 
-        // RandomX fork at low height for regtest testing
-        consensus.nRandomXForkHeight = 200;
+        // RandomX fork height for regtest - set high by default to allow functional tests
+        // to run quickly with SHA256d PoW. Use -randomxforkheight=200 for RandomX-specific tests.
+        consensus.nRandomXForkHeight = 10000;
         // Allow override via -randomxforkheight for functional tests
         if (opts.randomx_fork_height) {
             consensus.nRandomXForkHeight = *opts.randomx_fork_height;

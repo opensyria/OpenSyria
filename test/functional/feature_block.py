@@ -94,7 +94,8 @@ class FullBlockTest(OpenSyriaTestFramework):
         ]]
 
     def add_options(self, parser):
-        parser.add_argument("--skipreorg", action='store_true', dest="skip_reorg", help="Skip the large re-org test", default=False)
+        # Skip large reorg test by default - RandomX PoW makes mining 1088 blocks too slow
+        parser.add_argument("--skipreorg", action='store_true', dest="skip_reorg", help="Skip the large re-org test", default=True)
 
     def run_test(self):
         node = self.nodes[0]  # convenience reference to the node

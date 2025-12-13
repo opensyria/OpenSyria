@@ -767,7 +767,8 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
             std::string debug;
             BOOST_REQUIRE(!mining->checkBlock(block, {.check_pow = true}, reason, debug));
             BOOST_REQUIRE_EQUAL(reason, "high-hash");
-            BOOST_REQUIRE_EQUAL(debug, "proof of work failed");
+            // OpenSyria uses algorithm-specific PoW error messages
+            BOOST_REQUIRE(debug == "SHA256d proof of work failed" || debug == "RandomX proof of work failed");
         }
     }
 

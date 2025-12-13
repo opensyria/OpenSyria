@@ -25,6 +25,7 @@ from io import BytesIO
 import math
 import random
 import socket
+import subprocess
 import time
 import unittest
 
@@ -852,6 +853,56 @@ class CBlock(CBlockHeader):
         target = uint256_from_compact(self.nBits)
         while self.hash_int > target:
             self.nNonce += 1
+
+    def solve_randomx(self, util_binary_path, key_block_hash):
+        """
+        Solve the block using RandomX proof-of-work via opensyria-util grind-randomx.
+
+        Args:
+            util_binary_path: Path to opensyria-util binary (or list of argv)
+            key_block_hash: The key block hash for RandomX (as hex string or uint256)
+
+        Returns:
+            True if solved successfully, False otherwise
+        """
+        # Serialize only the block header (80 bytes) to hex
+        header_hex = self._serialize_header().hex()
+
+        # Convert key_block_hash to hex string if needed
+        if isinstance(key_block_hash, int):
+            key_hex = "%064x" % key_block_hash
+        elif isinstance(key_block_hash, bytes):
+            key_hex = key_block_hash.hex()
+        else:
+            key_hex = str(key_block_hash)
+
+        # Build command
+        if isinstance(util_binary_path, list):
+            cmd = util_binary_path + ["grind-randomx", header_hex, key_hex]
+        else:
+            cmd = [util_binary_path, "grind-randomx", header_hex, key_hex]
+
+        try:
+            result = subprocess.run(cmd, capture_output=True, text=True, timeout=300)
+            if result.returncode == 0:
+                # Parse the solved header from output
+                solved_header_hex = result.stdout.strip()
+                solved_header_bytes = bytes.fromhex(solved_header_hex)
+                # Deserialize the solved header and extract nNonce
+                f = BytesIO(solved_header_bytes)
+                solved = CBlockHeader()
+                solved.deserialize(f)
+                self.nNonce = solved.nNonce
+                # Verify the merkle root and other fields are unchanged
+                assert self.hashMerkleRoot == solved.hashMerkleRoot
+                self.rehash()
+                return True
+            else:
+                return False
+        except subprocess.TimeoutExpired:
+            return False
+        except Exception:
+            return False
 
     # Calculate the block weight using witness and non-witness
     # serialization size (does NOT use sigops).

@@ -49,16 +49,17 @@ class SignetMinerTest(OpenSyriaTestFramework):
         challenge = key_to_p2wpkh_script(pubkey)
 
         self.extra_args = [
-            [f'-signetchallenge={challenge.hex()}'],
-            ["-signetchallenge=51"], # OP_TRUE
-            ["-signetchallenge=60"], # OP_16
-            ["-signetchallenge=202cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824"], # sha256("hello")
+            [f'-signetchallenge={challenge.hex()}', '-randomxforkheight=10000'],
+            ["-signetchallenge=51", '-randomxforkheight=10000'], # OP_TRUE
+            ["-signetchallenge=60", '-randomxforkheight=10000'], # OP_16
+            ["-signetchallenge=202cf24dba5fb0a30e26e83b2ac5b9e29e1b161e5c1fa7425e73043362938b9824", '-randomxforkheight=10000'], # sha256("hello")
         ]
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_cli()
         self.skip_if_no_wallet()
         self.skip_if_no_opensyria_util()
+        self.skip_if_randomx_pow()  # Python signet miner uses SHA256 which is incompatible with RandomX PoW
 
     def setup_network(self):
         self.setup_nodes()

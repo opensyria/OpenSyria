@@ -13,6 +13,7 @@
 #include <common/system.h>
 #include <compat/compat.h>
 #include <core_io.h>
+#include <crypto/randomx_context.h>
 #include <streams.h>
 #include <util/exception.h>
 #include <util/strencodings.h>
@@ -35,6 +36,7 @@ static void SetupOpenSyriaUtilArgs(ArgsManager &argsman)
     argsman.AddArg("-version", "Print version and exit", ArgsManager::ALLOW_ANY, OptionsCategory::OPTIONS);
 
     argsman.AddCommand("grind", "Perform proof of work on hex header string");
+    argsman.AddCommand("grind-randomx", "Perform RandomX proof of work on hex header string with key block hash");
 
     SetupChainParamsBaseOptions(argsman);
 }
@@ -149,6 +151,93 @@ static int Grind(const std::vector<std::string>& args, std::string& strPrint)
     return EXIT_SUCCESS;
 }
 
+static void grind_randomx_task(uint32_t nBits, CBlockHeader header, const uint256& keyBlockHash,
+                                uint32_t offset, uint32_t step, std::atomic<bool>& found, uint32_t& proposed_nonce)
+{
+    arith_uint256 target;
+    bool neg, over;
+    target.SetCompact(nBits, &neg, &over);
+    if (target == 0 || neg || over) return;
+    header.nNonce = offset;
+
+    // Create a RandomX context for this thread (light mode for portability)
+    RandomXContext ctx;
+    if (!ctx.Initialize(keyBlockHash)) {
+        return; // Failed to initialize RandomX
+    }
+
+    uint32_t finish = std::numeric_limits<uint32_t>::max() - step;
+    finish = finish - (finish % step) + offset;
+
+    while (!found && header.nNonce < finish) {
+        const uint32_t next = (finish - header.nNonce < 500*step) ? finish : header.nNonce + 500*step;
+        do {
+            // Serialize header for RandomX hash
+            DataStream ss{};
+            ss << header;
+            // Convert std::byte data to unsigned char for RandomX
+            const unsigned char* data = reinterpret_cast<const unsigned char*>(ss.data());
+            uint256 hash = ctx.CalculateHash(data, ss.size());
+
+            if (UintToArith256(hash) <= target) {
+                if (!found.exchange(true)) {
+                    proposed_nonce = header.nNonce;
+                }
+                return;
+            }
+            header.nNonce += step;
+        } while(header.nNonce != next);
+    }
+}
+
+static int GrindRandomX(const std::vector<std::string>& args, std::string& strPrint)
+{
+    if (args.size() != 2) {
+        strPrint = "Usage: grind-randomx <hex-header> <key-block-hash>";
+        return EXIT_FAILURE;
+    }
+
+    CBlockHeader header;
+    if (!DecodeHexBlockHeader(header, args[0])) {
+        strPrint = "Could not decode block header";
+        return EXIT_FAILURE;
+    }
+
+    uint256 keyBlockHash;
+    auto keyBlockHashOpt = uint256::FromHex(args[1]);
+    if (!keyBlockHashOpt) {
+        strPrint = "Could not decode key block hash";
+        return EXIT_FAILURE;
+    }
+    keyBlockHash = *keyBlockHashOpt;
+
+    uint32_t nBits = header.nBits;
+    std::atomic<bool> found{false};
+    uint32_t proposed_nonce{};
+
+    // Use multiple threads for grinding
+    std::vector<std::thread> threads;
+    int n_tasks = std::max(1u, std::thread::hardware_concurrency());
+    threads.reserve(n_tasks);
+    for (int i = 0; i < n_tasks; ++i) {
+        threads.emplace_back(grind_randomx_task, nBits, header, keyBlockHash, i, n_tasks, std::ref(found), std::ref(proposed_nonce));
+    }
+    for (auto& t : threads) {
+        t.join();
+    }
+    if (found) {
+        header.nNonce = proposed_nonce;
+    } else {
+        strPrint = "Could not satisfy difficulty target";
+        return EXIT_FAILURE;
+    }
+
+    DataStream ss{};
+    ss << header;
+    strPrint = HexStr(ss);
+    return EXIT_SUCCESS;
+}
+
 MAIN_FUNCTION
 {
     ArgsManager& args = gArgs;
@@ -178,6 +267,8 @@ MAIN_FUNCTION
     try {
         if (cmd->command == "grind") {
             ret = Grind(cmd->args, strPrint);
+        } else if (cmd->command == "grind-randomx") {
+            ret = GrindRandomX(cmd->args, strPrint);
         } else {
             assert(false); // unknown command should be caught earlier
         }

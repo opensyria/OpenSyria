@@ -97,7 +97,12 @@ std::shared_ptr<CBlock> MinerTestingSetup::FinalizeBlock(std::shared_ptr<CBlock>
 
     pblock->hashMerkleRoot = BlockMerkleRoot(*pblock);
 
-    while (!CheckProofOfWork(pblock->GetHash(), pblock->nBits, Params().GetConsensus())) {
+    // Calculate the height for this block
+    int nHeight = prev_block ? prev_block->nHeight + 1 : 0;
+    const Consensus::Params& consensusParams = Params().GetConsensus();
+    
+    // Use height-aware PoW check for proper RandomX/SHA256d selection
+    while (!CheckProofOfWorkAtHeight(pblock->GetBlockHeader(), nHeight, prev_block, consensusParams)) {
         ++(pblock->nNonce);
     }
 

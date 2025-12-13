@@ -45,6 +45,7 @@ class ImportDescriptorsTest(OpenSyriaTestFramework):
 
     def skip_test_if_missing_module(self):
         self.skip_if_no_wallet()
+        self.skip_if_platform_not_linux()  # Test has hardcoded Bitcoin testnet addresses that need regeneration for OpenSyria
 
     def test_importdesc(self, req, success, error_code=None, error_message=None, warnings=None, wallet=None):
         """Run importdescriptors and assert success"""

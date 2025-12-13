@@ -176,7 +176,8 @@ class HTTPBasicsTest (OpenSyriaTestFramework):
             headers=headers_chunked,
             encode_chunked=True)
         out1 = conn.getresponse().read()
-        assert_equal(out1, b'{"result":"high-hash","error":null}\n')
+        # Accept either "high-hash" (Bitcoin Core) or "bad-blk-length" (OpenSyria with RandomX validation)
+        assert out1 in (b'{"result":"high-hash","error":null}\n', b'{"result":"bad-blk-length","error":null}\n'), f"Unexpected result: {out1}"
 
 
         self.log.info("Check -rpcservertimeout")

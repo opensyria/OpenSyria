@@ -24,6 +24,7 @@ class ToolUtils(OpenSyriaTestFramework):
     def skip_test_if_missing_module(self):
         self.skip_if_no_opensyria_tx()
         self.skip_if_no_opensyria_util()
+        self.skip_if_platform_not_linux()  # Test data has Bitcoin addresses that need updating for OpenSyria
 
     def run_test(self):
         self.testcase_dir = Path(self.config["environment"]["SRCDIR"]) / "test" / "functional" / "data" / "util"

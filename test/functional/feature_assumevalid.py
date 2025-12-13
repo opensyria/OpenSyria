@@ -72,6 +72,9 @@ class AssumeValidTest(OpenSyriaTestFramework):
         self.num_nodes = 6
         self.rpc_timeout = 300  # Increased for 10k+ blocks
 
+    def skip_test_if_missing_module(self):
+        self.skip_if_randomx_pow()  # Test uses Python block.solve() which is incompatible with RandomX
+
     def setup_network(self):
         self.add_nodes(self.num_nodes)
         # Start node0. We don't start the other nodes yet since

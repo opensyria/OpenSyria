@@ -27,6 +27,7 @@ class IPCInterfaceTest(OpenSyriaTestFramework):
     def skip_test_if_missing_module(self):
         self.skip_if_no_ipc()
         self.skip_if_no_py_capnp()
+        self.skip_if_platform_not_linux()  # IPC tests can stall on macOS due to capnp/socket issues
 
     def load_capnp_modules(self):
         if capnp_bin := shutil.which("capnp"):

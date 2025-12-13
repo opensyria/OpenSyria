@@ -106,7 +106,7 @@ class OpenSyriaTestFramework(metaclass=OpenSyriaTestMetaClass):
         self.extra_args = None
         self.extra_init = None
         self.network_thread = None
-        self.rpc_timeout = 60  # Wait for up to 60 seconds for the RPC server to respond
+        self.rpc_timeout = 300  # Wait for up to 300 seconds for the RPC server to respond (RandomX mining is slow ~1s/block)
         self.supports_cli = True
         self.bind_to_localhost_only = True
         self.parse_args(test_file)
@@ -692,7 +692,7 @@ class OpenSyriaTestFramework(metaclass=OpenSyriaTestMetaClass):
             utxos.append({"txid": send_res["txid"], "vout": vout})
         return utxos
 
-    def sync_blocks(self, nodes=None, wait=1, timeout=60):
+    def sync_blocks(self, nodes=None, wait=1, timeout=300):
         """
         Wait until everybody has the same tip.
         sync_blocks needs to be called with an rpc_connections set that has least
@@ -714,7 +714,7 @@ class OpenSyriaTestFramework(metaclass=OpenSyriaTestMetaClass):
             "".join("\n  {!r}".format(b) for b in best_hash),
         ))
 
-    def sync_mempools(self, nodes=None, wait=1, timeout=60, flush_scheduler=True):
+    def sync_mempools(self, nodes=None, wait=1, timeout=120, flush_scheduler=True):
         """
         Wait until everybody has the same transactions in their memory
         pools
@@ -946,6 +946,22 @@ class OpenSyriaTestFramework(metaclass=OpenSyriaTestMetaClass):
         """Skip the running test if opensyria-cli has not been compiled."""
         if not self.is_cli_compiled():
             raise SkipTest("opensyria-cli has not been compiled.")
+
+    def skip_if_randomx_pow(self):
+        """Skip the running test because OpenSyria uses RandomX PoW.
+        
+        Tests that manually solve blocks using Python's block.solve() method
+        will not work at RandomX heights because solve() uses SHA256 double-hash
+        but OpenSyria uses RandomX for proof-of-work after fork height.
+        
+        Note: For tests that need to mine blocks at RandomX heights, use:
+            block.solve_randomx(self.binary_paths.util_argv(), key_block_hash)
+        where key_block_hash is the hash of the key block (height - height % 64 - 64).
+        
+        For regtest, RandomX activates at height 10000 by default. Tests that
+        run below this height can use the regular solve() method.
+        """
+        raise SkipTest("Test requires Python block solving which is incompatible with RandomX PoW")
 
     def skip_if_no_ipc(self):
         """Skip the running test if ipc is not compiled."""
