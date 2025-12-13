@@ -50,10 +50,21 @@ bool RandomXContext::Initialize(const uint256& keyBlockHash)
     Cleanup();
 
     // Create cache with light mode flags (suitable for validation)
-    // RANDOMX_FLAG_DEFAULT uses the best available optimization for this CPU
+    // randomx_get_flags() auto-detects best optimizations for this CPU
     randomx_flags flags = randomx_get_flags();
     // Light mode uses less memory (256KB vs 2GB) suitable for validation
-    flags = static_cast<randomx_flags>(flags | RANDOMX_FLAG_DEFAULT);
+
+    // Log RandomX capabilities on first initialization
+    static bool logged_capabilities = false;
+    if (!logged_capabilities) {
+        LogPrintf("RandomX: JIT=%s, HardAES=%s, ARGON2=%s, SSSE3=%s, AVX2=%s\n",
+            (flags & RANDOMX_FLAG_JIT) ? "enabled" : "disabled",
+            (flags & RANDOMX_FLAG_HARD_AES) ? "enabled" : "disabled",
+            (flags & RANDOMX_FLAG_ARGON2) ? "native" : "software",
+            (flags & RANDOMX_FLAG_ARGON2_SSSE3) ? "SSSE3" : "off",
+            (flags & RANDOMX_FLAG_ARGON2_AVX2) ? "AVX2" : "off");
+        logged_capabilities = true;
+    }
 
     m_cache = randomx_alloc_cache(flags);
     if (!m_cache) {

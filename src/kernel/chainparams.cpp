@@ -76,6 +76,10 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
 static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
 {
     const char* pszTimestamp = "Dec 8 2024 - Syria Liberated from Assad / سوريا حرة";
+    // NOTE: This is Bitcoin's original Satoshi genesis pubkey. It is intentionally reused
+    // because the genesis coinbase output is provably unspendable in Bitcoin-derived chains
+    // (the output is not added to the UTXO set by design). Using a well-known unspendable
+    // key avoids any appearance of a hidden premine.
     const CScript genesisOutputScript = CScript() << "04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f"_hex << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
@@ -122,11 +126,11 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].period = 2016;
 
         // Minimum chain work - protects against low-hashrate sybil attacks
-        // Updated at block 1000 during founder bootstrap mining (Dec 11, 2025)
-        consensus.nMinimumChainWork = uint256{"0000000000000000000000000000000000000000000000000000000004e804e8"};
+        // Updated at block 3049 (Dec 12, 2025) - log2_work=27.690457
+        consensus.nMinimumChainWork = uint256{"000000000000000000000000000000000000000000000000000000000ce90d29"};
         // AssumeValid - enables faster sync by skipping signature validation for known-good blocks
-        // Block 1000 - verified during founder bootstrap mining
-        consensus.defaultAssumeValid = uint256{"0251fcc9e698bdabce13bdaa4ff17ebea4d28c6e393f2863dfd9527281d25afd"};
+        // Block 3049 - verified Dec 12, 2025
+        consensus.defaultAssumeValid = uint256{"e860ae5a4f8e657fe4e6eca0bb24a10da65772e68d2fed266fb8370177cffa5d"};
 
         // RandomX from block 1 - fair launch with CPU-friendly mining
         // Genesis (block 0) uses SHA256 for bootstrap, all subsequent blocks use RandomX
@@ -230,7 +234,8 @@ public:
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 2 * 60; // 2-minute blocks
         consensus.fPowAllowMinDifficultyBlocks = true;
-        consensus.enforce_BIP94 = false;
+        // BIP94 timewarp protection - enabled to match mainnet for consistent testing
+        consensus.enforce_BIP94 = true;
         consensus.fPowNoRetargeting = false;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].bit = 28;
         consensus.vDeployments[Consensus::DEPLOYMENT_TESTDUMMY].nStartTime = Consensus::BIP9Deployment::NEVER_ACTIVE;
@@ -471,7 +476,8 @@ public:
         consensus.nPowTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         consensus.nPowTargetSpacing = 2 * 60; // 2-minute blocks
         consensus.fPowAllowMinDifficultyBlocks = false;
-        consensus.enforce_BIP94 = false;
+        // BIP94 timewarp protection - enabled to match mainnet for consistent testing
+        consensus.enforce_BIP94 = true;
         consensus.fPowNoRetargeting = false;
         consensus.MinBIP9WarningHeight = 0;
         consensus.powLimit = uint256{"00000377ae000000000000000000000000000000000000000000000000000000"};

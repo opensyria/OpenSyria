@@ -53,6 +53,62 @@ BOOST_AUTO_TEST_CASE(block_subsidy_test)
     TestBlockSubsidyHalvings(1000); // Just another interval
 }
 
+/**
+ * Test OpenSyria genesis block parameters across all networks.
+ * Validates that genesis blocks are correctly configured with OpenSyria-specific values.
+ */
+BOOST_AUTO_TEST_CASE(genesis_block_test)
+{
+    // Test mainnet genesis
+    {
+        const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
+        const CBlock& genesis = chainParams->GenesisBlock();
+        
+        // OpenSyria mainnet genesis hash
+        BOOST_CHECK_EQUAL(genesis.GetHash().ToString(),
+            "0000000727ee231c405685355f07629b06bfcb462cfa1ed7de868a6d9590ca8d");
+        
+        // Verify genesis block structure
+        BOOST_CHECK_EQUAL(genesis.nVersion, 1);
+        BOOST_CHECK_EQUAL(genesis.nTime, 1733616000); // Dec 8, 2024
+        BOOST_CHECK_EQUAL(genesis.nBits, 0x1e00ffff);
+        BOOST_CHECK_EQUAL(genesis.nNonce, 171081);
+        BOOST_CHECK(genesis.hashPrevBlock.IsNull());
+        BOOST_CHECK_EQUAL(genesis.vtx.size(), 1);
+        
+        // Verify genesis coinbase
+        const CTransaction& coinbase = *genesis.vtx[0];
+        BOOST_CHECK(coinbase.IsCoinBase());
+        BOOST_CHECK_EQUAL(coinbase.vout.size(), 1);
+        BOOST_CHECK_EQUAL(coinbase.vout[0].nValue, 10000 * COIN); // 10,000 SYL
+        
+        // Verify merkle root matches coinbase
+        BOOST_CHECK_EQUAL(genesis.hashMerkleRoot, BlockMerkleRoot(genesis));
+    }
+    
+    // Test testnet genesis
+    {
+        const auto chainParams = CreateChainParams(*m_node.args, ChainType::TESTNET);
+        const CBlock& genesis = chainParams->GenesisBlock();
+        
+        BOOST_CHECK_EQUAL(genesis.GetHash().ToString(),
+            "000000889cc24ca50c0ed047c43932757c1b7a6af418e13a10589ef968d44926");
+        BOOST_CHECK_EQUAL(genesis.nTime, 1733616001);
+        BOOST_CHECK_EQUAL(genesis.vtx[0]->vout[0].nValue, 10000 * COIN);
+    }
+    
+    // Test regtest genesis
+    {
+        const auto chainParams = CreateChainParams(*m_node.args, ChainType::REGTEST);
+        const CBlock& genesis = chainParams->GenesisBlock();
+        
+        BOOST_CHECK_EQUAL(genesis.GetHash().ToString(),
+            "67fb155259a269da63429b2d84149027fc4a9a366236bc849fddff3a2554cd50");
+        BOOST_CHECK_EQUAL(genesis.nTime, 1733616003);
+        BOOST_CHECK_EQUAL(genesis.vtx[0]->vout[0].nValue, 10000 * COIN);
+    }
+}
+
 BOOST_AUTO_TEST_CASE(subsidy_limit_test)
 {
     const auto chainParams = CreateChainParams(*m_node.args, ChainType::MAIN);
