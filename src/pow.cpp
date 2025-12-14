@@ -290,7 +290,7 @@ uint256 CalculateRandomXHash(const CBlockHeader& header, const uint256& keyBlock
 
     // Calculate and return RandomX hash
     // Context is automatically returned to pool when guard destructs
-    return guard->CalculateHash(
+    return (*guard)->CalculateHash(
         reinterpret_cast<const unsigned char*>(ss.data()), ss.size());
 }
 

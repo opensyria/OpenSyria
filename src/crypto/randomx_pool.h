@@ -97,7 +97,7 @@ public:
      * @param[in] keyBlockHash The RandomX key block hash
      * @return A guard holding the context, or nullopt on timeout
      */
-    std::optional<ContextGuard> Acquire(const uint256& keyBlockHash);
+    std::optional<ContextGuard> Acquire(const uint256& keyBlockHash) EXCLUSIVE_LOCKS_REQUIRED(!m_mutex);
 
     /**
      * Get current pool statistics for monitoring.
@@ -112,13 +112,13 @@ public:
         size_t key_reinitializations; //!< Times a context was reinitialized for new key
     };
 
-    PoolStats GetStats() const;
+    PoolStats GetStats() const EXCLUSIVE_LOCKS_REQUIRED(!m_mutex);
 
     /**
      * Configure the maximum number of contexts.
      * Can only be called before any contexts are acquired.
      */
-    bool SetMaxContexts(size_t max_contexts);
+    bool SetMaxContexts(size_t max_contexts) EXCLUSIVE_LOCKS_REQUIRED(!m_mutex);
 
 private:
     struct PoolEntry {
@@ -143,7 +143,7 @@ private:
      * Return a context to the pool.
      * Called by ContextGuard destructor.
      */
-    void Return(size_t index);
+    void Return(size_t index) EXCLUSIVE_LOCKS_REQUIRED(!m_mutex);
 
     /**
      * Find or create a context for the given key.

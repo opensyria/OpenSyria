@@ -8,6 +8,7 @@
 
 #include <boost/test/unit_test.hpp>
 
+#include <array>
 #include <atomic>
 #include <thread>
 #include <vector>
@@ -60,7 +61,6 @@ BOOST_AUTO_TEST_CASE(pool_key_reuse)
     uint256 key = uint256::ONE;
 
     auto stats_before = g_randomx_pool.GetStats();
-    size_t reinit_before = stats_before.key_reinitializations;
 
     {
         auto guard1 = g_randomx_pool.Acquire(key);
@@ -75,7 +75,7 @@ BOOST_AUTO_TEST_CASE(pool_key_reuse)
     auto stats_after = g_randomx_pool.GetStats();
     // Second acquisition with same key should not reinitialize
     // (assuming pool still has the same-keyed context available)
-    // Note: This test may need adjustment based on pool internals
+    BOOST_CHECK_GE(stats_after.total_acquisitions, stats_before.total_acquisitions + 2);
 }
 
 BOOST_AUTO_TEST_CASE(pool_different_keys)
@@ -109,14 +109,21 @@ BOOST_AUTO_TEST_CASE(pool_concurrent_access)
     const int num_threads = 16;
     const int iterations = 5;
 
+    // Pre-defined keys for testing (4 different keys)
+    static const std::array<uint256, 4> test_keys = {
+        uint256{"0000000000000000000000000000000000000000000000000000000000000001"},
+        uint256{"0000000000000000000000000000000000000000000000000000000000000002"},
+        uint256{"0000000000000000000000000000000000000000000000000000000000000003"},
+        uint256{"0000000000000000000000000000000000000000000000000000000000000004"}
+    };
+
     std::vector<std::thread> threads;
     threads.reserve(num_threads);
 
     for (int t = 0; t < num_threads; ++t) {
         threads.emplace_back([&, t]() {
             for (int i = 0; i < iterations; ++i) {
-                uint256 key;
-                key.SetHex(tfm::format("%064x", (t * iterations + i) % 4));
+                const uint256& key = test_keys[(t * iterations + i) % 4];
 
                 auto guard = g_randomx_pool.Acquire(key);
                 if (guard.has_value()) {
