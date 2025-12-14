@@ -20,7 +20,7 @@ RandomXContextPool::~RandomXContextPool()
 
 std::optional<RandomXContextPool::ContextGuard> RandomXContextPool::Acquire(const uint256& keyBlockHash)
 {
-    std::unique_lock<std::mutex> lock(m_mutex.mutex);
+    WAIT_LOCK(m_mutex, lock);
 
     auto deadline = std::chrono::steady_clock::now() + ACQUIRE_TIMEOUT;
 

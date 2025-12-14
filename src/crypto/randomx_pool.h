@@ -129,7 +129,7 @@ private:
     };
 
     mutable Mutex m_mutex;
-    std::condition_variable m_cv;
+    std::condition_variable_any m_cv;  //!< Uses condition_variable_any to work with Bitcoin Core's Mutex wrapper
     std::vector<PoolEntry> m_pool GUARDED_BY(m_mutex);
     size_t m_max_contexts GUARDED_BY(m_mutex){MAX_CONTEXTS};
 
