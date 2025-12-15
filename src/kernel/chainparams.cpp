@@ -169,12 +169,12 @@ public:
         // 3. Distribute across different jurisdictions for resilience
         //
         // Current active seed:
-        vSeeds.emplace_back("seed.opensy.net");       // Primary seed (AWS Bahrain)
+        vSeeds.emplace_back("seed.opensyria.net");       // Primary seed (AWS Bahrain)
         //
         // TODO: Uncomment when these seeds are deployed and operational:
-        // vSeeds.emplace_back("seed2.opensy.net");   // Secondary seed - Americas
-        // vSeeds.emplace_back("seed3.opensy.net");   // Tertiary seed - Asia-Pacific
-        // vSeeds.emplace_back("dnsseed.opensy.org"); // Community-run seed
+        // vSeeds.emplace_back("seed2.opensyria.net");   // Secondary seed - Americas
+        // vSeeds.emplace_back("seed3.opensyria.net");   // Tertiary seed - Asia-Pacific
+        // vSeeds.emplace_back("dnsseed.opensyria.org"); // Community-run seed
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,35); // Addresses start with 'F' (Freedom)
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,36); // Script addresses start with 'F'

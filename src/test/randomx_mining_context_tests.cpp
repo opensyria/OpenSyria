@@ -199,13 +199,13 @@ BOOST_AUTO_TEST_CASE(concurrent_hash_calculation)
     
     BOOST_REQUIRE(ctx.Initialize(TEST_KEY1, 1));
     
-    const int numThreads = 4;
-    const int hashesPerThread = 10;
+    constexpr int numThreads = 4;
+    constexpr int hashesPerThread = 10;
     std::vector<std::thread> threads;
     std::atomic<int> successCount{0};
     
     for (int t = 0; t < numThreads; ++t) {
-        threads.emplace_back([&ctx, &successCount, t, hashesPerThread]() {
+        threads.emplace_back([&ctx, &successCount, t]() {
             randomx_vm* vm = ctx.CreateVM();
             if (!vm) return;
             

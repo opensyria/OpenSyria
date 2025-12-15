@@ -83,6 +83,7 @@ std::optional<RandomXContextPool::ContextGuard> RandomXContextPool::Acquire(
         void decrement() {
             if (decremented) return;
             decremented = true;
+            LOCK(pool.m_mutex);
             switch (priority) {
                 case AcquisitionPriority::CONSENSUS_CRITICAL:
                     pool.m_waiting_consensus_critical--;

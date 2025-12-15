@@ -233,7 +233,7 @@ BOOST_AUTO_TEST_CASE(difficulty_bounds_at_fork)
     // but we're still bounded by powLimit
     
     int forkHeight = params.nRandomXForkHeight;
-    int targetHeight = forkHeight + params.DifficultyAdjustmentInterval();
+    (void)forkHeight; // Used to document the fork context
     
     // Verify powLimitRandomX is the cap
     arith_uint256 randomxLimit = UintToArith256(params.powLimitRandomX);
