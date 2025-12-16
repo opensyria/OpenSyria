@@ -71,7 +71,7 @@ std::optional<RandomXContextPool::ContextGuard> RandomXContextPool::Acquire(
         m_waiting_normal++;
     }
 
-    // RAII cleanup for waiting count
+    // RAII cleanup for waiting count - NOTE: does NOT acquire m_mutex since caller holds it
     struct WaitGuard {
         RandomXContextPool& pool;
         AcquisitionPriority priority;
@@ -83,7 +83,7 @@ std::optional<RandomXContextPool::ContextGuard> RandomXContextPool::Acquire(
         void decrement() {
             if (decremented) return;
             decremented = true;
-            LOCK(pool.m_mutex);
+            // Do NOT lock m_mutex - caller already holds it
             switch (priority) {
                 case AcquisitionPriority::CONSENSUS_CRITICAL:
                     pool.m_waiting_consensus_critical--;
