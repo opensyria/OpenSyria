@@ -49,7 +49,7 @@ if [ "$RUN_TIDY" != "true" ]; then
   # The statistic bytes_written is only used for logging, which is disabled in
   # CI, so as a temporary minimal fix to work around UB and CI failures, leave
   # bytes_written unmodified.
-  # See https://github.com/opensyria/opensy/pull/28359#issuecomment-1698694748
+  # See https://github.com/opensyria/OpenSY/pull/28359#issuecomment-1698694748
   # Tee patch to stdout to make it clear CI is testing modified code.
   tee >(patch -p1) <<'EOF'
 --- a/src/leveldb/db/db_impl.cc

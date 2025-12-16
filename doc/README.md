@@ -5,7 +5,7 @@ Setup
 ---------------------
 OpenSY is the original OpenSY client and it builds the backbone of the network. It downloads and, by default, stores the entire history of OpenSY transactions, which requires several hundred gigabytes or more of disk space. Depending on the speed of your computer and network connection, the synchronization process can take anywhere from a few hours to several days or more.
 
-To download OpenSY, visit [opensy.net](https://opensy.net/en/download/).
+To download OpenSY, visit [opensyria.net](https://opensyria.net/en/download/).
 
 Running
 ---------------------
@@ -56,7 +56,7 @@ The OpenSY repo's [root README](/README.md) contains relevant information on the
 - [Developer Notes](developer-notes.md)
 - [Productivity Notes](productivity.md)
 - [Release Process](release-process.md)
-- [Source Code Documentation (External Link)](https://doxygen.opensy.net/)
+- [Source Code Documentation (External Link)](https://doxygen.opensyria.net/)
 - [Translation Process](translation_process.md)
 - [Translation Strings Policy](translation_strings_policy.md)
 - [JSON-RPC Interface](JSON-RPC-interface.md)

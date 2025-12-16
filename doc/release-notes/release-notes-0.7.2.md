@@ -4,7 +4,7 @@ OpenSY version 0.7.2 is now available from:
 This is a bug-fix minor release.
 
 Please report bugs using the issue tracker at github:
-  https://github.com/opensyria/opensy/issues
+  https://github.com/opensyria/OpenSY/issues
 
 How to Upgrade
 --------------

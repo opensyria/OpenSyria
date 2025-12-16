@@ -176,7 +176,7 @@ create_systemd_service() {
     cat > /etc/systemd/system/opensy-seeder.service << EOF
 [Unit]
 Description=OpenSY DNS Seeder
-Documentation=https://opensy.net/
+Documentation=https://opensyria.net/
 After=network-online.target opensyd.service
 Wants=network-online.target
 Requires=opensyd.service

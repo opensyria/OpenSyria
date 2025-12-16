@@ -86,10 +86,10 @@ bool static TestSplitHost(const std::string& test, const std::string& host, uint
 
 BOOST_AUTO_TEST_CASE(netbase_splithost)
 {
-    BOOST_CHECK(TestSplitHost("www.opensy.net", "www.opensy.net", 0));
-    BOOST_CHECK(TestSplitHost("[www.opensy.net]", "www.opensy.net", 0));
-    BOOST_CHECK(TestSplitHost("www.opensy.net:80", "www.opensy.net", 80));
-    BOOST_CHECK(TestSplitHost("[www.opensy.net]:80", "www.opensy.net", 80));
+    BOOST_CHECK(TestSplitHost("www.opensyria.net", "www.opensyria.net", 0));
+    BOOST_CHECK(TestSplitHost("[www.opensyria.net]", "www.opensyria.net", 0));
+    BOOST_CHECK(TestSplitHost("www.opensyria.net:80", "www.opensyria.net", 80));
+    BOOST_CHECK(TestSplitHost("[www.opensyria.net]:80", "www.opensyria.net", 80));
     BOOST_CHECK(TestSplitHost("127.0.0.1", "127.0.0.1", 0));
     BOOST_CHECK(TestSplitHost("127.0.0.1:9633", "127.0.0.1", 9633));
     BOOST_CHECK(TestSplitHost("[127.0.0.1]", "127.0.0.1", 0));
@@ -115,9 +115,9 @@ BOOST_AUTO_TEST_CASE(netbase_splithost)
     BOOST_CHECK(TestSplitHost("127.0.0.1:", "127.0.0.1:", 0, false));
     BOOST_CHECK(TestSplitHost("127.0.0.1:1/2", "127.0.0.1:1/2", 0, false));
     BOOST_CHECK(TestSplitHost("127.0.0.1:1E2", "127.0.0.1:1E2", 0, false));
-    BOOST_CHECK(TestSplitHost("www.opensy.net:65536", "www.opensy.net:65536", 0, false));
-    BOOST_CHECK(TestSplitHost("www.opensy.net:0", "www.opensy.net", 0, false));
-    BOOST_CHECK(TestSplitHost("www.opensy.net:", "www.opensy.net:", 0, false));
+    BOOST_CHECK(TestSplitHost("www.opensyria.net:65536", "www.opensyria.net:65536", 0, false));
+    BOOST_CHECK(TestSplitHost("www.opensyria.net:0", "www.opensyria.net", 0, false));
+    BOOST_CHECK(TestSplitHost("www.opensyria.net:", "www.opensyria.net:", 0, false));
 }
 
 bool static TestParse(std::string src, std::string canon)

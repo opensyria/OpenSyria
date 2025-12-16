@@ -1,17 +1,17 @@
 OpenSY version 29.0 is now available from:
 
-  <https://opensy.net/bin/opensy-core-29.0/>
+  <https://opensyria.net/bin/opensy-core-29.0/>
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensy/issues>
+  <https://github.com/opensyria/OpenSY/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensy.net/en/list/announcements/join/>
+  <https://opensyria.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============
@@ -155,7 +155,7 @@ For more detailed guidance on configuring and using CMake, please refer to the o
 
 ### Tools and Utilities
 
-- A new tool [`utxo_to_sqlite.py`](https://github.com/opensyria/opensy/blob/v29.0/contrib/utxo-tools/utxo_to_sqlite.py)
+- A new tool [`utxo_to_sqlite.py`](https://github.com/opensyria/OpenSY/blob/v29.0/contrib/utxo-tools/utxo_to_sqlite.py)
   converts a compact-serialized UTXO snapshot (as created with the
   `dumptxoutset` RPC) to a SQLite3 database. Refer to the script's `--help`
   output for more details. (#27432)

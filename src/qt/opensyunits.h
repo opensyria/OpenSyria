@@ -37,7 +37,7 @@ public:
     explicit OpenSYUnits(QObject *parent);
 
     /** OpenSY units.
-      @note Source: https://en.opensy.it/wiki/Units . Please add only sensible ones
+      @note Source: https://en.opensyria.it/wiki/Units . Please add only sensible ones
      */
     enum class Unit {
         SYL,

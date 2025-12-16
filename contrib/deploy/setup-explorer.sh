@@ -103,8 +103,8 @@ setup_explorer() {
     cd "$EXPLORER_DIR"
     
     # Prompt for domain
-    read -p "Enter explorer domain (e.g., explore.opensy.net): " EXPLORER_DOMAIN
-    EXPLORER_DOMAIN=${EXPLORER_DOMAIN:-"explore.opensy.net"}
+    read -p "Enter explorer domain (e.g., explore.opensyria.net): " EXPLORER_DOMAIN
+    EXPLORER_DOMAIN=${EXPLORER_DOMAIN:-"explore.opensyria.net"}
     
     # Create docker-compose.yml
     cat > docker-compose.yml << EOF
@@ -240,7 +240,7 @@ setup_ssl() {
     
     if [[ $REPLY =~ ^[Yy]$ ]]; then
         read -p "Enter email for SSL certificate: " SSL_EMAIL
-        SSL_EMAIL=${SSL_EMAIL:-"admin@opensy.net"}
+        SSL_EMAIL=${SSL_EMAIL:-"admin@opensyria.net"}
         
         certbot --nginx -d "${EXPLORER_DOMAIN}" --email "${SSL_EMAIL}" --agree-tos --non-interactive
         

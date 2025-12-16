@@ -3,18 +3,18 @@
 
 OpenSY version 0.20.1 is now available from:
 
-  <https://opensy.net/bin/opensy-core-0.20.1/>
+  <https://opensyria.net/bin/opensy-core-0.20.1/>
 
 This minor release includes various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensy/issues>
+  <https://github.com/opensyria/OpenSY/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensy.net/en/list/announcements/join/>
+  <https://opensyria.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============
@@ -90,7 +90,7 @@ Notification changes
 removed from the mempool because they conflict with a new block. These
 notifications were sent previously before the v0.19 release, but had been
 broken since that release (bug
-[#18325](https://github.com/opensyria/opensy/issues/18325)).
+[#18325](https://github.com/opensyria/OpenSY/issues/18325)).
 
 PSBT changes
 ------------

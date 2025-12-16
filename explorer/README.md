@@ -75,7 +75,7 @@ pm2 startup
 ```nginx
 server {
     listen 80;
-    server_name explorer.opensy.net;
+    server_name explorer.opensyria.net;
     
     location / {
         proxy_pass http://127.0.0.1:3000;
@@ -92,7 +92,7 @@ server {
 
 ```bash
 sudo apt install certbot python3-certbot-nginx
-sudo certbot --nginx -d explorer.opensy.net
+sudo certbot --nginx -d explorer.opensyria.net
 ```
 
 ## API Endpoints

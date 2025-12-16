@@ -14,7 +14,7 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
 
 # Start node
-./build/bin/opensyd -daemon -addnode=node1.opensy.net
+./build/bin/opensyd -daemon -addnode=node1.opensyria.net
 
 # Check status
 ./build/bin/opensy-cli getblockchaininfo
@@ -99,7 +99,7 @@ port=9633
 
 # Connections
 maxconnections=125
-addnode=node1.opensy.net
+addnode=node1.opensyria.net
 
 # RPC (for local access only)
 rpcuser=opensy
@@ -142,7 +142,7 @@ maxconnections=256
 sudo tee /etc/systemd/system/opensyd.service << 'EOF'
 [Unit]
 Description=OpenSY Daemon
-Documentation=https://opensy.net
+Documentation=https://opensyria.net
 After=network-online.target
 Wants=network-online.target
 
@@ -307,10 +307,10 @@ opensyd -printtoconsole
 
 ```bash
 # Manually add a peer
-opensy-cli addnode "node1.opensy.net" "add"
+opensy-cli addnode "node1.opensyria.net" "add"
 
 # Check if port is open
-nc -zv node1.opensy.net 9633
+nc -zv node1.opensyria.net 9633
 ```
 
 ### Sync stuck
@@ -365,7 +365,7 @@ rpcuser=opensy
 rpcpassword=YOUR_TESTNET_PASSWORD
 rpcbind=127.0.0.1
 rpcallowip=127.0.0.1
-addnode=node1.opensy.net:9633
+addnode=node1.opensyria.net:9633
 ```
 
 ### Testnet Ports
@@ -493,7 +493,7 @@ sudo sysctl vm.swappiness=10
 | **Magic Bytes** | 0x53594c4d (SYLM) |
 | **Address Prefix** | F (35) |
 | **Bech32 Prefix** | syl |
-| **DNS Seed** | seed.opensy.net |
+| **DNS Seed** | seed.opensyria.net |
 
 ---
 

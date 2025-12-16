@@ -1,13 +1,13 @@
 OpenSY version 0.9.0 is now available from:
 
-  https://opensy.net/bin/0.9.0/
+  https://opensyria.net/bin/0.9.0/
 
 This is a new major version release, bringing both new features and
 bug fixes.
 
 Please report bugs using the issue tracker at github:
 
-  https://github.com/opensyria/opensy/issues
+  https://github.com/opensyria/OpenSY/issues
 
 How to Upgrade
 --------------

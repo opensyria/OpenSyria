@@ -20,7 +20,7 @@
 
 // Mainnet seeds - Only include actually running nodes!
 static const uint8_t chainparams_seed_main[] = {
-    // node1.opensy.net (AWS Bahrain me-south-1) - 157.175.40.131:9633
+    // node1.opensyria.net (AWS Bahrain me-south-1) - 157.175.40.131:9633
     0x01,                         // BIP155 network ID for IPv4
     0x04,                         // COMPACTSIZE: address length = 4 bytes
     0x9d, 0xaf, 0x28, 0x83,       // 157.175.40.131

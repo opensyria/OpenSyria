@@ -19,7 +19,7 @@
 - [x] Location: `/contrib/seeder/opensy-seeder/`
 - [x] Magic bytes: `0x53594c4d` (SYLM)
 - [x] Port: 9633 (mainnet), 19633 (testnet)
-- [x] Default seed: `seed.opensy.net`
+- [x] Default seed: `seed.opensyria.net`
 - [x] Binary compiled: `dnsseed` (186KB arm64)
 
 ### 3. Deployment Infrastructure (100%)
@@ -31,7 +31,7 @@
 - [x] Comprehensive guide: `/docs/deployment/INFRASTRUCTURE_GUIDE.md`
 
 ### 4. Domain & DNS (100%)
-- [x] Domain acquired: **opensy.net**
+- [x] Domain acquired: **opensyria.net**
 - [x] Registrar: Namecheap
 - [x] DNS: Cloudflare (Active)
 - [x] Nameservers configured
@@ -128,13 +128,13 @@ opensy-cli generatetoaddress 100 <YOUR-ADDRESS>
 ```bash
 # On seeder server:
 cd /contrib/seeder/opensy-seeder
-./dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net -p 5353
+./dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net -p 5353
 ```
 
 ### Step 6: Update chainparams.cpp (After deployment)
 ```cpp
 // In CMainParams constructor:
-vSeeds.emplace_back("seed.opensy.net");
+vSeeds.emplace_back("seed.opensyria.net");
 ```
 
 ---

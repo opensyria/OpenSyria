@@ -1,17 +1,17 @@
 OpenSY version *0.14.3* is now available from:
 
-  <https://opensy.net/bin/opensy-core-0.14.3/>
+  <https://opensyria.net/bin/opensy-core-0.14.3/>
 
 This is a new minor version release, including various bugfixes and
 performance improvements.
 
 Please report bugs using the issue tracker at github:
 
-  <https://github.com/opensyria/opensy/issues>
+  <https://github.com/opensyria/OpenSY/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensy.net/en/list/announcements/join/>
+  <https://opensyria.net/en/list/announcements/join/>
 
 Compatibility
 ==============

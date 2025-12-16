@@ -36,7 +36,7 @@ Test and Verify Tools
 Utilities to generate test vectors for the data-driven OpenSY tests.
 
 ### [Verify-Binaries](/contrib/verify-binaries) ###
-This script attempts to download and verify the signature file SHA256SUMS.asc from opensy.net.
+This script attempts to download and verify the signature file SHA256SUMS.asc from opensyria.net.
 
 Command Line Tools
 ---------------------

@@ -246,7 +246,7 @@ generate_config() {
     cat > "${OPENSY_DATA}/opensy.conf" << EOF
 # =============================================================================
 # OpenSY Node Configuration
-# Node: ${NODE_NAME}.opensy.net
+# Node: ${NODE_NAME}.opensyria.net
 # Generated: $(date -u +"%Y-%m-%d %H:%M:%S UTC")
 # =============================================================================
 
@@ -331,7 +331,7 @@ create_systemd_service() {
     cat > /etc/systemd/system/opensyd.service << EOF
 [Unit]
 Description=OpenSY daemon
-Documentation=https://opensy.net/
+Documentation=https://opensyria.net/
 After=network-online.target
 Wants=network-online.target
 

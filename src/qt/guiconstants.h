@@ -47,7 +47,7 @@ static const int TOOLTIP_WRAP_THRESHOLD = 80;
 #define SPINNER_FRAMES 36
 
 #define QAPP_ORG_NAME "OpenSY"
-#define QAPP_ORG_DOMAIN "opensy.net"
+#define QAPP_ORG_DOMAIN "opensyria.net"
 #define QAPP_APP_NAME_DEFAULT "OpenSY-Qt"
 #define QAPP_APP_NAME_TESTNET "OpenSY-Qt-testnet"
 #define QAPP_APP_NAME_TESTNET4 "OpenSY-Qt-testnet4"

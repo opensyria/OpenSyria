@@ -4176,7 +4176,7 @@ arith_uint256 CalculateClaimedHeadersWork(std::span<const CBlockHeader> headers)
  *
  *  NOTE: failing to check the header's height against the last checkpoint's opened a DoS vector between
  *  v0.12 and v0.15 (when no additional protection was in place) whereby an attacker could unboundedly
- *  grow our in-memory block index. See https://opensy.net/en/2024/07/03/disclose-header-spam.
+ *  grow our in-memory block index. See https://www.opensyria.net/en/2024/07/03/disclose-header-spam.
  */
 static bool ContextualCheckBlockHeader(const CBlockHeader& block, BlockValidationState& state, BlockManager& blockman, const ChainstateManager& chainman, const CBlockIndex* pindexPrev, bool check_pow = true) EXCLUSIVE_LOCKS_REQUIRED(::cs_main)
 {

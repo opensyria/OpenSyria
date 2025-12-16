@@ -109,7 +109,7 @@ git clone https://github.com/opensyria/OpenSY.git
 cd OpenSY && cmake -B build && cmake --build build
 
 # 2. Start node and sync
-./build/bin/opensyd -daemon -addnode=node1.opensy.net
+./build/bin/opensyd -daemon -addnode=node1.opensyria.net
 
 # 3. Wait for sync (check progress)
 ./build/bin/opensy-cli getblockchaininfo

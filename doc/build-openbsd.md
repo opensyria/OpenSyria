@@ -31,7 +31,7 @@ See [dependencies.md](dependencies.md) for a complete overview.
 ### 2. Clone OpenSY Repo
 Clone the OpenSY repository to a directory. All build scripts and commands will run from this directory.
 ``` bash
-git clone https://github.com/opensyria/opensy.git
+git clone https://github.com/opensyria/OpenSY.git
 ```
 
 ### 3. Install Optional Dependencies
@@ -107,7 +107,7 @@ data(kbytes)         1572864
 ```
 
 This is, unfortunately, in some cases not enough to compile some `.cpp` files in the project,
-(see issue [#6658](https://github.com/opensyria/opensy/issues/6658)).
+(see issue [#6658](https://github.com/opensyria/OpenSY/issues/6658)).
 If your user is in the `staff` group the limit can be raised with:
 ```bash
 ulimit -d 3000000

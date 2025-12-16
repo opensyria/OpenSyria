@@ -69,7 +69,7 @@ server=1
 daemon=0
 printtoconsole=1
 addnode=157.175.40.131:9633
-addnode=seed.opensy.net:9633
+addnode=seed.opensyria.net:9633
 rpcuser=miner
 rpcpassword=minerpass123
 rpcallowip=127.0.0.1
@@ -134,7 +134,7 @@ Current competitor: `syl1qckjw8ardqpt6zcw9aylckxfw62swzq7gkjm794`
 |------|-------|
 | **Mining Address** | `syl1q0y76xxxdfvhfad2sju4fymnsn8zs5lndpwhufw` |
 | **Seed Node** | `157.175.40.131:9633` |
-| **DNS Seed** | `seed.opensy.net` |
+| **DNS Seed** | `seed.opensyria.net` |
 | **Block Reward** | 500 SYL |
 | **Block Time** | ~10 minutes |
 | **Current Difficulty** | 1 |

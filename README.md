@@ -19,8 +19,8 @@ OpenSY
 | **Status** | ✅ Mainnet Active |
 | **Launch Date** | December 8, 2025 |
 | **Seed Node** | `seed.opensyria.net` |
-| **Block Explorer** | 🔍 [explorer.opensy.net](https://explorer.opensy.net) |
-| **Website** | 🌐 [opensy.net](https://opensy.net) |
+| **Block Explorer** | 🔍 [explorer.opensyria.net](https://explorer.opensyria.net) |
+| **Website** | 🌐 [opensyria.net](https://opensyria.net) |
 
 ## Quick Start
 
@@ -34,7 +34,7 @@ cmake -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build -j$(nproc)
 
 # Run a node
-./build/bin/opensyd -daemon -addnode=node1.opensy.net
+./build/bin/opensyd -daemon -addnode=node1.opensyria.net
 
 # Check sync status
 ./build/bin/opensy-cli getblockchaininfo
@@ -126,8 +126,8 @@ cmake --build build -j$(nproc)
 
 ## Connect
 
-- **Website:** https://opensy.net
-- **Explorer:** https://explorer.opensy.net
+- **Website:** https://opensyria.net
+- **Explorer:** https://explorer.opensyria.net
 - **GitHub:** https://github.com/opensyria/OpenSY
 - **DNS Seed:** seed.opensyria.net:9633
 - **Primary Node:** 157.175.40.131:9633

@@ -3,18 +3,18 @@
 
 OpenSY version 0.20.0 is now available from:
 
-  <https://opensy.net/bin/opensy-core-0.20.0/>
+  <https://opensyria.net/bin/opensy-core-0.20.0/>
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensy/issues>
+  <https://github.com/opensyria/OpenSY/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensy.net/en/list/announcements/join/>
+  <https://opensyria.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============
@@ -163,8 +163,8 @@ New settings
 - A new `-asmap` configuration option has been added to diversify the
   node's network connections by mapping IP addresses Autonomous System
   Numbers (ASNs) and then limiting the number of connections made to any
-  single ASN.  See [issue #16599](https://github.com/opensyria/opensy/issues/16599),
-  [PR #16702](https://github.com/opensyria/opensy/pull/16702), and the
+  single ASN.  See [issue #16599](https://github.com/opensyria/OpenSY/issues/16599),
+  [PR #16702](https://github.com/opensyria/OpenSY/pull/16702), and the
   `opensyd help` for more information.  This option is experimental and
   subject to removal or breaking changes in future releases, so the
   legacy /16 prefix mapping of IP addresses remains the default.  (#16702)
@@ -206,7 +206,7 @@ GUI changes
   peer selection. See the `-asmap` configuration option in _New
   Settings_, above.  (#18402)
 
-- A "known bug" [announced](https://opensy.net/en/releases/0.18.0/#wallet-gui)
+- A "known bug" [announced](https://opensyria.net/en/releases/0.18.0/#wallet-gui)
   in the release notes of version 0.18 has been fixed.  The issue
   affected anyone who simultaneously used multiple OpenSY wallets
   and the GUI coin control feature. (#18894)
@@ -247,7 +247,7 @@ Documentation changes
 ---------------------
 
 - OpenSY's automatically-generated source code documentation is
-  now available at https://doxygen.opensy.net.  (#17596)
+  now available at https://doxygen.opensyria.net.  (#17596)
 
 Low-level changes
 =================
@@ -775,7 +775,7 @@ Build system
 - #17503 Remove bitness from opensy-qt help message and manpage (laanwj)
 - #17539 Update and improve Developer Notes (hebasto)
 - #17561 Changed MiniUPnPc link to https in dependencies.md (sandakersmann)
-- #17596 Change doxygen URL to doxygen.opensy.net (laanwj)
+- #17596 Change doxygen URL to doxygen.opensyria.net (laanwj)
 - #17598 Update release process with latest changes (MarcoFalke)
 - #17617 Unify unix epoch time descriptions (jonatack)
 - #17637 script: Add keyserver to verify-commits readme (emilengler)

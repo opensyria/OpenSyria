@@ -50,7 +50,7 @@ This will produce the `dnsseed` binary.
 Usage
 -----
 
-Assuming you want to run a DNS seed on `seed.opensy.net`, you will need:
+Assuming you want to run a DNS seed on `seed.opensyria.net`, you will need:
 
 1. A server with a static public IP address
 2. Port 53 (UDP and TCP) open and not used by another service
@@ -61,31 +61,31 @@ Assuming you want to run a DNS seed on `seed.opensy.net`, you will need:
 Add these records to your domain (e.g., in Cloudflare):
 
 ```
-ns1.opensy.net.    IN  A      <your-server-ip>
-seed.opensy.net.   IN  NS     ns1.opensy.net.
+ns1.opensyria.net.    IN  A      <your-server-ip>
+seed.opensyria.net.   IN  NS     ns1.opensyria.net.
 ```
 
 ### Running the Seeder
 
 ```bash
 # Basic usage
-./dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net
+./dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net
 
 # With initial seed nodes
-./dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net \
+./dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net \
     -s 192.168.1.100:9633 -s 192.168.1.101:9633
 
 # For testnet
-./dnsseed -h seed-testnet.opensy.net -n ns1.opensy.net \
-    -m admin@opensy.net --testnet
+./dnsseed -h seed-testnet.opensyria.net -n ns1.opensyria.net \
+    -m admin@opensyria.net --testnet
 ```
 
 ### Command Line Options
 
 ```
 -s <seed>       Seed node to collect peers from
--h <host>       Hostname of the DNS seed (e.g., seed.opensy.net)
--n <ns>         Hostname of the nameserver (e.g., ns1.opensy.net)
+-h <host>       Hostname of the DNS seed (e.g., seed.opensyria.net)
+-n <ns>         Hostname of the nameserver (e.g., ns1.opensyria.net)
 -m <mbox>       E-Mail address reported in SOA records
 -t <threads>    Number of crawlers to run in parallel (default 96)
 -d <threads>    Number of DNS server threads (default 4)
@@ -111,7 +111,7 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=/opt/opensy-seeder
-ExecStart=/opt/opensy-seeder/dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net
+ExecStart=/opt/opensy-seeder/dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net
 Restart=always
 RestartSec=30
 
@@ -142,7 +142,7 @@ After starting the seeder, test with:
 
 ```bash
 # Query your DNS seeder
-dig seed.opensy.net @<your-server-ip>
+dig seed.opensyria.net @<your-server-ip>
 
 # Should return IP addresses of discovered OpenSY nodes
 ```
@@ -167,7 +167,7 @@ echo "nameserver 8.8.8.8" | sudo tee /etc/resolv.conf
 If the seeder finds no nodes, provide initial seeds:
 
 ```bash
-./dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net \
+./dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net \
     -s <known-node-ip>:9633
 ```
 

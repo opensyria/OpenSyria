@@ -3,18 +3,18 @@
 
 OpenSY version 26.0 is now available from:
 
-  <https://opensy.net/bin/opensy-core-26.0/>
+  <https://opensyria.net/bin/opensy-core-26.0/>
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensy/issues>
+  <https://github.com/opensyria/OpenSY/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensy.net/en/list/announcements/join/>
+  <https://opensyria.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============
@@ -103,7 +103,7 @@ New RPCs
   are always checked by hash.
 
   You can find more information on this process in the `assumeutxo` design
-  document (<https://github.com/opensyria/opensy/blob/master/doc/design/assumeutxo.md>).
+  document (<https://github.com/opensyria/OpenSY/blob/master/doc/design/assumeutxo.md>).
 
   `getchainstates` has been added to aid in monitoring the assumeutxo sync process.
 

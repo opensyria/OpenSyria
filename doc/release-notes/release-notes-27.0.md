@@ -1,17 +1,17 @@
 OpenSY version 27.0 is now available from:
 
-  <https://opensy.net/bin/opensy-core-27.0/>
+  <https://opensyria.net/bin/opensy-core-27.0/>
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensy/issues>
+  <https://github.com/opensyria/OpenSY/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensy.net/en/list/announcements/join/>
+  <https://opensyria.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============

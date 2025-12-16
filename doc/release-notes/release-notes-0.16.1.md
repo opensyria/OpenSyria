@@ -1,17 +1,17 @@
 OpenSY version 0.16.1 is now available from:
 
-  <https://opensy.net/bin/opensy-core-0.16.1/>
+  <https://opensyria.net/bin/opensy-core-0.16.1/>
 
 This is a new minor version release, with various bugfixes
 as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensy/issues>
+  <https://github.com/opensyria/OpenSY/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensy.net/en/list/announcements/join/>
+  <https://opensyria.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============

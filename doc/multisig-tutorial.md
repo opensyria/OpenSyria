@@ -2,7 +2,7 @@
 
 Currently, it is possible to create a multisig wallet using OpenSY only.
 
-Although there is already a brief explanation about the multisig in the [Descriptors documentation](https://github.com/opensyria/opensy/blob/master/doc/descriptors.md#multisig), this tutorial proposes to use the signet (instead of regtest), bringing the reader closer to a real environment and explaining some functions in more detail.
+Although there is already a brief explanation about the multisig in the [Descriptors documentation](https://github.com/opensyria/OpenSY/blob/master/doc/descriptors.md#multisig), this tutorial proposes to use the signet (instead of regtest), bringing the reader closer to a real environment and explaining some functions in more detail.
 
 This tutorial uses [jq](https://github.com/stedolan/jq) JSON processor to process the results from RPC and stores the relevant values in bash variables. This makes the tutorial reproducible and easier to follow step by step.
 
@@ -42,7 +42,7 @@ wpkh([1004658e/84'/1'/0']tpubDCBEcmVKbfC9KfdydyLbJ2gfNL88grZu1XcWSW9ytTM6fitvaRm
 The suffix (after #) is the checksum. Descriptors can optionally be suffixed with a checksum to protect against typos or copy-paste errors.
 All RPCs in OpenSY will include the checksum in their output.
 
-Note that previously at least two descriptors were usually used, one for external derivation paths and one for internal ones. Since https://github.com/opensyria/opensy/pull/22838 this redundancy has been eliminated by a multipath descriptor with <code><0;1></code> at the [BIP-44](https://github.com/opensyria/bips/blob/master/bip-0044.mediawiki#change) change level expanding to external and internal descriptors when imported.
+Note that previously at least two descriptors were usually used, one for external derivation paths and one for internal ones. Since https://github.com/opensyria/OpenSY/pull/22838 this redundancy has been eliminated by a multipath descriptor with <code><0;1></code> at the [BIP-44](https://github.com/opensyria/bips/blob/master/bip-0044.mediawiki#change) change level expanding to external and internal descriptors when imported.
 
 ```bash
 declare -A xpubs
@@ -75,7 +75,7 @@ checksum=$(./build/bin/opensy rpc -signet getdescriptorinfo $desc | jq -r '.chec
 multisig_desc="[{\"desc\": \"${desc}#${checksum}\", \"active\": true, \"timestamp\": \"now\"}]"
 ```
 
-`desc` specifies the output type (`wsh`, in this case) and the xpubs involved. It also uses BIP 67 (`sortedmulti`), so the wallet can be recreated without worrying about the order of xpubs. Conceptually, descriptors describe a list of scriptPubKey (along with information for spending from it) [[source](https://github.com/opensyria/opensy/issues/21199#issuecomment-780772418)].
+`desc` specifies the output type (`wsh`, in this case) and the xpubs involved. It also uses BIP 67 (`sortedmulti`), so the wallet can be recreated without worrying about the order of xpubs. Conceptually, descriptors describe a list of scriptPubKey (along with information for spending from it) [[source](https://github.com/opensyria/OpenSY/issues/21199#issuecomment-780772418)].
 
 After creating the descriptor, it is necessary to add the checksum, which is required by the `importdescriptors` RPC.
 

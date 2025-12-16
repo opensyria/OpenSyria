@@ -1,13 +1,13 @@
 OpenSY version 0.9.4 is now available from:
 
-  https://opensy.net/bin/0.9.4/
+  https://opensyria.net/bin/0.9.4/
 
 This is a new minor version release, bringing only bug fixes and updated
 translations. Upgrading to this release is recommended.
 
 Please report bugs using the issue tracker at github:
 
-  https://github.com/opensyria/opensy/issues
+  https://github.com/opensyria/OpenSY/issues
 
 How to Upgrade
 ===============
@@ -25,7 +25,7 @@ various operating system maintainers. Review by Gregory Maxwell determined that
 this update is incompatible with the OpenSY system and could lead to consensus
 forks.
 
-OpenSY released binaries from https://opensy.net are unaffected,
+OpenSY released binaries from https://opensyria.net are unaffected,
 as are any built with the gitian deterministic build system.
 
 However, if you are running either

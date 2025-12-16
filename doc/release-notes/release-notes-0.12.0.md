@@ -1,12 +1,12 @@
 OpenSY version 0.12.0 is now available from:
 
-  <https://opensy.net/bin/opensy-core-0.12.0/>
+  <https://opensyria.net/bin/opensy-core-0.12.0/>
 
 This is a new major version release, bringing new features and other improvements.
 
 Please report bugs using the issue tracker at github:
 
-  <https://github.com/opensyria/opensy/issues>
+  <https://github.com/opensyria/OpenSY/issues>
 
 Upgrading and downgrading
 =========================
@@ -331,7 +331,7 @@ practice. In future releases, a higher value may also help the network
 as a whole: stored blocks could be served to other nodes.
 
 For further information about pruning, you may also consult the [release
-notes of v0.11.0](https://github.com/opensyria/opensy/blob/v0.11.0/doc/release-notes.md#block-file-pruning).
+notes of v0.11.0](https://github.com/opensyria/OpenSY/blob/v0.11.0/doc/release-notes.md#block-file-pruning).
 
 `NODE_BLOOM` service bit
 ------------------------

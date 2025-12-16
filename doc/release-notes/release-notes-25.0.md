@@ -3,18 +3,18 @@
 
 OpenSY version 25.0 is now available from:
 
-  <https://opensy.net/bin/opensy-core-25.0/>
+  <https://opensyria.net/bin/opensy-core-25.0/>
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensy/issues>
+  <https://github.com/opensyria/OpenSY/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensy.net/en/list/announcements/join/>
+  <https://opensyria.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============
@@ -60,7 +60,7 @@ Updated RPCs
 ------------
 
 - All JSON-RPC methods accept a new [named
-  parameter](https://github.com/opensyria/opensy/blob/master/doc/JSON-RPC-interface.md#parameter-passing) called `args` that can
+  parameter](https://github.com/opensyria/OpenSY/blob/master/doc/JSON-RPC-interface.md#parameter-passing) called `args` that can
   contain positional parameter values. This is a convenience to allow some
   parameter values to be passed by name without having to name every value. The
   python test framework and `opensy-cli` tool both take advantage of this, so
@@ -208,7 +208,7 @@ Binary verification
   In this release and moving forward it will verify that the binaries are
   signed by a _threshold of trusted keys_. For more details and
   examples, see:
-  https://github.com/opensyria/opensy/blob/master/contrib/verify-binaries/README.md
+  https://github.com/opensyria/OpenSY/blob/master/contrib/verify-binaries/README.md
   (#27358)
 
 Low-level changes

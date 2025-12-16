@@ -6,18 +6,18 @@ announced or released.
 
 OpenSY version 24.0.1 is now available from:
 
-  <https://opensy.net/bin/opensy-core-24.0.1/>
+  <https://opensyria.net/bin/opensy-core-24.0.1/>
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensy/issues>
+  <https://github.com/opensyria/OpenSY/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensy.net/en/list/announcements/join/>
+  <https://opensyria.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============
@@ -91,7 +91,7 @@ not accept unconfirmed transactions as final, and if they insist on doing so,
 to take the appropriate steps to ensure they have some recourse or plan for
 when their assumptions do not hold.
 
-[OpenSY 0.12.0]: https://opensy.net/en/releases/0.12.0/#opt-in-replace-by-fee-transactions
+[OpenSY 0.12.0]: https://opensyria.net/en/releases/0.12.0/#opt-in-replace-by-fee-transactions
 [bip125]: https://github.com/opensyria/bips/blob/master/bip-0125.mediawiki
 
 Notable changes
@@ -237,7 +237,7 @@ Migrating Legacy Wallets to Descriptor Wallets
 
 An experimental RPC `migratewallet` has been added to migrate Legacy (non-descriptor) wallets to
 Descriptor wallets. More information about the migration process is available in the
-[documentation](https://github.com/opensyria/opensy/blob/master/doc/managing-wallets.md#migrating-legacy-wallets-to-descriptor-wallets).
+[documentation](https://github.com/opensyria/OpenSY/blob/master/doc/managing-wallets.md#migrating-legacy-wallets-to-descriptor-wallets).
 
 GUI changes
 -----------

@@ -1,17 +1,17 @@
 OpenSY version 0.19.0.1 is now available from:
 
-  <https://opensy.net/bin/opensy-core-0.19.0.1/>
+  <https://opensyria.net/bin/opensy-core-0.19.0.1/>
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.
 
 Please report bugs using the issue tracker at GitHub:
 
-  <https://github.com/opensyria/opensy/issues>
+  <https://github.com/opensyria/OpenSY/issues>
 
 To receive security and update notifications, please subscribe to:
 
-  <https://opensy.net/en/list/announcements/join/>
+  <https://opensyria.net/en/list/announcements/join/>
 
 How to Upgrade
 ==============
@@ -50,7 +50,7 @@ Notable changes
 New user documentation
 ----------------------
 
-- [Reduce memory](https://github.com/opensyria/opensy/blob/master/doc/reduce-memory.md)
+- [Reduce memory](https://github.com/opensyria/OpenSY/blob/master/doc/reduce-memory.md)
   suggests configuration tweaks for running OpenSY on systems with
   limited memory. (#16339)
 

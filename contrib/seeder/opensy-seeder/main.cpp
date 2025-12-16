@@ -45,8 +45,8 @@ public:
                               "\n"
                               "Options:\n"
                               "-s <seed>       Seed node to collect peers from (replaces default)\n"
-                              "-h <host>       Hostname of the DNS seed (e.g., seed.opensy.net)\n"
-                              "-n <ns>         Hostname of the nameserver (e.g., ns1.opensy.net)\n"
+                              "-h <host>       Hostname of the DNS seed (e.g., seed.opensyria.net)\n"
+                              "-n <ns>         Hostname of the nameserver (e.g., ns1.opensyria.net)\n"
                               "-m <mbox>       E-Mail address reported in SOA records\n"
                               "-t <threads>    Number of crawlers to run in parallel (default 96)\n"
                               "-d <threads>    Number of DNS server threads (default 4)\n"
@@ -65,7 +65,7 @@ public:
                               "-?, --help      Show this text\n"
                               "\n"
                               "Example:\n"
-                              "  ./dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net\n"
+                              "  ./dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net\n"
                               "\n";
     bool showHelp = false;
 
@@ -468,8 +468,8 @@ extern "C" void* ThreadStats(void*) {
   return nullptr;
 }
 
-static const string mainnet_seeds[] = {"seed.opensy.net", "dnsseed.opensy.net", ""};
-static const string testnet_seeds[] = {"testseed.opensy.net", ""};
+static const string mainnet_seeds[] = {"seed.opensyria.net", "dnsseed.opensyria.net", ""};
+static const string testnet_seeds[] = {"testseed.opensyria.net", ""};
 static const string *seeds = mainnet_seeds;
 static vector<string> vSeeds;
 

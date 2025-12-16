@@ -1,13 +1,13 @@
 OpenSY version 0.10.0 is now available from:
 
-  https://opensy.net/bin/0.10.0/
+  https://opensyria.net/bin/0.10.0/
 
 This is a new major version release, bringing both new features and
 bug fixes.
 
 Please report bugs using the issue tracker at github:
 
-  https://github.com/opensyria/opensy/issues
+  https://github.com/opensyria/OpenSY/issues
 
 Upgrading and downgrading
 =========================
@@ -230,7 +230,7 @@ bindings such as [python-opensylib](https://pypi.python.org/pypi/python-opensyli
 alternative node implementations.
 
 This library is called `libopensyconsensus.so` (or, `.dll` for Windows).
-Its interface is defined in the C header [opensyconsensus.h](https://github.com/opensyria/opensy/blob/0.10/src/script/opensyconsensus.h).
+Its interface is defined in the C header [opensyconsensus.h](https://github.com/opensyria/OpenSY/blob/0.10/src/script/opensyconsensus.h).
 
 In its initial version the API includes two functions:
 

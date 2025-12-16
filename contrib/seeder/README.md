@@ -39,7 +39,7 @@ You need to set up DNS records to delegate `seed.yourdomain.net` to your seeder 
 | NS | seed | ns1.yourdomain.net |
 | A | ns1 | YOUR_SERVER_IP |
 
-Example for opensy.net (in Cloudflare):
+Example for opensyria.net (in Cloudflare):
 - NS record: `seed` → `ns1.opensyria.net`
 - A record: `ns1` → `157.175.40.131`
 

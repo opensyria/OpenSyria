@@ -7,7 +7,7 @@ set -e
 # Configuration
 MINING_ADDRESS="${MINING_ADDRESS:-syl1q0y76xxxdfvhfad2sju4fymnsn8zs5lndpwhufw}"
 SEED_NODE="157.175.40.131:9633"
-DNS_SEED="seed.opensy.net:9633"
+DNS_SEED="seed.opensyria.net:9633"
 
 echo "=========================================="
 echo "  OpenSY GPU Mining Setup"

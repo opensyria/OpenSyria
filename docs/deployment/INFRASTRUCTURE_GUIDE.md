@@ -52,7 +52,7 @@ This guide walks you through deploying production-ready OpenSY blockchain infras
 │  + DNS Seeder │       │               │       │  + Nginx      │
 └───────────────┘       └───────────────┘       └───────────────┘
 
-Domain: opensy.net (Namecheap → Cloudflare DNS)
+Domain: opensyria.net (Namecheap → Cloudflare DNS)
 
 Cost Breakdown (Minimum):
 ├── AWS EC2 t3.small (seed1):     ~$15/month
@@ -74,7 +74,7 @@ Cost Breakdown (Minimum):
 |---------|-----|--------|
 | ✅ AWS | https://aws.amazon.com | Your account ready |
 | ✅ Cloudflare | https://cloudflare.com | Active, DNS configured |
-| ✅ Namecheap | https://namecheap.com | Domain: opensy.net |
+| ✅ Namecheap | https://namecheap.com | Domain: opensyria.net |
 
 ### 2.2 Local Requirements
 
@@ -86,14 +86,14 @@ cat ~/.ssh/id_ed25519.pub  # Copy this for AWS
 
 ### 2.3 Current Status (Updated Dec 8, 2025)
 
-- [x] Domain `opensy.net` registered
+- [x] Domain `opensyria.net` registered
 - [x] Cloudflare DNS active
 - [x] Nameservers configured
 - [x] AWS account created
 - [x] EC2 instance launched (157.175.40.131, Bahrain me-south-1)
 - [x] OpenSY v30.99.0 built and running
 - [x] Genesis chain mined (7,000+ blocks)
-- [x] DNS seeder operational (seed.opensy.net)
+- [x] DNS seeder operational (seed.opensyria.net)
 - [x] External peers connecting! ✅ **NETWORK IS LIVE**
 
 ---
@@ -368,7 +368,7 @@ RPC_PASS=$(openssl rand -hex 32)
 # Create configuration
 cat > ~/.opensy/opensy.conf << EOF
 # OpenSY Seed Node Configuration
-# Server: seed1.opensy.net
+# Server: seed1.opensyria.net
 
 # =============
 # NETWORK
@@ -415,7 +415,7 @@ par=2
 # SEEDS
 # =============
 # Will be populated as more nodes come online
-# seednode=seed2.opensy.net:9633
+# seednode=seed2.opensyria.net:9633
 EOF
 
 # Save credentials for reference
@@ -439,7 +439,7 @@ exit
 sudo tee /etc/systemd/system/opensyd.service << 'EOF'
 [Unit]
 Description=OpenSY Daemon
-Documentation=https://opensy.net/
+Documentation=https://opensyria.net/
 After=network-online.target
 Wants=network-online.target
 
@@ -507,7 +507,7 @@ curl ifconfig.me
 
 ### 7.2 Add DNS Records in Cloudflare
 
-Go to Cloudflare Dashboard → `opensy.net` → **DNS**
+Go to Cloudflare Dashboard → `opensyria.net` → **DNS**
 
 Add these records:
 
@@ -524,16 +524,16 @@ Add these records:
 
 | Type | Name | Content | TTL |
 |------|------|---------|-----|
-| NS | `seed` | `ns1.opensy.net` | Auto |
+| NS | `seed` | `ns1.opensyria.net` | Auto |
 
-This delegates `seed.opensy.net` to your DNS seeder.
+This delegates `seed.opensyria.net` to your DNS seeder.
 
 ### 7.4 Verify DNS
 
 ```bash
 # Test from your local machine
-dig node1.opensy.net
-dig ns1.opensy.net
+dig node1.opensyria.net
+dig ns1.opensyria.net
 
 # Should return your server IP
 ```
@@ -563,7 +563,7 @@ make
 
 ```bash
 # Test run (foreground)
-./dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net -p 5353
+./dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net -p 5353
 
 # Press Ctrl+C to stop after testing
 ```
@@ -585,7 +585,7 @@ Wants=opensyd.service
 Type=simple
 User=root
 WorkingDirectory=/opt/opensy/source/contrib/seeder/opensy-seeder
-ExecStart=/opt/opensy/source/contrib/seeder/opensy-seeder/dnsseed -h seed.opensy.net -n ns1.opensy.net -m admin@opensy.net
+ExecStart=/opt/opensy/source/contrib/seeder/opensy-seeder/dnsseed -h seed.opensyria.net -n ns1.opensyria.net -m admin@opensyria.net
 Restart=always
 RestartSec=30
 
@@ -608,7 +608,7 @@ sudo systemctl status opensy-seeder
 
 ```bash
 # From your local machine
-dig seed.opensy.net
+dig seed.opensyria.net
 
 # Should eventually return node IPs once peers connect
 ```
@@ -671,7 +671,7 @@ sudo apt install -y nginx certbot python3-certbot-nginx
 sudo tee /etc/nginx/sites-available/explorer << 'EOF'
 server {
     listen 80;
-    server_name explorer.opensy.net opensy.net www.opensy.net;
+    server_name explorer.opensyria.net opensyria.net www.opensyria.net;
 
     location / {
         proxy_pass http://127.0.0.1:3002;
@@ -702,7 +702,7 @@ In Cloudflare, add:
 
 ```bash
 # Get SSL certificate
-sudo certbot --nginx -d opensy.net -d www.opensy.net -d explorer.opensy.net
+sudo certbot --nginx -d opensyria.net -d www.opensyria.net -d explorer.opensyria.net
 
 # Auto-renewal is configured automatically
 ```
@@ -764,8 +764,8 @@ chmod +x /opt/opensy/monitor.sh
 1. Launch new EC2 instance in different region (e.g., `eu-central-1`)
 2. Repeat Phase 3-6
 3. Add DNS records:
-   - `node2.opensy.net` → new IP
-   - `seed2.opensy.net` → new IP
+   - `node2.opensyria.net` → new IP
+   - `seed2.opensyria.net` → new IP
 
 ### 11.2 Update chainparams.cpp
 
@@ -773,8 +773,8 @@ After multiple nodes are running:
 
 ```cpp
 // In src/kernel/chainparams.cpp
-vSeeds.emplace_back("seed.opensy.net");
-vSeeds.emplace_back("seed2.opensy.net");
+vSeeds.emplace_back("seed.opensyria.net");
+vSeeds.emplace_back("seed2.opensyria.net");
 
 // Fixed seeds (backup)
 // Run: contrib/seeds/generate-seeds.py
@@ -892,9 +892,9 @@ opensy-cli getbalance
 
 ### URLs (After Deployment)
 
-- **Website:** https://opensy.net
-- **Explorer:** https://explorer.opensy.net
-- **Seed DNS:** seed.opensy.net
+- **Website:** https://opensyria.net
+- **Explorer:** https://explorer.opensyria.net
+- **Seed DNS:** seed.opensyria.net
 
 ---
 

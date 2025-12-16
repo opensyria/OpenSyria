@@ -137,7 +137,7 @@ cat /home/opensy/.opensy/opensy.conf
 sudo ufw status
 
 # Check if port is open
-nc -zv seed.opensy.net 9633
+nc -zv seed.opensyria.net 9633
 
 # Manual peer connection
 opensy-cli addnode <IP>:9633 onetry
@@ -162,6 +162,6 @@ grep rpc /home/opensy/.opensy/opensy.conf
 
 ## Support
 
-- **Documentation**: https://opensy.net/docs
+- **Documentation**: https://opensyria.net/docs
 - **GitHub Issues**: https://github.com/opensyria/OpenSY/issues
-- **Email**: admin@opensy.net
+- **Email**: admin@opensyria.net
