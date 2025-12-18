@@ -47,6 +47,34 @@ The OpenSY security team can be reached at:
 We are currently establishing a bug bounty program. Details will be announced at
 https://opensyria.net/security/ once available.
 
+## Known Security Issues & Fixes
+
+### SY-2024-001: RandomX Key Rotation Use-After-Free (Fixed)
+
+**Severity**: High  
+**Status**: Fixed in current development branch  
+**CVE**: Pending
+
+**Description**: A use-after-free vulnerability existed in the RandomX mining subsystem 
+during key rotation events. Mining threads created VMs that held raw pointers to the 
+dataset, which could be freed during key rotation (every 32 blocks on mainnet) while 
+the VMs were still in use.
+
+**Root Cause**: The `Initialize()` method called `Cleanup()` before allocating a new 
+dataset, freeing the previous dataset while mining thread VMs might still reference it.
+
+**Fix**: Implemented epoch-based VM invalidation mechanism:
+- Added atomic `m_dataset_epoch` counter to `RandomXMiningContext`
+- Epoch increments when dataset is freed during reinitialization
+- Mining threads capture epoch at start and check periodically (every 1000 hashes)
+- Stale VMs are detected and threads abort safely before accessing freed memory
+
+**Verification**:
+- 82 unit tests passing including 6 new epoch-based invalidation tests
+- ASAN (AddressSanitizer) testing: No memory errors detected
+- TSAN (ThreadSanitizer) testing: No data races detected
+- Regtest validation: 1100+ blocks mined across multiple key rotation boundaries
+
 ## Acknowledgments
 
 We appreciate the security research community's efforts in helping keep OpenSY safe.

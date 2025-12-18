@@ -164,6 +164,11 @@ void RandomXMiningContext::Cleanup()
     AssertLockHeld(m_mutex);
 
     if (m_dataset) {
+        // Increment epoch BEFORE freeing dataset to signal all VMs are now stale.
+        // Mining threads checking epoch will see the new value and stop using their VMs.
+        m_dataset_epoch.fetch_add(1, std::memory_order_release);
+        LogPrintf("RandomX Mining: Dataset epoch incremented to %lu, freeing old dataset\n", 
+                  m_dataset_epoch.load(std::memory_order_relaxed));
         randomx_release_dataset(m_dataset);
         m_dataset = nullptr;
     }
@@ -190,57 +195,75 @@ bool RandomXMiningContext::Initialize(const uint256& keyBlockHash, unsigned int 
         return true;
     }
 
-    // Cleanup any existing state
+    // Cleanup any existing state - MUST happen before new allocation to free ~2GB
+    LogPrintf("RandomX Mining: Cleaning up existing state before re-init...\n");
     Cleanup();
 
-    LogPrintf("RandomX Mining: Initializing with %u threads...\n", numThreads);
+    LogPrintf("RandomX Mining: Initializing with %u threads for key %s...\n", 
+              numThreads, keyBlockHash.ToString());
     auto startTime = std::chrono::steady_clock::now();
 
     // Get optimal flags for this CPU
     m_flags = static_cast<randomx_flags_int>(randomx_get_flags());
     // Enable full memory mode for mining (uses ~2GB but much faster)
     m_flags = m_flags | RANDOMX_FLAG_FULL_MEM;
+    LogPrintf("RandomX Mining: Using flags=0x%x\n", m_flags);
 
-    // Allocate cache
+    // Allocate cache (~256MB)
+    LogPrintf("RandomX Mining: Allocating cache...\n");
     m_cache = randomx_alloc_cache(static_cast<randomx_flags>(m_flags));
     if (!m_cache) {
-        LogPrintf("RandomX Mining: Failed to allocate cache\n");
+        LogPrintf("RandomX Mining: FATAL - Failed to allocate cache\n");
         return false;
     }
+    LogPrintf("RandomX Mining: Cache allocated, initializing with key...\n");
 
     // Initialize cache with key
     randomx_init_cache(m_cache, keyBlockHash.begin(), keyBlockHash.size());
+    LogPrintf("RandomX Mining: Cache initialized\n");
 
     // Allocate dataset (~2GB)
+    LogPrintf("RandomX Mining: Allocating dataset (~2GB)...\n");
     m_dataset = randomx_alloc_dataset(static_cast<randomx_flags>(m_flags));
     if (!m_dataset) {
-        LogPrintf("RandomX Mining: Failed to allocate dataset (need ~2GB RAM)\n");
+        LogPrintf("RandomX Mining: FATAL - Failed to allocate dataset (need ~2GB RAM)\n");
         randomx_release_cache(m_cache);
         m_cache = nullptr;
         return false;
     }
 
     // Initialize dataset using multiple threads
+    // Limit dataset init threads to reduce peak memory from thread stacks
+    unsigned int initThreads_count = std::min(numThreads, 4u);
     unsigned long datasetItemCount = randomx_dataset_item_count();
-    if (numThreads > 1) {
+    LogPrintf("RandomX Mining: Dataset allocated, filling with %u init threads (%lu items)...\n", 
+              initThreads_count, datasetItemCount);
+    if (initThreads_count > 1) {
         std::vector<std::thread> initThreads;
-        unsigned long itemsPerThread = datasetItemCount / numThreads;
+        unsigned long itemsPerThread = datasetItemCount / initThreads_count;
         
-        for (unsigned int i = 0; i < numThreads; ++i) {
+        for (unsigned int i = 0; i < initThreads_count; ++i) {
             unsigned long startItem = i * itemsPerThread;
-            unsigned long itemCount = (i == numThreads - 1) 
+            unsigned long itemCount = (i == initThreads_count - 1) 
                 ? (datasetItemCount - startItem) 
                 : itemsPerThread;
             
-            initThreads.emplace_back([this, startItem, itemCount]() {
+            LogPrintf("RandomX Mining: Starting init thread %u for items [%lu, %lu)\n", 
+                      i, startItem, startItem + itemCount);
+            initThreads.emplace_back([this, startItem, itemCount, i]() {
+                LogPrintf("RandomX Mining: Thread %u initializing dataset...\n", i);
                 randomx_init_dataset(m_dataset, m_cache, startItem, itemCount);
+                LogPrintf("RandomX Mining: Thread %u completed\n", i);
             });
         }
         
+        LogPrintf("RandomX Mining: Waiting for %zu init threads to complete...\n", initThreads.size());
         for (auto& t : initThreads) {
             t.join();
         }
+        LogPrintf("RandomX Mining: All init threads completed\n");
     } else {
+        LogPrintf("RandomX Mining: Using single-threaded dataset init\n");
         randomx_init_dataset(m_dataset, m_cache, 0, datasetItemCount);
     }
 

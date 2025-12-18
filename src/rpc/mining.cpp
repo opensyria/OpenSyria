@@ -209,16 +209,24 @@ static bool GenerateBlock(ChainstateManager& chainman, CBlock&& block, uint64_t&
         std::vector<std::thread> threads;
         threads.reserve(numThreads);
         
+        // Capture dataset epoch at mining start - threads will check this to detect stale VMs
+        const uint64_t mining_epoch = g_mining_context->GetDatasetEpoch();
+        
         for (unsigned int t = 0; t < numThreads; ++t) {
             uint32_t start_nonce = t * nonce_range;
             uint32_t end_nonce = (t == numThreads - 1) ? std::numeric_limits<uint32_t>::max() : (t + 1) * nonce_range;
             
             // NO_THREAD_SAFETY_ANALYSIS: Lambda captures mutex by reference, acquires inside
-            threads.emplace_back([&, start_nonce, end_nonce, t]() NO_THREAD_SAFETY_ANALYSIS {
+            threads.emplace_back([&, start_nonce, end_nonce, t, mining_epoch]() NO_THREAD_SAFETY_ANALYSIS {
                 // Create thread-local VM from shared dataset (lock-free after creation)
                 randomx_vm* vm = nullptr;
                 {
                     LOCK(g_mining_context_mutex);
+                    // Verify epoch hasn't changed since we started
+                    if (g_mining_context->GetDatasetEpoch() != mining_epoch) {
+                        LogPrintf("RANDOMX: Thread %u - dataset epoch changed before VM creation, aborting\n", t);
+                        return;
+                    }
                     vm = g_mining_context->CreateVM();
                 }
                 if (!vm) {
@@ -244,10 +252,23 @@ static bool GenerateBlock(ChainstateManager& chainman, CBlock&& block, uint64_t&
                 // CBlockHeader: nVersion(4) + hashPrevBlock(32) + hashMerkleRoot(32) + nTime(4) + nBits(4) + nNonce(4) = 80 bytes
                 size_t nonce_offset = header_data.size() - 4;
                 
+                // Epoch check interval - check every N hashes to balance safety vs performance
+                constexpr uint64_t EPOCH_CHECK_INTERVAL = 1000;
+                
                 while (!found.load(std::memory_order_relaxed) && 
                        thread_block.nNonce < end_nonce && 
                        thread_tries < max_thread_tries && 
                        !chainman.m_interrupt) {
+                    
+                    // SAFETY: Periodically check if dataset epoch changed (key rotation occurred)
+                    // If so, our VM is stale and points to freed memory - must abort immediately
+                    if (thread_tries % EPOCH_CHECK_INTERVAL == 0) {
+                        if (g_mining_context->GetDatasetEpoch() != mining_epoch) {
+                            LogPrintf("RANDOMX: Thread %u detected epoch change at try %lu, aborting safely\n", 
+                                      t, thread_tries);
+                            break;  // Exit loop, VM will be cleaned up below
+                        }
+                    }
                     
                     // Update nonce in serialized data (little-endian)
                     uint32_t nonce = thread_block.nNonce;

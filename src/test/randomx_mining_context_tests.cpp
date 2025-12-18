@@ -409,4 +409,126 @@ BOOST_AUTO_TEST_CASE(vm_outlives_partial_context_use)
     BOOST_CHECK(true);
 }
 
+// =============================================================================
+// EPOCH-BASED VM INVALIDATION TESTS (Security Fix)
+// =============================================================================
+
+BOOST_AUTO_TEST_CASE(epoch_starts_at_zero)
+{
+    // Test: New context has epoch 0
+    RandomXMiningContext ctx;
+    BOOST_CHECK_EQUAL(ctx.GetDatasetEpoch(), 0);
+}
+
+BOOST_AUTO_TEST_CASE(epoch_unchanged_after_first_init)
+{
+    // Test: First initialization doesn't increment epoch (no prior dataset to free)
+    RandomXMiningContext ctx;
+    uint64_t epoch_before = ctx.GetDatasetEpoch();
+    
+    BOOST_REQUIRE(ctx.Initialize(TEST_KEY1, 1));
+    
+    // Epoch should still be 0 after first init (no prior dataset was freed)
+    BOOST_CHECK_EQUAL(ctx.GetDatasetEpoch(), epoch_before);
+}
+
+BOOST_AUTO_TEST_CASE(epoch_increments_on_reinit)
+{
+    // Test: Epoch increments when reinitializing with different key
+    RandomXMiningContext ctx;
+    
+    BOOST_REQUIRE(ctx.Initialize(TEST_KEY1, 1));
+    uint64_t epoch_after_first = ctx.GetDatasetEpoch();
+    
+    // Reinitialize with different key - should increment epoch
+    BOOST_REQUIRE(ctx.Initialize(TEST_KEY2, 1));
+    uint64_t epoch_after_second = ctx.GetDatasetEpoch();
+    
+    BOOST_CHECK_GT(epoch_after_second, epoch_after_first);
+}
+
+BOOST_AUTO_TEST_CASE(epoch_unchanged_same_key)
+{
+    // Test: Epoch unchanged when reinitializing with same key (optimization)
+    RandomXMiningContext ctx;
+    
+    BOOST_REQUIRE(ctx.Initialize(TEST_KEY1, 1));
+    uint64_t epoch1 = ctx.GetDatasetEpoch();
+    
+    // Reinitialize with SAME key - should NOT increment epoch (no-op)
+    BOOST_REQUIRE(ctx.Initialize(TEST_KEY1, 1));
+    uint64_t epoch2 = ctx.GetDatasetEpoch();
+    
+    BOOST_CHECK_EQUAL(epoch1, epoch2);
+}
+
+BOOST_AUTO_TEST_CASE(epoch_detects_stale_vm)
+{
+    // Test: Mining threads can detect stale VMs via epoch check
+    // This simulates the key rotation scenario that caused crashes
+    RandomXMiningContext ctx;
+    
+    BOOST_REQUIRE(ctx.Initialize(TEST_KEY1, 1));
+    
+    // Capture epoch at "mining start"
+    uint64_t mining_epoch = ctx.GetDatasetEpoch();
+    
+    // Create VM (simulating mining thread startup)
+    randomx_vm* vm = ctx.CreateVM();
+    BOOST_REQUIRE(vm != nullptr);
+    
+    // Simulate key rotation occurring during mining
+    BOOST_REQUIRE(ctx.Initialize(TEST_KEY2, 1));
+    
+    // Mining thread should detect epoch mismatch
+    BOOST_CHECK_NE(ctx.GetDatasetEpoch(), mining_epoch);
+    
+    // Cleanup - in real code, thread would abort before this if epoch changed
+    randomx_destroy_vm(vm);
+}
+
+BOOST_AUTO_TEST_CASE(concurrent_epoch_check_safety)
+{
+    // Test: Concurrent epoch checks are safe (lock-free reads)
+    RandomXMiningContext ctx;
+    
+    BOOST_REQUIRE(ctx.Initialize(TEST_KEY1, 1));
+    
+    std::atomic<bool> stop{false};
+    std::atomic<int> epoch_checks{0};
+    std::atomic<int> epoch_changes_detected{0};
+    
+    uint64_t initial_epoch = ctx.GetDatasetEpoch();
+    
+    // Start threads that continuously check epoch
+    std::vector<std::thread> checkers;
+    for (int i = 0; i < 4; ++i) {
+        checkers.emplace_back([&ctx, &stop, &epoch_checks, &epoch_changes_detected, initial_epoch]() {
+            while (!stop.load(std::memory_order_relaxed)) {
+                uint64_t current = ctx.GetDatasetEpoch();
+                epoch_checks.fetch_add(1, std::memory_order_relaxed);
+                if (current != initial_epoch) {
+                    epoch_changes_detected.fetch_add(1, std::memory_order_relaxed);
+                }
+            }
+        });
+    }
+    
+    // Let checkers run briefly
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    
+    // Trigger key rotation
+    ctx.Initialize(TEST_KEY2, 1);
+    
+    // Let checkers detect it
+    std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    
+    stop.store(true, std::memory_order_relaxed);
+    for (auto& t : checkers) t.join();
+    
+    // Should have done many checks and detected the change
+    BOOST_CHECK_GT(epoch_checks.load(), 0);
+    BOOST_CHECK_GT(epoch_changes_detected.load(), 0);
+}
+
 BOOST_AUTO_TEST_SUITE_END()

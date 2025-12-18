@@ -128,6 +128,12 @@ public:
 /**
  * Mining-optimized RandomX context with per-thread VM support.
  * Uses full dataset mode (2GB) for maximum hash rate.
+ *
+ * THREAD SAFETY:
+ * VMs created by CreateVM() hold pointers to the internal dataset.
+ * When Initialize() is called with a new key, the dataset is reallocated,
+ * invalidating any existing VMs. The epoch counter tracks dataset generations
+ * so mining threads can detect when their VM is stale and must be recreated.
  */
 class RandomXMiningContext
 {
@@ -138,6 +144,10 @@ private:
     randomx_flags_int m_flags{0};
     mutable Mutex m_mutex;
     bool m_initialized{false};
+    
+    //! Dataset epoch counter - incremented each time dataset is reallocated.
+    //! Mining threads must check this to detect stale VMs and avoid use-after-free.
+    std::atomic<uint64_t> m_dataset_epoch{0};
 
     void Cleanup() EXCLUSIVE_LOCKS_REQUIRED(m_mutex);
 
@@ -165,6 +175,14 @@ public:
 
     bool IsInitialized() const EXCLUSIVE_LOCKS_REQUIRED(!m_mutex);
     uint256 GetKeyBlockHash() const EXCLUSIVE_LOCKS_REQUIRED(!m_mutex);
+    
+    /**
+     * Get the current dataset epoch.
+     * Mining threads should capture this when creating a VM and periodically
+     * check if it has changed. If it has, the VM is stale and must be destroyed.
+     * This is lock-free for performance in the mining hot path.
+     */
+    uint64_t GetDatasetEpoch() const { return m_dataset_epoch.load(std::memory_order_acquire); }
 };
 
 /**
