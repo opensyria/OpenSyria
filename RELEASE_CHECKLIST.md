@@ -86,3 +86,18 @@ grep -r "rpcpassword=" . --include="*.sh" --include="*.conf" --include="*.js" | 
 
 **Last Updated**: December 18, 2025
 **Version**: 1.0.0 - Ready for Mainnet
+
+## Build Hashes (December 18, 2025)
+
+Platform: macOS ARM64 (Apple Silicon)
+Compiler: Apple clang 17.0.0
+
+| Binary | SHA256 | Size |
+|--------|--------|------|
+| opensyd | `7dd55076fba48421d10167141048ddd3e28956ed28e6a52aa538e9df6e04d70e` | 13M |
+| opensy-cli | `2c1e8e74ad0c8b9be375fdd5d2a10f292e8900fb650fcb4c4b6eb6272e4304e9` | 480K |
+| opensy-tx | `253eee1d1847ad3fb771542f3b8c56e1b856b7470780d0a1e5ed9922bb2bc145` | 2.5M |
+| opensy-util | `b40269e02ef5c72157eeaf2cdfb626050c7e9080a5ae51f8ecef6a9b9742fdd0` | 552K |
+| opensy-wallet | `5dc1a1599e87cad58120c8325d49e2f57ec6b2608ae5c167733de851ad9ca0e7` | 4.0M |
+
+Verify with: `shasum -a 256 build/bin/<binary>`
