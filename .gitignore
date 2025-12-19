@@ -28,3 +28,8 @@ target/
 /ci/scratch/
 .DS_Store
 **/.DS_Store
+
+# Mining logs and state
+mining_v2.log
+mining_state.json
+mining.log
