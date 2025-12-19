@@ -3724,7 +3724,10 @@ Connection to 157.175.40.131 port 9633 [tcp/*] succeeded!
   - mempool_limit.py: PASSED
   - mempool_expiry.py: PASSED
   - feature_fee_estimation.py: PASSED
-- Infrastructure fuzzing (seeder, explorer input validation) - requires custom harnesses
+- ~~Infrastructure fuzzing (seeder, explorer input validation)~~ ✅ COMPLETED (Dec 18, 2025)
+  - Added `src/test/fuzz/randomx_pool.cpp` (3 new fuzz targets)
+  - Added `explorer/test/input_validation.test.js` (26/26 tests passing)
+  - Run: `FUZZ=randomx_pool_stress build_fuzz/bin/fuzz`
 - ASN-aware peer selection validation
 - Reproducible build verification
 
