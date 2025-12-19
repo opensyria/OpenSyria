@@ -25,6 +25,10 @@ echo ""
 
 # Create config
 mkdir -p ${DATA_DIR}
+
+# Generate secure random RPC password
+RPC_PASS=$(openssl rand -hex 32)
+
 cat > ${DATA_DIR}/opensy.conf << EOF
 # OpenSY Miner Config
 server=1
@@ -36,15 +40,21 @@ txindex=0
 addnode=${SEED_NODE}
 connect=${SEED_NODE}
 
-# RPC settings (local only)
+# RPC settings (local only, secure password)
 rpcuser=miner
-rpcpassword=minerpass123
+rpcpassword=${RPC_PASS}
 rpcallowip=127.0.0.1
 
 # Performance
 dbcache=512
 maxconnections=8
 EOF
+
+# Save password for reference
+echo "${RPC_PASS}" > ${DATA_DIR}/rpc_password.txt
+chmod 600 ${DATA_DIR}/rpc_password.txt
+
+echo "RPC Password saved to: ${DATA_DIR}/rpc_password.txt"
 
 echo "[1/4] Starting OpenSY daemon..."
 ${DAEMON} -datadir=${DATA_DIR} -printtoconsole &

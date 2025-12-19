@@ -1,9 +1,22 @@
 #!/bin/bash
 # PASTE THIS ENTIRE SCRIPT INTO YOUR VAST.AI INSTANCE
 # One-liner mining setup for OpenSY
+#
+# ⚠️  IMPORTANT: Change MINING_ADDRESS to your own wallet address!
+#     Generate one with: opensy-cli getnewaddress "" bech32
 
-MINING_ADDRESS="syl1q0y76xxxdfvhfad2sju4fymnsn8zs5lndpwhufw"
+MINING_ADDRESS="${MINING_ADDRESS:-syl1q0y76xxxdfvhfad2sju4fymnsn8zs5lndpwhufw}"
 SEED_NODE="157.175.40.131"
+
+# Warn if using default address
+if [ "$MINING_ADDRESS" = "syl1q0y76xxxdfvhfad2sju4fymnsn8zs5lndpwhufw" ]; then
+    echo ""
+    echo "⚠️  WARNING: Using default mining address!"
+    echo "   Set your own: export MINING_ADDRESS='syl1qYOUR_ADDRESS'"
+    echo "   Continuing in 5 seconds..."
+    echo ""
+    sleep 5
+fi
 
 echo "=== OpenSY Miner Setup ==="
 
@@ -20,6 +33,9 @@ echo "Building OpenSY... (this takes ~10-15 min)"
 cmake -B build -DBUILD_DAEMON=ON -DBUILD_CLI=ON -DBUILD_TESTS=OFF -DBUILD_GUI=OFF -DBUILD_UTIL=OFF
 cmake --build build -j$(nproc)
 
+# Generate secure RPC password
+RPC_PASS=$(openssl rand -hex 32)
+
 # Create config
 mkdir -p /root/.opensy
 cat > /root/.opensy/opensy.conf << EOF
@@ -29,10 +45,15 @@ listen=1
 addnode=${SEED_NODE}:9633
 connect=${SEED_NODE}:9633
 rpcuser=miner
-rpcpassword=minerpass123
+rpcpassword=${RPC_PASS}
 rpcallowip=127.0.0.1
 dbcache=1024
 EOF
+
+# Save password for reference
+echo "${RPC_PASS}" > /root/.opensy/rpc_password.txt
+chmod 600 /root/.opensy/rpc_password.txt
+echo "RPC password saved to: /root/.opensy/rpc_password.txt"
 
 # Start daemon
 echo "Starting OpenSY daemon..."

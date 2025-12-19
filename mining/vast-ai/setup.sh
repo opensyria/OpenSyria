@@ -1,11 +1,47 @@
 #!/bin/bash
 # OpenSY GPU Mining Setup Script for Vast.ai
 # Usage: curl -sSL https://raw.githubusercontent.com/opensy/OpenSY/main/mining/vast-ai/setup.sh | bash
+#
+# ═══════════════════════════════════════════════════════════════════════════
+#  ⚠️  IMPORTANT: SET YOUR OWN MINING ADDRESS!
+# ═══════════════════════════════════════════════════════════════════════════
+#  
+#  Before running this script, set your mining address:
+#
+#    export MINING_ADDRESS="syl1qYOUR_ADDRESS_HERE"
+#    curl -sSL https://raw.githubusercontent.com/opensy/OpenSY/main/mining/vast-ai/setup.sh | bash
+#
+#  Or create a new address using:
+#    ./build/bin/opensy-cli getnewaddress "" bech32
+#
+#  The default address below is for TESTING ONLY - rewards will go elsewhere!
+# ═══════════════════════════════════════════════════════════════════════════
 
 set -e
 
-# Configuration
+# Configuration - OVERRIDE THIS WITH YOUR OWN ADDRESS!
 MINING_ADDRESS="${MINING_ADDRESS:-syl1q0y76xxxdfvhfad2sju4fymnsn8zs5lndpwhufw}"
+
+# Warn if using default address
+if [ "$MINING_ADDRESS" = "syl1q0y76xxxdfvhfad2sju4fymnsn8zs5lndpwhufw" ]; then
+    echo ""
+    echo "═══════════════════════════════════════════════════════════════"
+    echo "  ⚠️  WARNING: Using default mining address!"
+    echo "═══════════════════════════════════════════════════════════════"
+    echo ""
+    echo "  You are mining to the DEFAULT address. Your rewards will NOT"
+    echo "  go to a wallet you control!"
+    echo ""
+    echo "  To use your own address, restart with:"
+    echo ""
+    echo "    export MINING_ADDRESS=\"syl1qYOUR_ADDRESS_HERE\""
+    echo "    # then run this script again"
+    echo ""
+    echo "  Continuing in 10 seconds... (Ctrl+C to cancel)"
+    echo ""
+    sleep 10
+fi
+
 SEED_NODE="157.175.40.131:9633"
 DNS_SEED="seed.opensyria.net:9633"
 
@@ -42,6 +78,9 @@ echo "✓ Build complete"
 # 4. Configure
 echo "[4/6] Configuring..."
 mkdir -p ~/.opensy
+# Generate secure random RPC password
+RPC_PASS=$(openssl rand -hex 32)
+
 cat > ~/.opensy/opensy.conf << EOF
 # OpenSY Mining Configuration
 server=1
@@ -54,13 +93,24 @@ addnode=$SEED_NODE
 addnode=$DNS_SEED
 maxconnections=32
 
-# RPC
+# RPC - Secure configuration
 rpcuser=miner
-rpcpassword=minerpass$(date +%s | sha256sum | head -c 16)
+rpcpassword=$RPC_PASS
 rpcallowip=127.0.0.1
 rpcbind=127.0.0.1
 EOF
+
+# Save password to file for reference
+echo "$RPC_PASS" > ~/.opensy/rpc_password.txt
+chmod 600 ~/.opensy/rpc_password.txt
+
 echo "✓ Configuration created"
+echo ""
+echo "═══════════════════════════════════════════════════════"
+echo "  RPC Password (save this!): $RPC_PASS"
+echo "  Also saved to: ~/.opensy/rpc_password.txt"
+echo "═══════════════════════════════════════════════════════"
+echo ""
 
 # 5. Start daemon
 echo "[5/6] Starting daemon..."
