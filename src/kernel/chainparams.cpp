@@ -126,14 +126,12 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].period = 2016;
 
         // Minimum chain work - protects against low-hashrate sybil attacks
-        // RESET FOR RE-GENESIS: Start fresh with no minimum chain work requirement
-        // TODO [POST-GENESIS]: Update this as chain grows (after ~1000 blocks)
-        //       Use: opensy-cli getblockchaininfo | grep chainwork
-        consensus.nMinimumChainWork = uint256{};  // Empty = accept genesis
+        // Updated at block 3000 (Dec 18, 2025) - requires ~2000 blocks of work
+        // This prevents attackers from creating fake chains with less total work
+        consensus.nMinimumChainWork = uint256{"0000000000000000000000000000000000000000000000000000000008d008d0"};  // Block ~2000
         // AssumeValid - enables faster sync by skipping signature validation for known-good blocks
-        // RESET FOR RE-GENESIS: Disabled until chain is established
-        // TODO [POST-GENESIS]: Update this to a recent, well-verified block hash
-        consensus.defaultAssumeValid = uint256{};  // Empty = verify all signatures
+        // Updated at block 3000 (Dec 18, 2025) - block 2500 verified by mainnet operation
+        consensus.defaultAssumeValid = uint256{"d0cbc2d421d6f0ed2f33ede7c26d79a67bef1d50c3205af2f378a4767b091f0f"};  // Block 2500
 
         // RandomX from block 1 - fair launch with CPU-friendly mining
         // Genesis (block 0) uses SHA256 for bootstrap, all subsequent blocks use RandomX
