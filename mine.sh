@@ -1020,10 +1020,23 @@ setup_wallet() {
 }
 
 get_balance() {
+    # Get total balance including immature mining rewards
+    local result
     if [ -n "$WALLET_NAME" ]; then
-        cli_call -rpcwallet="$WALLET_NAME" getbalance 2>/dev/null || echo "N/A"
+        result=$(cli_call -rpcwallet="$WALLET_NAME" getbalances 2>/dev/null)
     else
-        cli_call getbalance 2>/dev/null || echo "N/A"
+        result=$(cli_call getbalances 2>/dev/null)
+    fi
+    
+    if [ -n "$result" ]; then
+        # Sum trusted + immature (mining rewards waiting for 100 confirmations)
+        local trusted=$(echo "$result" | grep -o '"trusted": *[0-9.]*' | grep -o '[0-9.]*' | head -1)
+        local immature=$(echo "$result" | grep -o '"immature": *[0-9.]*' | grep -o '[0-9.]*' | head -1)
+        trusted=${trusted:-0}
+        immature=${immature:-0}
+        echo "$trusted + $immature" | bc 2>/dev/null || echo "$trusted"
+    else
+        echo "N/A"
     fi
 }
 
