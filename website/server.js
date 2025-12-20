@@ -1,8 +1,32 @@
 const express = require('express');
 const path = require('path');
+const helmet = require('helmet');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
+
+// W-01 Security Fix: Add security headers via helmet
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "'unsafe-inline'"],  // Allow inline scripts for EJS templates
+            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+            fontSrc: ["'self'", "https://fonts.gstatic.com"],
+            imgSrc: ["'self'", "data:", "https:"],
+            connectSrc: ["'self'"],
+            frameSrc: ["'none'"],
+            objectSrc: ["'none'"],
+            upgradeInsecureRequests: []
+        }
+    },
+    crossOriginEmbedderPolicy: false,  // Allow embedding external fonts
+    hsts: {
+        maxAge: 31536000,  // 1 year
+        includeSubDomains: true,
+        preload: true
+    }
+}));
 
 // PA-03 Security Fix: Static files with cache headers for performance
 app.use(express.static(path.join(__dirname, 'public'), {

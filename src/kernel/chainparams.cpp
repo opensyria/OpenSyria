@@ -126,12 +126,14 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].period = 2016;
 
         // Minimum chain work - protects against low-hashrate sybil attacks
-        // Updated at block 3000 (Dec 18, 2025) - requires ~2000 blocks of work
+        // Updated at block 10083 (Dec 20, 2025) - requires ~10000 blocks of work
         // This prevents attackers from creating fake chains with less total work
-        consensus.nMinimumChainWork = uint256{"0000000000000000000000000000000000000000000000000000000008d008d0"};  // Block ~2000
+        // Attackers would need to redo all PoW from genesis to create an alternate chain
+        consensus.nMinimumChainWork = uint256{"0000000000000000000000000000000000000000000000000000000028102810"};  // Block 10000
         // AssumeValid - enables faster sync by skipping signature validation for known-good blocks
-        // Updated at block 3000 (Dec 18, 2025) - block 2500 verified by mainnet operation
-        consensus.defaultAssumeValid = uint256{"d0cbc2d421d6f0ed2f33ede7c26d79a67bef1d50c3205af2f378a4767b091f0f"};  // Block 2500
+        // Updated at block 10083 (Dec 20, 2025) - block 10000 verified by mainnet operation
+        // Nodes will skip script validation for blocks up to this point (significant sync speedup)
+        consensus.defaultAssumeValid = uint256{"d1f5665be3354945d995816b8dbf5d9105cad6af1bb2b443fe4c07c72bc5ef22"};  // Block 10000
 
         // RandomX from block 1 - fair launch with CPU-friendly mining
         // Genesis (block 0) uses SHA256 for bootstrap, all subsequent blocks use RandomX
@@ -211,20 +213,25 @@ public:
         fDefaultConsistencyChecks = false;
         m_is_mockable_chain = false;
 
-        // AssumeUTXO data - empty for new chain, will be populated as chain grows
-        // TODO [MAINTENANCE]: Generate AssumeUTXO snapshots at milestone heights (e.g., 100000, 500000)
-        // This enables fast sync for new nodes. Use: opensy-cli dumptxoutset <path>
-        m_assumeutxo_data = {};
+        // AssumeUTXO data - enables instant sync by loading a verified UTXO snapshot
+        // Generate with: opensy-cli dumptxoutset /path/to/utxo-10000.dat rollback '{"rollback": 10000}'
+        // Updated at block 10083 (Dec 20, 2025) - hash verified via dumptxoutset
+        m_assumeutxo_data = {
+            {
+                .height = 10000,
+                .hash_serialized = AssumeutxoHash{uint256{"83fd9a7607e167d17a17b904dfa8f447be9829ecd5dc46972d8455f14284608f"}},
+                .m_chain_tx_count = 10001,
+                .blockhash = uint256{"d1f5665be3354945d995816b8dbf5d9105cad6af1bb2b443fe4c07c72bc5ef22"},
+            },
+        };
 
-
-        // Chain transaction data - initialized for genesis, will be updated as chain grows
-        // TODO [MAINTENANCE]: Update chainTxData periodically with actual chain statistics
-        // Use: opensy-cli getchaintxstats to get current values
-        // This improves sync time estimation for new nodes
+        // Chain transaction data - for sync time estimation
+        // Updated at block 10083 (Dec 20, 2025) with current mainnet statistics
+        // Use: opensy-cli getchaintxstats to get updated values
         chainTxData = ChainTxData{
-            .nTime    = 1733631480, // Genesis timestamp - Dec 8, 2024 06:18 Syria (04:18 UTC)
-            .tx_count = 1,
-            .dTxRate  = 0.001, // Initial low rate for new chain
+            .nTime    = 1766227106, // Block 10000 timestamp
+            .tx_count = 10001,      // Transactions through block 10000
+            .dTxRate  = 0.038,      // ~0.038 tx/sec (mostly coinbase during bootstrap)
         };
 
 

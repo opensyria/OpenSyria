@@ -40,8 +40,8 @@ public:
 
   // PA-04 Security Fix: Default minheight to filter stale/forked nodes
   // Set to a recent block height to ensure only up-to-date nodes are served
-  // Update this value periodically as the chain grows
-  CDnsSeedOpts() : nThreads(96), nDnsThreads(4), ip_addr("::"), nPort(53), nP2Port(0), nMinimumHeight(2500), mbox(NULL), ns(NULL), host(NULL), tor(NULL), fUseTestNet(false), fWipeBan(false), fWipeIgnore(false), fVerbose(false), ipv4_proxy(NULL), ipv6_proxy(NULL), magic(NULL) {}
+  // Updated at block 10083 (Dec 20, 2025) - set to 9500 to allow some tolerance
+  CDnsSeedOpts() : nThreads(96), nDnsThreads(4), ip_addr("::"), nPort(53), nP2Port(0), nMinimumHeight(9500), mbox(NULL), ns(NULL), host(NULL), tor(NULL), fUseTestNet(false), fWipeBan(false), fWipeIgnore(false), fVerbose(false), ipv4_proxy(NULL), ipv6_proxy(NULL), magic(NULL) {}
 
   void ParseCommandLine(int argc, char **argv) {
     static const char *help = "OpenSY-seeder - DNS seed server for OpenSY network\n"
