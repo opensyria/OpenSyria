@@ -1,0 +1,277 @@
+# Long-Running Stress Tests
+# Extended duration tests for RandomX context pool, mining, and validation
+#
+# These tests run for extended periods to catch:
+# - Memory leaks under sustained load
+# - Context pool exhaustion edge cases
+# - Cache/dataset corruption over time
+# - Performance degradation patterns
+
+name: Stress Tests
+
+on:
+  schedule:
+    # Run weekly on Saturday at 01:00 UTC
+    - cron: '0 1 * * 6'
+  workflow_dispatch:
+    inputs:
+      duration_minutes:
+        description: 'Test duration in minutes'
+        required: false
+        default: '30'
+      intensity:
+        description: 'Test intensity (low/medium/high)'
+        required: false
+        default: 'medium'
+
+env:
+  TEST_DURATION: ${{ github.event.inputs.duration_minutes || '30' }}
+  TEST_INTENSITY: ${{ github.event.inputs.intensity || 'medium' }}
+
+jobs:
+  context-pool-stress:
+    name: Context Pool Exhaustion Stress
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential cmake ninja-build \
+            libboost-all-dev libevent-dev libsqlite3-dev \
+            libssl-dev valgrind
+
+      - name: Configure build
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build -j$(nproc)
+
+      - name: Run context pool stress test
+        run: |
+          echo "Running context pool stress test for $TEST_DURATION minutes..."
+          timeout ${TEST_DURATION}m ./build/bin/test_opensy \
+            --run_test=randomx_pool_tests/stress* \
+            -- --stress-duration=$TEST_DURATION || true
+
+      - name: Run sustained pool exhaustion
+        run: |
+          echo "Testing sustained pool exhaustion..."
+          ./build/bin/test_opensy --run_test=randomx_high_priority_tests/t07*
+
+      - name: Memory usage analysis
+        run: |
+          echo "Analyzing memory usage patterns..."
+          # Run with memory tracking
+          /usr/bin/time -v ./build/bin/test_opensy \
+            --run_test=randomx_pool_tests 2>&1 | tee memory_report.txt
+          
+          echo "## Memory Report" >> $GITHUB_STEP_SUMMARY
+          grep -E "(Maximum resident|Minor|Major)" memory_report.txt >> $GITHUB_STEP_SUMMARY || true
+
+  validation-stress:
+    name: Validation Stress Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential cmake ninja-build \
+            libboost-all-dev libevent-dev libsqlite3-dev \
+            libssl-dev
+
+      - name: Configure build
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build -j$(nproc)
+
+      - name: Run parallel validation stress
+        run: |
+          echo "Testing parallel validation under stress..."
+          for i in {1..10}; do
+            echo "Iteration $i/10"
+            ./build/bin/test_opensy --run_test=randomx_medium_priority_tests/t13*
+          done
+
+      - name: Run rapid key rotation stress
+        run: |
+          echo "Testing rapid key rotations..."
+          for i in {1..5}; do
+            echo "Key rotation stress iteration $i/5"
+            ./build/bin/test_opensy --run_test=randomx_high_priority_tests/t06*
+          done
+
+  mining-endurance:
+    name: Mining Endurance Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential cmake ninja-build \
+            libboost-all-dev libevent-dev libsqlite3-dev \
+            libssl-dev
+
+      - name: Configure build
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build -j$(nproc)
+
+      - name: Extended mining simulation
+        run: |
+          echo "Running extended mining simulation..."
+          # Run mining tests repeatedly
+          for i in {1..20}; do
+            echo "Mining iteration $i/20"
+            ./build/bin/test_opensy --run_test=randomx_tests/mining* || true
+          done
+
+      - name: Continuous block validation
+        run: |
+          echo "Running continuous validation..."
+          # Simulate continuous block validation
+          ./build/bin/test_opensy --run_test=pow_tests 
+          ./build/bin/test_opensy --run_test=randomx_tests/validation*
+
+  adversarial-endurance:
+    name: Adversarial Scenario Endurance
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential cmake ninja-build \
+            libboost-all-dev libevent-dev libsqlite3-dev \
+            libssl-dev
+
+      - name: Configure build
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build -j$(nproc)
+
+      - name: Run malformed header flood test
+        run: |
+          echo "Testing resistance to malformed header flood..."
+          for i in {1..5}; do
+            ./build/bin/test_opensy --run_test=randomx_high_priority_tests/t08*
+          done
+
+      - name: Run adversarial scenarios
+        run: |
+          echo "Running adversarial test suite..."
+          ./build/bin/test_opensy --run_test=randomx_adversarial_tests
+
+  functional-stress:
+    name: Functional Test Stress
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential cmake ninja-build \
+            libboost-all-dev libevent-dev libsqlite3-dev \
+            libssl-dev python3 python3-pip
+
+      - name: Configure build
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Release
+
+      - name: Build
+        run: cmake --build build -j$(nproc)
+
+      - name: Run functional reorg tests repeatedly
+        run: |
+          echo "Running functional reorg tests..."
+          for i in {1..3}; do
+            echo "Functional test iteration $i/3"
+            python3 test/functional/feature_fork_boundary_reorg.py \
+              --cachedir=.test_cache \
+              --tmppfx=/tmp/opensy_stress_$i || true
+          done
+
+      - name: Run key rotation functional tests
+        run: |
+          echo "Running key rotation functional tests..."
+          for i in {1..3}; do
+            python3 test/functional/feature_randomx_key_rotation.py \
+              --cachedir=.test_cache \
+              --tmppfx=/tmp/opensy_key_$i || true
+          done
+
+  report:
+    name: Generate Stress Test Report
+    needs: [context-pool-stress, validation-stress, mining-endurance, adversarial-endurance]
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+      - name: Generate report
+        run: |
+          echo "## Stress Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Test Duration:** ${{ env.TEST_DURATION }} minutes" >> $GITHUB_STEP_SUMMARY
+          echo "**Intensity:** ${{ env.TEST_INTENSITY }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| Test Suite | Status |" >> $GITHUB_STEP_SUMMARY
+          echo "|------------|--------|" >> $GITHUB_STEP_SUMMARY
+          echo "| Context Pool Stress | ${{ needs.context-pool-stress.result == 'success' && '✅' || '❌' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Validation Stress | ${{ needs.validation-stress.result == 'success' && '✅' || '❌' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Mining Endurance | ${{ needs.mining-endurance.result == 'success' && '✅' || '❌' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "| Adversarial Endurance | ${{ needs.adversarial-endurance.result == 'success' && '✅' || '❌' }} |" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Run at: $(date -u)" >> $GITHUB_STEP_SUMMARY

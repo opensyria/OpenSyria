@@ -85,6 +85,10 @@ add_executable(test_opensy
   randomx_fork_transition_tests.cpp
   randomx_mining_context_tests.cpp
   randomx_pool_tests.cpp
+  randomx_reorg_tests.cpp
+  randomx_high_priority_tests.cpp
+  randomx_medium_priority_tests.cpp
+  randomx_adversarial_tests.cpp
   rbf_tests.cpp
   rest_tests.cpp
   result_tests.cpp

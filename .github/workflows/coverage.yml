@@ -1,0 +1,207 @@
+# Code Coverage Tracking
+# Generates coverage reports for RandomX and core consensus code
+# Uploads to Codecov for tracking coverage trends over time
+
+name: Code Coverage
+
+on:
+  push:
+    branches: [ master, main, develop ]
+  pull_request:
+    branches: [ master, main, develop ]
+  schedule:
+    # Run weekly on Sunday at 03:00 UTC
+    - cron: '0 3 * * 0'
+  workflow_dispatch:
+
+jobs:
+  coverage:
+    name: Generate Coverage Report
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential cmake ninja-build \
+            libboost-all-dev libevent-dev libsqlite3-dev \
+            libssl-dev lcov
+
+      - name: Configure with coverage
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_C_FLAGS="--coverage -fprofile-arcs -ftest-coverage" \
+            -DCMAKE_CXX_FLAGS="--coverage -fprofile-arcs -ftest-coverage" \
+            -DCMAKE_EXE_LINKER_FLAGS="--coverage" \
+            -DBUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build -j$(nproc)
+
+      - name: Run unit tests
+        run: |
+          cd build
+          # Run all RandomX-related tests
+          ./bin/test_opensy --run_test=randomx_* --log_level=warning
+          ./bin/test_opensy --run_test=pow_tests --log_level=warning
+          ./bin/test_opensy --run_test=audit_enhancement_tests --log_level=warning
+
+      - name: Capture coverage data
+        run: |
+          cd build
+          # Capture coverage info
+          lcov --capture \
+            --directory . \
+            --output-file coverage.info \
+            --ignore-errors mismatch
+          
+          # Filter out system and test code
+          lcov --remove coverage.info \
+            '/usr/*' \
+            '*/test/*' \
+            '*/build/_deps/*' \
+            '*/randomx-src/*' \
+            --output-file coverage.filtered.info \
+            --ignore-errors unused
+          
+          # Generate HTML report
+          genhtml coverage.filtered.info \
+            --output-directory coverage-report \
+            --title "OpenSY Coverage Report" \
+            --legend \
+            --show-details
+
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          file: build/coverage.filtered.info
+          flags: unittests
+          name: opensy-coverage
+          fail_ci_if_error: false
+          verbose: true
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Upload HTML coverage report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: build/coverage-report/
+          retention-days: 30
+
+      - name: Coverage summary
+        run: |
+          echo "## Coverage Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          # Extract summary from lcov
+          cd build
+          lcov --summary coverage.filtered.info 2>&1 | tee -a $GITHUB_STEP_SUMMARY
+          
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "📊 Full HTML report available in artifacts" >> $GITHUB_STEP_SUMMARY
+
+  coverage-randomx-focus:
+    name: RandomX-Focused Coverage
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            build-essential cmake ninja-build \
+            libboost-all-dev libevent-dev libsqlite3-dev \
+            libssl-dev lcov
+
+      - name: Configure with coverage
+        run: |
+          cmake -B build -G Ninja \
+            -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_C_FLAGS="--coverage -fprofile-arcs -ftest-coverage" \
+            -DCMAKE_CXX_FLAGS="--coverage -fprofile-arcs -ftest-coverage" \
+            -DCMAKE_EXE_LINKER_FLAGS="--coverage" \
+            -DBUILD_TESTS=ON
+
+      - name: Build
+        run: cmake --build build -j$(nproc)
+
+      - name: Run RandomX test suites
+        run: |
+          cd build
+          echo "=== Running all RandomX test suites ==="
+          ./bin/test_opensy --run_test=randomx_tests --log_level=warning
+          ./bin/test_opensy --run_test=randomx_pool_tests --log_level=warning
+          ./bin/test_opensy --run_test=randomx_fork_transition_tests --log_level=warning
+          ./bin/test_opensy --run_test=randomx_mining_context_tests --log_level=warning
+          ./bin/test_opensy --run_test=randomx_reorg_tests --log_level=warning
+          ./bin/test_opensy --run_test=randomx_high_priority_tests --log_level=warning
+          ./bin/test_opensy --run_test=randomx_medium_priority_tests --log_level=warning
+          ./bin/test_opensy --run_test=randomx_adversarial_tests --log_level=warning
+
+      - name: Generate RandomX-focused coverage
+        run: |
+          cd build
+          
+          # Capture coverage
+          lcov --capture \
+            --directory . \
+            --output-file randomx-coverage.info \
+            --ignore-errors mismatch
+          
+          # Filter to only RandomX-related files
+          lcov --extract randomx-coverage.info \
+            '*/src/pow.*' \
+            '*/src/crypto/randomx_*' \
+            '*/src/miner.*' \
+            '*/src/validation.*' \
+            '*/src/consensus/*' \
+            --output-file randomx-only.info \
+            --ignore-errors unused || true
+          
+          # Generate HTML report
+          if [ -s randomx-only.info ]; then
+            genhtml randomx-only.info \
+              --output-directory randomx-coverage-report \
+              --title "RandomX Coverage Report" \
+              --legend \
+              --show-details
+          fi
+
+      - name: RandomX coverage analysis
+        run: |
+          echo "## RandomX Coverage Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### Key Files Coverage" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "| File | Lines | Functions |" >> $GITHUB_STEP_SUMMARY
+          echo "|------|-------|-----------|" >> $GITHUB_STEP_SUMMARY
+          
+          cd build
+          if [ -f randomx-only.info ]; then
+            lcov --summary randomx-only.info 2>&1 | grep -E "lines|functions" >> $GITHUB_STEP_SUMMARY || echo "| Summary | See artifacts | |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "| No RandomX-specific coverage data | - | - |" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload RandomX coverage
+        uses: actions/upload-artifact@v4
+        with:
+          name: randomx-coverage-report
+          path: build/randomx-coverage-report/
+          retention-days: 30
+          if-no-files-found: ignore
