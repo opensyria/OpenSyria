@@ -1034,7 +1034,8 @@ get_balance() {
         local immature=$(echo "$result" | grep -o '"immature": *[0-9.]*' | grep -o '[0-9.]*' | head -1)
         trusted=${trusted:-0}
         immature=${immature:-0}
-        echo "$trusted + $immature" | bc 2>/dev/null || echo "$trusted"
+        # Use awk instead of bc (bc may not be installed)
+        awk "BEGIN {printf \"%.8f\", $trusted + $immature}" 2>/dev/null || echo "$trusted"
     else
         echo "N/A"
     fi
