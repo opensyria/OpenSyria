@@ -71,7 +71,7 @@ LOG_TO_FILE=true
 VERBOSE=true
 
 # Script version
-VERSION="2.4.0"
+VERSION="2.4.1"
 
 # Block economics
 BLOCK_REWARD=10000              # SYL per block (before halvings) - 10,000 initial
@@ -1105,9 +1105,39 @@ CELEBRATION_MESSAGES=(
     "🎯 BULLSEYE! Block mined - %s SYL reward!"
 )
 
-# Format number with commas (10000 -> 10,000)
+# Format number with commas (10000 -> 10,000) - works on both GNU and BSD
 format_number() {
-    echo "$1" | sed ':a;s/\B[0-9]\{3\}\>$/,&/;ta'
+    local num="$1"
+    # Remove any decimals first
+    num="${num%%.*}"
+    # Use printf with locale if available, otherwise manual formatting
+    if printf "%'d" "$num" 2>/dev/null; then
+        return
+    fi
+    # Manual comma insertion (works on all systems)
+    echo "$num" | awk '{
+        n = $1
+        if (n < 0) { sign = "-"; n = -n } else { sign = "" }
+        s = sprintf("%d", n)
+        len = length(s)
+        result = ""
+        for (i = 1; i <= len; i++) {
+            if (i > 1 && (len - i + 1) % 3 == 0) result = result ","
+            result = result substr(s, i, 1)
+        }
+        print sign result
+    }'
+}
+
+# Format balance (remove trailing zeros from decimals)
+format_balance() {
+    local bal="$1"
+    # If it has decimals, clean them up
+    if [[ "$bal" == *"."* ]]; then
+        # Remove trailing zeros and possibly the decimal point
+        bal=$(echo "$bal" | sed 's/\.00000000$//' | sed 's/\.\([0-9]*[1-9]\)0*$/.\1/')
+    fi
+    format_number "$bal"
 }
 
 celebrate_block() {
@@ -1116,6 +1146,7 @@ celebrate_block() {
     local balance=$(get_balance)
     local reward_fmt=$(format_number $reward)
     local earnings_fmt=$(format_number $SESSION_EARNINGS)
+    local balance_fmt=$(format_balance "$balance")
     
     # Pick a random celebration message
     local msg_count=${#CELEBRATION_MESSAGES[@]}
@@ -1144,7 +1175,7 @@ celebrate_block() {
     log SUCCESS "📊 Session Stats:"
     log SUCCESS "   Blocks Mined: $BLOCKS_MINED"
     log SUCCESS "   SYL Earned:   $earnings_fmt SYL"
-    log SUCCESS "   💰 Balance:   $balance SYL"
+    log SUCCESS "   💰 Balance:   $balance_fmt SYL"
     echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
     echo ""
 }
@@ -1206,8 +1237,10 @@ mining_loop() {
         local elapsed_str=$(elapsed_time $elapsed)
         local current_height=$(get_block_count)
         local connections=$(get_connection_count)
-        printf "\r\033[K⛏️  Mining... %s | Height: %d | Mined: %d | Earned: %d SYL | Peers: %d | Time: %s " \
-            "${spinner_chars[$spinner_idx]}" "$current_height" "$BLOCKS_MINED" "$SESSION_EARNINGS" "$connections" "$elapsed_str"
+        local height_fmt=$(format_number "$current_height")
+        local earned_fmt=$(format_number "$SESSION_EARNINGS")
+        printf "\r\033[K⛏️  Mining... %s | Height: %s | Mined: %d | Earned: %s SYL | Peers: %d | Time: %s " \
+            "${spinner_chars[$spinner_idx]}" "$height_fmt" "$BLOCKS_MINED" "$earned_fmt" "$connections" "$elapsed_str"
         
         # Attempt to mine
         local error_output
