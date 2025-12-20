@@ -1,28 +1,34 @@
 #!/bin/bash
 #═══════════════════════════════════════════════════════════════════════════════
-#  OpenSY Universal Mining Script v2.0
+#  OpenSY Universal Mining Script v2.3 - ULTIMATE EDITION
 #═══════════════════════════════════════════════════════════════════════════════
 #
-#  The ONLY script you need to mine OpenSY on ANY machine.
-#  
+#  🇸🇾 Syria's First Cryptocurrency - Mine it anywhere!
+#
 #  This script handles EVERYTHING automatically:
-#  ✅ Installs dependencies if missing (brew/apt)
-#  ✅ Clones & builds OpenSY if not found
+#  ✅ Installs dependencies if missing (brew/apt/dnf/yum/pacman/apk)
+#  ✅ Clones & builds OpenSY from source if not found
 #  ✅ Starts daemon if not running
 #  ✅ Loads existing wallet (prefers "founder")
 #  ✅ Handles crashes, restarts, network issues
-#  ✅ Works on macOS and Linux
+#  ✅ Works on macOS and Linux (x64 & ARM)
 #  ✅ Mines to your specified wallet address
+#  ✅ Auto-restarts on crash (--loop mode)
+#  ✅ SSH-safe with screen/tmux detection
 #
 #  Usage:
 #    ./mine.sh                           # Use default address
 #    ./mine.sh <your-address>            # Custom mining address
 #    ./mine.sh --install-only            # Just install, don't mine
 #    ./mine.sh --check                   # Check status without mining
+#    ./mine.sh --loop                    # Run forever, auto-restart on crash
 #
 #  One-liner for fresh machines:
 #    curl -sL https://raw.githubusercontent.com/opensyria/OpenSY/main/mine.sh | bash
-#    curl -sL https://raw.githubusercontent.com/opensyria/OpenSY/main/mine.sh | bash -s <address>
+#    curl -sL https://raw.githubusercontent.com/opensyria/OpenSY/main/mine.sh | bash -s -- YOUR_ADDRESS
+#
+#  For unattended server mining:
+#    screen -S mining ./mine.sh --loop --no-screen-check
 #
 #  Environment variables (optional overrides):
 #    MINING_ADDRESS      - Wallet address to mine to
@@ -65,7 +71,12 @@ LOG_TO_FILE=true
 VERBOSE=true
 
 # Script version
-VERSION="2.2.0"
+VERSION="2.3.0"
+
+# Block economics
+BLOCK_REWARD=5000               # SYL per block (before halvings)
+BLOCK_TIME_SECONDS=120          # Target 2 minutes per block
+HALVING_INTERVAL=420000         # Blocks between halvings
 
 # Safety thresholds
 MIN_DISK_SPACE_GB=5             # Minimum free disk space to continue
@@ -178,6 +189,7 @@ PREFERRED_WALLETS=("founder" "default" "mining" "main" "")
 START_TIME=0
 START_HEIGHT=0
 BLOCKS_MINED=0
+SESSION_EARNINGS=0
 ERROR_COUNT=0
 TOTAL_ERRORS=0
 DAEMON_RESTARTS=0
@@ -410,23 +422,34 @@ cleanup() {
     if [ $START_TIME -gt 0 ]; then
         local elapsed=$(($(now) - START_TIME))
         echo ""
-        log INFO "═══════════════════════════════════════════════════════"
-        log INFO "Mining Session Summary:"
-        log INFO "  Duration: $(elapsed_time $elapsed)"
-        log INFO "  Blocks Mined: $BLOCKS_MINED"
-        log INFO "  Total Errors: $TOTAL_ERRORS"
-        log INFO "  Daemon Restarts: $DAEMON_RESTARTS"
+        echo "╔═══════════════════════════════════════════════════════════════════╗"
+        echo "║                    MINING SESSION COMPLETE                        ║"
+        echo "╚═══════════════════════════════════════════════════════════════════╝"
+        echo ""
+        log INFO "📊 Session Statistics:"
+        log INFO "  ⏱️  Duration:       $(elapsed_time $elapsed)"
+        log INFO "  ⛏️  Blocks Mined:   $BLOCKS_MINED"
+        log INFO "  💰 SYL Earned:      $SESSION_EARNINGS SYL"
+        log INFO "  ⚠️  Total Errors:   $TOTAL_ERRORS"
+        log INFO "  🔄 Daemon Restarts: $DAEMON_RESTARTS"
         if [ $elapsed -gt 0 ] && [ $BLOCKS_MINED -gt 0 ]; then
             local rate=$(echo "scale=2; $BLOCKS_MINED * 3600 / $elapsed" | bc 2>/dev/null || echo "N/A")
-            log INFO "  Average Rate: $rate blocks/hour"
+            local syl_rate=$(echo "scale=0; $SESSION_EARNINGS * 3600 / $elapsed" | bc 2>/dev/null || echo "N/A")
+            log INFO "  📈 Mining Rate:     $rate blocks/hour (~$syl_rate SYL/hour)"
         fi
-        log INFO "═══════════════════════════════════════════════════════"
+        echo ""
+        if [ $BLOCKS_MINED -gt 0 ]; then
+            log SUCCESS "🎉 Great mining session! Your $SESSION_EARNINGS SYL will mature in 100 blocks."
+        else
+            log INFO "No blocks mined this session. Keep trying - mining is probabilistic!"
+        fi
+        echo ""
     fi
     
     # Remove lock files
     rm -f "$LOCKFILE" "$PIDFILE" 2>/dev/null || true
     
-    log INFO "Goodbye! 👋"
+    log INFO "Thank you for mining OpenSY! 🇸🇾 Goodbye! 👋"
 }
 
 handle_signal() {
@@ -436,6 +459,37 @@ handle_signal() {
 
 trap handle_signal SIGINT SIGTERM SIGHUP
 trap cleanup EXIT
+
+#───────────────────────────────────────────────────────────────────────────────
+# ENVIRONMENT VALIDATION
+#───────────────────────────────────────────────────────────────────────────────
+
+validate_environment() {
+    # Check HOME is set
+    if [ -z "${HOME:-}" ]; then
+        export HOME=$(eval echo ~)
+        if [ -z "$HOME" ] || [ ! -d "$HOME" ]; then
+            die "HOME environment variable not set and could not be determined"
+        fi
+    fi
+    
+    # Check we have a working shell
+    if [ -z "${BASH_VERSION:-}" ]; then
+        log WARN "Not running in bash. Some features may not work correctly."
+    fi
+    
+    # Check /tmp is writable
+    if [ ! -w "/tmp" ]; then
+        LOCKFILE="$HOME/.opensy_mine.lock"
+        PIDFILE="$HOME/.opensy_mine.pid"
+        log DEBUG "Using $HOME for lock files (/tmp not writable)"
+    fi
+    
+    # Check bc is available (needed for calculations)
+    if ! command_exists bc; then
+        log DEBUG "bc not found, some calculations will be approximate"
+    fi
+}
 
 #───────────────────────────────────────────────────────────────────────────────
 # DEPENDENCY INSTALLATION
@@ -451,6 +505,7 @@ check_basic_dependencies() {
     done
     
     if [ ${#missing[@]} -gt 0 ]; then
+        log DEBUG "Missing dependencies: ${missing[*]}"
         return 1
     fi
     return 0
@@ -1036,6 +1091,40 @@ show_stats() {
     fi
 }
 
+# Celebration messages when a block is mined
+CELEBRATION_MESSAGES=(
+    "💰 BLOCK MINED! +%d SYL"
+    "🎉 SUCCESS! Block #%d - You earned %d SYL!"
+    "⛏️  FOUND BLOCK #%d! +%d SYL to your wallet!"
+    "🚀 BOOM! Block mined! +%d SYL"
+    "💎 Nice! Block #%d found - %d SYL earned!"
+    "🔥 MINING SUCCESS! +%d SYL"
+    "✨ Block #%d is yours! +%d SYL"
+)
+
+celebrate_block() {
+    local height=$1
+    local reward=$2
+    
+    # Pick a random celebration message
+    local msg_count=${#CELEBRATION_MESSAGES[@]}
+    local idx=$((RANDOM % msg_count))
+    local template="${CELEBRATION_MESSAGES[$idx]}"
+    
+    # Format message
+    local msg
+    if [[ "$template" == *"#%d"* ]]; then
+        msg=$(printf "$template" "$height" "$reward")
+    else
+        msg=$(printf "$template" "$reward")
+    fi
+    
+    echo ""
+    log SUCCESS "$msg"
+    log SUCCESS "Session total: $BLOCKS_MINED blocks | $SESSION_EARNINGS SYL earned"
+    echo ""
+}
+
 # Reward tracking
 get_block_reward() {
     local height=${1:-0}
@@ -1084,12 +1173,17 @@ mining_loop() {
         # Attempt to mine
         local error_output
         if error_output=$(mine_block); then
-            # Success!
+            # Success! We mined a block!
             ERROR_COUNT=0
             BLOCKS_MINED=$((BLOCKS_MINED + BATCH_SIZE))
             
+            # Calculate earnings
             local current_height=$(get_block_count)
-            show_stats $current_height
+            local reward=$(get_block_reward $current_height)
+            SESSION_EARNINGS=$((SESSION_EARNINGS + reward))
+            
+            # Celebration message!
+            celebrate_block $current_height $reward
             
             # Track last successful block
             last_block_time=$(now)
@@ -1354,11 +1448,14 @@ main() {
     # Check env var with proper name
     MINING_ADDRESS="${MINING_ADDRESS:-$DEFAULT_MINING_ADDRESS}"
     
+    # Validate environment first
+    validate_environment
+    
     # Banner
     echo ""
     echo "╔═══════════════════════════════════════════════════════════════════╗"
-    echo "║         OpenSY Universal Mining Script v$VERSION                    ║"
-    echo "║         🇸🇾 Syria's First Cryptocurrency                           ║"
+    echo "║       OpenSY Universal Mining Script v$VERSION - ULTIMATE          ║"
+    echo "║              🇸🇾 Syria's First Cryptocurrency                       ║"
     echo "╚═══════════════════════════════════════════════════════════════════╝"
     echo ""
     
