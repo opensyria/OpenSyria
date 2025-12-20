@@ -127,6 +127,30 @@ sudo systemctl enable opensy-seeder
 sudo systemctl start opensy-seeder
 ```
 
+Security Notes
+--------------
+
+### PA-06: Data File Integrity
+
+The seeder stores node data in `dnsseed.dat` and `dnsseed.dump`. These files are
+low-security assets:
+
+- **Corruption handling**: The seeder will rebuild its database by crawling if 
+  files are corrupted or deleted. Use `--wipeban` and `--wipeignore` to reset.
+- **Backup**: Regular backups are optional but can speed up restart after failure.
+- **Permissions**: Run as non-root user with minimal filesystem access if possible.
+
+If you suspect database corruption, simply delete the data files and restart:
+```bash
+rm -f dnsseed.dat dnsseed.dump
+systemctl restart opensy-seeder
+```
+
+### Minimum Height Filter
+
+The seeder defaults to `--minheight 2500` to filter stale nodes. Update this
+value periodically as the chain grows to ensure only up-to-date nodes are served.
+
 Network Parameters
 ------------------
 

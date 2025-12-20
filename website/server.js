@@ -4,8 +4,12 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Static files
-app.use(express.static(path.join(__dirname, 'public')));
+// PA-03 Security Fix: Static files with cache headers for performance
+app.use(express.static(path.join(__dirname, 'public'), {
+    maxAge: '1d',      // Cache static assets for 1 day
+    etag: true,        // Enable ETags for cache validation
+    lastModified: true // Enable Last-Modified headers
+}));
 
 // EJS setup
 app.set('view engine', 'ejs');

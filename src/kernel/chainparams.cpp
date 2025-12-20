@@ -277,7 +277,9 @@ public:
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].threshold = 1512; // 75%
         consensus.vDeployments[Consensus::DEPLOYMENT_TAPROOT].period = 2016;
 
-        // New chain starts with no minimum work requirement
+        // PA-05: Testnet chain work - Update after testnet stabilizes (~1000 blocks)
+        // Use: opensy-cli -testnet getblockchaininfo | grep chainwork
+        // Then set: consensus.nMinimumChainWork = uint256{"<chainwork_hex>"};
         consensus.nMinimumChainWork = uint256{};
         consensus.defaultAssumeValid = uint256{}; // New chain - no assumed valid block yet
 

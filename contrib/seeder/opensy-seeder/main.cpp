@@ -37,7 +37,10 @@ public:
   std::vector<string> vSeeds;
   std::set<uint64_t> filter_whitelist;
 
-  CDnsSeedOpts() : nThreads(96), nDnsThreads(4), ip_addr("::"), nPort(53), nP2Port(0), nMinimumHeight(0), mbox(NULL), ns(NULL), host(NULL), tor(NULL), fUseTestNet(false), fWipeBan(false), fWipeIgnore(false), ipv4_proxy(NULL), ipv6_proxy(NULL), magic(NULL) {}
+  // PA-04 Security Fix: Default minheight to filter stale/forked nodes
+  // Set to a recent block height to ensure only up-to-date nodes are served
+  // Update this value periodically as the chain grows
+  CDnsSeedOpts() : nThreads(96), nDnsThreads(4), ip_addr("::"), nPort(53), nP2Port(0), nMinimumHeight(2500), mbox(NULL), ns(NULL), host(NULL), tor(NULL), fUseTestNet(false), fWipeBan(false), fWipeIgnore(false), ipv4_proxy(NULL), ipv6_proxy(NULL), magic(NULL) {}
 
   void ParseCommandLine(int argc, char **argv) {
     static const char *help = "OpenSY-seeder - DNS seed server for OpenSY network\n"

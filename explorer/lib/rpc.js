@@ -46,6 +46,8 @@ for (const weak of weakPasswords) {
 }
 
 async function call(method, params = []) {
+    // SECURITY: Build URL without credentials to prevent accidental logging
+    // Credentials are passed via axios auth config, never in URL
     const url = `http://${rpcConfig.host}:${rpcConfig.port}`;
     
     const response = await axios.post(url, {

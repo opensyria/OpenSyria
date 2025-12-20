@@ -1,9 +1,31 @@
 require('dotenv').config();
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const path = require('path');
 const rpc = require('./lib/rpc');
 
 const app = express();
+
+// PA-01 Security Fix: Rate limiting to prevent DoS attacks
+const generalLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 300, // limit each IP to 300 requests per window (generous for browsing)
+    message: { error: 'Too many requests, please try again later.' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+const apiLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // limit each IP to 100 API requests per window
+    message: { error: 'API rate limit exceeded. Please try again later.' },
+    standardHeaders: true,
+    legacyHeaders: false,
+});
+
+// Apply rate limiting
+app.use(generalLimiter);
+app.use('/api/', apiLimiter);
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
 
