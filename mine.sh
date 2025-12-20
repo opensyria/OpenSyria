@@ -979,17 +979,22 @@ setup_wallet() {
     
     # Check if any wallet is already loaded
     local loaded=$(cli_call listwallets 2>/dev/null)
-    if [ -n "$loaded" ] && [ "$loaded" != "[]" ]; then
-        WALLET_NAME=$(echo "$loaded" | tr -d '[]" \n' | cut -d',' -f1)
-        log SUCCESS "Using already loaded wallet: ${WALLET_NAME:-default}"
+    # Normalize - remove whitespace and brackets
+    loaded=$(echo "$loaded" | tr -d '[]" \n\r\t')
+    
+    if [ -n "$loaded" ]; then
+        # Get first wallet name
+        WALLET_NAME=$(echo "$loaded" | cut -d',' -f1)
+        log SUCCESS "Using already loaded wallet: $WALLET_NAME"
         return 0
     fi
     
-    # Try to load preferred wallets in order
+    # No wallet loaded, try to load preferred wallets in order
     for name in "${PREFERRED_WALLETS[@]}"; do
+        [ -z "$name" ] && continue
         if cli_call loadwallet "$name" &>/dev/null; then
             WALLET_NAME="$name"
-            log SUCCESS "Loaded wallet: ${WALLET_NAME:-default}"
+            log SUCCESS "Loaded wallet: $WALLET_NAME"
             return 0
         fi
     done
