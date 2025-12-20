@@ -26,6 +26,7 @@ public:
   int fUseTestNet;
   int fWipeBan;
   int fWipeIgnore;
+  int fVerbose;
   const char *mbox;
   const char *ns;
   const char *host;
@@ -40,7 +41,7 @@ public:
   // PA-04 Security Fix: Default minheight to filter stale/forked nodes
   // Set to a recent block height to ensure only up-to-date nodes are served
   // Update this value periodically as the chain grows
-  CDnsSeedOpts() : nThreads(96), nDnsThreads(4), ip_addr("::"), nPort(53), nP2Port(0), nMinimumHeight(2500), mbox(NULL), ns(NULL), host(NULL), tor(NULL), fUseTestNet(false), fWipeBan(false), fWipeIgnore(false), ipv4_proxy(NULL), ipv6_proxy(NULL), magic(NULL) {}
+  CDnsSeedOpts() : nThreads(96), nDnsThreads(4), ip_addr("::"), nPort(53), nP2Port(0), nMinimumHeight(2500), mbox(NULL), ns(NULL), host(NULL), tor(NULL), fUseTestNet(false), fWipeBan(false), fWipeIgnore(false), fVerbose(false), ipv4_proxy(NULL), ipv6_proxy(NULL), magic(NULL) {}
 
   void ParseCommandLine(int argc, char **argv) {
     static const char *help = "OpenSY-seeder - DNS seed server for OpenSY network\n"
@@ -65,6 +66,7 @@ public:
                               "--testnet       Use testnet (port 19633)\n"
                               "--wipeban       Wipe list of banned nodes\n"
                               "--wipeignore    Wipe list of ignored nodes\n"
+                              "-v, --verbose   Verbose output (show each node test)\n"
                               "-?, --help      Show this text\n"
                               "\n"
                               "Example:\n"
@@ -92,11 +94,12 @@ public:
         {"testnet", no_argument, &fUseTestNet, 1},
         {"wipeban", no_argument, &fWipeBan, 1},
         {"wipeignore", no_argument, &fWipeBan, 1},
+        {"verbose", no_argument, &fVerbose, 1},
         {"help", no_argument, 0, 'h'},
         {0, 0, 0, 0}
       };
       int option_index = 0;
-      int c = getopt_long(argc, argv, "s:h:n:m:t:a:p:d:o:i:k:w:b:q:x:", long_options, &option_index);
+      int c = getopt_long(argc, argv, "s:h:n:m:t:a:p:d:o:i:k:w:b:q:x:v", long_options, &option_index);
       if (c == -1) break;
       switch (c) {
         case 's': {
@@ -204,6 +207,11 @@ public:
           break;
         }
 
+        case 'v': {
+          fVerbose = 1;
+          break;
+        }
+
         case '?': {
           showHelp = true;
           break;
@@ -234,6 +242,7 @@ public:
 #include "dns.h"
 
 CAddrDb db;
+bool g_fVerbose = false;  // Global verbose flag
 
 extern "C" void* ThreadCrawler(void* data) {
   int *nThreads=(int*)data;
@@ -257,7 +266,22 @@ extern "C" void* ThreadCrawler(void* data) {
       res.strClientV = "";
       res.services = 0;
       bool getaddr = res.ourLastSuccess + 86400 < now;
+      if (g_fVerbose) {
+        printf("[CRAWL] Testing %s...\n", res.service.ToString().c_str());
+        fflush(stdout);
+      }
       res.fGood = TestNode(res.service,res.nBanTime,res.nClientV,res.strClientV,res.nHeight,getaddr ? &addr : NULL, res.services);
+      if (g_fVerbose) {
+        if (res.fGood) {
+          printf("[CRAWL] ✓ %s - height=%d v=%d \"%s\" services=0x%lx\n", 
+                 res.service.ToString().c_str(), res.nHeight, res.nClientV, 
+                 res.strClientV.c_str(), (unsigned long)res.services);
+        } else {
+          printf("[CRAWL] ✗ %s - FAILED (ban=%ds)\n", 
+                 res.service.ToString().c_str(), res.nBanTime);
+        }
+        fflush(stdout);
+      }
     }
     db.ResultMany(ips);
     db.Add(addr);
@@ -504,6 +528,10 @@ int main(int argc, char **argv) {
   setbuf(stdout, NULL);
   CDnsSeedOpts opts;
   opts.ParseCommandLine(argc, argv);
+  g_fVerbose = opts.fVerbose;
+  if (g_fVerbose) {
+    printf("Verbose mode enabled\n");
+  }
   printf("Supporting whitelisted filters: ");
   for (std::set<uint64_t>::const_iterator it = opts.filter_whitelist.begin(); it != opts.filter_whitelist.end(); it++) {
       if (it != opts.filter_whitelist.begin()) {
