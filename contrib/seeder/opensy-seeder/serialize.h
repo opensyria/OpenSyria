@@ -59,7 +59,11 @@ typedef unsigned long long  uint64;
 class CScript;
 class CDataStream;
 class CAutoFile;
-static const unsigned int MAX_SIZE = 0x02000000;
+
+// SECURITY FIX [F-03]: Reduced from 32MB (0x02000000) to 1MB for seeder context.
+// The seeder only processes version/verack/addr messages which are much smaller.
+// This prevents DoS via large message allocation attacks.
+static const unsigned int MAX_SIZE = 0x00100000;  // 1MB - sufficient for seeder operations
 
 static const int PROTOCOL_VERSION = 60000;
 

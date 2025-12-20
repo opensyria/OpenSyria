@@ -1,6 +1,6 @@
 # OpenSY Blockchain Security Audit Report
 
-**Version:** 6.2 (Complete Security Hardening)  
+**Version:** 6.3 (Principal Audit Fixes Applied)  
 **Date:** December 20, 2025  
 **Auditor:** Principal Blockchain Security Auditor (Claude Opus 4.5)  
 **Scope:** Complete deterministic adversarial audit of ENTIRE OpenSY repository (Bitcoin Core fork with RandomX PoW + Infrastructure)
@@ -27,6 +27,10 @@
 | mine.sh Downloads | No verification | SHA256 checksum verification | Supply chain attack protection |
 | Seeder DNS Parsing | No fuzz testing | libFuzzer harness | Protocol fuzzing coverage |
 | Website Headers | No CSP | helmet + Content-Security-Policy | XSS/clickjacking protection |
+| RandomX Dependency | GIT_TAG only | URL + SHA256 hash verification | Supply chain attack protection |
+| Seeder MAX_SIZE | 32MB | 1MB | DoS attack prevention |
+| DNS parse_name() | No depth limit | 256 depth limit | Infinite loop prevention |
+| RPC Auth Delay | 250ms | 2000ms | Brute-force deterrent |
 
 ---
 
@@ -60,6 +64,11 @@ I have conducted an independent verification of the existing audit and performed
 | **PA-05** | Testnet | chainparams.cpp:281 | Empty nMinimumChainWork for testnet | **Low** | ✅ **RESOLVED** - Added TODO comment for post-stabilization update |
 | **PA-06** | Seeder | db.cpp | No persistent ban storage integrity check | **Info** | ✅ **RESOLVED** - Added Security Notes section to seeder README |
 | **PA-07** | Mining RPC | rpc/mining.cpp:291 | Thread safety relies on epoch check | **Low** | ✅ **RESOLVED** - Already mitigated with atomic epoch counter |
+| **F-01** | Build | cmake/randomx.cmake | RandomX fetched via GIT_TAG without hash | **Medium** | ✅ **RESOLVED** - Now uses URL + SHA256 hash verification |
+| **F-03** | Seeder | serialize.h | MAX_SIZE 32MB excessive for seeder | **Medium** | ✅ **RESOLVED** - Reduced to 1MB |
+| **F-04** | Seeder | dns.cpp | parse_name() lacks recursion depth limit | **Medium** | ✅ **RESOLVED** - Added depth=256 limit |
+| **F-07** | Website | server.js | CSP allows 'unsafe-inline' for scripts | **Low** | ✅ **RESOLVED** - Removed 'unsafe-inline' from scriptSrc |
+| **F-16** | RPC | httprpc.cpp | 250ms auth delay too weak | **Low** | ✅ **RESOLVED** - Increased to 2000ms |
 
 ### Verified Security Fixes
 
@@ -74,6 +83,11 @@ I have conducted an independent verification of the existing audit and performed
 | **SH-04** | mine.sh Supply Chain Protection | `mine.sh` - SHA256 checksum verification for downloads | Homebrew installer verified before execution; git repo verified after clone |
 | **SH-05** | Seeder DNS Fuzz Testing | `contrib/seeder/opensy-seeder/fuzz_dns.cpp` - libFuzzer harness | Tests parse_name() for crashes, hangs, buffer overflows with malformed packets |
 | **SH-06** | Website CSP Headers | `website/server.js` - helmet middleware with Content-Security-Policy | XSS protection, HSTS, frame blocking, upgrade-insecure-requests |
+| **F-01** | RandomX Supply Chain Protection | `cmake/randomx.cmake` - URL_HASH SHA256 verification | Cryptographic verification of dependency |
+| **F-03** | Seeder Message Size Limit | `contrib/seeder/serialize.h` - MAX_SIZE=1MB | Prevents DoS via large message allocation |
+| **F-04** | DNS Parser Recursion Limit | `contrib/seeder/dns.cpp` - depth=256 limit | Prevents infinite loops via compression pointers |
+| **F-07** | Website Script CSP | `website/server.js` - removed 'unsafe-inline' | Stronger XSS protection |
+| **F-16** | RPC Brute-Force Deterrent | `src/httprpc.cpp` - 2000ms delay | Limits attempts to ~30/minute |
 
 ### Consensus-Critical Code Paths - Verified ✅
 

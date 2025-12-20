@@ -10,11 +10,14 @@ include(FetchContent)
 
 message(STATUS "Configuring RandomX library...")
 
+# SECURITY FIX [F-01]: Use URL with cryptographic hash verification instead of GIT_TAG
+# This prevents supply-chain attacks where a compromised upstream could inject malicious code.
+# Hash verified: curl -sL https://github.com/tevador/RandomX/archive/refs/tags/v1.2.1.tar.gz | shasum -a 256
 FetchContent_Declare(
     randomx
-    GIT_REPOSITORY https://github.com/tevador/RandomX.git
-    GIT_TAG        v1.2.1
-    GIT_SHALLOW    TRUE
+    URL            https://github.com/tevador/RandomX/archive/refs/tags/v1.2.1.tar.gz
+    URL_HASH       SHA256=2e6dd3bed96479332c4c8e4cab2505699ade418a07797f64ee0d4fa394555032
+    DOWNLOAD_EXTRACT_TIMESTAMP TRUE
 )
 
 # Disable building RandomX tests and benchmarks

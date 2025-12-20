@@ -6,12 +6,14 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // W-01 Security Fix: Add security headers via helmet
+// SECURITY FIX [F-07]: Removed 'unsafe-inline' from scriptSrc for stronger XSS protection.
+// EJS templates should use external script files instead of inline scripts.
 app.use(helmet({
     contentSecurityPolicy: {
         directives: {
             defaultSrc: ["'self'"],
-            scriptSrc: ["'self'", "'unsafe-inline'"],  // Allow inline scripts for EJS templates
-            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+            scriptSrc: ["'self'"],  // No unsafe-inline - use external script files
+            styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],  // Inline styles OK for now
             fontSrc: ["'self'", "https://fonts.gstatic.com"],
             imgSrc: ["'self'", "data:", "https:"],
             connectSrc: ["'self'"],

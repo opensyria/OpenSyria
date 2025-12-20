@@ -122,10 +122,12 @@ static bool HTTPReq_JSONRPC(const std::any& context, HTTPRequest* req)
     if (!RPCAuthorized(authHeader.second, jreq.authUser)) {
         LogPrintf("ThreadRPCServer incorrect password attempt from %s\n", jreq.peerAddr);
 
-        /* Deter brute-forcing
+        /* SECURITY FIX [F-16]: Enhanced brute-force deterrent
+           Increased delay from 250ms to 2000ms (2 seconds).
+           This limits attempts to ~30/minute instead of ~240/minute.
            If this results in a DoS the user really
            shouldn't have their RPC port exposed. */
-        UninterruptibleSleep(std::chrono::milliseconds{250});
+        UninterruptibleSleep(std::chrono::milliseconds{2000});
 
         req->WriteHeader("WWW-Authenticate", WWW_AUTH_HEADER_DATA);
         req->WriteReply(HTTP_UNAUTHORIZED);

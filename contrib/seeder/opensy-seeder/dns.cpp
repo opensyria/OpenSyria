@@ -54,7 +54,11 @@ typedef enum {
 //  0: ok
 // -1: premature end of input, forward reference, component > 63 char, invalid character
 // -2: insufficient space in output
-int static parse_name(const unsigned char **inpos, const unsigned char *inend, const unsigned char *inbuf, char *buf, size_t bufsize) {
+// SECURITY FIX [F-04]: Added depth limit to prevent infinite loops via compression pointer chains
+int static parse_name(const unsigned char **inpos, const unsigned char *inend, const unsigned char *inbuf, char *buf, size_t bufsize, int depth = 0) {
+  // Prevent infinite loops via compression pointer chains (max DNS name is 256 bytes)
+  if (depth > 256) return -1;
+  
   size_t bufused = 0;
   int init = 1;
   do {
@@ -80,7 +84,8 @@ int static parse_name(const unsigned char **inpos, const unsigned char *inend, c
       int ref = ((octet - 0xC0) << 8) + *((*inpos)++);
       if (ref < 0 || ref >= (*inpos)-inbuf-2) return -1;
       const unsigned char *newbuf = inbuf + ref;
-      return parse_name(&newbuf, (*inpos) - 2, inbuf, buf+bufused, bufsize-bufused);
+      // SECURITY FIX [F-04]: Pass incremented depth to prevent infinite recursion
+      return parse_name(&newbuf, (*inpos) - 2, inbuf, buf+bufused, bufsize-bufused, depth + 1);
     }
     if (octet > 63) return -1;
     // copy label
