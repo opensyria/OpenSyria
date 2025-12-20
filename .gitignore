@@ -34,3 +34,5 @@ mining_v2.log
 mining_state.json
 mining.log
 nohup.out
+mining_universal.log
+mine.log
