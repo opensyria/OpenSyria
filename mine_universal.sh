@@ -104,7 +104,10 @@ DAEMON=""
 DATADIR=""
 MINING_ADDRESS=""
 LOGFILE=""
-WALLET_NAME="mining-wallet"
+WALLET_NAME=""  # Will be auto-detected
+
+# Preferred wallet names (in order of priority)
+PREFERRED_WALLETS=("founder" "default" "mining" "main" "")
 
 # Counters
 START_TIME=0
@@ -413,32 +416,39 @@ get_sync_progress() {
 setup_wallet() {
     log INFO "Setting up wallet..."
     
-    # Try to load existing wallet
-    if cli_call loadwallet "$WALLET_NAME" &>/dev/null; then
-        log INFO "Loaded existing wallet: $WALLET_NAME"
+    # First check if any wallet is already loaded
+    local loaded_wallets=$(cli_call listwallets 2>/dev/null)
+    if [ -n "$loaded_wallets" ] && [ "$loaded_wallets" != "[]" ]; then
+        # Extract first wallet name from JSON array
+        WALLET_NAME=$(echo "$loaded_wallets" | tr -d '[]" \n' | cut -d',' -f1)
+        log SUCCESS "Using already loaded wallet: $WALLET_NAME"
         return 0
     fi
     
-    # Try other common wallet names
-    for name in "founder" "default" "mining" ""; do
+    # Try to load preferred wallets in order
+    for name in "${PREFERRED_WALLETS[@]}"; do
         if cli_call loadwallet "$name" &>/dev/null; then
             WALLET_NAME="$name"
-            log INFO "Loaded wallet: $WALLET_NAME"
+            log SUCCESS "Loaded existing wallet: $WALLET_NAME"
             return 0
         fi
     done
     
-    # Create new wallet if none exists
-    log INFO "Creating new mining wallet..."
-    if cli_call createwallet "$WALLET_NAME" &>/dev/null; then
-        log SUCCESS "Created new wallet: $WALLET_NAME"
-        return 0
+    # List available wallets and try to load the first one
+    local available=$(cli_call listwalletdir 2>/dev/null | grep -o '"name":"[^"]*"' | head -1 | cut -d'"' -f4)
+    if [ -n "$available" ]; then
+        if cli_call loadwallet "$available" &>/dev/null; then
+            WALLET_NAME="$available"
+            log SUCCESS "Loaded wallet: $WALLET_NAME"
+            return 0
+        fi
     fi
     
-    # Check if any wallet is already loaded
-    local wallets=$(cli_call listwallets 2>/dev/null)
-    if [ -n "$wallets" ] && [ "$wallets" != "[]" ]; then
-        log INFO "Using already loaded wallet"
+    # Only create new wallet as absolute last resort
+    log WARN "No existing wallet found. Creating new wallet..."
+    if cli_call createwallet "founder" &>/dev/null; then
+        WALLET_NAME="founder"
+        log SUCCESS "Created new wallet: $WALLET_NAME"
         return 0
     fi
     
