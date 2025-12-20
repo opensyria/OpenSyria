@@ -694,6 +694,7 @@ build_opensy() {
     local cmake_opts=(
         -DBUILD_TESTS=OFF
         -DENABLE_GUI=OFF
+        -DENABLE_IPC=OFF
         -DWITH_MINIUPNPC=ON
         -DWITH_ZMQ=ON
     )
