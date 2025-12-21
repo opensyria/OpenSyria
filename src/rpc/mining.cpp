@@ -25,6 +25,7 @@
 #include <node/warnings.h>
 #include <policy/ephemeral_policy.h>
 #include <pow.h>
+#include <crypto/argon2_context.h>
 #include <crypto/randomx_context.h>
 #include <crypto/randomx_pool.h>
 #include <rpc/blockchain.h>
@@ -163,8 +164,30 @@ static bool GenerateBlock(ChainstateManager& chainman, CBlock&& block, uint64_t&
         nHeight = pindexPrev ? pindexPrev->nHeight + 1 : 0;
     }
 
-    // Check if we should use RandomX
-    if (consensusParams.IsRandomXActive(nHeight)) {
+    // Determine which PoW algorithm to use
+    const auto algorithm = consensusParams.GetPowAlgorithm(nHeight);
+
+    if (algorithm == Consensus::Params::PowAlgorithm::ARGON2ID) {
+        // Argon2id emergency fallback mining
+        LogPrintf("ARGON2 MINING: height=%d, target bits=%08x\n", nHeight, block.nBits);
+
+        while (max_tries > 0 && block.nNonce < std::numeric_limits<uint32_t>::max() && !chainman.m_interrupt) {
+            uint256 argon2Hash = CalculateArgon2Hash(block, consensusParams);
+
+            if (max_tries % 10 == 0) {
+                LogPrintf("ARGON2: nonce=%u, hash=%s, tries remaining=%lu\n",
+                          block.nNonce, argon2Hash.ToString(), max_tries);
+            }
+
+            if (CheckProofOfWorkImpl(argon2Hash, block.nBits, nHeight, consensusParams)) {
+                LogPrintf("ARGON2 FOUND BLOCK! nonce=%u, hash=%s\n", block.nNonce, argon2Hash.ToString());
+                break;
+            }
+
+            ++block.nNonce;
+            --max_tries;
+        }
+    } else if (algorithm == Consensus::Params::PowAlgorithm::RANDOMX) {
         // RandomX mining - need key block hash
         uint256 keyBlockHash;
         {
@@ -328,7 +351,7 @@ static bool GenerateBlock(ChainstateManager& chainman, CBlock&& block, uint64_t&
             }
             return true; // Nonce space exhausted, caller should retry with new block
         }
-    } else {
+    } else if (algorithm == Consensus::Params::PowAlgorithm::SHA256D) {
         // SHA256d mining (pre-fork)
         while (max_tries > 0 && block.nNonce < std::numeric_limits<uint32_t>::max() && !CheckProofOfWork(block.GetHash(), block.nBits, consensusParams) && !chainman.m_interrupt) {
             ++block.nNonce;

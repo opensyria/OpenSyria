@@ -73,8 +73,8 @@ class Argon2FallbackTest(OpenSYTestFramework):
         # Block 1 is SHA256d (genesis), blocks 2+ are RandomX
         address = node.getnewaddress()
         
-        # Mine to height 9 (one before emergency)
-        blockhashes = self.generatetoaddress(node, 9, address)
+        # Mine to height 9 (one before emergency) - no sync, nodes not connected
+        blockhashes = self.generatetoaddress(node, 9, address, sync_fun=self.no_op)
         
         assert_equal(len(blockhashes), 9)
         assert_equal(node.getblockcount(), 9)
@@ -93,9 +93,9 @@ class Argon2FallbackTest(OpenSYTestFramework):
         # Current height should be 9
         assert_equal(node.getblockcount(), 9)
         
-        # Mine block at height 10 - first Argon2id block
+        # Mine block at height 10 - first Argon2id block (no sync)
         address = node.getnewaddress()
-        blockhashes = self.generatetoaddress(node, 1, address)
+        blockhashes = self.generatetoaddress(node, 1, address, sync_fun=self.no_op)
         
         assert_equal(len(blockhashes), 1)
         assert_equal(node.getblockcount(), 10)
@@ -111,9 +111,9 @@ class Argon2FallbackTest(OpenSYTestFramework):
         """Test that Argon2id mining works after emergency activation."""
         node = self.nodes[0]
         
-        # Mine additional Argon2id blocks
+        # Mine additional Argon2id blocks (no sync - nodes not connected yet)
         address = node.getnewaddress()
-        blockhashes = self.generatetoaddress(node, 5, address)
+        blockhashes = self.generatetoaddress(node, 5, address, sync_fun=self.no_op)
         
         assert_equal(len(blockhashes), 5)
         assert_equal(node.getblockcount(), 15)
@@ -133,18 +133,16 @@ class Argon2FallbackTest(OpenSYTestFramework):
         # Connect node0 and node1 (both have same emergency height)
         self.connect_nodes(0, 1)
         
-        # Sync chains
-        self.sync_blocks(self.nodes[:2])
+        # Sync chains between compatible nodes only
+        self.sync_blocks([node0, node1])
         
         # Both nodes should have the same chain
         assert_equal(node0.getblockcount(), node1.getblockcount())
         assert_equal(node0.getbestblockhash(), node1.getbestblockhash())
         
-        # Mine more on node1 and verify sync
+        # Mine more on node1 and verify sync (only sync compatible nodes)
         address = node1.getnewaddress()
-        blockhashes = self.generatetoaddress(node1, 3, address)
-        
-        self.sync_blocks(self.nodes[:2])
+        blockhashes = self.generatetoaddress(node1, 3, address, sync_fun=lambda: self.sync_blocks([node0, node1]))
         
         assert_equal(node0.getblockcount(), node1.getblockcount())
         assert_equal(node0.getbestblockhash(), node1.getbestblockhash())
@@ -156,12 +154,20 @@ class Argon2FallbackTest(OpenSYTestFramework):
         node0 = self.nodes[0]  # Has emergency
         node2 = self.nodes[2]  # No emergency
         
-        # Connect node2 to node0
-        self.connect_nodes(0, 2)
-        
-        # Give some time for headers to propagate
+        # Try to connect node2 to node0 - this may fail or result in disconnect
+        # because they have incompatible consensus rules
         import time
-        time.sleep(2)
+        
+        try:
+            # Add node2 to node0's peer list (low-level connect)
+            node0.addnode(f"127.0.0.1:{node2.p2p_port}", "onetry")
+            time.sleep(3)  # Give time for connection attempt
+        except Exception as e:
+            self.log.info(f"  Connection attempt resulted in: {e}")
+        
+        # Check if they're connected
+        peers0 = node0.getpeerinfo()
+        peers2 = node2.getpeerinfo()
         
         # node2 should NOT have the same tip as node0 after emergency height
         # because it's validating with RandomX while node0 used Argon2id
@@ -169,19 +175,18 @@ class Argon2FallbackTest(OpenSYTestFramework):
         # The incompatible node might:
         # 1. Reject the blocks as invalid PoW
         # 2. Be on a shorter chain
-        # 3. Be stuck at the pre-emergency height
+        # 3. Be stuck at genesis or early blocks
+        # 4. Never connect successfully
         
-        # We check that they're NOT synced (this is expected)
         if node0.getblockcount() > 9:  # After emergency
             # Node2 shouldn't have the same tip (blocks after 10 are Argon2id)
             self.log.info(f"  Node0 at height {node0.getblockcount()}, Node2 at height {node2.getblockcount()}")
+            self.log.info(f"  Node0 peers: {len(peers0)}, Node2 peers: {len(peers2)}")
             
-            # Disconnect to prevent further issues
-            self.disconnect_nodes(0, 2)
-            
-            # Note: The exact behavior depends on implementation
             # The key point is that nodes with different emergency settings
             # will NOT reach consensus on blocks after the emergency height
+            # Node2 should still be at genesis or early blocks
+            assert_greater_than(node0.getblockcount(), node2.getblockcount())
 
     def test_rpc_algorithm_info(self):
         """Test that RPC returns correct algorithm information."""
@@ -205,21 +210,21 @@ class Argon2FallbackTest(OpenSYTestFramework):
         node0 = self.nodes[0]
         node1 = self.nodes[1]
         
-        # Ensure nodes are connected and synced
-        self.connect_nodes(0, 1)
-        self.sync_blocks(self.nodes[:2])
+        # Ensure nodes 0 and 1 are connected (node2 is incompatible, skip it)
+        # They should already be connected from test 4, but let's verify
+        self.sync_blocks([node0, node1])
         
         initial_height = node0.getblockcount()
         
         # Disconnect nodes
         self.disconnect_nodes(0, 1)
         
-        # Mine different blocks on each node
+        # Mine different blocks on each node (no sync since they're disconnected)
         address0 = node0.getnewaddress()
         address1 = node1.getnewaddress()
         
-        blocks0 = self.generatetoaddress(node0, 2, address0)
-        blocks1 = self.generatetoaddress(node1, 3, address1)  # Longer chain
+        blocks0 = self.generatetoaddress(node0, 2, address0, sync_fun=self.no_op)
+        blocks1 = self.generatetoaddress(node1, 3, address1, sync_fun=self.no_op)  # Longer chain
         
         # Verify chains diverged
         assert_equal(node0.getblockcount(), initial_height + 2)
@@ -227,7 +232,7 @@ class Argon2FallbackTest(OpenSYTestFramework):
         
         # Reconnect - node1's longer chain should win
         self.connect_nodes(0, 1)
-        self.sync_blocks(self.nodes[:2])
+        self.sync_blocks([node0, node1])
         
         # Both should be on node1's chain (longer)
         assert_equal(node0.getblockcount(), initial_height + 3)

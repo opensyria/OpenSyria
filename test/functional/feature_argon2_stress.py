@@ -54,8 +54,8 @@ class Argon2StressTest(OpenSYTestFramework):
         node = self.nodes[0]
         address = node.getnewaddress()
         
-        # Mine from 0 to past emergency height (20) in one batch
-        blockhashes = self.generatetoaddress(node, 30, address)
+        # Mine from 0 to past emergency height (20) in one batch (no sync)
+        blockhashes = self.generatetoaddress(node, 30, address, sync_fun=self.no_op)
         
         assert_equal(len(blockhashes), 30)
         assert_equal(node.getblockcount(), 30)
@@ -74,7 +74,7 @@ class Argon2StressTest(OpenSYTestFramework):
         
         # Sync nodes first
         self.connect_nodes(0, 1)
-        self.sync_blocks()
+        self.sync_blocks([node0, node1])
         
         initial_height = node0.getblockcount()
         
@@ -84,9 +84,9 @@ class Argon2StressTest(OpenSYTestFramework):
         address0 = node0.getnewaddress()
         address1 = node1.getnewaddress()
         
-        # Create competing chains (both in Argon2 territory)
-        blocks0 = self.generatetoaddress(node0, 5, address0)
-        blocks1 = self.generatetoaddress(node1, 7, address1)  # Longer chain
+        # Create competing chains (both in Argon2 territory) - no sync while disconnected
+        blocks0 = self.generatetoaddress(node0, 5, address0, sync_fun=self.no_op)
+        blocks1 = self.generatetoaddress(node1, 7, address1, sync_fun=self.no_op)  # Longer chain
         
         # Verify divergence
         assert_equal(node0.getblockcount(), initial_height + 5)
@@ -94,7 +94,7 @@ class Argon2StressTest(OpenSYTestFramework):
         
         # Reconnect and sync - longer chain wins
         self.connect_nodes(0, 1)
-        self.sync_blocks()
+        self.sync_blocks([node0, node1])
         
         # Both should be on the longer chain
         final_height = node0.getblockcount()
@@ -113,9 +113,9 @@ class Argon2StressTest(OpenSYTestFramework):
         
         address = node.getnewaddress()
         
-        # Mine 20 more Argon2id blocks
+        # Mine 20 more Argon2id blocks (no sync - only node0)
         start_time = time.time()
-        blockhashes = self.generatetoaddress(node, 20, address)
+        blockhashes = self.generatetoaddress(node, 20, address, sync_fun=self.no_op)
         elapsed = time.time() - start_time
         
         assert_equal(len(blockhashes), 20)
