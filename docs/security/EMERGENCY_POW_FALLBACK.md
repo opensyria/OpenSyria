@@ -179,6 +179,251 @@ Test emergency activation on regtest:
 
 ---
 
+## Emergency Hard Fork Operations Runbook
+
+This section provides step-by-step procedures for activating the Argon2id emergency fallback.
+
+### Pre-Requisites
+
+Before initiating an emergency hard fork:
+
+- [ ] Confirm the threat to RandomX (cryptographic break, critical CVE, active attack)
+- [ ] Core development team consensus (minimum 3 maintainers)
+- [ ] Security assessment documented
+- [ ] Test build verified on testnet/regtest
+
+### Phase 1: Assessment & Decision (0-4 hours)
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│  INCIDENT DETECTED                                               │
+│  • Hashrate monitor alert (>30% drop)                           │
+│  • Block time anomalies (>3x target)                            │
+│  • Security researcher disclosure                               │
+│  • CVE published for RandomX                                    │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  1. ASSESS SEVERITY                                              │
+│  • Is RandomX fundamentally broken?                             │
+│  • Is this a temporary mining pool issue?                       │
+│  • Can a patch fix the issue without algorithm change?          │
+└─────────────────────────────────────────────────────────────────┘
+                              │
+                              ▼
+┌─────────────────────────────────────────────────────────────────┐
+│  2. CORE TEAM DECISION                                          │
+│  • Emergency meeting (Signal/Matrix)                            │
+│  • Vote on emergency activation                                 │
+│  • Set target activation height                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Phase 2: Development & Testing (4-12 hours)
+
+#### Step 2.1: Update Consensus Parameters
+
+Edit `src/kernel/chainparams.cpp`:
+
+```cpp
+// In CMainParams constructor:
+consensus.nArgon2EmergencyHeight = <ACTIVATION_HEIGHT>;
+// Choose height ~24-48 hours in the future to allow upgrade time
+// Example: current_height + 144 (for ~24h) or + 288 (for ~48h)
+```
+
+#### Step 2.2: Create Emergency Release Branch
+
+```bash
+git checkout -b emergency/argon2-activation-v<VERSION>
+# Make changes
+git commit -m "EMERGENCY: Activate Argon2id fallback at height <HEIGHT>"
+git push origin emergency/argon2-activation-v<VERSION>
+```
+
+#### Step 2.3: Test on Regtest
+
+```bash
+# Build emergency release
+cmake -B build_emergency -DCMAKE_BUILD_TYPE=Release
+cmake --build build_emergency -j$(nproc)
+
+# Test activation
+./build_emergency/bin/opensyd -regtest -argon2emergencyheight=10
+./build_emergency/bin/opensy-cli -regtest generatetoaddress 15 <address>
+# Verify blocks 10+ use Argon2id
+```
+
+#### Step 2.4: Run Full Test Suite
+
+```bash
+# Unit tests
+./build_emergency/bin/test_opensy --run_test=argon2_fallback_tests
+./build_emergency/bin/test_opensy --run_test=pow_tests
+
+# Functional tests
+./test/functional/feature_argon2_fallback.py
+./test/functional/feature_argon2_stress.py
+```
+
+### Phase 3: Release & Communication (12-24 hours)
+
+#### Step 3.1: Build Release Binaries
+
+```bash
+# macOS
+cmake -B build_release_mac --preset=mac-release
+cmake --build build_release_mac
+
+# Linux
+cmake -B build_release_linux --preset=linux-release  
+cmake --build build_release_linux
+
+# Windows (cross-compile)
+cmake -B build_release_win --preset=win-release
+cmake --build build_release_win
+```
+
+#### Step 3.2: Create Release Artifacts
+
+```bash
+# Create release tag
+git tag -s v<VERSION>-emergency -m "Emergency Argon2id activation"
+git push origin v<VERSION>-emergency
+
+# Build checksums
+sha256sum opensyd-* > SHA256SUMS
+gpg --detach-sign --armor SHA256SUMS
+```
+
+#### Step 3.3: Communication Plan
+
+**Immediate (Hour 0-1):**
+- [ ] Post to GitHub Releases with CRITICAL label
+- [ ] Tweet from @OpenSYcoin: "EMERGENCY UPDATE: Please upgrade immediately"
+- [ ] Discord announcement with @everyone
+- [ ] Telegram broadcast
+
+**Template Announcement:**
+```
+🚨 EMERGENCY SECURITY UPDATE 🚨
+
+OpenSY v<VERSION> is a MANDATORY upgrade that activates the Argon2id 
+proof-of-work fallback at block height <HEIGHT> (~<DATE/TIME> UTC).
+
+This upgrade is required due to [brief reason - e.g., "critical 
+vulnerability in RandomX discovered"].
+
+⏰ DEADLINE: Block <HEIGHT> (~<HOURS> hours from now)
+
+📥 DOWNLOAD: https://github.com/OpenSyria/OpenSyria/releases/v<VERSION>
+
+All nodes MUST upgrade before the activation height. Nodes running 
+older versions will fork off the network.
+
+Miners: Your mining software will automatically switch to Argon2id 
+after the upgrade.
+
+Questions? Join #emergency-support on Discord.
+```
+
+**Ongoing (Hour 1-24):**
+- [ ] Monitor upgrade adoption via node version tracking
+- [ ] Direct outreach to known pool operators
+- [ ] Exchange notifications (if applicable)
+- [ ] Update documentation and website
+
+### Phase 4: Activation & Monitoring
+
+#### Step 4.1: Pre-Activation Checklist (T-1 hour)
+
+- [ ] >50% of known nodes on new version
+- [ ] Major mining pools confirmed upgraded
+- [ ] Monitoring dashboards active:
+  - `hashrate_monitor.py --drop-threshold 0.20`
+  - `blocktime_monitor.py --slow-threshold 2.0`
+- [ ] Core team on standby
+
+#### Step 4.2: Activation Block
+
+At activation height, the network will:
+1. Reset difficulty to `powLimitArgon2`
+2. Switch PoW validation to Argon2id
+3. Reject RandomX blocks from non-upgraded nodes
+
+**Monitor for:**
+- Hashrate recovery (Argon2id miners joining)
+- Block time normalization (~10 min target)
+- Any chain splits (old nodes forking)
+
+#### Step 4.3: Post-Activation (First 24 hours)
+
+- [ ] Verify chain is progressing normally
+- [ ] Monitor for orphan rate changes
+- [ ] Track difficulty adjustments
+- [ ] Respond to community questions
+
+### Rollback Procedure
+
+If the emergency activation causes unexpected issues:
+
+**Option A: Continue with Argon2id**
+- Most likely path; Argon2id is production-ready
+- Address any issues with follow-up patches
+
+**Option B: Emergency Rollback (last resort)**
+- Only if Argon2id itself has critical issues
+- Requires another hard fork back to RandomX (or new algorithm)
+- Extremely unlikely given Argon2id's maturity
+
+```bash
+# Rollback would require:
+consensus.nArgon2EmergencyHeight = -1;  // Deactivate
+# Plus height-based logic to switch back after the rollback height
+```
+
+### Emergency Contacts
+
+| Role | Contact | Backup |
+|------|---------|--------|
+| Lead Developer | [REDACTED] | [REDACTED] |
+| Security Lead | [REDACTED] | [REDACTED] |
+| Infrastructure | [REDACTED] | [REDACTED] |
+| Communications | [REDACTED] | [REDACTED] |
+
+---
+
+## Monitoring Tools
+
+The following tools are available in `contrib/monitoring/`:
+
+| Tool | Purpose |
+|------|---------|
+| `hashrate_monitor.py` | Alerts on hashrate drops >30% |
+| `blocktime_monitor.py` | Alerts on abnormal block times |
+| `peer_monitor.py` | Monitors peer connections and bans |
+| `distribution_analyzer.py` | Analyzes mining centralization |
+
+### Quick Start
+
+```bash
+# Monitor hashrate with Slack alerts
+python3 contrib/monitoring/hashrate_monitor.py \
+    --rpc-user YOUR_USER \
+    --rpc-password YOUR_PASSWORD \
+    --webhook-url https://hooks.slack.com/services/XXX \
+    --drop-threshold 0.30
+
+# Monitor block times
+python3 contrib/monitoring/blocktime_monitor.py \
+    --rpc-user YOUR_USER \
+    --rpc-password YOUR_PASSWORD \
+    --slow-threshold 3.0
+```
+
+---
+
 ## FAQ
 
 ### Q: Is Argon2id currently active?
@@ -196,6 +441,14 @@ Multi-algo introduces complexity and potential attack vectors (algo-hopping, dif
 ### Q: What if Argon2id is also compromised?
 
 If both RandomX and Argon2id were compromised simultaneously (extremely unlikely), the network would need a more fundamental upgrade. The fallback buys time for such a response.
+
+### Q: How much notice will we have before activation?
+
+The target is 24-48 hours between release and activation. This balances urgency (if RandomX is actively being exploited) with giving node operators time to upgrade.
+
+### Q: What happens to old nodes?
+
+Nodes that don't upgrade will fork off onto their own chain after the activation height. They will reject Argon2id blocks as invalid. This is intentional - it's a hard fork.
 
 ---
 

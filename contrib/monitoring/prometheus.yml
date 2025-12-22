@@ -1,0 +1,41 @@
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+rule_files:
+  - "alerting_rules.yml"
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+scrape_configs:
+  # OpenSY node metrics
+  - job_name: 'opensy-node'
+    static_configs:
+      - targets: ['localhost:9100']
+    relabel_configs:
+      - source_labels: [__address__]
+        target_label: instance
+        replacement: 'opensy-mainnet'
+
+  # Multiple nodes (if running cluster)
+  # - job_name: 'opensy-cluster'
+  #   static_configs:
+  #     - targets:
+  #         - 'node1:9100'
+  #         - 'node2:9100'
+  #         - 'node3:9100'
+
+  # Pool metrics (if running pool)
+  # - job_name: 'opensy-pool'
+  #   static_configs:
+  #     - targets: ['pool:9101']
+
+  # Web wallet API metrics
+  # - job_name: 'opensy-wallet-api'
+  #   static_configs:
+  #     - targets: ['wallet-api:8080']
+  #   metrics_path: '/metrics'

@@ -40,7 +40,9 @@ static constexpr bool DEFAULT_TXRECONCILIATION_ENABLE{false};
     orphan, replaced, and rejected transactions. */
 static const uint32_t DEFAULT_BLOCK_RECONSTRUCTION_EXTRA_TXN{100};
 static const bool DEFAULT_PEERBLOOMFILTERS = false;
-static const bool DEFAULT_PEERBLOCKFILTERS = false;
+// OpenSY: Enable serving compact block filters by default (BIP 157)
+// Critical for light client and mobile wallet support
+static const bool DEFAULT_PEERBLOCKFILTERS = true;
 /** Maximum number of outstanding CMPCTBLOCK requests for the same block. */
 static const unsigned int MAX_CMPCTBLOCKS_INFLIGHT_PER_BLOCK = 3;
 /** Number of headers sent in one getheaders result. We rely on the assumption that if a peer sends

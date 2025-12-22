@@ -951,6 +951,16 @@ bool AppInitParameterInteraction(const ArgsManager& args)
         LogInfo("Warning: Support for testnet3 is deprecated and will be removed in an upcoming release. Consider switching to testnet4.\n");
     }
 
+    // Reject regtest-only parameters on non-regtest networks
+    if (chain != ChainType::REGTEST) {
+        if (args.IsArgSet("-argon2emergencyheight")) {
+            return InitError(_("-argon2emergencyheight is only valid for regtest. Emergency activation on mainnet requires a hard fork release."));
+        }
+        if (args.IsArgSet("-randomxforkheight")) {
+            return InitError(_("-randomxforkheight is only valid for regtest. RandomX fork height cannot be changed on public networks."));
+        }
+    }
+
     // Warn if unrecognized section name are present in the config file.
     bilingual_str warnings;
     for (const auto& section : args.GetUnrecognizedSections()) {

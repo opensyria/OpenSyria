@@ -65,6 +65,12 @@ unsigned int GetNextWorkRequired(const CBlockIndex* pindexLast, const CBlockHead
         return nProofOfWorkLimit;
     }
 
+    // At the Argon2 emergency height, reset to minimum difficulty for the fallback algorithm
+    // This ensures mining can proceed immediately if RandomX is ever compromised
+    if (params.nArgon2EmergencyHeight >= 0 && nextHeight == params.nArgon2EmergencyHeight) {
+        return nProofOfWorkLimit;
+    }
+
     // Only change once per difficulty adjustment interval
     if ((pindexLast->nHeight+1) % params.DifficultyAdjustmentInterval() != 0)
     {

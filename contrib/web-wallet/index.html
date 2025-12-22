@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenSY Wallet - Watch Your SYL</title>
+    <meta name="description" content="OpenSY Watch-Only Wallet - Monitor your SYL addresses and transactions">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🇸🇾</text></svg>">
+    <style>
+        :root {
+            --primary: #2d5016;
+            --primary-light: #4a7c23;
+            --secondary: #ce1126;
+            --bg: #f5f5f5;
+            --card-bg: #ffffff;
+            --text: #333333;
+            --text-light: #666666;
+            --border: #e0e0e0;
+            --success: #4caf50;
+            --warning: #ff9800;
+            --error: #f44336;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 0.875rem;
+        }
+        
+        .flag-stripe {
+            height: 4px;
+            background: linear-gradient(to right, 
+                var(--secondary) 0%, var(--secondary) 33%,
+                white 33%, white 66%,
+                black 66%, black 100%);
+        }
+        
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background: var(--bg);
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+            font-size: 0.875rem;
+            color: var(--text-light);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .card-body {
+            padding: 1rem;
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            width: 100%;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-light);
+        }
+        
+        .btn-primary:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        .btn-refresh {
+            background: transparent;
+            color: var(--primary);
+            padding: 0.25rem 0.5rem;
+            font-size: 0.75rem;
+            border: 1px solid var(--primary);
+            width: auto;
+        }
+        
+        .btn-refresh:disabled {
+            opacity: 0.5;
+        }
+        
+        .balance-display {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+        
+        .balance-amount {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .balance-unit {
+            font-size: 1rem;
+            color: var(--text-light);
+            margin-left: 0.25rem;
+        }
+        
+        .balance-info {
+            font-size: 0.875rem;
+            color: var(--text-light);
+            margin-top: 0.5rem;
+        }
+        
+        .status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        .status.connected {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .status.disconnected {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        
+        .status.error {
+            background: #ffebee;
+            color: #c62828;
+        }
+        
+        .status.loading {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: currentColor;
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 0.75rem;
+            text-align: center;
+            cursor: pointer;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-light);
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+        }
+        
+        .tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .utxo-list, .tx-list {
+            list-style: none;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        
+        .utxo-item, .tx-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .utxo-item:last-child, .tx-item:last-child {
+            border-bottom: none;
+        }
+        
+        .utxo-amount, .tx-amount {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .utxo-txid, .tx-txid {
+            font-family: monospace;
+            font-size: 0.65rem;
+            color: var(--text-light);
+            word-break: break-all;
+            margin-top: 0.25rem;
+        }
+        
+        .utxo-height {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-light);
+        }
+        
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .network-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: var(--bg);
+            border-radius: 8px;
+        }
+        
+        .stat-value {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+            margin-top: 0.25rem;
+        }
+        
+        .address-saved {
+            background: var(--bg);
+            padding: 0.5rem;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .address-saved-text {
+            font-family: monospace;
+            font-size: 0.7rem;
+            word-break: break-all;
+            flex: 1;
+        }
+        
+        .address-saved-balance {
+            font-weight: 600;
+            color: var(--primary);
+            margin-left: 0.5rem;
+            white-space: nowrap;
+        }
+        
+        .btn-remove {
+            background: transparent;
+            border: none;
+            color: var(--error);
+            cursor: pointer;
+            padding: 0.25rem;
+            font-size: 1rem;
+            margin-left: 0.5rem;
+        }
+        
+        .spinner {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--border);
+            border-radius: 50%;
+            border-top-color: var(--primary);
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-top: 1px solid var(--border);
+            margin-top: 0.5rem;
+        }
+        
+        .btn-page {
+            padding: 0.5rem 1rem;
+            border: 1px solid var(--primary);
+            background: white;
+            color: var(--primary);
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: all 0.2s;
+        }
+        
+        .btn-page:hover:not(:disabled) {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-page:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+        
+        .page-info {
+            font-size: 0.875rem;
+            color: var(--text-light);
+        }
+        
+        @media (max-width: 480px) {
+            .balance-amount {
+                font-size: 2rem;
+            }
+            
+            .network-stats {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🇸🇾 OpenSY Wallet</h1>
+        <p>Watch Your SYL Balance</p>
+    </div>
+    <div class="flag-stripe"></div>
+    
+    <div class="container">
+        <!-- Status -->
+        <div id="status" class="status loading">
+            <span class="status-dot"></span>
+            <span id="status-text">Connecting to network...</span>
+        </div>
+        
+        <!-- Address Input -->
+        <div class="card">
+            <div class="card-header">
+                <span>🔍 Check Address Balance</span>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <label>Enter OpenSY Address</label>
+                    <input type="text" id="address-input" placeholder="syl1q..." autocomplete="off" spellcheck="false">
+                </div>
+                <button class="btn btn-primary" id="check-btn">Check Balance</button>
+            </div>
+        </div>
+        
+        <!-- Saved Addresses -->
+        <div class="card" id="saved-card">
+            <div class="card-header">
+                <span>📌 Saved Addresses</span>
+                <button class="btn btn-refresh" id="refresh-saved-btn">🔄 Refresh All</button>
+            </div>
+            <div class="card-body" id="saved-addresses">
+                <p class="empty-state" style="padding: 1rem;">No saved addresses</p>
+            </div>
+        </div>
+        
+        <!-- Balance Result -->
+        <div class="card hidden" id="result-card">
+            <div class="card-header">
+                <span>💰 Balance</span>
+                <div>
+                    <button class="btn btn-refresh" id="save-addr-btn">💾 Save</button>
+                    <button class="btn btn-refresh" id="refresh-btn" style="margin-left: 0.5rem;">🔄</button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="balance-display">
+                    <div>
+                        <span class="balance-amount" id="balance-amount">0.00000000</span>
+                        <span class="balance-unit">SYL</span>
+                    </div>
+                    <div class="balance-info" id="balance-info"></div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- UTXOs and Network -->
+        <div class="card hidden" id="details-card">
+            <div class="tabs">
+                <div class="tab active" data-tab="utxos">UTXOs</div>
+                <div class="tab" data-tab="network">Network</div>
+            </div>
+            
+            <!-- UTXOs Tab -->
+            <div class="tab-content active" id="utxos-tab">
+                <div class="card-body">
+                    <ul class="utxo-list" id="utxo-list">
+                        <li class="empty-state">
+                            <div class="empty-state-icon">📭</div>
+                            <p>No UTXOs found</p>
+                        </li>
+                    </ul>
+                    <!-- Pagination Controls -->
+                    <div class="pagination hidden" id="utxo-pagination">
+                        <button class="btn-page" id="prev-page" disabled>← Prev</button>
+                        <span class="page-info" id="page-info">Page 1 of 1</span>
+                        <button class="btn-page" id="next-page">Next →</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Network Tab -->
+            <div class="tab-content" id="network-tab">
+                <div class="card-body">
+                    <div class="network-stats" id="network-stats">
+                        <div class="stat-item">
+                            <div class="stat-value" id="stat-blocks">-</div>
+                            <div class="stat-label">Block Height</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="stat-difficulty">-</div>
+                            <div class="stat-label">Difficulty</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="stat-hashrate">-</div>
+                            <div class="stat-label">Network Hashrate</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="stat-mempool">-</div>
+                            <div class="stat-label">Mempool Size</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div style="text-align: center; padding: 1rem; color: var(--text-light); font-size: 0.75rem;">
+            <p>OpenSY Watch-Only Wallet v2.0</p>
+            <p>This is a read-only interface. Your keys stay safe.</p>
+            <p style="margin-top: 0.5rem;">سوريا حرة 🇸🇾</p>
+        </div>
+    </div>
+    
+    <script>
+        // OpenSY Watch-Only Wallet v2.0
+        // Production-ready with API backend
+        
+        class OpenSYWallet {
+            constructor() {
+                // API endpoint - change for production
+                this.apiUrl = this.getApiUrl();
+                this.currentAddress = null;
+                this.savedAddresses = this.loadSavedAddresses();
+                this.networkInfo = null;
+                this.currentPage = 1;
+                this.totalPages = 1;
+                this.totalUtxos = 0;
+                
+                this.initEventListeners();
+                this.renderSavedAddresses();
+                this.connectToNetwork();
+            }
+            
+            getApiUrl() {
+                // Check for custom API URL in localStorage or URL param
+                const urlParams = new URLSearchParams(window.location.search);
+                const customApi = urlParams.get('api') || localStorage.getItem('opensy_api_url');
+                
+                if (customApi) {
+                    return customApi;
+                }
+                
+                // Default: same origin /api or localhost for development
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    return 'http://127.0.0.1:8080/api';
+                }
+                
+                // Production: relative path
+                return '/api';
+            }
+            
+            loadSavedAddresses() {
+                const saved = localStorage.getItem('opensy_saved_addresses');
+                return saved ? JSON.parse(saved) : [];
+            }
+            
+            saveSavedAddresses() {
+                localStorage.setItem('opensy_saved_addresses', JSON.stringify(this.savedAddresses));
+            }
+            
+            initEventListeners() {
+                // Tab switching
+                document.querySelectorAll('.tab').forEach(tab => {
+                    tab.addEventListener('click', () => this.switchTab(tab.dataset.tab));
+                });
+                
+                // Check balance button
+                document.getElementById('check-btn').addEventListener('click', () => this.checkBalance());
+                
+                // Enter key on input
+                document.getElementById('address-input').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.checkBalance();
+                });
+                
+                // Refresh button
+                document.getElementById('refresh-btn').addEventListener('click', () => {
+                    if (this.currentAddress) {
+                        this.currentPage = 1;
+                        this.fetchAddressData(this.currentAddress);
+                    }
+                });
+                
+                // Save address button
+                document.getElementById('save-addr-btn').addEventListener('click', () => this.saveCurrentAddress());
+                
+                // Refresh saved addresses
+                document.getElementById('refresh-saved-btn').addEventListener('click', () => this.refreshAllSaved());
+                
+                // Pagination buttons
+                document.getElementById('prev-page').addEventListener('click', () => this.goToPage(this.currentPage - 1));
+                document.getElementById('next-page').addEventListener('click', () => this.goToPage(this.currentPage + 1));
+            }
+            
+            goToPage(page) {
+                if (page < 1 || page > this.totalPages || !this.currentAddress) return;
+                this.currentPage = page;
+                this.fetchUTXOPage(this.currentAddress, page);
+            }
+            
+            async fetchUTXOPage(address, page) {
+                try {
+                    const data = await this.apiCall(`/address/${address}?page=${page}`);
+                    this.renderUTXOs(data.utxos || [], data.pagination, data.utxo_count);
+                    this.updatePaginationControls(data.pagination);
+                } catch (error) {
+                    console.error('Error fetching UTXO page:', error);
+                }
+            }
+            
+            updatePaginationControls(pagination) {
+                if (!pagination) return;
+                
+                const paginationEl = document.getElementById('utxo-pagination');
+                const pageInfo = document.getElementById('page-info');
+                const prevBtn = document.getElementById('prev-page');
+                const nextBtn = document.getElementById('next-page');
+                
+                this.totalPages = pagination.total_pages;
+                
+                if (this.totalPages > 1) {
+                    paginationEl.classList.remove('hidden');
+                    pageInfo.textContent = `Page ${pagination.page} of ${pagination.total_pages.toLocaleString()}`;
+                    prevBtn.disabled = pagination.page <= 1;
+                    nextBtn.disabled = !pagination.has_more;
+                } else {
+                    paginationEl.classList.add('hidden');
+                }
+            }
+            
+            switchTab(tabId) {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                document.querySelector(`.tab[data-tab="${tabId}"]`).classList.add('active');
+                document.getElementById(`${tabId}-tab`).classList.add('active');
+            }
+            
+            updateStatus(type, text) {
+                const statusEl = document.getElementById('status');
+                const statusText = document.getElementById('status-text');
+                
+                statusEl.className = 'status ' + type;
+                statusText.textContent = text;
+            }
+            
+            async apiCall(endpoint) {
+                const response = await fetch(`${this.apiUrl}${endpoint}`);
+                
+                if (!response.ok) {
+                    const error = await response.json().catch(() => ({ error: 'Network error' }));
+                    throw new Error(error.error || `HTTP ${response.status}`);
+                }
+                
+                return response.json();
+            }
+            
+            async connectToNetwork() {
+                try {
+                    const info = await this.apiCall('/info');
+                    this.networkInfo = info;
+                    
+                    this.updateStatus('connected', `Connected • Block ${info.blocks.toLocaleString()}`);
+                    this.updateNetworkStats(info);
+                    
+                    // Refresh network info every 30 seconds
+                    setInterval(() => this.refreshNetworkInfo(), 30000);
+                    
+                } catch (error) {
+                    this.updateStatus('error', `Connection failed: ${error.message}`);
+                    console.error('Connection error:', error);
+                }
+            }
+            
+            async refreshNetworkInfo() {
+                try {
+                    const info = await this.apiCall('/info');
+                    this.networkInfo = info;
+                    this.updateNetworkStats(info);
+                    
+                    // Update status with new block height
+                    const statusEl = document.getElementById('status');
+                    if (statusEl.classList.contains('connected')) {
+                        document.getElementById('status-text').textContent = 
+                            `Connected • Block ${info.blocks.toLocaleString()}`;
+                    }
+                } catch (error) {
+                    console.error('Error refreshing network info:', error);
+                }
+            }
+            
+            updateNetworkStats(info) {
+                document.getElementById('stat-blocks').textContent = info.blocks.toLocaleString();
+                document.getElementById('stat-difficulty').textContent = parseFloat(info.difficulty).toFixed(4);
+                document.getElementById('stat-hashrate').textContent = this.formatHashrate(info.mining?.networkhashps || 0);
+                
+                // Get mempool info
+                this.apiCall('/mempool').then(mempool => {
+                    document.getElementById('stat-mempool').textContent = mempool.size || 0;
+                }).catch(() => {});
+            }
+            
+            formatHashrate(hashps) {
+                if (hashps >= 1e12) return (hashps / 1e12).toFixed(2) + ' TH/s';
+                if (hashps >= 1e9) return (hashps / 1e9).toFixed(2) + ' GH/s';
+                if (hashps >= 1e6) return (hashps / 1e6).toFixed(2) + ' MH/s';
+                if (hashps >= 1e3) return (hashps / 1e3).toFixed(2) + ' KH/s';
+                return hashps.toFixed(2) + ' H/s';
+            }
+            
+            validateAddress(address) {
+                if (!address) return false;
+                
+                // Bech32 addresses start with 'syl1'
+                if (address.startsWith('syl1')) {
+                    return address.length >= 42 && address.length <= 62;
+                }
+                
+                // Legacy addresses start with 'F'
+                if (address.startsWith('F')) {
+                    return address.length >= 26 && address.length <= 35;
+                }
+                
+                return false;
+            }
+            
+            async checkBalance() {
+                const input = document.getElementById('address-input');
+                const address = input.value.trim();
+                
+                if (!address) {
+                    alert('Please enter an address');
+                    return;
+                }
+                
+                if (!this.validateAddress(address)) {
+                    alert('Invalid OpenSY address. Addresses should start with syl1 or F');
+                    return;
+                }
+                
+                this.currentAddress = address;
+                this.currentPage = 1;  // Reset to first page for new address
+                await this.fetchAddressData(address);
+            }
+            
+            async fetchAddressData(address) {
+                const checkBtn = document.getElementById('check-btn');
+                const refreshBtn = document.getElementById('refresh-btn');
+                
+                checkBtn.disabled = true;
+                refreshBtn.disabled = true;
+                checkBtn.innerHTML = '<span class="spinner"></span>';
+                
+                try {
+                    const data = await this.apiCall(`/address/${address}?page=${this.currentPage}`);
+                    
+                    // Show result cards
+                    document.getElementById('result-card').classList.remove('hidden');
+                    document.getElementById('details-card').classList.remove('hidden');
+                    
+                    // Update balance
+                    document.getElementById('balance-amount').textContent = data.balance.toFixed(8);
+                    document.getElementById('balance-info').textContent = 
+                        `${data.utxo_count.toLocaleString()} UTXO${data.utxo_count !== 1 ? 's' : ''} • Address: ${this.shortenAddress(address)}`;
+                    
+                    // Update save button visibility
+                    const isSaved = this.savedAddresses.some(a => a.address === address);
+                    document.getElementById('save-addr-btn').textContent = isSaved ? '✓ Saved' : '💾 Save';
+                    document.getElementById('save-addr-btn').disabled = isSaved;
+                    
+                    // Render UTXOs with pagination info
+                    this.renderUTXOs(data.utxos || [], data.pagination, data.utxo_count);
+                    this.updatePaginationControls(data.pagination);
+                    
+                } catch (error) {
+                    alert(`Error: ${error.message}`);
+                    console.error('Error fetching address:', error);
+                } finally {
+                    checkBtn.disabled = false;
+                    refreshBtn.disabled = false;
+                    checkBtn.textContent = 'Check Balance';
+                }
+            }
+            
+            renderUTXOs(utxos, pagination, totalCount) {
+                const listEl = document.getElementById('utxo-list');
+                
+                if (utxos.length === 0) {
+                    listEl.innerHTML = `
+                        <li class="empty-state">
+                            <div class="empty-state-icon">📭</div>
+                            <p>No UTXOs found</p>
+                        </li>
+                    `;
+                    return;
+                }
+                
+                // Header showing count
+                const headerHtml = totalCount > utxos.length ? 
+                    `<li class="utxo-item" style="background: var(--bg); text-align: center; font-size: 0.875rem; color: var(--text-light);">
+                        Showing ${utxos.length} of ${totalCount.toLocaleString()} UTXOs (most recent first)
+                    </li>` : '';
+                
+                listEl.innerHTML = headerHtml + utxos.map(utxo => `
+                    <li class="utxo-item">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <span class="utxo-amount">${utxo.amount.toFixed(8)} SYL</span>
+                            <span class="utxo-height">Block #${utxo.height?.toLocaleString() || '?'}</span>
+                        </div>
+                        <div class="utxo-txid">${utxo.txid}:${utxo.vout}</div>
+                    </li>
+                `).join('');
+            }
+            
+            shortenAddress(address) {
+                if (address.length <= 20) return address;
+                return address.substring(0, 10) + '...' + address.substring(address.length - 8);
+            }
+            
+            saveCurrentAddress() {
+                if (!this.currentAddress) return;
+                
+                // Check if already saved
+                if (this.savedAddresses.some(a => a.address === this.currentAddress)) {
+                    return;
+                }
+                
+                const label = prompt('Enter a label for this address (optional):') || '';
+                
+                this.savedAddresses.push({
+                    address: this.currentAddress,
+                    label: label,
+                    balance: parseFloat(document.getElementById('balance-amount').textContent) || 0,
+                    addedAt: Date.now()
+                });
+                
+                this.saveSavedAddresses();
+                this.renderSavedAddresses();
+                
+                // Update button
+                document.getElementById('save-addr-btn').textContent = '✓ Saved';
+                document.getElementById('save-addr-btn').disabled = true;
+            }
+            
+            removeAddress(address) {
+                this.savedAddresses = this.savedAddresses.filter(a => a.address !== address);
+                this.saveSavedAddresses();
+                this.renderSavedAddresses();
+            }
+            
+            renderSavedAddresses() {
+                const container = document.getElementById('saved-addresses');
+                
+                if (this.savedAddresses.length === 0) {
+                    container.innerHTML = '<p class="empty-state" style="padding: 1rem;">No saved addresses</p>';
+                    return;
+                }
+                
+                container.innerHTML = this.savedAddresses.map(addr => `
+                    <div class="address-saved">
+                        <div style="flex: 1; min-width: 0;">
+                            ${addr.label ? `<div style="font-weight: 500; font-size: 0.875rem;">${addr.label}</div>` : ''}
+                            <div class="address-saved-text">${addr.address}</div>
+                        </div>
+                        <span class="address-saved-balance">${(addr.balance || 0).toFixed(4)} SYL</span>
+                        <button class="btn-remove" onclick="wallet.removeAddress('${addr.address}')" title="Remove">×</button>
+                    </div>
+                `).join('');
+            }
+            
+            async refreshAllSaved() {
+                const btn = document.getElementById('refresh-saved-btn');
+                btn.disabled = true;
+                btn.innerHTML = '<span class="spinner"></span>';
+                
+                for (let i = 0; i < this.savedAddresses.length; i++) {
+                    try {
+                        const data = await this.apiCall(`/address/${this.savedAddresses[i].address}`);
+                        this.savedAddresses[i].balance = data.balance;
+                    } catch (error) {
+                        console.error(`Error refreshing ${this.savedAddresses[i].address}:`, error);
+                    }
+                }
+                
+                this.saveSavedAddresses();
+                this.renderSavedAddresses();
+                
+                btn.disabled = false;
+                btn.textContent = '🔄 Refresh All';
+            }
+        }
+        
+        // Initialize wallet
+        const wallet = new OpenSYWallet();
+    </script>
+</body>
+</html>

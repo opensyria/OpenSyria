@@ -26,7 +26,7 @@ except ImportError:
 
 
 def rpc_call(method: str, params: list = None, host: str = "127.0.0.1", 
-             port: int = 8332, user: str = "", password: str = "") -> dict:
+             port: int = 9632, user: str = "", password: str = "") -> dict:
     """Make an RPC call to opensyd."""
     url = f"http://{host}:{port}/"
     headers = {"content-type": "application/json"}
@@ -249,7 +249,7 @@ def print_report(utxo_analysis: Dict, mining_analysis: Dict):
 def main():
     parser = argparse.ArgumentParser(description="OpenSY Distribution Analyzer")
     parser.add_argument("--rpc-host", default="127.0.0.1", help="RPC host")
-    parser.add_argument("--rpc-port", type=int, default=8332, help="RPC port")
+    parser.add_argument("--rpc-port", type=int, default=9632, help="RPC port")
     parser.add_argument("--rpc-user", default="", help="RPC username")
     parser.add_argument("--rpc-password", default="", help="RPC password")
     parser.add_argument("--blocks", type=int, default=1000, help="Number of blocks to analyze")

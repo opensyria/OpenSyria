@@ -1,0 +1,184 @@
+groups:
+  - name: opensy-node
+    rules:
+      # Node connectivity alerts
+      - alert: OpenSYNodeDown
+        expr: up{job="opensy-node"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: "OpenSY node is down"
+          description: "OpenSY node {{ $labels.instance }} has been down for more than 2 minutes."
+
+      - alert: OpenSYNoPeers
+        expr: opensy_connections == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "OpenSY node has no peers"
+          description: "OpenSY node {{ $labels.instance }} has 0 peer connections for more than 5 minutes."
+
+      - alert: OpenSYLowPeers
+        expr: opensy_connections < 3
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "OpenSY node has few peers"
+          description: "OpenSY node {{ $labels.instance }} has only {{ $value }} peers (expected >= 3)."
+
+      # Sync alerts
+      - alert: OpenSYNodeNotSyncing
+        expr: increase(opensy_block_height[10m]) == 0 and opensy_verification_progress < 0.99
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "OpenSY node stopped syncing"
+          description: "OpenSY node {{ $labels.instance }} has not gained any blocks in 15 minutes and is not fully synced."
+
+      - alert: OpenSYNodeBehind
+        expr: opensy_headers - opensy_block_height > 10
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "OpenSY node is behind"
+          description: "OpenSY node {{ $labels.instance }} is {{ $value }} blocks behind the network."
+
+      # Network hashrate alerts
+      - alert: OpenSYHashrateDrop
+        expr: opensy_network_hashrate < 100000
+        for: 30m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Network hashrate dropped significantly"
+          description: "OpenSY network hashrate is {{ $value | humanize }} H/s, which is unusually low."
+
+      - alert: OpenSYHashrateSpike
+        expr: rate(opensy_network_hashrate[1h]) / opensy_network_hashrate > 2
+        for: 10m
+        labels:
+          severity: info
+        annotations:
+          summary: "Network hashrate increased significantly"
+          description: "OpenSY network hashrate has more than doubled in the last hour."
+
+      # Mempool alerts
+      - alert: OpenSYMempoolFull
+        expr: opensy_mempool_usage / opensy_mempool_max > 0.9
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "OpenSY mempool nearly full"
+          description: "OpenSY mempool on {{ $labels.instance }} is {{ $value | humanizePercentage }} full."
+
+      - alert: OpenSYMempoolBacklog
+        expr: opensy_mempool_size > 1000
+        for: 30m
+        labels:
+          severity: info
+        annotations:
+          summary: "Large mempool backlog"
+          description: "OpenSY mempool on {{ $labels.instance }} has {{ $value }} unconfirmed transactions."
+
+      # Block production alerts
+      - alert: OpenSYNoNewBlocks
+        expr: increase(opensy_block_height[30m]) == 0
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "No new blocks in 30 minutes"
+          description: "OpenSY network has not produced any new blocks in 30 minutes. Possible network stall."
+
+      - alert: OpenSYSlowBlocks
+        expr: increase(opensy_block_height[10m]) < 5
+        for: 20m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Block production is slow"
+          description: "OpenSY network is producing blocks slower than expected ({{ $value }} blocks in 10 min, expected ~10)."
+
+      # Difficulty alerts
+      - alert: OpenSYDifficultyDrop
+        expr: opensy_difficulty < 0.00001
+        for: 10m
+        labels:
+          severity: info
+        annotations:
+          summary: "Mining difficulty is very low"
+          description: "OpenSY mining difficulty is {{ $value }}, which indicates low network hashrate."
+
+      # UTXO set alerts
+      - alert: OpenSYUTXOSetGrowth
+        expr: rate(opensy_txout_count[1d]) > 10000
+        for: 1h
+        labels:
+          severity: info
+        annotations:
+          summary: "UTXO set growing rapidly"
+          description: "OpenSY UTXO set is growing at {{ $value }} outputs per day."
+
+  - name: opensy-pool
+    rules:
+      - alert: PoolHashrateDrop
+        expr: pool_hashrate_hps < pool_hashrate_hps offset 1h * 0.5
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Pool hashrate dropped by 50%"
+          description: "Pool hashrate dropped from {{ with query \"pool_hashrate_hps offset 1h\" }}{{ . | first | value }}{{ end }} to {{ $value }} H/s."
+
+      - alert: PoolNoBlocks
+        expr: increase(pool_blocks_found[2h]) == 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Pool hasn't found blocks in 2 hours"
+          description: "The mining pool has not found any blocks in the last 2 hours."
+
+      - alert: PoolHighInvalidShares
+        expr: rate(pool_shares_invalid[5m]) / rate(pool_shares_total[5m]) > 0.05
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High invalid share rate"
+          description: "Pool is receiving {{ $value | humanizePercentage }} invalid shares."
+
+  - name: opensy-wallet-api
+    rules:
+      - alert: WalletAPIDown
+        expr: up{job="opensy-wallet-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Wallet API is down"
+          description: "The OpenSY wallet API has been down for more than 1 minute."
+
+      - alert: WalletAPIHighLatency
+        expr: http_request_duration_seconds{quantile="0.95"} > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Wallet API high latency"
+          description: "95th percentile latency is {{ $value }}s (expected < 2s)."
+
+      - alert: WalletAPIHighErrorRate
+        expr: rate(http_requests_total{status=~"5.."}[5m]) / rate(http_requests_total[5m]) > 0.05
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Wallet API high error rate"
+          description: "{{ $value | humanizePercentage }} of requests are returning 5xx errors."

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OpenSY Mining Profitability Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #10b981;
+            --primary-dark: #059669;
+            --bg-dark: #0f172a;
+            --bg-card: #1e293b;
+            --bg-input: #334155;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --border: #475569;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 40px 0;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary) 0%, #34d399 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-top: 10px;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 30px;
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 30px;
+            border: 1px solid var(--border);
+        }
+        
+        .card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .card h2::before {
+            content: '';
+            width: 4px;
+            height: 24px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+        
+        .input-wrapper {
+            display: flex;
+            align-items: center;
+            background: var(--bg-input);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        
+        .input-wrapper:focus-within {
+            border-color: var(--primary);
+        }
+        
+        input[type="number"] {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 14px 16px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+        }
+        
+        input[type="number"]::-webkit-inner-spin-button,
+        input[type="number"]::-webkit-outer-spin-button {
+            opacity: 1;
+        }
+        
+        .input-suffix {
+            padding: 14px 16px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            background: rgba(255,255,255,0.05);
+            border-left: 1px solid var(--border);
+        }
+        
+        select {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 14px 16px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            outline: none;
+            cursor: pointer;
+        }
+        
+        select:focus {
+            border-color: var(--primary);
+        }
+        
+        .presets {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        
+        .preset-btn {
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 6px 14px;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .preset-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .results-card {
+            background: linear-gradient(135deg, var(--bg-card) 0%, #1a2744 100%);
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .result-label {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .result-value {
+            font-size: 1.125rem;
+            font-weight: 600;
+        }
+        
+        .result-value.highlight {
+            color: var(--success);
+            font-size: 1.5rem;
+        }
+        
+        .result-value.syl {
+            color: var(--primary);
+        }
+        
+        .result-value.usd {
+            color: var(--warning);
+        }
+        
+        .result-value.negative {
+            color: var(--danger);
+        }
+        
+        .info-box {
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 20px;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+        }
+        
+        .info-box h4 {
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .network-stats {
+            grid-column: span 2;
+        }
+        
+        @media (max-width: 768px) {
+            .network-stats {
+                grid-column: span 1;
+            }
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background: var(--bg-input);
+            border-radius: 12px;
+        }
+        
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .powered-by {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+        
+        .powered-by a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .profit-indicator {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+        
+        .profit-indicator.profitable {
+            background: rgba(34, 197, 94, 0.2);
+            color: var(--success);
+        }
+        
+        .profit-indicator.unprofitable {
+            background: rgba(239, 68, 68, 0.2);
+            color: var(--danger);
+        }
+        
+        .break-even {
+            background: var(--bg-input);
+            border-radius: 10px;
+            padding: 16px;
+            margin-top: 20px;
+            text-align: center;
+        }
+        
+        .break-even-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .break-even-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--warning);
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">⛏️ OpenSY</div>
+            <h1>Mining Profitability Calculator</h1>
+        </header>
+        
+        <div class="grid">
+            <!-- Input Card -->
+            <div class="card">
+                <h2>Mining Setup</h2>
+                
+                <div class="form-group">
+                    <label for="hashrate">Your Hashrate</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="hashrate" value="1000" min="1" step="100">
+                        <span class="input-suffix">H/s</span>
+                    </div>
+                    <div class="presets">
+                        <button class="preset-btn" onclick="setHashrate(500)">Low-end CPU (500 H/s)</button>
+                        <button class="preset-btn" onclick="setHashrate(1500)">Mid CPU (1.5 KH/s)</button>
+                        <button class="preset-btn" onclick="setHashrate(3000)">High-end CPU (3 KH/s)</button>
+                        <button class="preset-btn" onclick="setHashrate(5000)">Server CPU (5 KH/s)</button>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="power">Power Consumption</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="power" value="100" min="0" step="10">
+                        <span class="input-suffix">Watts</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="electricityCost">Electricity Cost</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="electricityCost" value="0.10" min="0" step="0.01">
+                        <span class="input-suffix">$/kWh</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="poolFee">Pool Fee</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="poolFee" value="1" min="0" max="10" step="0.5">
+                        <span class="input-suffix">%</span>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="sylPrice">SYL Price (Optional)</label>
+                    <div class="input-wrapper">
+                        <input type="number" id="sylPrice" value="0.001" min="0" step="0.0001">
+                        <span class="input-suffix">USD</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Results Card -->
+            <div class="card results-card">
+                <h2>Estimated Earnings</h2>
+                
+                <div class="result-item">
+                    <span class="result-label">Daily SYL</span>
+                    <span class="result-value syl" id="dailySyl">--</span>
+                </div>
+                
+                <div class="result-item">
+                    <span class="result-label">Daily Revenue</span>
+                    <span class="result-value usd" id="dailyRevenue">--</span>
+                </div>
+                
+                <div class="result-item">
+                    <span class="result-label">Daily Power Cost</span>
+                    <span class="result-value negative" id="dailyCost">--</span>
+                </div>
+                
+                <div class="result-item">
+                    <span class="result-label">
+                        Daily Profit
+                        <span class="profit-indicator" id="profitIndicator">--</span>
+                    </span>
+                    <span class="result-value highlight" id="dailyProfit">--</span>
+                </div>
+                
+                <hr style="border: none; border-top: 1px solid var(--border); margin: 20px 0;">
+                
+                <div class="result-item">
+                    <span class="result-label">Monthly SYL</span>
+                    <span class="result-value syl" id="monthlySyl">--</span>
+                </div>
+                
+                <div class="result-item">
+                    <span class="result-label">Monthly Profit</span>
+                    <span class="result-value highlight" id="monthlyProfit">--</span>
+                </div>
+                
+                <div class="result-item">
+                    <span class="result-label">Yearly Profit</span>
+                    <span class="result-value highlight" id="yearlyProfit">--</span>
+                </div>
+                
+                <div class="break-even">
+                    <div class="break-even-label">Break-even SYL Price</div>
+                    <div class="break-even-value" id="breakEven">$0.00</div>
+                </div>
+            </div>
+            
+            <!-- Network Stats -->
+            <div class="card network-stats">
+                <h2>Network Statistics</h2>
+                
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="networkHashrate">--</div>
+                        <div class="stat-label">Network Hashrate</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="blockHeight">--</div>
+                        <div class="stat-label">Block Height</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="difficulty">--</div>
+                        <div class="stat-label">Difficulty</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="blockReward">10,000</div>
+                        <div class="stat-label">Block Reward (SYL)</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="blockTime">60s</div>
+                        <div class="stat-label">Target Block Time</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="yourShare">--</div>
+                        <div class="stat-label">Your Network Share</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <h4>ℹ️ About RandomX Mining</h4>
+                    <p>OpenSY uses RandomX, a CPU-friendly proof-of-work algorithm. GPU and ASIC mining is not efficient. Expected hashrates:</p>
+                    <ul style="margin-top: 10px; margin-left: 20px;">
+                        <li>Intel i5/AMD Ryzen 5: ~500-1500 H/s</li>
+                        <li>Intel i7/AMD Ryzen 7: ~1500-3000 H/s</li>
+                        <li>Intel i9/AMD Ryzen 9: ~3000-5000 H/s</li>
+                        <li>Server CPUs (Xeon/EPYC): ~5000-15000 H/s</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="powered-by">
+            Powered by <a href="https://opensyria.net" target="_blank">OpenSY</a> • 
+            <a href="https://github.com/OpenSyria/OpenSY" target="_blank">GitHub</a> • 
+            <a href="/docs/MINING_GUIDE.md" target="_blank">Mining Guide</a>
+        </div>
+    </div>
+    
+    <script>
+        // Configuration
+        const CONFIG = {
+            API_URL: 'http://127.0.0.1:8080/api',  // Change for production
+            BLOCK_REWARD: 10000,  // SYL per block
+            TARGET_BLOCK_TIME: 60,  // seconds
+            BLOCKS_PER_DAY: 1440,  // 60 * 24
+        };
+        
+        // State
+        let networkStats = {
+            hashrate: 1000000,  // Default 1 MH/s network hashrate
+            difficulty: 0.0001,
+            blockHeight: 10378
+        };
+        
+        // Fetch network stats
+        async function fetchNetworkStats() {
+            try {
+                const response = await fetch(`${CONFIG.API_URL}/info`);
+                if (response.ok) {
+                    const data = await response.json();
+                    networkStats.hashrate = data.mining?.networkhashps || 1000000;
+                    networkStats.difficulty = data.difficulty || 0.0001;
+                    networkStats.blockHeight = data.blocks || 0;
+                    updateNetworkDisplay();
+                }
+            } catch (e) {
+                console.log('Using default network stats');
+            }
+            calculate();
+        }
+        
+        // Update network stats display
+        function updateNetworkDisplay() {
+            document.getElementById('networkHashrate').textContent = formatHashrate(networkStats.hashrate);
+            document.getElementById('blockHeight').textContent = networkStats.blockHeight.toLocaleString();
+            document.getElementById('difficulty').textContent = networkStats.difficulty.toExponential(2);
+        }
+        
+        // Format hashrate
+        function formatHashrate(h) {
+            if (h >= 1e9) return (h / 1e9).toFixed(2) + ' GH/s';
+            if (h >= 1e6) return (h / 1e6).toFixed(2) + ' MH/s';
+            if (h >= 1e3) return (h / 1e3).toFixed(2) + ' KH/s';
+            return h.toFixed(0) + ' H/s';
+        }
+        
+        // Set hashrate from preset
+        function setHashrate(value) {
+            document.getElementById('hashrate').value = value;
+            calculate();
+        }
+        
+        // Main calculation
+        function calculate() {
+            // Get inputs
+            const hashrate = parseFloat(document.getElementById('hashrate').value) || 0;
+            const power = parseFloat(document.getElementById('power').value) || 0;
+            const electricityCost = parseFloat(document.getElementById('electricityCost').value) || 0;
+            const poolFee = parseFloat(document.getElementById('poolFee').value) || 0;
+            const sylPrice = parseFloat(document.getElementById('sylPrice').value) || 0;
+            
+            // Calculate share of network
+            const networkShare = hashrate / networkStats.hashrate;
+            document.getElementById('yourShare').textContent = (networkShare * 100).toFixed(4) + '%';
+            
+            // Calculate daily SYL earnings
+            // Daily blocks mined = network share * blocks per day
+            const dailyBlocks = networkShare * CONFIG.BLOCKS_PER_DAY;
+            let dailySyl = dailyBlocks * CONFIG.BLOCK_REWARD;
+            
+            // Apply pool fee
+            dailySyl = dailySyl * (1 - poolFee / 100);
+            
+            // Calculate revenue
+            const dailyRevenue = dailySyl * sylPrice;
+            
+            // Calculate power cost
+            // kWh per day = (watts / 1000) * 24
+            const dailyKwh = (power / 1000) * 24;
+            const dailyCost = dailyKwh * electricityCost;
+            
+            // Calculate profit
+            const dailyProfit = dailyRevenue - dailyCost;
+            const monthlyProfit = dailyProfit * 30;
+            const yearlyProfit = dailyProfit * 365;
+            
+            // Calculate break-even price
+            const breakEvenPrice = dailyCost / dailySyl;
+            
+            // Update display
+            document.getElementById('dailySyl').textContent = dailySyl.toFixed(2) + ' SYL';
+            document.getElementById('monthlySyl').textContent = (dailySyl * 30).toFixed(2) + ' SYL';
+            document.getElementById('dailyRevenue').textContent = '$' + dailyRevenue.toFixed(4);
+            document.getElementById('dailyCost').textContent = '-$' + dailyCost.toFixed(4);
+            document.getElementById('dailyProfit').textContent = '$' + dailyProfit.toFixed(4);
+            document.getElementById('monthlyProfit').textContent = '$' + monthlyProfit.toFixed(2);
+            document.getElementById('yearlyProfit').textContent = '$' + yearlyProfit.toFixed(2);
+            document.getElementById('breakEven').textContent = '$' + breakEvenPrice.toFixed(6);
+            
+            // Update profit indicator
+            const indicator = document.getElementById('profitIndicator');
+            if (dailyProfit > 0) {
+                indicator.textContent = 'PROFITABLE';
+                indicator.className = 'profit-indicator profitable';
+                document.getElementById('dailyProfit').className = 'result-value highlight';
+            } else {
+                indicator.textContent = 'UNPROFITABLE';
+                indicator.className = 'profit-indicator unprofitable';
+                document.getElementById('dailyProfit').className = 'result-value highlight negative';
+            }
+            
+            // Color monthly/yearly based on profit
+            document.getElementById('monthlyProfit').style.color = monthlyProfit >= 0 ? 'var(--success)' : 'var(--danger)';
+            document.getElementById('yearlyProfit').style.color = yearlyProfit >= 0 ? 'var(--success)' : 'var(--danger)';
+        }
+        
+        // Add event listeners
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('input', calculate);
+        });
+        
+        // Initialize
+        fetchNetworkStats();
+        
+        // Refresh network stats every 60 seconds
+        setInterval(fetchNetworkStats, 60000);
+    </script>
+</body>
+</html>

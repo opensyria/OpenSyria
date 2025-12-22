@@ -143,6 +143,15 @@ public:
         // Starting easy enough for single-miner bootstrap, adjusts as hashrate grows
         consensus.powLimitRandomX = uint256{"0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
 
+        // Argon2id emergency fallback - DORMANT by default (-1 = never active)
+        // This is activated only via hard fork if RandomX is ever cryptographically broken
+        // Parameters match RandomX's memory requirements for consistent security guarantees
+        consensus.nArgon2EmergencyHeight = -1;  // Never active until hard fork
+        consensus.powLimitArgon2 = uint256{"0000ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
+        consensus.nArgon2MemoryCost = 1 << 21;  // 2GB (matches RandomX dataset)
+        consensus.nArgon2TimeCost = 1;
+        consensus.nArgon2Parallelism = 1;
+
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
@@ -294,6 +303,13 @@ public:
         consensus.nRandomXForkHeight = 1;
         consensus.powLimitRandomX = uint256{"00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
 
+        // Argon2id emergency fallback - DORMANT by default for testnet
+        consensus.nArgon2EmergencyHeight = -1;
+        consensus.powLimitArgon2 = uint256{"00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
+        consensus.nArgon2MemoryCost = 1 << 21;  // 2GB
+        consensus.nArgon2TimeCost = 1;
+        consensus.nArgon2Parallelism = 1;
+
         pchMessageStart[0] = 0x53; // 'S'
         pchMessageStart[1] = 0x59; // 'Y'
         pchMessageStart[2] = 0x4c; // 'L'
@@ -394,6 +410,13 @@ public:
         // RandomX from block 1 - matches mainnet for consistent testing
         consensus.nRandomXForkHeight = 1;
         consensus.powLimitRandomX = uint256{"00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
+
+        // Argon2id emergency fallback - DORMANT by default for testnet4
+        consensus.nArgon2EmergencyHeight = -1;
+        consensus.powLimitArgon2 = uint256{"00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
+        consensus.nArgon2MemoryCost = 1 << 21;  // 2GB
+        consensus.nArgon2TimeCost = 1;
+        consensus.nArgon2Parallelism = 1;
 
         pchMessageStart[0] = 0x53; // 'S'
         pchMessageStart[1] = 0x59; // 'Y'
@@ -534,6 +557,13 @@ public:
         // Can be overridden via -randomxforkheight for SHA256d-only testing
         consensus.nRandomXForkHeight = options.randomx_fork_height.value_or(1);
         consensus.powLimitRandomX = uint256{"00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
+
+        // Argon2id emergency fallback - DORMANT by default for signet
+        consensus.nArgon2EmergencyHeight = -1;
+        consensus.powLimitArgon2 = uint256{"00ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"};
+        consensus.nArgon2MemoryCost = 1 << 21;  // 2GB
+        consensus.nArgon2TimeCost = 1;
+        consensus.nArgon2Parallelism = 1;
 
         // message start is defined as the first 4 bytes of the sha256d of the block script
         HashWriter h{};

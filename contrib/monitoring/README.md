@@ -1,8 +1,60 @@
-# OpenSY Monitoring Tools
+# OpenSY Monitoring & Observability
 
-Security and operational monitoring scripts for OpenSY node operators.
+Comprehensive monitoring, metrics, and alerting for OpenSY node operators.
 
-## Tools
+## Quick Start
+
+```bash
+# Start metrics exporter
+python metrics_exporter.py --port 9100
+
+# View metrics
+curl http://localhost:9100/metrics
+
+# Open network dashboard
+open ../tools/network-dashboard/index.html
+```
+
+## Components
+
+| File | Description |
+|------|-------------|
+| `metrics_exporter.py` | Prometheus metrics exporter |
+| `prometheus.yml` | Prometheus configuration |
+| `alerting_rules.yml` | Pre-configured alerting rules |
+| `distribution_analyzer.py` | Mining distribution analysis |
+
+## Metrics Exporter
+
+Exposes OpenSY node metrics for Prometheus:
+
+```bash
+python metrics_exporter.py --port 9100 --rpc-url http://127.0.0.1:9632
+```
+
+### Metrics Exported
+
+| Metric | Type | Description |
+|--------|------|-------------|
+| `opensy_block_height` | gauge | Current block height |
+| `opensy_network_hashrate` | gauge | Network hashrate (H/s) |
+| `opensy_connections` | gauge | Peer connections |
+| `opensy_mempool_size` | gauge | Mempool transaction count |
+| `opensy_difficulty` | gauge | Mining difficulty |
+| `opensy_total_supply` | gauge | Total SYL in circulation |
+| `opensy_uptime_seconds` | counter | Node uptime |
+
+## Alerting
+
+Pre-configured alerts in `alerting_rules.yml`:
+
+- **OpenSYNodeDown** - Node unreachable
+- **OpenSYNoPeers** - No peer connections
+- **OpenSYNoNewBlocks** - Chain stalled
+- **OpenSYHashrateDrop** - Hashrate drop
+- **OpenSYMempoolFull** - Mempool congestion
+
+## Security Tools
 
 ### distribution_analyzer.py
 
@@ -20,7 +72,7 @@ Part of security remediation M-05 (distribution analysis).
 ```bash
 python3 distribution_analyzer.py \
     --rpc-host 127.0.0.1 \
-    --rpc-port 8332 \
+    --rpc-port 9632 \
     --rpc-user YOUR_USER \
     --rpc-password YOUR_PASSWORD \
     --blocks 1000
@@ -83,7 +135,7 @@ Displays live dashboard of connected peers with color-coded risk indicators.
 ```bash
 python3 peer_monitor.py \
     --rpc-host 127.0.0.1 \
-    --rpc-port 8332 \
+    --rpc-port 9632 \
     --rpc-user YOUR_USER \
     --rpc-password YOUR_PASSWORD \
     --interval 5
@@ -100,6 +152,64 @@ python3 peer_monitor.py \
 - Per-peer: address, version, ping time, data transferred, ban score
 - Color-coded scores: Green (<20), Yellow (20-50), Red (>50)
 - Alerts for suspicious, high-latency, and new peers
+
+---
+
+### hashrate_monitor.py
+
+Real-time network hashrate monitoring with alerts for significant drops that may indicate mining pool issues, network attacks, or PoW algorithm problems.
+
+**Features:**
+- Configurable drop threshold (default 30%)
+- Rolling average comparison for accuracy
+- Multiple alert methods (log, Slack/Discord webhook, email)
+- Historical tracking with CSV export
+- Hashrate spike detection
+
+**Usage:**
+```bash
+python3 hashrate_monitor.py \
+    --rpc-host 127.0.0.1 \
+    --rpc-port 9632 \
+    --rpc-user YOUR_USER \
+    --rpc-password YOUR_PASSWORD \
+    --drop-threshold 0.30 \
+    --webhook-url https://hooks.slack.com/services/XXX
+```
+
+**Alert Thresholds:**
+- Warning: Hashrate drops >30% below rolling average
+- Critical: Hashrate drops >50% below rolling average
+- Spike: Hashrate rises >50% above rolling average
+
+---
+
+### blocktime_monitor.py
+
+Monitors block arrival times and detects anomalies that may indicate mining issues or network attacks.
+
+**Features:**
+- Real-time block time tracking
+- Alerts on abnormal block gaps (too slow or too fast)
+- Reorg detection with depth tracking
+- Block time distribution analysis
+- Rapid block sequence detection (potential selfish mining)
+
+**Usage:**
+```bash
+python3 blocktime_monitor.py \
+    --rpc-host 127.0.0.1 \
+    --rpc-port 9632 \
+    --rpc-user YOUR_USER \
+    --rpc-password YOUR_PASSWORD \
+    --slow-threshold 3.0 \
+    --reorg-depth 3
+```
+
+**Alert Thresholds:**
+- Slow Block: Block takes >3x target time (30+ minutes)
+- Rapid Blocks: 10 blocks in <10% expected time (potential attack)
+- Reorg: Chain reorganization deeper than 3 blocks
 
 ---
 
@@ -120,12 +230,15 @@ Relevant findings:
 2. **Real-time Alerts**: Run `peer_monitor.py` on a dedicated terminal when
    troubleshooting network issues or during suspected attacks.
 
-3. **Automated Checks**: Consider setting up cron jobs to run these analyses
-   and alert on concerning metrics.
+3. **Network Health**: Run `hashrate_monitor.py` and `blocktime_monitor.py`
+   continuously on production nodes to detect issues early.
+
+4. **Automated Checks**: Consider setting up cron jobs or systemd services
+   to run these analyses and alert on concerning metrics.
 
 ## Configuration
 
-Both tools require RPC access to a running opensyd instance. Ensure your
+All tools require RPC access to a running opensyd instance. Ensure your
 `opensy.conf` has RPC enabled:
 
 ```conf

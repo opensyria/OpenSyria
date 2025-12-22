@@ -25,7 +25,9 @@ class BlockFilter;
 class CBlockIndex;
 enum class BlockFilterType : uint8_t;
 
-static const char* const DEFAULT_BLOCKFILTERINDEX = "0";
+// OpenSY: Enable basic block filters by default to support light clients (BIP 157/158)
+// This is critical for mobile wallet support in Syria where 95%+ use mobile internet
+static const char* const DEFAULT_BLOCKFILTERINDEX = "basic";
 
 /** Interval between compact filter checkpoints. See BIP 157. */
 static constexpr int CFCHECKPT_INTERVAL = 1000;

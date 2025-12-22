@@ -234,7 +234,7 @@ class PeerMonitor:
 def main():
     parser = argparse.ArgumentParser(description="OpenSY Peer Monitor")
     parser.add_argument("--rpc-host", default="127.0.0.1", help="RPC host")
-    parser.add_argument("--rpc-port", type=int, default=8332, help="RPC port")
+    parser.add_argument("--rpc-port", type=int, default=9632, help="RPC port")
     parser.add_argument("--rpc-user", default="", help="RPC username")
     parser.add_argument("--rpc-password", default="", help="RPC password")
     parser.add_argument("--interval", type=int, default=5, help="Refresh interval in seconds")
