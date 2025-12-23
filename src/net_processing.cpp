@@ -422,8 +422,11 @@ struct Peer {
      *
      * Track header submission rate per peer to prevent header spam attacks.
      * Peers sending more than MAX_HEADERS_PER_MINUTE headers get disconnected.
+     * Note: Set high enough to allow initial block download. During IBD,
+     * peers send many batches of 2000 headers. For a chain with 100,000 blocks,
+     * this would need 50 batches. 100,000/min = 1666 headers/sec allows this.
      */
-    static constexpr int MAX_HEADERS_PER_MINUTE = 2000;  // ~33 headers/sec
+    static constexpr int MAX_HEADERS_PER_MINUTE = 100000;  // Allows IBD for chains up to 100k blocks
     Mutex m_header_rate_mutex;
     std::chrono::steady_clock::time_point m_header_rate_window_start GUARDED_BY(m_header_rate_mutex){std::chrono::steady_clock::now()};
     int m_headers_this_window GUARDED_BY(m_header_rate_mutex){0};
