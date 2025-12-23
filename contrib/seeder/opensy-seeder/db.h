@@ -12,7 +12,8 @@
 
 #define MIN_RETRY 1000
 
-#define REQUIRE_VERSION 70001
+// Require WTXID_RELAY_VERSION to ensure nodes support modern tx relay
+#define REQUIRE_VERSION 70016
 
 extern int nMinimumHeight;
 static inline int GetRequireHeight(const bool testnet = fTestNet)

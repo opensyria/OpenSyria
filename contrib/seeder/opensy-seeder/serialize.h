@@ -65,7 +65,8 @@ class CAutoFile;
 // This prevents DoS via large message allocation attacks.
 static const unsigned int MAX_SIZE = 0x00100000;  // 1MB - sufficient for seeder operations
 
-static const int PROTOCOL_VERSION = 60000;
+// OpenSY protocol version - must match node's PROTOCOL_VERSION for proper handshake
+static const int PROTOCOL_VERSION = 70016;
 
 // Used to bypass the rule against non-const reference to temporary
 // where it makes sense with wrappers such as CFlatData or CTxDB

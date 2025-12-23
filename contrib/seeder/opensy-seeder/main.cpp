@@ -495,8 +495,9 @@ extern "C" void* ThreadStats(void*) {
   return nullptr;
 }
 
-static const string mainnet_seeds[] = {"seed.opensyria.net", "dnsseed.opensyria.net", ""};
-static const string testnet_seeds[] = {"testseed.opensyria.net", ""};
+// Only include seeds that are actually deployed and running
+static const string mainnet_seeds[] = {"seed.opensyria.net", ""};
+static const string testnet_seeds[] = {""}; // No testnet seeds deployed yet
 static const string *seeds = mainnet_seeds;
 static vector<string> vSeeds;
 
@@ -564,10 +565,11 @@ int main(int argc, char **argv) {
   bool fDNS = true;
   if (opts.fUseTestNet) {
       printf("Using testnet.\n");
-      pchMessageStart[0] = 0x0b;
-      pchMessageStart[1] = 0x11;
-      pchMessageStart[2] = 0x09;
-      pchMessageStart[3] = 0x07;
+      // OpenSY testnet magic: "SYLT"
+      pchMessageStart[0] = 0x53; // 'S'
+      pchMessageStart[1] = 0x59; // 'Y'
+      pchMessageStart[2] = 0x4c; // 'L'
+      pchMessageStart[3] = 0x54; // 'T'
       seeds = testnet_seeds;
       fTestNet = true;
   }
