@@ -417,32 +417,6 @@ struct Peer {
     /** Time of the last getheaders message to this peer */
     NodeClock::time_point m_last_getheaders_timestamp GUARDED_BY(NetEventsInterface::g_msgproc_mutex){};
 
-    /**
-     * SECURITY FIX [H-02]: Header Spam Attack Vector - Per-Peer Rate Limiting
-     *
-     * Track header submission rate per peer to prevent header spam attacks.
-     * Peers sending more than MAX_HEADERS_PER_MINUTE headers get disconnected.
-     * Note: Set high enough to allow initial block download. During IBD,
-     * peers send many batches of 2000 headers. For a chain with 100,000 blocks,
-     * this would need 50 batches. 100,000/min = 1666 headers/sec allows this.
-     */
-    static constexpr int MAX_HEADERS_PER_MINUTE = 100000;  // Allows IBD for chains up to 100k blocks
-    Mutex m_header_rate_mutex;
-    std::chrono::steady_clock::time_point m_header_rate_window_start GUARDED_BY(m_header_rate_mutex){std::chrono::steady_clock::now()};
-    int m_headers_this_window GUARDED_BY(m_header_rate_mutex){0};
-
-    /** Check and update header rate limit. Returns false if rate exceeded. */
-    bool CheckHeaderRateLimit(int count) EXCLUSIVE_LOCKS_REQUIRED(!m_header_rate_mutex) {
-        LOCK(m_header_rate_mutex);
-        auto now = std::chrono::steady_clock::now();
-        if (now - m_header_rate_window_start > std::chrono::minutes(1)) {
-            m_header_rate_window_start = now;
-            m_headers_this_window = 0;
-        }
-        m_headers_this_window += count;
-        return m_headers_this_window <= MAX_HEADERS_PER_MINUTE;
-    }
-
     /** Protects m_headers_sync **/
     Mutex m_headers_sync_mutex;
     /** Headers-sync state for this peer (eg for initial sync, or syncing large
@@ -2950,17 +2924,6 @@ void PeerManagerImpl::ProcessHeadersMessage(CNode& pfrom, Peer& peer,
         // A headers message with no headers cannot be an announcement, so assume
         // it is a response to our last getheaders request, if there is one.
         peer.m_last_getheaders_timestamp = {};
-        return;
-    }
-
-    // SECURITY FIX [H-02]: Header Spam Attack Vector - Per-Peer Rate Limiting
-    // Check header rate limit before any processing to prevent memory exhaustion
-    // Peers with NoRateLimit permission bypass rate limiting (trusted test peers)
-    // Disabled in test mode via -test=disableheaderratelimit
-    if (!m_opts.disable_header_rate_limit && !pfrom.HasPermission(NetPermissionFlags::NoRateLimit) && !peer.CheckHeaderRateLimit(nCount)) {
-        LogPrintf("Disconnecting peer=%d for header rate limit exceeded (%zu headers)\n",
-                  pfrom.GetId(), nCount);
-        Misbehaving(peer, 20, "header-rate-exceeded");
         return;
     }
 
