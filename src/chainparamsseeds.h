@@ -24,16 +24,21 @@ static const uint8_t chainparams_seed_main[] = {
     0x01,                         // BIP155 network ID for IPv4
     0x04,                         // COMPACTSIZE: address length = 4 bytes
     0x9d, 0xaf, 0x28, 0x83,       // 157.175.40.131
-    0x25, 0xa1                    // Port 9633 (big-endian: 0x25a1)
-    
-    // TODO: Add more seeds when deployed. Example format:
-    // , // comma to separate from previous entry
-    // 0x01,                       // BIP155 network ID for IPv4
-    // 0x04,                       // COMPACTSIZE: address length = 4 bytes
-    // 0xXX, 0xXX, 0xXX, 0xXX,     // IP address bytes
-    // 0x25, 0xa1                  // Port 9633
+    0x25, 0xa1,                   // Port 9633 (big-endian: 0x25a1)
+
+    // node2.opensyria.net (AWS Virginia us-east-1) - 3.238.245.63:9633
+    0x01,                         // BIP155 network ID for IPv4
+    0x04,                         // COMPACTSIZE: address length = 4 bytes
+    0x03, 0xee, 0xf5, 0x3f,       // 3.238.245.63
+    0x25, 0xa1,                   // Port 9633
+
+    // node3.opensyria.net (AWS Tokyo ap-northeast-1) - 43.207.98.214:9633
+    0x01,                         // BIP155 network ID for IPv4
+    0x04,                         // COMPACTSIZE: address length = 4 bytes
+    0x2b, 0xcf, 0x62, 0xd6,       // 43.207.98.214
+    0x25, 0xa1                    // Port 9633
 };
-constexpr size_t chainparams_seed_main_size = 1;  // Update when adding more seeds
+constexpr size_t chainparams_seed_main_size = 3;  // 3 seed nodes
 
 // Signet seeds - empty until OpenSY signet nodes are established
 static const uint8_t chainparams_seed_signet[] = {0x00};
