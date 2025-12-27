@@ -120,7 +120,12 @@ unsigned int CalculateNextWorkRequired(const CBlockIndex* pindexLast, int64_t nF
     arith_uint256 bnNew;
 
     // Normal difficulty adjustment for RandomX blocks
-    // Difficulty cap removed after founder bootstrap at block 206335
+    //
+    // HISTORY: During initial founder bootstrap (Dec 8-10, 2025), a temporary
+    // minimum-difficulty override was in the source code to allow solo mining.
+    // This was removed from source before the first difficulty adjustment period
+    // (block 10,080), so difficulty has adjusted normally since then.
+    // See commits 0113c46 (added) and 38d2f7a (removed) for details.
 
     // Special difficulty rule for Testnet4
     if (params.enforce_BIP94) {

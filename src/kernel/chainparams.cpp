@@ -192,17 +192,18 @@ public:
         // DEPLOYMENT STATUS:
         // ✅ LIVE     - seed.opensyria.net  (AWS Bahrain me-south-1) - Primary
         // 📋 PLANNED  - seed2.opensyria.net (Americas region) - Secondary
-        // 📋 PLANNED  - seed3.opensyria.net (Asia-Pacific region) - Tertiary  
+        // ✅ LIVE     - seed2.opensyria.net (Americas region) - Secondary
+        // ✅ LIVE     - seed3.opensyria.net (Asia-Pacific region) - Tertiary  
         // 📋 PLANNED  - dnsseed.opensyria.org (Community-operated) - Decentralization
         //
         // NOTE: Domain is opensyria.net (opensy.net was unavailable)
         //       Product name is OpenSY, domain remains opensyria.net
         //
         vSeeds.emplace_back("seed.opensyria.net");       // ✅ LIVE - Primary seed (AWS Bahrain)
+        vSeeds.emplace_back("seed2.opensyria.net");      // ✅ LIVE - Secondary (Americas)
+        vSeeds.emplace_back("seed3.opensyria.net");      // ✅ LIVE - Tertiary (Asia-Pacific)
         //
-        // Uncomment each seed as it becomes operational:
-        // vSeeds.emplace_back("seed2.opensyria.net");   // 📋 Secondary - Americas
-        // vSeeds.emplace_back("seed3.opensyria.net");   // 📋 Tertiary - Asia-Pacific
+        // Uncomment when community seed becomes operational:
         // vSeeds.emplace_back("dnsseed.opensyria.org"); // 📋 Community-run seed
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,35); // Addresses start with 'F' (Freedom)

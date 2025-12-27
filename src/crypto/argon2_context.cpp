@@ -9,17 +9,30 @@
 #include <util/check.h>
 
 // Argon2 reference implementation
-// TODO: Replace with libsodium for production (better optimized)
-// For now, we include a minimal implementation stub
-// Full implementation requires: https://github.com/P-H-C/phc-winner-argon2
+// Argon2id implementation via libsodium
+// libsodium is REQUIRED for mainnet builds to ensure proper memory-hard PoW
+// if the emergency Argon2 fallback is ever activated.
+//
+// Install libsodium:
+//   macOS:  brew install libsodium
+//   Ubuntu: apt install libsodium-dev
+//   Fedora: dnf install libsodium-devel
+//
 #ifdef HAVE_LIBSODIUM
 #include <sodium.h>
 #define USE_LIBSODIUM 1
 #else
-// Stub for when libsodium is not available
-// In production, this should be replaced with actual Argon2 reference impl
+// SECURITY: SHA256 fallback is ONLY allowed for regtest/testing
+// Mainnet and testnet builds MUST have libsodium for Argon2id emergency PoW
 #define USE_LIBSODIUM 0
-#include <crypto/sha256.h> // Fallback for development/testing
+#include <crypto/sha256.h>
+#include <util/chaintype.h>
+
+// Compile-time warning for non-libsodium builds
+#if defined(NDEBUG)
+#pragma message("WARNING: Building without libsodium - Argon2id emergency PoW will use weak SHA256 fallback!")
+#pragma message("         This is acceptable for development/testing but NOT for mainnet release binaries.")
+#endif
 #endif
 
 #include <stdexcept>
@@ -93,13 +106,28 @@ uint256 Argon2Context::CalculateHash(const unsigned char* data, size_t len,
         throw std::runtime_error("Argon2id hash calculation failed");
     }
 #else
-    // DEVELOPMENT/TESTING FALLBACK
-    // This is NOT the real Argon2 - just a placeholder for compilation
-    // In production, libsodium or argon2 reference must be linked
+    // DEVELOPMENT/TESTING FALLBACK - SHA256 (NOT memory-hard!)
+    // This fallback exists ONLY to allow compilation without libsodium for testing.
     //
-    // WARNING: Do not use this fallback for actual PoW validation!
+    // SECURITY CRITICAL:
+    // - Real Argon2id requires 2GB memory, making GPU/ASIC attacks expensive
+    // - SHA256 is trivially GPU-parallelizable
+    // - If this fallback runs on mainnet during an Argon2 emergency fork,
+    //   attackers with GPUs could mine orders of magnitude faster than CPUs
     //
-    LogPrintf("WARNING: Using SHA256 fallback instead of Argon2id - FOR TESTING ONLY\n");
+    // The Argon2 emergency mode is DORMANT (nArgon2EmergencyHeight = -1).
+    // If ever activated, ALL nodes MUST have libsodium or network will fork.
+    //
+    static bool warned = false;
+    if (!warned) {
+        LogPrintf("**********************************************************************\n");
+        LogPrintf("* CRITICAL WARNING: Argon2id using SHA256 fallback!                 *\n");
+        LogPrintf("* This build does NOT have libsodium.                               *\n");
+        LogPrintf("* DO NOT use this binary if Argon2 emergency PoW is ever activated! *\n");
+        LogPrintf("* Install libsodium and rebuild for production use.                 *\n");
+        LogPrintf("**********************************************************************\n");
+        warned = true;
+    }
 
     // Combine input with salt and hash with SHA256 (not memory-hard!)
     CSHA256 hasher;
