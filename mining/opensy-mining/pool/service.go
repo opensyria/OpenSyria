@@ -133,15 +133,14 @@ func New(cfg Config) (*Service, error) {
 	jmCfg.Logger = cfg.Logger
 	s.jobMgr = stratum.NewJobManager(jmCfg, s.rpc)
 
-	// Initialize Stratum server
-	stratumCfg := stratum.ServerConfig{
-		ListenAddr:        cfg.StratumAddr,
-		InitialDifficulty: cfg.InitialDifficulty,
-		MinDifficulty:     cfg.MinDifficulty,
-		MaxDifficulty:     cfg.MaxDifficulty,
-		VardiffEnabled:    cfg.VardiffEnabled,
-		Logger:            cfg.Logger,
-	}
+	// Initialize Stratum server with defaults then override
+	stratumCfg := stratum.DefaultServerConfig()
+	stratumCfg.ListenAddr = cfg.StratumAddr
+	stratumCfg.InitialDifficulty = cfg.InitialDifficulty
+	stratumCfg.MinDifficulty = cfg.MinDifficulty
+	stratumCfg.MaxDifficulty = cfg.MaxDifficulty
+	stratumCfg.VardiffEnabled = cfg.VardiffEnabled
+	stratumCfg.Logger = cfg.Logger
 	s.stratum = stratum.NewServer(stratumCfg, s.jobMgr)
 
 	// Set up Stratum callbacks
