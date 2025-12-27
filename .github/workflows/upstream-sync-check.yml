@@ -1,0 +1,132 @@
+# OpenSY Upstream Bitcoin Core Sync Monitor
+# Runs weekly to identify security-relevant upstream changes
+
+name: Upstream Sync Check
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'  # Every Monday at 9 AM UTC
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  check-upstream:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout OpenSY
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Add Bitcoin Core remote
+        run: |
+          git remote add bitcoin https://github.com/bitcoin/bitcoin.git || true
+          git fetch bitcoin master --depth=100
+
+      - name: Generate upstream diff report
+        run: |
+          echo "# Upstream Bitcoin Core Changes Report" > upstream-report.md
+          echo "Generated: $(date -u)" >> upstream-report.md
+          echo "" >> upstream-report.md
+          
+          # Get our base commit (find common ancestor)
+          # Adjust this to your actual fork point
+          FORK_POINT=$(git merge-base HEAD bitcoin/master 2>/dev/null || echo "")
+          
+          if [ -z "$FORK_POINT" ]; then
+            echo "Could not determine fork point. Manual review needed." >> upstream-report.md
+          else
+            echo "## Security-Critical Files Changed in Bitcoin Core" >> upstream-report.md
+            echo "" >> upstream-report.md
+            echo "Fork point: $FORK_POINT" >> upstream-report.md
+            echo "" >> upstream-report.md
+            
+            # Check critical paths that OpenSY modifies
+            echo "### Consensus & Validation" >> upstream-report.md
+            echo '```' >> upstream-report.md
+            git log --oneline $FORK_POINT..bitcoin/master -- \
+              src/pow.cpp src/pow.h \
+              src/validation.cpp src/validation.h \
+              src/consensus/*.cpp src/consensus/*.h \
+              src/primitives/*.cpp src/primitives/*.h \
+              2>/dev/null | head -50 >> upstream-report.md || echo "No changes" >> upstream-report.md
+            echo '```' >> upstream-report.md
+            echo "" >> upstream-report.md
+            
+            echo "### Cryptography" >> upstream-report.md
+            echo '```' >> upstream-report.md
+            git log --oneline $FORK_POINT..bitcoin/master -- \
+              src/crypto/*.cpp src/crypto/*.h \
+              src/secp256k1/** \
+              2>/dev/null | head -30 >> upstream-report.md || echo "No changes" >> upstream-report.md
+            echo '```' >> upstream-report.md
+            echo "" >> upstream-report.md
+            
+            echo "### Wallet" >> upstream-report.md
+            echo '```' >> upstream-report.md
+            git log --oneline $FORK_POINT..bitcoin/master -- \
+              src/wallet/*.cpp src/wallet/*.h \
+              2>/dev/null | head -30 >> upstream-report.md || echo "No changes" >> upstream-report.md
+            echo '```' >> upstream-report.md
+            echo "" >> upstream-report.md
+            
+            echo "### P2P & Networking" >> upstream-report.md
+            echo '```' >> upstream-report.md
+            git log --oneline $FORK_POINT..bitcoin/master -- \
+              src/net.cpp src/net.h \
+              src/net_processing.cpp src/net_processing.h \
+              2>/dev/null | head -30 >> upstream-report.md || echo "No changes" >> upstream-report.md
+            echo '```' >> upstream-report.md
+            echo "" >> upstream-report.md
+            
+            # Count total commits
+            TOTAL=$(git rev-list --count $FORK_POINT..bitcoin/master 2>/dev/null || echo "unknown")
+            echo "## Summary" >> upstream-report.md
+            echo "Total upstream commits since fork: $TOTAL" >> upstream-report.md
+          fi
+
+      - name: Upload report
+        uses: actions/upload-artifact@v4
+        with:
+          name: upstream-sync-report
+          path: upstream-report.md
+
+      - name: Check for security advisories
+        run: |
+          echo "## Bitcoin Core Security Advisories" >> upstream-report.md
+          echo "" >> upstream-report.md
+          echo "Check manually: https://github.com/bitcoin/bitcoin/security/advisories" >> upstream-report.md
+          echo "" >> upstream-report.md
+          # Could add GitHub API call here to fetch advisories
+
+      - name: Create issue if critical changes detected
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const report = fs.readFileSync('upstream-report.md', 'utf8');
+            
+            // Check if there are significant changes in critical files
+            const criticalPatterns = [
+              /pow\.cpp/,
+              /validation\.cpp/,
+              /consensus\//,
+              /crypto\//
+            ];
+            
+            let hasCriticalChanges = false;
+            for (const pattern of criticalPatterns) {
+              if (pattern.test(report) && !report.includes('No changes')) {
+                hasCriticalChanges = true;
+                break;
+              }
+            }
+            
+            if (hasCriticalChanges) {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `[Upstream Sync] Bitcoin Core changes detected - ${new Date().toISOString().split('T')[0]}`,
+                body: report,
+                labels: ['upstream-sync', 'security-review']
+              });
+            }
